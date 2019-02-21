@@ -11,8 +11,8 @@ COPY ./requirements.txt /tmp/requirements.txt
 
 # install git and the require python environment
 RUN apk update \
- && apk add --no-cache git py-pip python-dev \
- && pip install --no-cache-dir -r /tmp/requirements.txt
+ && apk add --no-cache git py-pip python-dev
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 # Install HomeMation's latest Lutron RadioRA Manager
 #

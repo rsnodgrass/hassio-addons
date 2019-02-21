@@ -1,4 +1,4 @@
-# Lutron RadioRA Classic SmartThings Gateway Add-On for Hass.io
+# RadioRA Classic SmartThings Gateway (Hass.io Add-On)
 
 This [Hassio](https://www.home-assistant.io/hassio/) add-on integrates [Lutron's](http://lutron.com/) original RadioRA Classic (aka legacy or RadioRA 1) light switches and zone controls with [Home Assistant](https://www.home-assistant.io/) by packaging up [Homemations Lutron RadioRA Manager](https://github.com/homemations/SmartThings). Note that this requires Home Assistant 0.87 or later as this add-on relies on native SmartThings integration (rather than the added complexity of a MQTT bridge).
 
