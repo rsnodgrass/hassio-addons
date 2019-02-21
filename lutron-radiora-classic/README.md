@@ -2,7 +2,7 @@
 
 This [Hassio](https://www.home-assistant.io/hassio/) add-on integrates [Lutron's](http://lutron.com/) original RadioRA Classic (aka legacy or RadioRA 1) light switches and zone controls with [Home Assistant](https://www.home-assistant.io/) by packaging up [Homemations Lutron RadioRA Manager](https://github.com/homemations/SmartThings). Note that this requires Home Assistant 0.87 or later as this add-on relies on native SmartThings integration (rather than the added complexity of a MQTT bridge).
 
-Credit goes to Stephen Harris at Homemations for developing the  Python based Lutron RadioRA Gateway to expose RESTful APIs that a SmartThings hub can communicate with. The Python server communicates with a Lutron RadioRA Classic serial interface (part #RA-RS232), connected directly via RS-232 cable to the Raspberry Pi, with a SmartThings hub running on a shared local network.
+Credit goes to Stephen Harris at Homemations for developing the Python-based Lutron RadioRA Gateway server that SmartThings can communicate with. The Python server interfaces a Lutron RadioRA Classic serial interface (part #RA-RS232), connected directly via RS-232 cable to the Raspberry Pi, with a SmartThings hub running on the local network.
 
 ### Required Hardware
 
