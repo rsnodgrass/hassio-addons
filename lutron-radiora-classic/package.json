@@ -1,8 +1,8 @@
 {
-  "name": "Lutron RadioRA V1 SmartThings Gateway",
+  "name": "Lutron RadioRA Classic SmartThings Gateway",
   "version": "0.0.1",
-  "description": "Gateway between SmartThings and Lutron RadioRA 1 RS-232 serial controller",
-  "author": "Homemation",
+  "description": "Gateway between SmartThings and Lutron RadioRA Classic (version 1) via RS-232 serial controller",
+  "author": "Homemations",
   "main": "lutronapp.py",
   "scripts": {
     "start": "python lutronapp.py"
