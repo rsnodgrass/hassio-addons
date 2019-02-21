@@ -15,7 +15,7 @@
     "armhf",
     "i386"
   ],
-  "config": {
+  "options": {
     "tty": "/dev/ttyAMA0"
   },
   "schema": {
@@ -25,6 +25,6 @@
     "SERIAL_TTY": "/dev/ttyAMA0"
   },
   "host_network": false,
-  "privileged": [ "SYS_RAWIO" ],
+  "privileged": [ SYS_RAWIO ],
   "gpio": true
 }
