@@ -26,4 +26,4 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations
 
 ENTRYPOINT [ "python" ]
-CMD [ "/homemations/Lutron RadioRA/lutron/lutronapp.py" ]
+CMD [ "/homemations/Lutron RadioRA/PythonServer/lutronapp.py" ]

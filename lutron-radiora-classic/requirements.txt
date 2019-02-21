@@ -1,2 +1,4 @@
 Flask==1.0.2
 serial==0.0.97
+flask_restplus==0.12.1
+flask_sqlalchemy==1.2.18
