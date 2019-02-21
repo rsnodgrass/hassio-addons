@@ -10,7 +10,7 @@ Credit goes to Stephen Harris at Homemations for developing the  Python based Lu
 * Raspberry Pi capable of running [Hassio](https://www.home-assistant.io/hassio/)
 * RS232 Serial interface to Pi: direct wire RadioRA RA-S232 to Pi pins *OR* a USB serial adapter
 
-See the [HomeMation Lutron RadioRA Manager](https://github.com/homemations/SmartThings) for details on hardware setup, SmartThings groovy script installs, as well as what features are supported. Note, the initial Lutron RadioRA Manager release only supports dimmers, switches and zones.
+See the [Homemations Lutron RadioRA Manager](https://github.com/homemations/SmartThings) for details on hardware setup, SmartThings groovy script installs, as well as what features are supported. Note, the initial Lutron RadioRA Manager release only supports dimmers, switches and zones.
 
 ### Hassio Setup
 
@@ -22,7 +22,7 @@ See the [HomeMation Lutron RadioRA Manager](https://github.com/homemations/Smart
 
 2. Find the "Lutron RadioRA 1 SmartThings Gateway" in the add-ons and click Install
 
-3. Follow HomeMation's instructions on how to add the SmartApp and Device Handler in SmartThings. You can manage the SmartApp and Device Handler via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
+3. Follow Homemations instructions on how to add the SmartApp and Device Handler in SmartThings. You can manage the SmartApp and Device Handler via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
 
 ### Configuration
 
