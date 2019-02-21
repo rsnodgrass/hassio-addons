@@ -7,7 +7,7 @@
   "startup": "before",
   "boot": "auto",
   "ports": {
-    "8080/tcp": 8080
+    "8080/tcp": 8333
   },
   "arch": [
     "aarch64",
