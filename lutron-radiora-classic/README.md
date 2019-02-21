@@ -16,7 +16,7 @@ See the [Homemations Lutron RadioRA Manager](https://github.com/homemations/Smar
 
 1. In the Hass.io "Add-On Store" on your Raspberry Pi, add the repository URL for the RadioRA Classic SmartThings Gateway:
 <pre>
-     https://github.com/rsnodgrass/SmartThings/tree/master/Lutron%20RadioRA/hassio/repository
+     https://github.com/rsnodgrass/hassio-addons
 </pre>
 2. Find the "RadioRA Classic SmartThings Gateway" in the add-ons and click Install
 3. Follow [Homemations instructions](https://github.com/homemations/SmartThings) on how to add the SmartApp and Device Handler in SmartThings. You can manage the SmartApp and Device Handler via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
