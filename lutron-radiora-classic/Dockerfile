@@ -4,7 +4,7 @@ FROM $BUILD_FROM
 LABEL authors="Ryan"
 WORKDIR /app
 
-# Install node and npm
+# install git and the require python environment
 RUN apk update \
  && apk add --no-cache git py-pip python-dev
 

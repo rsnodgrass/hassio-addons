@@ -6,7 +6,7 @@ Credit goes to Stephen Harris at Homemations for developing the  Python based Lu
 
 ### Required Hardware
 
-* Lutron's [RadioRA RS232 Serial Interface](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf) for RadioRA Classic
+* Lutron's [RadioRA RS232 Serial Interface](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf) hardware box for RadioRA Classic
 * Raspberry Pi capable of running [Hassio](https://www.home-assistant.io/hassio/)
 * RS232 serial cable to Pi: wire RadioRA RA-RS232 directly to Pi gpio pins *OR* use a USB serial adapter
 
