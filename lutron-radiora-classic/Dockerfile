@@ -1,12 +1,18 @@
-ARG BUILD_FROM=homeassistant/amd64-base:latest
-FROM $BUILD_FROM
+ARG BUILD_FROM=hassioaddons/base:2.3.1
+FROM ${BUILD_FROM}
+
+ARG BUILD_ARCH
+ARG BUILD_VERSION
 
 LABEL authors="Ryan"
 WORKDIR /app
 
+COPY ./requirements.txt /tmp/requirements.txt
+
 # install git and the require python environment
 RUN apk update \
- && apk add --no-cache git py-pip python-dev
+ && apk add --no-cache git py-pip python-dev \
+ && pip install --no-cache-dir -r /tmp/requirements.txt
 
 # Install HomeMation's latest Lutron RadioRA Manager
 #
@@ -18,15 +24,9 @@ RUN apk update \
 #RUN git clone https://github.com/homemations/SmartThings/ /homemations
 RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations
 
-COPY ./requirements.txt /app/requirements.txt
-
-RUN pip install -r requirements.txt
+# cleanup
+RUN apk del --no-cache --purge .build-dependencies \
+ && rm -f -r /tmp/*
 
 ENTRYPOINT [ "python" ]
 CMD [ "/homemations/Lutron RadioRA/lutron/lutronapp.py" ]
-
-# Build arguments
-ARG BUILD_ARCH
-ARG BUILD_DATE
-ARG BUILD_REF
-ARG BUILD_VERSION
