@@ -24,9 +24,5 @@ RUN apk update \
 #RUN git clone https://github.com/homemations/SmartThings/ /homemations
 RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations
 
-# cleanup
-RUN apk del --no-cache --purge .build-dependencies \
- && rm -f -r /tmp/*
-
 ENTRYPOINT [ "python" ]
 CMD [ "/homemations/Lutron RadioRA/lutron/lutronapp.py" ]
