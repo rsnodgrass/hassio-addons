@@ -23,11 +23,11 @@ RUN apk update \
 ARG HOMEMATIONS_DIR="/homemations/Lutron RadioRA/PythonServer/"
 
 RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
- && pip install --no-cache-dir -r ${HOMEMATIONS_DIR}/requirements.txt
+ && pip install --no-cache-dir -r "${HOMEMATIONS_DIR}/requirements.txt"
 
 # Overwrite the default db.sqlite with basic Zone file (until better config option exists)
-COPY data/db.sqlite ${HOMEMATIONS_DIR}/lutron
-COPY data/db.sqlite ${HOMEMATIONS_DIR}/
+COPY data/db.sqlite "${HOMEMATIONS_DIR}/lutron"
+COPY data/db.sqlite "${HOMEMATIONS_DIR}/"
 
 ENTRYPOINT [ "python" ]
 CMD [ "/homemations/Lutron RadioRA/PythonServer/lutronapp.py" ]
