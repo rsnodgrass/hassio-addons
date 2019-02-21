@@ -14,12 +14,12 @@ See the [Homemations Lutron RadioRA Manager](https://github.com/homemations/Smar
 
 ### Hassio Setup
 
-1. To to the Hass.io "Add-On Store" on your Raspberry Pi and add the repository URL for the Lutron RadioRA Classic integration:
+1. In the Hass.io "Add-On Store" on your Raspberry Pi, add the repository URL for the RadioRA Classic SmartThings Gateway:
 <pre>
      https://github.com/rsnodgrass/SmartThings/tree/master/Lutron%20RadioRA/hassio/repository
 </pre>
-2. Find the "Lutron RadioRA Classic SmartThings Gateway" in the add-ons and click Install
-3. Follow Homemations instructions on how to add the SmartApp and Device Handler in SmartThings. You can manage the SmartApp and Device Handler via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
+2. Find the "RadioRA Classic SmartThings Gateway" in the add-ons and click Install
+3. Follow [Homemations instructions](https://github.com/homemations/SmartThings) on how to add the SmartApp and Device Handler in SmartThings. You can manage the SmartApp and Device Handler via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
 
 ### Configuration
 
@@ -28,11 +28,11 @@ Example Home Assistant configuration.yaml entry:
 <pre>switches:
 </pre>
 
-Configure each Lutron RadioRA zone/switch using standard SmartThing integration with Home Assistant. Reminder that you must pair all light switches/dimmers into your RA-RS232 hardware adapter per Lutron's instructions. You must also have already [configured the SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/).
+Configure each Lutron RadioRA zone/switch using the built-in SmartThings integration with Home Assistant version 0.87 and newer. Reminder that you must pair all light switches/dimmers into your RA-RS232 hardware adapter per Lutron's instructions. You must also have [configured the SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/).
 
 ## Security
 
-Note, this opens a port on your local network with a REST server that controls your Lutron RadioRA lighting. Anyone with access to your network could possibly control your lights.
+Note, this opens a port with a REST server on your network which controls your Lutron RadioRA lighting. Anyone with access to this port could possibly control your lights.
 
 ## FIXME
 
