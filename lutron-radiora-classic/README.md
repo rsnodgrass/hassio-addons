@@ -28,7 +28,7 @@ Example Home Assistant configuration.yaml entry:
 <pre>switches:
 </pre>
 
-Configure each Lutron RadioRA zone/switch using standard SmartThing integration with Home Assistant. Reminder that you must pair all light switches/dimmers into your RA-RS232 hardware adapter per Lutron's instructions.
+Configure each Lutron RadioRA zone/switch using standard SmartThing integration with Home Assistant. Reminder that you must pair all light switches/dimmers into your RA-RS232 hardware adapter per Lutron's instructions. You must also have already [configured the SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/).
 
 ## Security
 
