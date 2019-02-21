@@ -33,9 +33,3 @@ Configure each Lutron RadioRA zone/switch using the built-in SmartThings integra
 ## Security
 
 Note, this opens a port with a REST server on your network which controls your Lutron RadioRA lighting. Anyone with access to this port could possibly control your lights.
-
-## FIXME
-
-- change default port from 8080 as that is likely to conflict!
-- FLASK_SERVER_NAME: 192.168.1.142:8080 (see python/settings.py)
-- ensure logs are visible in Hass.io add-on console!
