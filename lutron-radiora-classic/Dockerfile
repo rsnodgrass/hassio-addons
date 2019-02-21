@@ -8,12 +8,9 @@ ARG BUILD_VERSION
 LABEL authors="Ryan"
 WORKDIR /app
 
-COPY ./requirements.txt /tmp/requirements.txt
-
 # install git and the require python environment
 RUN apk update \
  && apk add --no-cache git python-dev py-pip
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 # Install HomeMation's latest Lutron RadioRA Manager
 #
@@ -23,7 +20,8 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 # changes at the same time).
 #
 #RUN git clone https://github.com/homemations/SmartThings/ /homemations
-RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations
+RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
+ && pip install --no-cache-dir -r /homemations/Lutron\ RadioRA/PythonServer/requirements.txt
 
 ENTRYPOINT [ "python" ]
 CMD [ "/homemations/Lutron RadioRA/PythonServer/lutronapp.py" ]
