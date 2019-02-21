@@ -25,6 +25,5 @@
     "SERIAL_TTY": "/dev/ttyAMA0"
   },
   "host_network": false,
-  "privileged": [ SYS_RAWIO ],
   "gpio": true
 }
