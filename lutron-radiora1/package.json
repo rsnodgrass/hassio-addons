@@ -1,0 +1,17 @@
+{
+  "name": "Lutron RadioRA V1 SmartThings Gateway",
+  "version": "0.0.1",
+  "description": "Gateway between SmartThings and Lutron RadioRA 1 RS-232 serial controller",
+  "author": "Homemation",
+  "main": "lutronapp.py",
+  "scripts": {
+    "start": "python lutronapp.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rsnodgrass/hassio-addons/"
+  },
+  "license": "Apache2.0",
+  "dependencies": {
+  }
+}
