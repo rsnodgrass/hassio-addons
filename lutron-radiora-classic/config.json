@@ -4,7 +4,7 @@
   "slug": "lutron-radiora-classic",
   "description": "This add-on installs the latest Lutron RadioRA Classic/V1 SmartThings Gateway by Homemations",
   "url":"https://github.com/rsnodgrass/hassio-addons/tree/master/lutron-radiora-classic",
-  "startup": "before",
+  "startup": "services",
   "boot": "auto",
   "ports": {
     "8080/tcp": 8333
@@ -15,5 +15,16 @@
     "armhf",
     "i386"
   ],
-  "host_network": false
+  "config": {
+    "tty": "/dev/ttyAMA0"
+  },
+  "schema": {
+    "tty": "str"
+  },
+  "environment": {
+    "SERIAL_TTY": "/dev/ttyAMA0"
+  },
+  "host_network": false,
+  "privileged": SYS_RAWIO,
+  "gpio": true
 }

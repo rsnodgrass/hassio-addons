@@ -8,7 +8,7 @@ Credit goes to Stephen Harris at Homemations for developing the Python-based Lut
 
 * Lutron's [RadioRA RS232 Serial Interface](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf) hardware box for RadioRA Classic
 * Raspberry Pi capable of running [Hassio](https://www.home-assistant.io/hassio/)
-* RS232 serial cable to Pi: wire RadioRA RA-RS232 directly to Pi gpio pins *OR* use a USB serial adapter
+* RS232 serial cable to Pi: wire RadioRA RA-RS232 directly to Pi GPIO pins *OR* use a USB serial adapter
 
 See the [Homemations Lutron RadioRA Manager](https://github.com/homemations/SmartThings) for details on hardware setup, SmartThings groovy script installs, as well as what features are supported. Note, the initial Lutron RadioRA Manager release only supports dimmers, switches and zones.
 
@@ -20,6 +20,7 @@ See the [Homemations Lutron RadioRA Manager](https://github.com/homemations/Smar
 </pre>
 2. Find the "RadioRA Classic SmartThings Gateway" in the add-ons and click Install
 3. Follow [Homemations instructions](https://github.com/homemations/SmartThings) on how to add the SmartApp and Device Handler in SmartThings. You can manage the SmartApp and Device Handler via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
+4. Set the add-on's "tty" config option to the tty device on the Raspberry Pi connected to the RA-RS232 hardware (e.g. /dev/ttyUSB0 for USB serial adapter; default is /dev/ttyAMA0 for GPIO serial port)
 
 ### Configuration
 
@@ -33,3 +34,7 @@ Configure each Lutron RadioRA zone/switch using the built-in SmartThings integra
 ## Security
 
 Note, this opens a port with a REST server on your network which controls your Lutron RadioRA lighting. Anyone with access to this port could possibly control your lights.
+
+## FIXME
+
+* add ability to pass configured tty device to the server
