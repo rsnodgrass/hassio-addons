@@ -20,7 +20,7 @@ RUN apk update \
 # changes at the same time).
 #
 #RUN git clone https://github.com/homemations/SmartThings/ /homemations
-HOMEMATIONS_DIR="/homemations/Lutron RadioRA/PythonServer/"
+ARG HOMEMATIONS_DIR="/homemations/Lutron RadioRA/PythonServer/"
 
 RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
  && pip install --no-cache-dir -r ${HOMEMATIONS_DIR}/requirements.txt
