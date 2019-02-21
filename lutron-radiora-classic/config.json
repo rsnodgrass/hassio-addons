@@ -2,7 +2,7 @@
   "name": "RadioRA Classic SmartThings Gateway",
   "version": "1.0",
   "slug": "lutron-radiora-classic",
-  "description": "This add-on will install the latest Lutron RadioRA Classic SmartThings Gateway by HomeMations",
+  "description": "This add-on installs the latest Lutron RadioRA Classic/V1 SmartThings Gateway by Homemations",
   "url":"https://github.com/homemations/SmartThings",
   "startup": "before",
   "boot": "auto",
