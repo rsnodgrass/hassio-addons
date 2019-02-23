@@ -2,4 +2,4 @@
 
 ## 1.0
 
-- Initial release
+- Initial release of the RadioRA Classic SmartThings Bridge HASS.IO Add-on
