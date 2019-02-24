@@ -1,9 +1,9 @@
 {
-  "name": "RadioRA Classic SmartThings Brdige",
+  "name": "RadioRA Classic SmartThings Bridge",
   "version": "1.0",
-  "slug": "lutron-radiora-classic",
+  "slug": "radiora-classic-bridge",
   "description": "This add-on installs the latest Lutron RadioRA Classic/V1 SmartThings Bridge by Homemations",
-  "url":"https://github.com/rsnodgrass/hassio-addons/tree/master/lutron-radiora-classic",
+  "url":"https://github.com/rsnodgrass/hassio-addons/tree/master/radiora-classic-bridge",
   "startup": "services",
   "boot": "auto",
   "ports": {
