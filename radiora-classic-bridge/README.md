@@ -15,7 +15,7 @@ See the [Homemation's Lutron RadioRA Classic Bridge](https://github.com/homemati
 
 ### Hass.io Setup
 
-1. In the Hass.io "Add-On Store" on your Raspberry Pi, add the repository URL for the RadioRA Classic Smart Bridge:
+1. In the Hass.io "Add-On Store" on your Home Assistant instance, add this repository URL:
 <pre>
      https://github.com/rsnodgrass/hassio-addons
 </pre>

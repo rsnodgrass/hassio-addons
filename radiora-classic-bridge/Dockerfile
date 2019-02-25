@@ -31,4 +31,4 @@ RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
 
 WORKDIR $HOMEMATIONS_DIR
 
-CMD [ "${HOMEMATIONS_DIR}/run.sh" ]
+CMD [ ${HOMEMATIONS_DIR}/run.sh ]
