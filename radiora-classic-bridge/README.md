@@ -13,7 +13,7 @@ that SmartThings (and any REST client) can communicate with. The Bridge integrat
 
 See the [Homemation's Lutron RadioRA Classic Bridge](https://github.com/homemations/SmartThings) for details on hardware setup, SmartThings groovy script installs, as well as what features are supported. Note, the initial Lutron RadioRA Manager release only supports dimmers, switches and zones.
 
-### Hassio Setup
+### Hass.io Setup
 
 1. In the Hass.io "Add-On Store" on your Raspberry Pi, add the repository URL for the RadioRA Classic Smart Bridge:
 <pre>
@@ -31,10 +31,6 @@ Example Home Assistant configuration.yaml entry:
 </pre>
 
 Configure each Lutron RadioRA Classic zone/switch using the built-in SmartThings integration with Home Assistant version 0.87 and newer. Reminder that you must pair all light switches/dimmers into your RA-RS232 hardware adapter per Lutron's instructions. You must also have [configured the SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/).
-
-## Security
-
-Note, this opens a port with a REST server on your network which controls your Lutron RadioRA lighting. Anyone with access to this port could possibly control your lights.
 
 ## FIXME
 
