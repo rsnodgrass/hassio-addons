@@ -9,7 +9,7 @@ LABEL authors="Ryan"
 
 # install git and the require python environment
 RUN apk update \
- && apk add --no-cache git python-dev py-pip \
+ && apk add --no-cache bash git python-dev py-pip \
  && pip install --upgrade pip
 
 # install HomeMation's latest Lutron RadioRA Classic Bridge
@@ -30,5 +30,4 @@ RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
 #COPY data/db.sqlite "${HOMEMATIONS_DIR}/"
 
 WORKDIR $HOMEMATIONS_DIR
-
-CMD [ ${HOMEMATIONS_DIR}/run.sh ]
+ENTRYPOINT ["./run.sh"]
