@@ -30,4 +30,4 @@ RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
 #COPY data/db.sqlite "${HOMEMATIONS_DIR}/"
 
 WORKDIR $HOMEMATIONS_DIR
-CMD [ "python3", "./radiora-classic-bridge.py" ]
+CMD [ "python3", "radiora-classic-bridge.py" ]
