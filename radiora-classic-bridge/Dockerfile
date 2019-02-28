@@ -23,7 +23,7 @@ ARG HOMEMATIONS_DIR="/homemations/Lutron RadioRA Classic/Bridge"
 #RUN git clone https://github.com/homemations/SmartThings/ /homemations
 RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
  && pip install --no-cache-dir -r "${HOMEMATIONS_DIR}/requirements.txt" \
- && echo '2019-02-24-00' >/dev/null
+ && echo '2019-02-26-00' >/dev/null
 
 # overwrite the default db.sqlite with our defaults (until better config option exists)
 #COPY data/db.sqlite "${HOMEMATIONS_DIR}/lutron"

@@ -16,13 +16,10 @@
     "i386"
   ],
   "options": {
-    "tty": "/dev/ttyAMA0"
+    "serial_tty": "/dev/ttyAMA0"
   },
   "schema": {
-    "tty": "str"
-  },
-  "environment": {
-    "SERIAL_TTY": "/dev/ttyAMA0"
+    "serial_tty": "match(^/dev/.*$)"
   },
   "host_network": false,
   "gpio": true
