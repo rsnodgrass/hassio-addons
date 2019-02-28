@@ -18,7 +18,7 @@
   "options": {
   },
   "schema": {
-    "serial_tty": "match(^/dev/.*$)?"
+#    "serial_tty": "match(^/dev/.*$)?"
   },
   "host_network": false,
   "gpio": true,
