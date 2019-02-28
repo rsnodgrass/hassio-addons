@@ -22,5 +22,9 @@
     "serial_tty": "match(^/dev/.*$)"
   },
   "host_network": false,
-  "gpio": true
+  "gpio": true,
+  "auto_uart": true,
+  "devices": [ "/dev/ttyAMA0:/dev/ttyAMA0:rwm" ]
+#  "privileged": [ "SYS_RAWIO" ],
+#  "environment": [ "SERIAL_TTY=/dev/ttyAMA0" ]
 }
