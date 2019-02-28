@@ -20,12 +20,12 @@
   "schema": {
 #    "serial_tty": "match(^/dev/.*$)?"
   },
-  "host_network": false,
-  "gpio": true,
-  "auto_uart": true,
+#  "host_network": false,
+#  "gpio": true,
+#  "auto_uart": true,
   "devices": [ "/dev/ttyAMA0:/dev/ttyS0:rwm",
   	       "/dev/ttyAMA0:/dev/ttyAMA0:rwm", # note that for RPi 3 this is Bluetooth by default
- 	       "/dev/serial0:/dev/serial0:rwm", # RPi 3 alias
+	       "/dev/serial0:/dev/serial0:rwm", # RPi 3 alias
  	       "/dev/serial0:/dev/serial1:rwm"  # RPi 3 alias
   	     ]
 #  "privileged": [ "SYS_RAWIO" ],
