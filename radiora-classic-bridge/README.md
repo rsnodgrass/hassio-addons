@@ -1,5 +1,7 @@
 # RadioRA Classic SmartThings Bridge (Hass.io Add-On)
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 This [Hassio](https://www.home-assistant.io/hassio/) add-on integrates [Lutron's](http://lutron.com/) original RadioRA Classic (aka legacy or RadioRA 1) light switches and zone controls with [Home Assistant](https://www.home-assistant.io/) by packaging up [Homemation's RadioRA Classic Smart Bridge](https://github.com/homemations/SmartThings). Note that this requires Home Assistant 0.87 or later as this add-on relies on native SmartThings integration (rather than the added complexity of a MQTT bridge).
 
 Credit goes to Stephen Harris at Homemations for developing the Python-based Lutron RadioRA Classic Bridge server
@@ -25,13 +27,4 @@ See the [Homemation's Lutron RadioRA Classic Bridge](https://github.com/homemati
 
 ### Configuration
 
-Example Home Assistant configuration.yaml entry:
-
-<pre>switches:
-</pre>
-
 Configure each Lutron RadioRA Classic zone/switch using the built-in SmartThings integration with Home Assistant version 0.87 and newer. Reminder that you must pair all light switches/dimmers into your RA-RS232 hardware adapter per Lutron's instructions. You must also have [configured the SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/).
-
-## FIXME
-
-* add ability to pass configured tty device to the server
