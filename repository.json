@@ -1,5 +1,5 @@
 {
-  "name": "Lutron RadioRA Classic Smart Bridge",
+  "name": "RadioRA Classic Smart Bridge",
   "url": "https://github.com/rsnodgrass/hassio-addons/",
-  "maintainer": "Ryan S"
+  "maintainer": "Ryan Snodgrass <rsnodgrass@addons.community>"
 }
