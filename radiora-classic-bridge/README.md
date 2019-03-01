@@ -1,4 +1,4 @@
-# RadioRA Classic SmartThings Bridge (Hass.io Add-On)
+# RadioRA Classic Smart Bridge (Hass.io Add-On)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
