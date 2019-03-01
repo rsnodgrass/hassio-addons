@@ -2,12 +2,12 @@
   "name": "RadioRA Classic Smart Bridge",
   "version": "1.2.0",
   "slug": "radiora-classic-bridge",
-  "description": "Add-on that runs the Lutron RadioRA Classic Smart Bridge by Homemations",
+  "description": "Lutron RadioRA Classic Smart Bridge for Home Assistant",
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/radiora-classic-bridge",
   "startup": "services",
   "boot": "auto",
   "ports": {
-    "8333/tcp": "8333"
+    "8333/tcp": 8333
   },
   "arch": [
     "aarch64",
@@ -15,8 +15,7 @@
     "armhf",
     "i386"
   ],
-  "options": {
-  },
+  "options": {},
   "schema": {
     "serial_tty": "match(^/dev/.*$)?"
   },
@@ -24,7 +23,7 @@
   "gpio": true,
   "auto_uart": true,
   "devices": [ "/dev/ttyAMA0:/dev/ttyAMA0:rwm",
-	             "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
-  	         ],
+	       "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
+  	     ],
   "privileged": [ "SYS_RAWIO" ]
 }
