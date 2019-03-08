@@ -9,7 +9,7 @@ LABEL authors="Ryan Snodgrass"
 
 # install git and Python3 environment
 RUN apk update \
- && apk add --no-cache git python3 \
+ && apk add --no-cache bash git python3 \
  && python3 -m ensurepip \
  && rm -r /usr/lib/python*/ensurepip \
  && pip3 install --upgrade pip setuptools \
@@ -30,4 +30,5 @@ RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
 #COPY data/db.sqlite "${HOMEMATIONS_DIR}/"
 
 WORKDIR $HOMEMATIONS_DIR
-CMD [ "python3", "radiora-classic-bridge.py" ]
+#CMD [ "python3", "radiora-classic-bridge.py" ]
+CMD [ "./docker-run.sh" ]
