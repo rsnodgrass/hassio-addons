@@ -8,8 +8,7 @@ Credit goes to Russell Goldin, creater of nodejs-poolController, and contributor
 
 ### Supported Pool Devices
 
-The following pool devices are known to work with this 
-For the comprehensive details on the latest supported devices, see the latest release notes for the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController).
+The following pool devices are known to work with the Pool Controller. For the comprehensive details on the latest supported devices, see the latest release notes for the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController).
 
 #### Controllers
 

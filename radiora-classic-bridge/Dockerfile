@@ -29,6 +29,8 @@ RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
 #COPY data/db.sqlite "${HOMEMATIONS_DIR}/lutron"
 #COPY data/db.sqlite "${HOMEMATIONS_DIR}/"
 
+EXPOSE 8333
+
 WORKDIR $HOMEMATIONS_DIR
 #CMD [ "python3", "radiora-classic-bridge.py" ]
 CMD [ "./docker-run.sh" ]
