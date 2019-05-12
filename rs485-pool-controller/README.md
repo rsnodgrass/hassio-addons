@@ -8,27 +8,32 @@ Credit goes to Russell Goldin, creater of nodejs-poolController, and contributor
 
 ### Supported Pool Devices
 
+The following pool devices are known to work with this 
+For the comprehensive details on the latest supported devices, see the latest release notes for the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController).
+
 #### Controllers
 
-* Intellitouch
-* EasyTouch
-* Intermatic
-* SunTouch
-* IntellicomII
+* Intermatic PE635RC 
+* Intermatic Expansion Modules (P5043ME, PE25065RC)
+* Pentair IntelliTouch
+* Pentair EasyTouch
+* Pentair IntelliCom II
+* Pentair SunTouch
 
 #### Pumps
 
-* Intelliflo
+* Pentair IntelliFlo
 
 #### Chlorinators
 
-* Intellichlor
-* Aqua-Rite
-* OEM brands Home Automation: ISY
+* Hayward Aqua-Rite
+* Pentair IntelliChlor
 
 ### Required Hardware
 
-* RS485 serial adapter connected to the device running Hass.io (Home Assistant) such as the [JBTek adapter](https://www.amazon.com/gp/product/B00NKAJGZM)
+* RS485 serial adapter connected to the device running Hass.io (Home Assistant) 
+- [JBTek adapter](https://www.amazon.com/gp/product/B00NKAJGZM)
+- or direct wired to device's GPIO pins (e.g. on Raspberry Pi)
 * RS485 cabling to each device
 
 ### Hass.io Setup
