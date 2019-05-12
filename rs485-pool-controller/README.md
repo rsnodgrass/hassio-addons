@@ -49,18 +49,15 @@ The following pool devices are known to work with the Pool Controller. For the c
 4. Set the add-on's "tty" config option to the tty path for the RS485 adapter connected to your Hass.io hardware
 5. Follow [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) instructions on on how to add the SmartApp and Device Handlers in SmartThings via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
 
-### Configuration
-
-
-#### Part 1: Configuring the Pool Controller
+#### Step 3 Details: Configuring the Pool Controller
 
 The configuration of the RS485 Pool Controller will take some time and technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for how to use its JSON style configuration.
 
 By default, the ports 9801 is exposed for the service API used for communicating with the RS385 bus, as well as ports 3000 (http) and 3001 (https) for the web UI. For example, http://hassio.local:30000/debug.html.
 
-See the examples/ folder for some example configurations.
+See the [examples/] folder for some example configurations.
 
-#### Part 2: Setting up SmartThings Integration
+#### Step 5 Details: Setting up SmartThings Integration
 
 See [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) project for how to install the SmartApp and Device Handlers via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
 
