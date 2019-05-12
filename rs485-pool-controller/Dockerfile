@@ -11,14 +11,15 @@ LABEL authors="Ryan Snodgrass"
 RUN apk update \
  && apk add --no-cache bash git nodejs nodejs-npm
 
-# install latest released version of nodejs-poolController and SmartThings integration
 ARG APP_DIR="/nodejs-poolController"
+
+# install latest released version of nodejs-poolController and SmartThings integration
 RUN git clone https://github.com/tagyoureit/nodejs-poolController $APP_DIR \
  && git clone https://github.com/bsileo/SmartThings_Pentair $APP_DIR/smartthings \
- && echo '2019-05-11-00' >/dev/null
+ && echo '2019-05-12-00' >/dev/null
+WORKDIR $APP_DIR
 
 # install the SmartThings integration
 RUN npm install
 
-WORKDIR $APP_DIR
 CMD [ "npm", "start" ]

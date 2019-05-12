@@ -38,7 +38,9 @@ The following pool devices are known to work with the Pool Controller. For the c
   - direct wired to device's GPIO pins (e.g. on Raspberry Pi)
 * RS485 cabling to each device
 
-### Hass.io Setup
+## Hass.io Setup
+
+Setting up the RS485 Pool Controller is not for the faint of heart, as there are quite a number of extensive configuration steps required by the underlying technology for communicating your pool equipment.
 
 1. In the Hass.io "Add-On Store" on your Home Assistant, add the repository URL:
 <pre>
