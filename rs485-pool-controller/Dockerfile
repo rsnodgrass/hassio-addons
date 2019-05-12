@@ -7,22 +7,23 @@ ARG BUILD_VERSION
 
 LABEL authors="Ryan Snodgrass"
 
-# install git and nodeJS environment
+# install git and Node.js environment
 RUN apk update \
- && apk add --no-cache bash git npm \
- && npm install
+ && apk add --no-cache bash git nodejs nodejs-npm
 
-# install latest released version of nodejs-poolController
-# https://github.com/tagyoureit/nodejs-poolController
-
+# install latest released version of nodejs-poolController and SmartThings integration
 ARG APP_DIR="/nodejs-poolController"
 RUN git clone https://github.com/tagyoureit/nodejs-poolController $APP_DIR \
+ && git clone https://github.com/bsileo/SmartThings_Pentair $APP_DIR/smartthings \
  && echo '2019-05-11-00' >/dev/null
 
 # install the SmartThings integration
-RUN git clone https://github.com/bsileo/SmartThings_Pentair $APP_DIR/smartthings-pentair
+RUN npm install
 
+# expose ports (9801=server, 3000=http UI, 3001=https UI)
 EXPOSE 9801
+EXPOSE 3000
+EXPOSE 3001
 
 WORKDIR $APP_DIR
-CMD [ "node", "server.js" ]
+CMD [ "npm", "start" ]

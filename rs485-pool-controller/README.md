@@ -30,9 +30,9 @@ The following pool devices are known to work with the Pool Controller. For the c
 
 ### Required Hardware
 
-* RS485 serial adapter connected to the device running Hass.io (Home Assistant) 
-- [JBTek adapter](https://www.amazon.com/gp/product/B00NKAJGZM)
-- or direct wired to device's GPIO pins (e.g. on Raspberry Pi)
+* RS485 serial adapter connected to the hardware running Hass.io, examples: 
+- [JBtek USB to RS232 adapter](https://www.amazon.com/gp/product/B00NKAJGZM)
+- direct wired to device's GPIO pins (e.g. on Raspberry Pi)
 * RS485 cabling to each device
 
 ### Hass.io Setup
@@ -48,3 +48,12 @@ The following pool devices are known to work with the Pool Controller. For the c
 ### Configuration
 
 TBD
+
+Uses a config.json for defining your setup.
+
+See examples
+
+### Debugging
+
+http://_your_machine_name_:3000/debug.html
+
