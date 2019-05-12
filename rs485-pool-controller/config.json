@@ -7,7 +7,9 @@
   "startup": "services",
   "boot": "auto",
   "ports": {
-    "9801/tcp": 9801
+    "9801/tcp": 9801,
+    "3000/tcp": 3000,
+    "3001/tcp": 3001
   },
   "arch": [
     "aarch64",
@@ -23,7 +25,7 @@
   "gpio": true,
   "auto_uart": true,
   "devices": [ "/dev/ttyAMA0:/dev/ttyAMA0:rwm",
-	       "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
-  	     ],
+	             "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
+  	         ],
   "privileged": [ "SYS_RAWIO" ]
 }

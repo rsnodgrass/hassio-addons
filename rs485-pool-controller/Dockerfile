@@ -20,10 +20,5 @@ RUN git clone https://github.com/tagyoureit/nodejs-poolController $APP_DIR \
 # install the SmartThings integration
 RUN npm install
 
-# expose ports (9801=server, 3000=http UI, 3001=https UI)
-EXPOSE 9801
-EXPOSE 3000
-EXPOSE 3001
-
 WORKDIR $APP_DIR
 CMD [ "npm", "start" ]
