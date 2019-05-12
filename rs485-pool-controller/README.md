@@ -47,13 +47,8 @@ The following pool devices are known to work with the Pool Controller. For the c
 
 ### Configuration
 
-TBD
+The configuration of the RS485 Pool Controller will take some time and technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for how to use its JSON style configuration.
 
-Uses a config.json for defining your setup.
+By default, the ports 9801 is exposed for the service API used for communicating with the RS385 bus, as well as ports 3000 (http) and 3001 (https) for the web UI. For example, http://hassio.local:30000/debug.html.
 
-See examples
-
-### Debugging
-
-http://_your_machine_name_:3000/debug.html
-
+See the examples/ folder for some example configurations.
