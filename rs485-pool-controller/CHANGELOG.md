@@ -2,4 +2,4 @@
 
 ## 0.1
 
-- initial release of the RS485 Pool Controller wrapper for nodejs-poolController
+- initial release of the RS485 Pool Controller add-on for nodejs-poolController (v5.3.0)
