@@ -9,7 +9,14 @@ LABEL authors="Ryan Snodgrass"
 
 # install git and Node.js environment
 RUN apk update \
- && apk add --no-cache bash git nodejs nodejs-npm python
+ && apk add --no-cache \
+            build-base \
+            bash \
+            git \
+            nodejs \
+            nodejs-npm \
+            python \
+            linux-headers
 
 ARG APP_DIR="/nodejs-poolController"
 
