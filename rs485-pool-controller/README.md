@@ -34,7 +34,7 @@ The following pool devices are known to work with the Pool Controller. For the c
 ### Required Hardware
 
 * RS485 serial adapter connected to the hardware running Hass.io, examples: 
-  - [JBtek USB to RS232 adapter](https://www.amazon.com/gp/product/B00NKAJGZM)
+  - [JBtek USB to RS485 adapter](https://amzn.com/B00NKAJGZM?tag=carreramfi-20)
   - direct wired to device's GPIO pins (e.g. on Raspberry Pi)
 * RS485 cabling to each device
 
@@ -46,16 +46,14 @@ Setting up the RS485 Pool Controller is not for the faint of heart, as there are
 <pre>
      https://github.com/rsnodgrass/hassio-addons
 </pre>
-2. Find the "RS485 Pool Controller" in the add-ons and click Install
+2. Find "RS485 Pool Controller" in the list of add-ons and click Install
 3. Follow [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) instructions for configuring the RS485 server that interacts with your pool equipment
 4. Set the add-on's "tty" config option to the tty path for the RS485 adapter connected to your Hass.io hardware
 5. Follow [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) instructions on on how to add the SmartApp and Device Handlers in SmartThings via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
 
 #### Step 3 Details: Configuring the Pool Controller
 
-The configuration of the RS485 Pool Controller will take some time and technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for how to use its JSON style configuration.
-
-By default, the ports 9801 is exposed for the service API used for communicating with the RS385 bus, as well as ports 3000 (http) and 3001 (https) for the web UI. For example, http://hassio.local:30000/debug.html.
+The configuration of the RS485 Pool Controller will take some time and technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for how to configure. By default, the ports 9801 is exposed for the service API used for communicating with the RS385 bus, as well as ports 3000 (http) and 3001 (https) for the web UI. For example, http://hassio.local:30000/debug.html.
 
 See the [examples/] folder for some example configurations.
 
