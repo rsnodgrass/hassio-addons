@@ -109,8 +109,8 @@
         "notifications": {
             "version": {
                 "remote": {
-                    "version": "4.0.0",
-                    "tag_name": "v4.0.0",
+                    "version": "5.3.0",
+                    "tag_name": "v5.3.0",
                     "dismissUntilNextRemoteVersionBump": false
                 }
             }
@@ -148,7 +148,7 @@
         "socketISY": 0,
         "outputSocketToConsoleExample": 0
     },
- "socketISY": {
+    "socketISY": {
         "username": "blank",
         "password": "blank",
         "ipaddr": "127.0.0.1",
@@ -191,5 +191,10 @@
     },
     "outputSocketToConsoleExample": {
         "level": "warn"
+    },
+    "outputToSmartThings": {
+        "address": "*",
+        "port": "39500",
+        "logEnabled": 0
     }
 }

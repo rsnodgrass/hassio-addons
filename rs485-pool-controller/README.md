@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-This [Hassio](https://www.home-assistant.io/hassio/) add-on allows communication and control for a variety of pool equipment including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocols. This packages up the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) and the [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) integration.
+This [Hass.io](https://www.home-assistant.io/hassio/) add-on allows communication and control for a variety of pool equipment including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocols. This packages up the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) and the [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) integration.
 
 Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to that project.
 

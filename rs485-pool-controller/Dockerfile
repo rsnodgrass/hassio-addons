@@ -28,4 +28,4 @@ WORKDIR $APP_DIR
 
 RUN npm install
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "start", "examples/default-config.json" ]
