@@ -59,16 +59,4 @@ See the [examples/] folder for some example configurations.
 
 #### Step 5 Details: Setting up SmartThings Integration
 
-See [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) project for how to install the SmartApp and Device Handlers via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
-
-Add to your configuration file:
-
-<pre>
-   	"outputToSmartThings": 1
-   	},
-   "outputToSmartThings": {
-   	"address": "*",
-   	"port": "39500",
-   	"logEnabled": 0
-   },```
-</pre>
+See [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) project for how to install the SmartApp and Device Handlers via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/). The *outputToSmartThings* interface to the nodejs-poolController is already added to the Node.js service as part of this Hass.io add-on.
