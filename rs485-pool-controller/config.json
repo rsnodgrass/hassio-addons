@@ -2,7 +2,7 @@
   "name": "RS485 Pool Controller",
   "version": "5.3.0",
   "slug": "rs485-pool-controller",
-  "description": "Control and communicate with RS485 compatible pool control systems, pumps, heaters, chlorinators",
+  "description": "Control and communicate with RS485 compatible pool control systems, pumps, heaters, lights, chlorinators, etc",
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/rs485-pool-controller",
   "startup": "services",
   "boot": "auto",
