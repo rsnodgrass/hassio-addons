@@ -28,4 +28,5 @@ WORKDIR $APP_DIR
 
 RUN npm install
 
-CMD [ "npm", "start", "examples/default-config.json" ]
+# /data/options.json is the Hass.io config block saved into the Docker instance
+CMD [ "npm", "start", "/data/options.json" ]

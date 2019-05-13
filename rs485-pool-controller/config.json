@@ -17,10 +17,10 @@
     "armhf",
     "i386"
   ],
-  "options": {},
-  "schema": {
-    "rs485_tty": "match(^/dev/.*$)?"
+  "options": {
+    "replace this with": "your config file"
   },
+  "schema": False,
   "host_network": false,
   "gpio": true,
   "auto_uart": true,

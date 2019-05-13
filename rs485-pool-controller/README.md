@@ -8,7 +8,7 @@ Credit for all the heavy lifting in actually communicating with the pool equipme
 
 ### Supported Pool Devices
 
-The following pool devices are known to work with the Pool Controller. For the comprehensive details on the latest supported devices, see the latest release notes for the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController).
+For comprehensive details on the latest supported devices, see the release notes for the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController).
 
 #### Controllers
 
@@ -40,7 +40,7 @@ The following pool devices are known to work with the Pool Controller. For the c
 
 ## Hass.io Setup
 
-Setting up the RS485 Pool Controller is not for the faint of heart, as there are quite a number of extensive configuration steps required by the underlying technology for communicating your pool equipment.
+Setting up the RS485 Pool Controller is not for the faint of heart, as quite a few configuration steps are required by the underlying technology determining how it communicates with your pool equipment.
 
 1. In the Hass.io "Add-On Store" on your Home Assistant, add the repository URL:
 <pre>
