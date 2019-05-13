@@ -9,7 +9,7 @@ LABEL authors="Ryan Snodgrass"
 
 # install git and Node.js environment
 RUN apk update \
- && apk add --no-cache bash git nodejs nodejs-npm
+ && apk add --no-cache bash git nodejs nodejs-npm python
 
 ARG APP_DIR="/nodejs-poolController"
 
@@ -19,7 +19,6 @@ RUN git clone https://github.com/tagyoureit/nodejs-poolController $APP_DIR \
  && echo '2019-05-12-00' >/dev/null
 WORKDIR $APP_DIR
 
-# install the SmartThings integration
 RUN npm install
 
 CMD [ "npm", "start" ]
