@@ -9,7 +9,7 @@ Note: Home Assistant 0.87 or later is required for native SmartThings support (v
 ### Required Hardware
 
 * Lutron [RadioRA Classic RS232 Serial Interface](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf) hardware interface (RA-RS232) or [RadioRA Chronos System Bridge](http://www.lutron.com/TechnicalDocumentLibrary/044037b.pdf) (RA-SBT-CHR)
-* Raspberry Pi capable of running [Hass.io](https://www.home-assistant.io/hassio/)
+* server running [Hass.io](https://www.home-assistant.io/hassio/)
 * RS232 serial cable wired from RadioRA Classic hardware interface to Hass.io host (e.g. USB male serial adapter or Pi GPIO pints with MAX3232 RS232 male adapter)
 
 See the [Homemation's Lutron RadioRA Classic Bridge](https://github.com/homemations/SmartThings) for details on hardware setup, SmartThings groovy script installs, as well as what features are supported. 
@@ -27,7 +27,7 @@ Note: the initial RadioRA Classic Smart Bridge currently only supports Lutron di
 
 3. Follow [Homemations instructions](https://github.com/homemations/SmartThings) on how to add the SmartApp and Device Handler in SmartThings. You can manage the SmartApp and Device Handler via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
 
-4. Set the add-on's "tty" config option to the tty device on the Hass.io host connected to the RA-RS232 hardware (e.g. /dev/ttyUSB0 for USB serial adapter; default is /dev/ttyAMA0 for a RaspberryPi GPIO serial port)
+4. Set the add-on's "tty" config option to the tty device on the Hass.io host connected to the RA-RS232 hardware (e.g. /dev/ttyUSB0 for USB serial adapter; default is /dev/ttyAMA0 for a Raspberry Pi GPIO serial port)
 
 ### Configuration
 
