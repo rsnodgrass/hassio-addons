@@ -15,7 +15,9 @@
     "armhf",
     "i386"
   ],
-  "options": {},
+  "options": {
+    "serial_tty": "/dev/ttyUSB0"
+  },
   "schema": {
     "serial_tty": "match(^/dev/.*$)?"
   },
