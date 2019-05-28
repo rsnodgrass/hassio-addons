@@ -18,7 +18,6 @@ Note: the initial RadioRA Classic Smart Bridge currently only supports Lutron di
 
 ![RadioRA Classic Smart Bridge](img/diagram.jpg)
 
-
 ### Hass.io Setup
 
 1. In the Hass.io "Add-On Store" on your Home Assistant, add the repository URL:
@@ -30,7 +29,7 @@ Note: the initial RadioRA Classic Smart Bridge currently only supports Lutron di
 
 3. Follow [Homemations instructions](https://github.com/homemations/SmartThings) on how to add the SmartApp and Device Handler in SmartThings. You can manage the SmartApp and Device Handler via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
 
-4. Set the add-on's "tty" config option to the tty device on the Hass.io host connected to the RA-RS232 hardware (e.g. /dev/ttyUSB0 for USB serial adapter; default is /dev/ttyAMA0 for a Raspberry Pi GPIO serial port)
+4. Set the add-on's "serial_tty" config option to the tty device on the Hass.io host connected to the RA-RS232 hardware (e.g. default is /dev/ttyUSB0 for a USB serial adapter; use /dev/ttyAMA0 for Raspberry Pi GPIO)
 
 ### Configuration
 
