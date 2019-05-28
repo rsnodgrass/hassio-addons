@@ -31,4 +31,4 @@ Note: the initial RadioRA Classic Smart Bridge currently only supports Lutron di
 
 ### Configuration
 
-Configure each Lutron RadioRA Classic zone/switch using the built-in SmartThings integration with Home Assistant version 0.87 and newer. Reminder that you must pair all light switches/dimmers into your RA-RS232 hardware adapter per Lutron's instructions. You must also have [configured the SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/).
+Configure each Lutron RadioRA Classic zone/switch using the built-in SmartThings integration with Home Assistant version 0.87 and newer. You must pair all light switches/dimmers into your RA-RS232 hardware adapter per Lutron's instructions. You must also have [configured the SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/).
