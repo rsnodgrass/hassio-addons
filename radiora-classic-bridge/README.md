@@ -8,11 +8,11 @@ Note: Home Assistant 0.87 or later is required for native SmartThings support (v
 
 ### Required Hardware
 
-* server running [Hass.io](https://www.home-assistant.io/hassio/)
-* Lutron [RadioRA Classic RS232 Serial Interface](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf) hardware interface (RA-RS232) or [RadioRA Chronos System Bridge](http://www.lutron.com/TechnicalDocumentLibrary/044037b.pdf) (RA-SBT-CHR)
-* RS232 serial cable from RadioRA Classic hardware interface to Hass.io host (e.g. USB male serial adapter or Pi GPIO pints with MAX3232 RS232 male adapter)
+* server running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/)
+* Lutron RadioRA Classic RS232 hardware interface: [RA-RS232](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf) or [Chronos System Bridge (RA-SBT-CHR)](http://www.lutron.com/TechnicalDocumentLibrary/044037b.pdf)
+* RS232 serial cable (e.g. USB male serial adapter or Pi GPIO pints with MAX3232 RS232 male adapter)
 
-See the [Homemation's Lutron RadioRA Classic Bridge](https://github.com/homemations/SmartThings) for details on hardware setup, SmartThings groovy script installs, as well as what features are supported. 
+See the [Homemation's Lutron RadioRA Classic Bridge](https://github.com/homemations/SmartThings) for additional details on hardware setup, SmartThings groovy script install, as well as supported features. 
 
 Note: the initial RadioRA Classic Smart Bridge currently only supports Lutron dimmers, switches and zones.
 
