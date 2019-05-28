@@ -20,17 +20,14 @@ RUN apk update \
 
 # install HomeMation's latest Lutron RadioRA Classic Bridge
 ARG APP_DIR="/homemations/RadioRA Classic Bridge"
-#RUN git clone https://github.com/homemations/SmartThings/ /homemations
 RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
  && pip install --no-cache-dir -r "${APP_DIR}/requirements.txt" \
- && echo '2019-02-26-00' >/dev/null
+ && echo '2019-05-28-00' >/dev/null
 
 # overwrite the default db.sqlite with our defaults (until better config option exists)
 #COPY data/db.sqlite "${APP_DIR}/lutron"
-#COPY data/db.sqlite "${APP_DIR}/"
 
 EXPOSE 8333
 
 WORKDIR $APP_DIR
-#CMD [ "python3", "radiora-classic-bridge.py" ]
 CMD [ "./docker-run.sh" ]

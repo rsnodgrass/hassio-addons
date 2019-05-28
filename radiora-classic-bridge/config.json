@@ -23,7 +23,8 @@
     "serial_tty": "match(^/dev/.*$)?"
   },
   "environment": {
-    "RADIORA_BRIDGE_PORT": "8333"
+    "RADIORA_BRIDGE_PORT": "",
+    "RADIORA_BRIDGE_TTY": ""
   },
   "map": [
     "config:ro"
