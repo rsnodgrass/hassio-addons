@@ -2,7 +2,7 @@
   "name": "RadioRA Classic Smart Bridge",
   "version": "1.2.0",
   "slug": "radiora-classic-bridge",
-  "description": "Lutron RadioRA Classic Smart Bridge for Home Assistant",
+  "description": "Communication interface between Lutron RadioRA Classic hardware interfaces and Home Assistant",
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/radiora-classic-bridge",
   "startup": "services",
   "boot": "auto",
