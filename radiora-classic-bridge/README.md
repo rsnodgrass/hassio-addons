@@ -18,17 +18,19 @@ See the [Homemation's Lutron RadioRA Classic Bridge](https://github.com/homemati
 
 ### Hass.io Setup
 
-1. In the Hass.io "Add-On Store" on your Home Assistant, add the repository URL:
+1. In the Hass.io "Add-On Store" on your Home Assistant server, add this repository URL:
 <pre>
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 
-2. Find the "RadioRA Classic Smart Bridge" in the add-ons and click Install
+2. Find the "RadioRA Classic Smart Bridge" in the list of add-ons and click Install
 
-3. Follow [Homemations instructions](https://github.com/homemations/SmartThings) on how to add the SmartApp and Device Handler in SmartThings. You can manage the SmartApp and Device Handler via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
+3. Follow [Homemations instructions](https://github.com/homemations/SmartThings) to add the SmartApp and Device Handler using the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
 
-4. Set the add-on's "serial_tty" config option to the tty device on the Hass.io host connected to the RA-RS232 hardware (e.g. default is /dev/ttyUSB0 for a USB serial adapter; use /dev/ttyAMA0 for Raspberry Pi GPIO)
+4. On the Hass.io RadioRA Classic Smart Bridge add-on page set the "serial_tty" config option to the tty device path for the serial cable connected the Classic RadioRA hardware interface (e.g. default is /dev/ttyUSB0 for a USB serial adapter; use /dev/ttyAMA0 for Raspberry Pi GPIO).
 
 ### Configuration
 
-Configure each Lutron RadioRA Classic zone/switch using the built-in SmartThings integration with Home Assistant version 0.87 and newer. You must pair all light switches/dimmers into your RA-RS232 hardware adapter per Lutron's instructions. You must also have [configured the SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/).
+1. Once the Hass.io Lutron RadioRA Classic Bridge has been installed and is running, Lutron's procedures must be followed to pair each switch/dimmer/zone with the Classic RadioRA RS232 hardware interface (if not already completed). This varies whether the Lutron RA-RS232 or Chronos System Bridge is being used as the hardware interface.
+
+2. Finally, the native [SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/) must be configured so that Home Assistant can communicate through SmartThings to the Classic RadioRA hardware via SmartThings.
