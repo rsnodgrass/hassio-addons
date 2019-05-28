@@ -2,7 +2,7 @@
   "name": "RadioRA Classic Smart Bridge",
   "version": "1.2.0",
   "slug": "radiora-classic-bridge",
-  "description": "Communication interface between Lutron RadioRA Classic hardware interfaces and Home Assistant",
+  "description": "Communication interface to Lutron RadioRA Classic RS232 hardware interfaces",
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/radiora-classic-bridge",
   "startup": "services",
   "boot": "auto",
@@ -15,12 +15,20 @@
     "armhf",
     "i386"
   ],
+  "auto_uart": true,
   "options": {
     "serial_tty": "/dev/ttyUSB0"
   },
   "schema": {
     "serial_tty": "match(^/dev/.*$)?"
   },
+  "environment": {
+    "RADIORA_BRIDGE_PORT": "8333"
+  },
+  "map": [
+    "config:ro"
+  ],
+  "hassio_role": "default",
   "host_network": false,
   "gpio": true,
   "auto_uart": true,
