@@ -16,6 +16,9 @@ See the [Homemation's Lutron RadioRA Classic Bridge](https://github.com/homemati
 
 Note: the initial RadioRA Classic Smart Bridge currently only supports Lutron dimmers, switches and zones.
 
+![RadioRA Classic Smart Bridge](img/diagram.jpg)
+
+
 ### Hass.io Setup
 
 1. In the Hass.io "Add-On Store" on your Home Assistant, add the repository URL:
