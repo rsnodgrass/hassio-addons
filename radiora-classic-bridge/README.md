@@ -8,9 +8,7 @@ This [Hass.io](https://www.home-assistant.io/hassio/) add-on integrates [Lutron'
 
 ![RadioRA Classic Smart Bridge](https://github.com/rsnodgrass/hassio-addons/blob/master/radiora-classic-bridge/img/diagram.png?raw=true)
 
-img/diagram.jpg)
-
-* server running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) Hypervisor
+* server running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) hypervisor
 * Lutron RadioRA Classic RS232 hardware interface: [RA-RS232](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf) or [Chronos System Bridge (RA-SBT-CHR)](http://www.lutron.com/TechnicalDocumentLibrary/044037b.pdf)
 * RS232 serial cable (e.g. USB male serial adapter or Pi GPIO pints with MAX3232 RS232 male adapter)
 
