@@ -1,5 +1,6 @@
 # FUTURE: use a build like alpine to make this smaller and faster (one that includes python)
-ARG BUILD_FROM=hassioaddons/base:2.3.1
+ARG BUILD_FROM=hassioaddons/base
+#ARG BUILD_FROM=hassioaddons/base:2.3.1
 FROM $BUILD_FROM
 
 ARG BUILD_ARCH
@@ -9,7 +10,7 @@ LABEL authors="Homemations"
 
 # install git and Python3 environment
 RUN apk update \
- && apk add --no-cache bash git python3 \
+ && apk add --no-cache bash git python3 docker \
  && python3 -m ensurepip \
  && rm -r /usr/lib/python*/ensurepip \
  && pip3 install --upgrade pip setuptools \
@@ -30,4 +31,4 @@ RUN pip install --no-cache-dir -r "${APP_DIR}/requirements.txt"
 EXPOSE 8333
 
 WORKDIR $APP_DIR
-CMD [ "./docker-run.sh" ]
+CMD [ "./run.sh" ]
