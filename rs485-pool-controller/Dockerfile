@@ -22,8 +22,8 @@ ARG APP_DIR="/nodejs-poolController"
 
 # install latest released version of nodejs-poolController and SmartThings integration
 RUN git clone https://github.com/tagyoureit/nodejs-poolController $APP_DIR \
- && git clone https://github.com/bsileo/SmartThings_Pentair $APP_DIR/smartthings \
- && echo '2019-05-12-00' >/dev/null
+ && git clone https://github.com/bsileo/SmartThings_Pentair $APP_DIR/smartthings
+
 WORKDIR $APP_DIR
 
 RUN npm install

@@ -31,6 +31,6 @@ Note: Home Assistant 0.87 or later is required for native SmartThings support (v
 
 ### Configuration
 
-1. Once the Hass.io Lutron RadioRA Classic Bridge has been installed and is running, Lutron's procedures must be followed to pair each switch/dimmer/zone with the Classic RadioRA RS232 hardware interface (if not already completed). This varies whether the Lutron RA-RS232 or Chronos System Bridge is being used as the hardware interface.
+1. Once the Hass.io Lutron RadioRA Classic Bridge has been installed and is running, Lutron's procedures must be followed to pair each switch/dimmer/zone with the Classic RadioRA RS232 hardware interface (if not already completed). This procedure varies whether the Lutron RA-RS232 or Chronos System Bridge is being used as the hardware interface, see the appropriate Lutron manual.
 
 2. Finally, the native [SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/) must be configured so that Home Assistant can communicate through SmartThings to the Classic RadioRA hardware via SmartThings.
