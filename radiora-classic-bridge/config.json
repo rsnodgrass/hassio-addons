@@ -20,7 +20,7 @@
     "serial_tty": "/dev/ttyUSB0"
   },
   "schema": {
-    "serial_tty": "match(^/dev/)?"
+    "serial_tty": "match(^/dev/.*$)?"
   },
   "environment": {
     "RADIORA_BRIDGE_PORT": "8333"
