@@ -9,7 +9,7 @@ LABEL authors="Homemations"
 
 # install git and Python3 environment
 RUN apk update \
- && apk add --no-cache bash git python3 \
+ && apk add --no-cache bash git python3 python3-pip \
  && python3 -m ensurepip \
  && rm -r /usr/lib/python*/ensurepip \
  && pip3 install --upgrade pip setuptools \
@@ -20,9 +20,9 @@ RUN apk update \
 
 # install HomeMation's latest Lutron RadioRA Classic Bridge
 ARG APP_DIR="/homemations/RadioRA Classic Bridge"
+
 RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations
-RUN pip install --no-cache-dir -r "${APP_DIR}/requirements.txt" \
- && echo '2019-05-28-00' >/dev/null
+RUN pip install --no-cache-dir -r "${APP_DIR}/requirements.txt"
 
 # overwrite the default db.sqlite with our defaults (until better config option exists)
 #COPY data/db.sqlite "${APP_DIR}/lutron"
