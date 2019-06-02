@@ -37,4 +37,6 @@ Note: Home Assistant 0.87 or later is required for native SmartThings support (v
 
 2. Finally, the native [SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/) must be configured so that Home Assistant can communicate through SmartThings to the Classic RadioRA hardware via SmartThings.
 
-## See Also
+### See Also
+
+- [Lutron RadioRA RS-232 Manual](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf)
