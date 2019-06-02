@@ -40,3 +40,4 @@ Note: Home Assistant 0.87 or later is required for native SmartThings support (v
 ### See Also
 
 - [Lutron RadioRA RS-232 Manual](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf)
+- [Lutron Understanding RF Communication](http://www.lutron.com/TechnicalDocumentLibrary/RadioRA%20App%20Note%2085.pdf)
