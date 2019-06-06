@@ -1,6 +1,4 @@
-# FUTURE: use a build like alpine to make this smaller and faster (one that includes python)
 ARG BUILD_FROM=hassioaddons/base
-#ARG BUILD_FROM=hassioaddons/base:2.3.1
 FROM $BUILD_FROM
 
 ARG BUILD_ARCH
@@ -19,13 +17,13 @@ RUN apk update \
  && ln -sf python3 python \
  && rm -rf /root/.cache /var/cache
 
-# install HomeMation's latest Lutron RadioRA Classic Bridge
+# install Homemation's latest Lutron RadioRA Classic Bridge
 ARG APP_DIR="/homemations/Lutron RadioRA Classic/Bridge"
 
 RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations
-RUN pip install --no-cache-dir -r "${APP_DIR}/requirements.txt"
+ && pip install --no-cache-dir -r "${APP_DIR}/requirements.txt"
 
-# overwrite the default db.sqlite with our defaults (until better config option exists)
+# FUTURE: overwrite the default db.sqlite with our defaults (until better config option exists)
 #COPY data/db.sqlite "${APP_DIR}/lutron"
 
 EXPOSE 8333

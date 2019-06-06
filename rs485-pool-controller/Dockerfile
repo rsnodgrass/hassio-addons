@@ -1,5 +1,5 @@
 # FUTURE: use a build like alpine to make this smaller and faster (one that includes python)
-ARG BUILD_FROM=hassioaddons/base:2.3.1
+ARG BUILD_FROM=hassioaddons/base
 FROM $BUILD_FROM
 
 ARG BUILD_ARCH
