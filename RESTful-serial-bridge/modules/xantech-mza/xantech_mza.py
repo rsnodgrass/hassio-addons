@@ -1,3 +1,5 @@
+# Bi-directional RS232 definitions for Xantech MRC88 interfaces.
+#
 # Not implemented:
 #
 # - explicitly setting bass/treble/balance...easy to add, but unclear if useful
@@ -6,6 +8,10 @@
 #
 # NOTE: The Monoprice multi-zone amps share a variation of the same protocol as Xantech, and are likely
 # licensed (or acquired) from Xantech since they no longer produce multi-zone amplifiers/controllers.
+#
+# You may be able to determine what features are supported by doing a zone status query for zone 1,
+# depending on what it returns indicates the feature set (e.g. source select vs channel select).
+# Similarly, it may be possible to probe for maximum zones and sources without requiring config.
 #
 # MRAUDIO8X8
 # MRAUDIO4x4
@@ -45,6 +51,15 @@ MinMaxValidation = {
 ns = api.namespace('zones', description='Zone operations')
 raSerial = None
 
+# FIXME: init raSerial
+# FIXME: should this probe for versions/features/num zones/etc?
+class XantechSerial:
+    def write(string):
+        return raSerial.writeCommand(string)
+    
+    def read(string):
+        return raSerial.readData(string)
+
 @ns.route('/')
 class ZoneCollection(Resource):
     
@@ -61,7 +76,7 @@ class ZoneCollection(Resource):
 
         max_sources = 8
         source_map = _initialize_name_mapping("Source", max_sources)
-        source_map[1] = 'Sonos'
+        source_map[1] = 'Sonos' # override
 
         details = {
             'module': 'xantech_mza',
@@ -89,32 +104,73 @@ class ZoneCollection(Resource):
 class ZoneState(Resource):
 
     #@api.marshal_with(zone)
-    def get(self, zone):
+    def get(self, zone_id):
         # FIXME: if zone < 0 or zone > 8, error state
-        raSerial.writeCommand("?" + zone + "ZD+")
+        raSerial.writeCommand("?" + zone_id + "ZD+")
 
-        # example response:
-        #   "#{z#}ZS PR{0/1} SS{s#} VO{v#} MU{0/1} TR{bt#} BS{bt#} BA{b#} LS{0/1} PS{0/1}+"
+        # example Xantech response:
+        #   #{z#}ZS PR{0/1} SS{s#} VO{v#} MU{0/1} TR{bt#} BS{bt#} BA{b#} LS{0/1} PS{0/1}+
+        # example Monoprice response:
+        #   #{z#}ZS VO{v#} PO{0/1} MU{0/1} IS{0/1}+
         response = raSerial.readData()
 
-        # NOTE: name comes from configuration?
-
-        zone_state =
-        {
-            name: 
-            power:
-            source:
-            volume:
-            mute:
-            treble:
-            bass:
-            balance:
+        state = {
+            'zone': zone_id
         }
 
+        for data in response.split():
+            # verify the serial response matches the zone_id we just wrote data for
+            if data[0] == '#':
+                data_zone_id = int(data[1:][2])
+                if data_zone_id != zone_id:
+                    log.error("Unknown state! Request for zone %s returned state for zone %s: %s",
+                              zone_id, data_zone_id, response)
+                    return
+                continue
 
-# FIXME: map volume steps back to percentage
+            # for each type of data in the response, map into the state structure
+            # (not all may be returned, depending on what features the amplifier supports)
+            switch(data[0:2]) {
+                case 'PR', 'PO': # Xantech / Monoprice
+                    state['power'] = (data[3] == '1') # bool
+                    break;
+                case 'SS': # Xantech
+                    state['source'] = int(data[3:])
+                    break;
+                case 'VO':
+                    # map the 38 physical attenuation levels into 0-100%
+                    attenuation_level = int(data[3:] 
+                    state['volume'] = round(int(100 * attenuation_level) / 38))
+                    break;
+                case 'MU':
+                    state['mute'] = (data[3] == '1') # bool
+                    break;
+                case 'TR':
+                    state['treble'] = int(data[3:])
+                    break;
+                case 'BS':
+                    state['bass'] = int(data[3:])
+                    break;
+                case 'BA':
+                    state['balance'] = int(data[3:])
+                    break;
+                case 'LS': # Xantech
+                    state['linked'] = (data[3] == '1') # bool
+                    break;
+                case 'PS': # Xantech
+                    state['paged'] = (data[3] == '1') # bool
+                    break;
+                case 'IS': # Monoprice (audio input)
+                    if data[3] == '1':
+                        state['input'] = 'line'
+                    else:
+                        state['input'] = 'bus'
+                    break;
+                default:
+                    log.error("Ignoring unknown state type %s found in: %s", data[0:2], response)
+            }
 
-        return zone_state
+        return state
 
 ####
 
@@ -125,7 +181,7 @@ class ZoneVolumeLevel(Resource):
     def post(self, zone_id, percentage):
 
         # While actual attenuation steps for Xantech is 0-38 (non-linearly from -78.75 db to 0 db),
-        # for simplicity of API, we use range from 0-100% even though increase by 1%  may not
+        # for simplicity of API, we use range from 0-100% even though increase by 1%  <may not
         # necessarily change volume if it remains within the same dB attenuation step.
         attenuation_level = (38 * percentage) / 100
         raSerial.writeCommand("!" + zone_id + "VO" + attenuation_level + "+"
@@ -240,6 +296,3 @@ class ZoneTrebleDown(Resource):
     def post(self, zone_id):
         raSerial.writeCommand("!" + zone_id + "TD+")
         return {}
-
-
-
