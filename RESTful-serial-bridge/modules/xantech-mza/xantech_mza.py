@@ -2,18 +2,32 @@
 #
 # Not implemented:
 #
-# - explicitly setting bass/treble/balance...easy to add, but unclear if useful
-#   except during initial amp setup, plus explicit lookup table values complex to document
+# - explicitly setting bass/treble/balance: easy to add, but unclear if useful
+#   except during initial amp setup for advanced use cases, plus the explicit
+#   lookup table values complex to document
 # - current sense (audio) and video sense queries ... 12V?
+# - video switching for MRC88 models 
 #
 # NOTE: The Monoprice multi-zone amps share a variation of the same protocol as Xantech, and are likely
 # licensed (or acquired) from Xantech since they no longer produce multi-zone amplifiers/controllers.
 #
-# You may be able to determine what features are supported by doing a zone status query for zone 1,
+# Determining what features are supported by doing a zone status query for zone 1,
 # depending on what it returns indicates the feature set (e.g. source select vs channel select).
 # Similarly, it may be possible to probe for maximum zones and sources without requiring config.
 #
+# Xantech firmware release notes make some mention of RS232 feature changes:
+# https://www.xantech.com/firmware-updates
+# 
+#
 # MRAUDIO8X8
+# MRAUDIO8x8m
+# MX88 (AV)
+# MX88a (AV)
+# MX88ai (AV)
+# MRC88 (AV)
+# MRC88m (AV)
+#
+# NOT SUPPORTED:
 # MRAUDIO4x4
 
 import os   
@@ -29,12 +43,6 @@ log = logging.getLogger(__name__)
 
 UNKNOWN_NAME = "Unknown"
 
-MinMaxValidation = {
-    'zone': [1, 8],  # or 1..16 if expanded
-    'source': [1, 8],
-    'volume': [0, 38],
-}
-
 # FIXME: ensure amp isn't publishing back state except when requested:
 # !ZA0+
 # !ZP0+
@@ -47,18 +55,23 @@ MinMaxValidation = {
 # FIXME: what must be configured
 #  - for each zone, what zone type of switch/dimmer it is (default to dimmer)
 #  - we should allow client to specify if they want ALL the zones (e.g. including Unassigned)
+#
+# FIXME: probe for versions/features/num zones/etc?
 
 ns = api.namespace('zones', description='Zone operations')
 raSerial = None
 
 # FIXME: init raSerial
-# FIXME: should this probe for versions/features/num zones/etc?
 class XantechSerial:
     def write(string):
         return raSerial.writeCommand(string)
     
     def read(string):
         return raSerial.readData(string)
+
+#    serial "/dev/ttyUSB0";
+# .... Monoprice baudrate: 9600 seems low
+# Xantech uses 19200, though 38400 may be supported based on other docs I found
 
 @ns.route('/')
 class ZoneCollection(Resource):
@@ -71,6 +84,11 @@ class ZoneCollection(Resource):
 
     @api.marshal_list_with(zone)
     def get(self):
+
+        # FIXME: move all the following into initial setup
+
+        # NOTE: for Xantech, only first 6 zones support amplification, the last 2 are pre-amps
+
         max_zones = 8
         zone_map = _init_name_mapping("Zone", max_zones)
 
@@ -78,12 +96,13 @@ class ZoneCollection(Resource):
         max_sources = 8
         source_map = _init_name_mapping("Source", max_sources)
         source_map[1] = 'Sonos' # override
+        source_map[2] = 'Home Theater' # override
 
-        details = {
+        zone_config = {
             'module': 'xantech_mza',
 
             'max_zones': max_zones, # configurable
-            'zones': { # configurable (could also have name maps)
+            'zones': { # FIXME: configurable name override
                 1: "Living Room",
                 2: "Kitchen",
                 3: "Master Bedroom",
@@ -95,10 +114,10 @@ class ZoneCollection(Resource):
             },
 
             'max_sources': max_sources, # configurable
-            'sources': source_map,
+            'sources': source_map, # FIXME: configurable name override
         } 
 
-        return details
+        return zone_config
 
 @ns.route('/<int:id>')
 @api.response(404, 'Zone not found')
@@ -184,7 +203,7 @@ class ZoneVolumeLevel(Resource):
         # for simplicity of API, we use range from 0-100% even though increase by 1%  <may not
         # necessarily change volume if it remains within the same dB attenuation step.
         attenuation_level = (38 * percentage) / 100
-        raSerial.writeCommand("!" + zone_id + "VO" + attenuation_level + "+"
+        raSerial.writeCommand("!" + zone_id + "VO" + attenuation_level + "+")
         return {}
 
 @ns.route('/<int:id>/volume/up')
@@ -219,7 +238,7 @@ class ZonePowerOn(Resource):
         return {}
 
 @ns.route('/<int:id>/power/off')
-class ZonePowerOn(Resource):
+class ZonePowerOff(Resource):
     def post(self, zone_id):
         raSerial.writeCommand("!" + zone_id + "PR0+")
         return {}
@@ -238,8 +257,8 @@ class ZoneMuteOn(Resource):
         raSerial.writeCommand("!" + zone_id + "MU1+")
         return {}
 
-@ns.route('/<int:id>/mute/off')
-class ZoneMuteOn(Resource):
+@ns.route('/<int:id>/mute/off') 
+class ZoneMuteOff(Resource):
     def post(self, zone_id):
         raSerial.writeCommand("!" + zone_id + "MU0+")
         return {}
@@ -266,7 +285,7 @@ class ZoneBalanceLeft(Resource):
         return {}
 
 @ns.route('/<int:id>/balance/right')
-class ZoneBalanceLeft(Resource):
+class ZoneBalanceRight(Resource):
     def post(self, zone_id):
         raSerial.writeCommand("!" + zone_id + "BR+")
         return {}
