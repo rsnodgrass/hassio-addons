@@ -22,51 +22,54 @@ import logging
 
 log = logging.getLogger(__name__)
 
-# FIXME: init raSerial
 class XantechSerial:
+    def __init__(self):
+        self._name = 'Xantech'
+
+        self._max_zones = 8
+        self._zone_map = {}
+
+        self._max_sources = 8
+        self._source_map = {}
+
+        self._serial = self.initializeConnection()
+        self.initializeDevice()
+
     def initializeConnection():
         #    serial "/dev/ttyUSB0";
         # Monoprice baudrate: 9600
         # Xantech baudrate: 9600, though some docs suggest 19200 or 38400
+        return
 
     def initializeDevice():
         # FIXME: should we disable state publishing automatically?
-        #raSerial.writeCommand("!ZA0+") # disable activity notifications (0 = true)
-        #raSerial.writeCommand("!ZP0+") # disable period auto updates (seconds = 0)
+        #self.writeCommand("!ZA0+") # disable activity notifications (0 = true)
+        #self.writeCommand("!ZP0+") # disable period auto updates (seconds = 0)
+        return
 
     def write(string):
-        return raSerial.writeCommand(string)
+        return self._serial.writeCommand(string)
     
     def read(string):
-        return raSerial.readData(string)
+        return self._serial.readData(string)
 
     # the input string should have {} as the substitution token for the zone_id
     def writeToAllZones(string):
         for zone_id in range(8):
             write(string.format(zone_id))
 
-@ns.route('/power/on')
-class XantechPowerOn(Resource):
-    def get(self):
-        raSerial.writeToAllZones("!{}PR1+")
-        return {}
+    def isValidZone(zone_id):
+        if zone_id <= 0:
+            return False
+        elif zone_id > self._max_zones:
+            # FIXME: determine if valid based on configuration for amplifier (model, number of slaves, etc)
+            return False
+        return True
 
-@ns.route('/power/off')
-class XantechPowerOff(Resource):
-    def get(self):
-        # Xantech provides a special "All Zones Off" command instead of:
-        #   raSerial.writeToAllZones("!{}PR0+")
-        raSerial.writeCommand("!AO+")
-        return {}
-
-@ns.route('/mute/on')
-class XantechPowerOn(Resource):
-    def get(self):
-        raSerial.writeToAllZones("!{}MU1+")
-        return {}
-
-@ns.route('/mute/off')
-class XantechPowerOff(Resource):
-    def get(self):
-        raSerial.writeToAllZones("!{}MU0+")
-        return {}
+    def isValidSource(source_id):
+        if source_id <= 0:
+            return False
+        elif source_id > self._source_zones:
+            # FIXME: determine if valid based on configuration for amplifier
+            return False
+        return True
