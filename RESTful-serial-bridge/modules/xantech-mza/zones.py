@@ -114,20 +114,14 @@ class ZoneCollection(Resource):
 
 @ns.route('/<int:id>')
 @api.response(404, 'Zone not found')
-class ZoneState(Resource):
+class ZoneStatus(Resource):
 
-    def _convert_state_to_map(serial_state):
+    def _convert_state_to_map(serialized_state):
         state = {}
-
-        for data in response.split():
+        for data in serialized_state.split():
             # verify the serial response matches the zone_id we just wrote data for
             if data[0] == '#':
-                data_zone_id = int(data[1:][0:1])
-                if data_zone_id != zone_id:
-                    log.error("Unknown state! Request for zone %s returned state for zone %s: %s",
-                              zone_id, data_zone_id, response)
-                    return None # FIXME: return error!
-                continue
+                state['zone'] = int(data[1:][0:1])
 
             # for each type of data in the response, map into the state structure
             # (not all may be returned, depending on what features the amplifier supports)
@@ -175,14 +169,15 @@ class ZoneState(Resource):
                 else:
                     state['channel'] = 'bus'
 
-            elif 'IS' == data_type: # Monoprice (audio input)
+            elif 'IS' == data_type: # Monoprice (audio input), seen in docs
                 if data[2] == '1':
                     state['input'] = 'line'
                 else:
                     state['input'] = 'bus'
 
             else:
-                log.warning("Ignoring unknown state type '%s' found in: %s", data[0:1], serial_state)
+                log.warning("Ignoring unknown zone %d state attribute '%s' found in: %s",
+                            state['zone'], data_type, serialized_state)
 
         return state
 
@@ -199,16 +194,15 @@ class ZoneState(Resource):
 
         state = _convert_state_to_map(response)
         if state["zone"] != zone_id:
-            log.error("Unknown state! Request for zone %s returned state for zone %s: %s",
-                      zone_id, data_zone_id, response)
+            log.error("Unknown state! Request for zone %s returned state for zone %d: %s",
+                      zone_id, zone_id, response)
             return None # FIXME: return error!
 
         return state
 
 ####
 
-# FIXME: I'm not sure we want REST Get with side effect, but it is very convenient!
-# we could have gone all the way to 11, but instead decided on the range 0-100%
+]# we could have gone all the way to 11, but instead decided on the range 0-100%
 @ns.route('/<int:id>/volume/<int:percentage>')
 class ZoneVolumeLevel(Resource):
     def post(self, zone_id, percentage):
