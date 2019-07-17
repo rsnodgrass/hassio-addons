@@ -63,19 +63,20 @@ class XantechSerial:
 @ns.route('/')
 class ZoneCollection(Resource):
     
-    def _initialize_name_mapping(count, name_prefix):
+    def _init_name_mapping(count, name_prefix):
         map = {}
-        for i in 1 to count:
+        for i in range(count):
             map[i] = name_prefix + ' ' + i
         return map
 
     @api.marshal_list_with(zone)
     def get(self):
         max_zones = 8
-        zone_map = _initialize_name_mapping("Zone", max_zones)
+        zone_map = _init_name_mapping("Zone", max_zones)
 
+        # NOTE: Monoprice only supports two inputs (bus/line), not source mapping!
         max_sources = 8
-        source_map = _initialize_name_mapping("Source", max_sources)
+        source_map = _init_name_mapping("Source", max_sources)
         source_map[1] = 'Sonos' # override
 
         details = {
@@ -125,50 +126,48 @@ class ZoneState(Resource):
                 if data_zone_id != zone_id:
                     log.error("Unknown state! Request for zone %s returned state for zone %s: %s",
                               zone_id, data_zone_id, response)
-                    return
+                    return None # FIXME: return error!
                 continue
 
             # for each type of data in the response, map into the state structure
             # (not all may be returned, depending on what features the amplifier supports)
-            switch(data[0:2]) {
-                case 'PR', 'PO': # Xantech / Monoprice
-                    state['power'] = (data[3] == '1') # bool
-                    break;
-                case 'SS': # Xantech
-                    state['source'] = int(data[3:])
-                    break;
-                case 'VO':
-                    # map the 38 physical attenuation levels into 0-100%
-                    attenuation_level = int(data[3:] 
-                    state['volume'] = round(int(100 * attenuation_level) / 38))
-                    break;
-                case 'MU':
-                    state['mute'] = (data[3] == '1') # bool
-                    break;
-                case 'TR':
-                    state['treble'] = int(data[3:])
-                    break;
-                case 'BS':
-                    state['bass'] = int(data[3:])
-                    break;
-                case 'BA':
-                    state['balance'] = int(data[3:])
-                    break;
-                case 'LS': # Xantech
-                    state['linked'] = (data[3] == '1') # bool
-                    break;
-                case 'PS': # Xantech
-                    state['paged'] = (data[3] == '1') # bool
-                    break;
-                case 'IS': # Monoprice (audio input)
-                    if data[3] == '1':
-                        state['input'] = 'line'
-                    else:
-                        state['input'] = 'bus'
-                    break;
-                default:
-                    log.error("Ignoring unknown state type %s found in: %s", data[0:2], response)
-            }
+            data_type = data[0:2]
+            if data_type in ['PR', 'PO']: # Xantech / Monoprice
+                state['power'] = (data[3] == '1') # bool
+                
+            elif 'SS' == data_type: # Xantech
+                state['source'] = int(data[3:])
+
+            elif 'VO' == data_type:
+                # map the 38 physical attenuation levels into 0-100%
+                attenuation_level = int(data[3:] 
+                state['volume'] = round(int(100 * attenuation_level) / 38))
+            elif 'MU' == data_type:
+                state['mute'] = (data[3] == '1') # bool
+
+            elif 'TR' == data_type:
+                state['treble'] = int(data[3:])
+
+            elif 'BS' == data_type:
+                state['bass'] = int(data[3:])
+
+            elif 'BA' == data_type:
+                state['balance'] = int(data[3:])
+
+            elif 'LS' == data_type: # Xantech
+                state['linked'] = (data[3] == '1') # bool
+
+            elif 'PS' == data_type: # Xantech
+                state['paged'] = (data[3] == '1') # bool
+
+            elif 'IS' == data_type: # Monoprice (audio input)
+                if data[3] == '1':
+                    state['input'] = 'line'
+                else:
+                    state['input'] = 'bus'
+
+            else:
+                log.error("Ignoring unknown state type %s found in: %s", data[0:2], response)
 
         return state
 
