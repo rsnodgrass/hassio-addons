@@ -4,12 +4,11 @@ import logging
 
 from flask import request
 from flask_restplus import Resource
-#from bridge.api.manager.serializers import zone
 from bridge.api.restplus import api
 
 log = logging.getLogger(__name__)
 
-ns = api.namespace('zones', description='Xantech controller operations')
+ns = api.namespace('zones', description='Xantech amplifier/controller operations')
 
 @ns.route('/power/on')
 class XantechPowerOn(Resource):

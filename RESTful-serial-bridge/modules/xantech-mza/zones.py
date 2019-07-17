@@ -1,25 +1,10 @@
-# Bi-directional RS232 definitions for Xantech MRC88 interfaces.
-#
 # Not implemented:
 #
-# - explicitly setting bass/treble/balance: easy to add, but unclear if useful
-#   except during initial amp setup for advanced use cases, plus the explicit
-#   lookup table values complex to document
+# - explicitly setting bass/treble/balance: while easy to add, but unclear if
+#   useful except during initial amp setup for advanced use cases, plus the 
+#   explicit lookup table values complex to document (and may vary by device)
 # - current sense (audio) and video sense queries ... 12V?
-# - video switching for MRC88 models 
-#
-# NOTE: The Monoprice multi-zone amps share a variation of the same protocol as Xantech, and are likely
-# licensed (or acquired) from Xantech since they no longer produce multi-zone amplifiers/controllers.
-# Also Monoprice supports chaining together up to 2 additional amps (as slaves)...and the NodeJS 6zhmaut
-# seems to write "?10\r" if single zone, followed by "?20\r" (if 2), and then "?30\r" (if 3) upon
-# startup of the server. 
-#
-# Determining what features are supported by doing a zone status query for zone 1,
-# depending on what it returns indicates the feature set (e.g. source select vs channel select).
-# Similarly, it may be possible to probe for maximum zones and sources without requiring config.
-#
-# Xantech firmware release notes make some mention of RS232 feature changes:
-# https://www.xantech.com/firmware-updates
+# - video switching (for capable matrix controller models)
 
 import os   
 import json
@@ -32,37 +17,10 @@ from bridge.api.restplus import api
 
 log = logging.getLogger(__name__)
 
-UNKNOWN_NAME = "Unknown"
+# /api/xantech/zones
+ns = api.namespace('zones', description='Audio zone operations')
 
-# FIXME: ensure amp isn't publishing back state except when requested:
-# !ZA0+
-# !ZP0+
-
-# NOTE: this is very close to Monoprice!
-#   except they have a "channel" concept!!  Even their docs are similar for RS232
-#   ... AND they don't have multi-source multiplexing...(instead just LINE or BUS)...
-#  https://downloads.monoprice.com/files/manuals/31028_Manual_180731.pdf
-
-# FIXME: what must be configured
-#  - for each zone, what zone type of switch/dimmer it is (default to dimmer)
-#  - we should allow client to specify if they want ALL the zones (e.g. including Unassigned)
-#
-# FIXME: probe for versions/features/num zones/etc?
-
-ns = api.namespace('zones', description='Zone operations')
-raSerial = None
-
-# FIXME: init raSerial
-class XantechSerial:
-    def write(string):
-        return raSerial.writeCommand(string)
-    
-    def read(string):
-        return raSerial.readData(string)
-
-#    serial "/dev/ttyUSB0";
-# .... Monoprice baudrate: 9600 seems low
-# Xantech uses 19200, though 38400 may be supported based on other docs I found
+raSerial = None # FIXME: init raSerial XantechSerial
 
 @ns.route('/')
 class ZoneCollection(Resource):
