@@ -20,23 +20,13 @@ log = logging.getLogger(__name__)
 # /api/xantech/zones
 ns = api.namespace('zones', description='Audio zone operations')
 
-raSerial = None # FIXME: init raSerial XantechSerial
-
 @ns.route('/')
 class ZoneCollection(Resource):
-    
-    def _init_name_mapping(count, name_prefix):
-        map = {}
-        for i in range(count):
-            map[i] = name_prefix + ' ' + i
-        return map
 
     @api.marshal_list_with(zone)
     def get(self):
 
         # FIXME: move all the following into initial setup
-
-        # NOTE: for Xantech, only first 6 zones support amplification, the last 2 are pre-amps
 
         max_zones = 8
         zone_map = _init_name_mapping('Zone', max_zones)
@@ -74,87 +64,15 @@ class ZoneCollection(Resource):
 @api.response(404, 'Zone not found')
 class ZoneStatus(Resource):
 
-    def _convert_state_to_map(serialized_state):
-        state = {}
-        for data in serialized_state.split():
-            # verify the serial response matches the zone_id we just wrote data for
-            if data[0] == '#':
-                state['zone'] = int(data[1:][0:1])
-
-            # for each type of data in the response, map into the state structure
-            # (not all may be returned, depending on what features the amplifier supports)
-            data_type = data[0:1]
-            if data_type in ['PR', 'PO']: # Xantech / Monoprice
-                state['power'] = (data[2] == '1') # bool
-                
-            elif 'SS' == data_type: # Xantech
-                state['source'] = int(data[2:])
-
-            elif 'VO' == data_type:
-                # map the 38 physical attenuation levels into 0-100%
-                attenuation_level = int(data[2:])
-                state['volume'] = round((100 * attenuation_level) / 38)
-
-            elif 'MU' == data_type:
-                state['mute'] = (data[2] == '1') # bool
-
-            elif 'TR' == data_type:
-                state['treble'] = int(data[2:])
-
-            elif 'BS' == data_type:
-                state['bass'] = int(data[2:])
-
-            elif 'BA' == data_type:
-                state['balance'] = int(data[2:])
-
-            elif 'LS' == data_type:
-                # Xantech: linked; Monoprice: keypad status?
-                state['linked'] = (data[2] == '1') # bool
-
-            elif 'PS' == data_type: # Xantech
-                state['paged'] = (data[2] == '1') # bool
-
-            elif 'DT' == data_type: # Monoprice
-                # ignore unknown datatype found on Monoprice amp
-                state['dt_unknown'] = int(data[2:])
-
-            elif 'PA' == data_type: # Monoprice
-                state['pa'] = true # zone 1 to all outputs
-
-            elif 'CH' == data_type: # Monoprice (channel)
-                if data[2] == '1':
-                    state['channel'] = 'line'
-                else:
-                    state['channel'] = 'bus'
-
-            elif 'IS' == data_type: # Monoprice (audio input), seen in docs
-                if data[2] == '1':
-                    state['input'] = 'line'
-                else:
-                    state['input'] = 'bus'
-
-            else:
-                log.warning("Ignoring unknown zone %d state attribute '%s' found in: %s",
-                            state['zone'], data_type, serialized_state)
-
-        return state
 
     #@api.marshal_with(zone)
     def get(self, zone_id):
-        # FIXME: if zone < 0 or zone > 8, error state
-        raSerial.writeCommand("?" + zone_id + "ZD+")
+        state = xantechSerial.getZoneState(zone_id)
+        if state == None:
+            # FIXME: return error
+            return False
 
-        # example Xantech response:
-        #   #{z#}ZS PR{0/1} SS{s#} VO{v#} MU{0/1} TR{bt#} BS{bt#} BA{b#} LS{0/1} PS{0/1}+
-        # example Monoprice response:
-        #   #{z#}ZS VO{v#} PO{0/1} MU{0/1} IS{0/1}+
-        response = raSerial.readData()
-
-        state = _convert_state_to_map(response)
-        if state["zone"] != zone_id:
-            log.error("Unknown state! Request for zone %s returned state for zone %d: %s",
-                      zone_id, zone_id, response)
-            return None # FIXME: return error!
+        # FIXME: inject additional info into zone?
 
         return state
 

@@ -18,6 +18,7 @@
 # Xantech firmware release notes make some mention of RS232 feature changes:
 #   https://www.xantech.com/firmware-updates
 
+import re
 import logging
 
 log = logging.getLogger(__name__)
@@ -32,19 +33,137 @@ class XantechSerial:
         self._max_sources = 8
         self._source_map = {}
 
-        self._serial = self.initializeConnection()
-        self.initializeDevice()
+        self._serial = self._initializeConnection()
+        self._initializeDevice()
 
-    def initializeConnection():
+    def _initializeConnection():
         #    serial "/dev/ttyUSB0";
         # Monoprice baudrate: 9600
         # Xantech baudrate: 9600, though some docs suggest 19200 or 38400
         return
 
-    def initializeDevice():
+    def _initNameMapping(count, name_prefix):
+        map = {}
+        for i in range(count):
+            map[i] = name_prefix + ' ' + i
+        return map
+
+    def _deserializeZoneStateIntoMap(serialized_state):
+        state = {}
+
+        # example Xantech status response:
+        #   #{z#}ZS PR{0/1} SS{s#} VO{v#} MU{0/1} TR{bt#} BS{bt#} BA{b#} LS{0/1} PS{0/1}+
+        #
+        # example Monoprice MPR-SG6Z status response from RS232 docs:
+        #   #{z#}ZS VO{v#} PO{0/1} MU{0/1} IS{0/1}+
+        #
+        # example Monoprice MPR-SG6Z status response in practice:
+        #   #1ZS PA0 PR1 MU0 DT0 VO15 TR10 BS12 BL10 CH01 LS0
+
+        for data in serialized_state.split():
+            # zone identifier is a special case as it begins with a # instead of the type info
+            match = re.search('#(.+?)ZS', data)
+            if match:
+                state['zone'] = int(match.group(1))
+
+            # for each type of data in the response, map into the state structure
+            # (not all may be returned, depending on what features the amplifier supports)
+            data_type = data[0:1]
+            if data_type in ['PR', 'PO']: # Xantech / Monoprice
+                state['power'] = (data[2] == '1') # bool
+                
+            elif 'SS' == data_type: # Xantech
+                state['source'] = int(data[2:])
+
+            elif 'VO' == data_type:
+                # map the 38 physical attenuation levels into 0-100%
+                attenuation_level = int(data[2:])
+                state['volume'] = round((100 * attenuation_level) / 38)
+
+            elif 'MU' == data_type:
+                state['mute'] = (data[2] == '1') # bool
+
+            elif 'TR' == data_type:
+                state['treble'] = int(data[2:])
+
+            elif 'BS' == data_type:
+                state['bass'] = int(data[2:])
+
+            elif 'BA' == data_type:
+                state['balance'] = int(data[2:])
+
+            elif 'LS' == data_type:
+                # Xantech: linked; Monoprice: keypad status?
+                state['linked'] = (data[2] == '1') # bool
+
+            elif 'PS' == data_type: # Xantech
+                state['paged'] = (data[2] == '1') # bool
+
+            elif 'DT' == data_type: # Monoprice
+                # ignore unknown datatype found on Monoprice amp
+                state['dt_unknown'] = int(data[2:])
+
+            elif 'PA' == data_type: # Monoprice
+                state['pa_unknown'] = true # zone 1 to all outputs
+
+            elif 'CH' == data_type: # Monoprice (channel)
+                if data[2] == '1':
+                    state['channel'] = 'line'
+                else:
+                    state['channel'] = 'bus'
+
+            elif 'IS' == data_type: # Monoprice (audio input), seen in docs
+                if data[2] == '1':
+                    state['input'] = 'line'
+                else:
+                    state['input'] = 'bus'
+
+            else:
+                log.warning("Ignoring unknown zone %d state attribute '%s' found in: %s",
+                            state['zone'], data_type, serialized_state)
+
+        return state
+
+
+    def getZoneState(zone_id):
+        if !self.isValidZone(zone_id):
+            return None
+
+        self.writeCommand("?" + zone_id + "ZD+")
+        state = _deserializeZoneStateIntoMap(response)
+        
+        if state['zone'] != zone_id:
+            log.error("Requested state for zone %d, received: %s", zone_id, state)
+            return None
+
+        # FIXME: inject friendly name into the state
+        state['name'] = 'Unknown'
+
+        return state
+
+    def _discoverDefaultDeviceConfiguration():
+        # FIXME: issue commands to identify device
+
+        # determine the number of zones (inefficient, but works)...in future perhaps
+        # check 9 and decide tree strategy for narrowing in on the limited set of 
+        # possible choices: 4, 6, 8, 16
+        for zone_id in range(16);
+            if _getZoneSate(zone_id) != None
+                self._max_zones = zone_id
+        self._zone_map = _initNameMapping(self._max_zones, "Zone")
+
+        # NOTE: Monoprice only supports two inputs (bus/line), not source mapping!
+
+        self._source_map = _initNameMapping(self._max_zones, "Source")
+
+        return
+
+    def _initializeDevice():
         # FIXME: should we disable state publishing automatically?
         #self.writeCommand("!ZA0+") # disable activity notifications (0 = true)
         #self.writeCommand("!ZP0+") # disable period auto updates (seconds = 0)
+
+        self._discoverDefaultDeviceConfiguration()
         return
 
     def write(string):
@@ -56,7 +175,7 @@ class XantechSerial:
     # the input string should have {} as the substitution token for the zone_id
     def writeToAllZones(string):
         for zone_id in range(8):
-            write(string.format(zone_id))
+            self.write(string.format(zone_id))
 
     def isValidZone(zone_id):
         if zone_id <= 0:
