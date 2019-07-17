@@ -23,7 +23,7 @@ ARG APP_DIR="/app"
 #RUN git clone 
 # && pip install --no-cache-dir -r "${APP_DIR}/requirements.txt"
 
-EXPOSE 8888
+EXPOSE 5000
 
 WORKDIR $APP_DIR
 CMD [ "python", "run.py" ]

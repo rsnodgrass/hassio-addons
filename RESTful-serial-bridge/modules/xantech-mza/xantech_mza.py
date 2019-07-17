@@ -10,6 +10,9 @@
 #
 # NOTE: The Monoprice multi-zone amps share a variation of the same protocol as Xantech, and are likely
 # licensed (or acquired) from Xantech since they no longer produce multi-zone amplifiers/controllers.
+# Also Monoprice supports chaining together up to 2 additional amps (as slaves)...and the NodeJS 6zhmaut
+# seems to write "?10\r" if single zone, followed by "?20\r" (if 2), and then "?30\r" (if 3) upon
+# startup of the server. 
 #
 # Determining what features are supported by doing a zone status query for zone 1,
 # depending on what it returns indicates the feature set (e.g. source select vs channel select).
@@ -17,18 +20,6 @@
 #
 # Xantech firmware release notes make some mention of RS232 feature changes:
 # https://www.xantech.com/firmware-updates
-# 
-#
-# MRAUDIO8X8
-# MRAUDIO8x8m
-# MX88 (AV)
-# MX88a (AV)
-# MX88ai (AV)
-# MRC88 (AV)
-# MRC88m (AV)
-#
-# NOT SUPPORTED:
-# MRAUDIO4x4
 
 import os   
 import json
@@ -90,11 +81,11 @@ class ZoneCollection(Resource):
         # NOTE: for Xantech, only first 6 zones support amplification, the last 2 are pre-amps
 
         max_zones = 8
-        zone_map = _init_name_mapping("Zone", max_zones)
+        zone_map = _init_name_mapping('Zone', max_zones)
 
         # NOTE: Monoprice only supports two inputs (bus/line), not source mapping!
         max_sources = 8
-        source_map = _init_name_mapping("Source", max_sources)
+        source_map = _init_name_mapping('Source', max_sources)
         source_map[1] = 'Sonos' # override
         source_map[2] = 'Home Theater' # override
 
@@ -117,11 +108,83 @@ class ZoneCollection(Resource):
             'sources': source_map, # FIXME: configurable name override
         } 
 
+        # FIXME: should this return the current state for all zones?? Could lead to trouble...
+
         return zone_config
 
 @ns.route('/<int:id>')
 @api.response(404, 'Zone not found')
 class ZoneState(Resource):
+
+    def _convert_state_to_map(serial_state):
+        state = {}
+
+        for data in response.split():
+            # verify the serial response matches the zone_id we just wrote data for
+            if data[0] == '#':
+                data_zone_id = int(data[1:][0:1])
+                if data_zone_id != zone_id:
+                    log.error("Unknown state! Request for zone %s returned state for zone %s: %s",
+                              zone_id, data_zone_id, response)
+                    return None # FIXME: return error!
+                continue
+
+            # for each type of data in the response, map into the state structure
+            # (not all may be returned, depending on what features the amplifier supports)
+            data_type = data[0:1]
+            if data_type in ['PR', 'PO']: # Xantech / Monoprice
+                state['power'] = (data[2] == '1') # bool
+                
+            elif 'SS' == data_type: # Xantech
+                state['source'] = int(data[2:])
+
+            elif 'VO' == data_type:
+                # map the 38 physical attenuation levels into 0-100%
+                attenuation_level = int(data[2:])
+                state['volume'] = round((100 * attenuation_level) / 38)
+
+            elif 'MU' == data_type:
+                state['mute'] = (data[2] == '1') # bool
+
+            elif 'TR' == data_type:
+                state['treble'] = int(data[2:])
+
+            elif 'BS' == data_type:
+                state['bass'] = int(data[2:])
+
+            elif 'BA' == data_type:
+                state['balance'] = int(data[2:])
+
+            elif 'LS' == data_type:
+                # Xantech: linked; Monoprice: keypad status?
+                state['linked'] = (data[2] == '1') # bool
+
+            elif 'PS' == data_type: # Xantech
+                state['paged'] = (data[2] == '1') # bool
+
+            elif 'DT' == data_type: # Monoprice
+                # ignore unknown datatype found on Monoprice amp
+                state['dt_unknown'] = int(data[2:])
+
+            elif 'PA' == data_type: # Monoprice
+                state['pa'] = true # zone 1 to all outputs
+
+            elif 'CH' == data_type: # Monoprice (channel)
+                if data[2] == '1':
+                    state['channel'] = 'line'
+                else:
+                    state['channel'] = 'bus'
+
+            elif 'IS' == data_type: # Monoprice (audio input)
+                if data[2] == '1':
+                    state['input'] = 'line'
+                else:
+                    state['input'] = 'bus'
+
+            else:
+                log.warning("Ignoring unknown state type '%s' found in: %s", data[0:1], serial_state)
+
+        return state
 
     #@api.marshal_with(zone)
     def get(self, zone_id):
@@ -134,60 +197,11 @@ class ZoneState(Resource):
         #   #{z#}ZS VO{v#} PO{0/1} MU{0/1} IS{0/1}+
         response = raSerial.readData()
 
-        state = {
-            'zone': zone_id
-        }
-
-        for data in response.split():
-            # verify the serial response matches the zone_id we just wrote data for
-            if data[0] == '#':
-                data_zone_id = int(data[1:][2])
-                if data_zone_id != zone_id:
-                    log.error("Unknown state! Request for zone %s returned state for zone %s: %s",
-                              zone_id, data_zone_id, response)
-                    return None # FIXME: return error!
-                continue
-
-            # for each type of data in the response, map into the state structure
-            # (not all may be returned, depending on what features the amplifier supports)
-            data_type = data[0:2]
-            if data_type in ['PR', 'PO']: # Xantech / Monoprice
-                state['power'] = (data[3] == '1') # bool
-                
-            elif 'SS' == data_type: # Xantech
-                state['source'] = int(data[3:])
-
-            elif 'VO' == data_type:
-                # map the 38 physical attenuation levels into 0-100%
-                attenuation_level = int(data[3:])
-                state['volume'] = round((100 * attenuation_level) / 38)
-
-            elif 'MU' == data_type:
-                state['mute'] = (data[3] == '1') # bool
-
-            elif 'TR' == data_type:
-                state['treble'] = int(data[3:])
-
-            elif 'BS' == data_type:
-                state['bass'] = int(data[3:])
-
-            elif 'BA' == data_type:
-                state['balance'] = int(data[3:])
-
-            elif 'LS' == data_type: # Xantech
-                state['linked'] = (data[3] == '1') # bool
-
-            elif 'PS' == data_type: # Xantech
-                state['paged'] = (data[3] == '1') # bool
-
-            elif 'IS' == data_type: # Monoprice (audio input)
-                if data[3] == '1':
-                    state['input'] = 'line'
-                else:
-                    state['input'] = 'bus'
-
-            else:
-                log.error("Ignoring unknown state type %s found in: %s", data[0:2], response)
+        state = _convert_state_to_map(response)
+        if state["zone"] != zone_id:
+            log.error("Unknown state! Request for zone %s returned state for zone %s: %s",
+                      zone_id, data_zone_id, response)
+            return None # FIXME: return error!
 
         return state
 
@@ -225,12 +239,6 @@ class ZoneVolumeDown(Resource):
 
 ####
 
-@ns.route('/<int:id>/power')
-class ZonePowerToggle(Resource):
-    def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "PT+")
-        return {}
-
 @ns.route('/<int:id>/power/on')
 class ZonePowerOn(Resource):
     def post(self, zone_id):
@@ -244,12 +252,6 @@ class ZonePowerOff(Resource):
         return {}
 
 ####
-
-@ns.route('/<int:id>/mute')
-class ZoneMuteToggle(Resource):
-    def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "MT+")
-        return {}
 
 @ns.route('/<int:id>/mute/on')
 class ZoneMuteOn(Resource):
