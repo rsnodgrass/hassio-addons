@@ -1,4 +1,4 @@
-# Serial REST Bridge (Hass.io Add-On)
+# RESTful Serial Bridge (Hass.io Add-On)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
@@ -9,7 +9,7 @@ While this is a Hass.io Add-on, that is merely semantic packaging around the Doc
 Docker image can be executed directly.
 
 ```
-docker build -t serial-rest-bridge .
+docker build -t RESTful-serial-bridge .
 ```
 
 This is the THIRD RS232 / RS485 device I've had to integrate in the last few months. Perhaps there
