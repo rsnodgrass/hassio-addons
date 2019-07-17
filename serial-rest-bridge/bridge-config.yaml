@@ -1,0 +1,92 @@
+# IDEAL MINIMAL SETUP:
+#
+# 1. plugin serial cable to host with bridge
+# 2. configure bridge with:
+#      - specify hardware serial connection ( /dev/tty or IP)
+#      - specify module for serial connection
+#      - specify "name" (defaults to mode)
+# 3. configure HASS with bridge endpoint(s) and interfaces
+
+# FIXME: can you autocreate HA sensors/switches/etc dynamically through code and, if so,
+# can it just use the same schema definition (perhaps with added annotations like "type"
+# of API being switch/light/etc that can be mapped to HA).
+# and perhaps even unit of measurements!?
+# 
+# curl -X GET http://192.168.1.31/temperature/
+# {"temperature": 77, "id": "sensor02", "name": "livingroom", "connected": true}
+# unit_of_measurement: "°C"
+#
+# Example HA config:
+#- platform: command_line
+#  xantech:
+#    Xantech Whole House Amplifier:
+#      up1:     curl -X POST http://192.168.1.25:5000/api/xantech/zone/1/volume/up
+#      down1    curl -X POST http://192.168.1.25:5000/api/xantech/zone/1/volume/down
+#
+#    Xantech Whole House Amplifier:
+w#      up1:     curl -X POST http://192.168.1.25:5000/api/xantech/zone/1/volume/up
+#      down1    curl -X POST http://192.168.1.25:5000/api/xantech/zone/1/volume/down
+
+
+# Example HA configuration:
+#
+# switch:
+#   - platform: command_line
+#     switches:
+#       xantech_zone_1:
+#         friendly_name: Kitchen Speakers
+#	  command_on:  "/usr/bin/curl -X POST http://192.168.1.25:5000/xantech/zone/1/power/on"
+#	  command_off: "/usr/bin/curl -X POST http://192.168.1.25:5000/xantech/zone/1/power/off"
+#	  command_state: "/usr/bin/curl -X GET http://192.168.1.10/digital/4"   FIXME
+#         value_template: '{{ value == "1" }}'  FIXME
+#       xantech_zone_2:
+#         friendly_name: Master Bedroom Speakers
+#	  command_on:  "/usr/bin/curl -X POST http://192.168.1.25:5000/xantech/zone/2/power/on"
+#	  command_off: "/usr/bin/curl -X POST http://192.168.1.25:5000/xantech/zone/2/power/off"
+
+
+#server:
+#  user: user
+#  password: password
+#  port: 8888
+
+# TODO: slug should default to module (only used when multiple modules)
+modules:
+  - slug: xantech-audio 
+    name: Xantech Multi-Zone Amp
+    module: xantech-mrc88
+    tty: /dev/tty0
+#  - name: radiora
+#    module: radiora-classic
+#    tty: /dev/tty1
+
+
+xantech_audio:
+  number_zones: 6
+  
+
+
+
+# GET /<module>
+#   returns APIs
+
+# GET /xantech
+#  returns details of the module ... version, etc.
+#  ... PLUS ideally enough information for a dynamic client to be created
+#      e.g. enough mapping details to create lights/switches/sensors/etc
+#      by a HA client, so you could:
+#
+#  serial-bridge:
+#    endpoints:
+#      - endpoint: https://endpointip.local:8888
+#        interfaces: xantech, intermatic-pool (optionally discovered!)
+#      - endpoint: https://radiora.bridge:1241
+#        interfaces: radiora
+#
+# ****
+# ... then dynamically sensors/lights/switches/etc get configured!
+# ... only implement specific to HA, let someone else do SmartThings!
+#  ...  perhaps have GET /xantech/api/<style>    GET /xantech/api/hassy
+
+# GET /
+#   returns all exposed modules (auto-discover)
