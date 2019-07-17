@@ -140,8 +140,9 @@ class ZoneState(Resource):
 
             elif 'VO' == data_type:
                 # map the 38 physical attenuation levels into 0-100%
-                attenuation_level = int(data[3:] 
-                state['volume'] = round(int(100 * attenuation_level) / 38))
+                attenuation_level = int(data[3:])
+                state['volume'] = round((100 * attenuation_level) / 38)
+
             elif 'MU' == data_type:
                 state['mute'] = (data[3] == '1') # bool
 
