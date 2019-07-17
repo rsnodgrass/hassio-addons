@@ -26,4 +26,4 @@ ARG APP_DIR="/app"
 EXPOSE 8888
 
 WORKDIR $APP_DIR
-CMD [ "python", "bridge.py" ]
+CMD [ "python", "run.py" ]

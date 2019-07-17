@@ -50,10 +50,10 @@ put:
       description: Set volume level between 0-100 for zone (FIXME: validation?)
 
     - route: "/zones/<int:zone_number>/mute/on"
-      serial: "!<zone_number>?MT1+"
+      serial: "!<zone_number>?MU1+"
       description: Mute this zone
     - route: "/zones/<int:zone_number>/mute/off"
-      serial: "!<zone_number>?MT0+"
+      serial: "!<zone_number>?MU0+"
       description: Unmute this zone
 #    - route: "/zones/<int:zone_number>/mute/toggle"
 #      serial: "!<zone_number>?MT+"
