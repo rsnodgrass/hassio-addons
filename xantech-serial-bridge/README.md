@@ -99,6 +99,13 @@ Mute zone 4:
 ```bash
 curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 ```
+
+# Client Registry
+
+Known clients which interface with the Xantech Serial Bridge:
+
+* [Xantech Multi-Zone Audio Control add-on](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza) for [Home Assistant](https://home-assistant.io)
+
 # Not Yet Implemented
 
 #### Priority
@@ -113,10 +120,10 @@ curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 * configurable "maximum volume" for each zone, which cannot be exceeded by volume control API calls
 * virtual master/slave across several connected multi-zone amplifiers (including across multiple brands)
 * support publishing state change events to a MQTT broker
+* theoretically the Bridge's REST API, design model, and code structure could support other RS232 compatible matrix audio controller protocols (such as the Niles IntelliControl ICS GXR2), but no plans to implement
 
 # See Also
 
-* [Home Assistant integration for the Xantech Serial Bridge](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza)
 * [Monoprice RS232 serial protocol manual](doc/Monoprice-RS232-Manual.pdf)
 * [Monoprice RS232 serial protocol control](doc/Monoprice-RS232-Control.pdf)
 
