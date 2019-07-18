@@ -22,13 +22,16 @@ Xantech RS232 serial control protocol.
 |               | MRAUDIO8X8 / MRAUDIO8X8m        | YES       |
 |               | MRAUDIO4X4                      | NO        |
 |               | MRC44 / MRC44CTL                | NO        |
-| Monoprice     | MPR-SG6Z                        | MAYBE *   |
+| Monoprice     | MPR-SG6Z / 10761                | MAYBE *   |
+| Dayton Audio  | DAX66                           | MAYBE *   |
 
-* The [Monoprice MPR-SG6Z](https://www.monoprice.com/product?p_id=10761)'s serial interface appears to
-  be licensed from Xantech, or perhaps Xantech sold its amplifier line to Monoprice. Monoprice amp uses a
-  version of the Xantech multi-zone controller protocol.
 
-While Xantech and Monoprice amplifiers support expanding the number of zones by connecting two (or three)
+* The [Monoprice MPR-SG6Z](https://www.monoprice.com/product?p_id=10761) and
+  [Dayton Audio DAX66](https://www.parts-express.com/dayton-audio-dax66-6-source-6-room-distributed-whole-house-audio-system-with-keypads-25-wpc--300-585)
+  appear to have licensed or copies the serial interface from Xantech. Both Monoprice
+  and Dayton Audio use a version of the Xantech multi-zone controller protocol.
+
+While Xantech/Monoprice/Daytona Audio amplifiers support expanding the number of zones by connecting two (or three)
 amplifiers together, the Xantech Serial Bridge enables an "unlimited" number of amplifiers to be added
 to a system and controlled via a REST interface. In this case, for each amplifier a separate Xantech
 Serial Bridge should be instantiated with a separate serial cable connected to each amplifier.
@@ -61,7 +64,11 @@ docker build -t xantech-serial-bridge .
       "1": "Living Room",
       "2": "Kitchen",
       "3": "Master Bedroom",
-      "4": "Patio"
+      "4": "Master Bathroom",
+      "5": "Home Theater",
+      "6": "Kids Room",
+      "7": "Garage",
+      "8": "Patio"
    }
 }
 ```
@@ -92,6 +99,8 @@ curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 * should this expose MQTT so that events from serial devices get propagated? (rather than polled)
    - or just optionally add broker support? (in addition to REST API) (broker:port)
 * add documentation of all the API endpoints and link from here
+* add support for a remote Global Cache iTach Flex IP/Wifi serial interface where the Xantech Serial Bridge can't physically be connected via serial to the amplifier
+* ability to remote configure or rename zones/sources via the REST API
 
 # See Also
 
@@ -99,3 +108,4 @@ curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 * [Monoprice RS232 serial protocol manual](doc/Monoprice-RS232-Manual.pdf)
 * [Monoprice RS232 serial protocol control codes](doc/Monoprice-RS232-Control-Codes.pdf)
 * [Monoprice mpr-6zhmaut-api NodeJS REST server](https://github.com/jnewland/mpr-6zhmaut-api)
+* [Monoprice 10761 iOS and Apple Control control app](https://apps.apple.com/us/app/monoprice-whole-home-audio/id1168858624) (just as a reference, it does not use this bridge)

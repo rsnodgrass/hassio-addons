@@ -146,7 +146,7 @@ class XantechSerialProtocol:
         return state
 
     def get_zone_state(zone_id):
-        if !self.is_valid_zone(zone_id):
+        if not self.is_valid_zone(zone_id):
             return None
 
         self._serial.write_command("?" + zone_id + "ZD+")
@@ -167,8 +167,8 @@ class XantechSerialProtocol:
         # determine the number of zones (inefficient, but works)...in future perhaps
         # check 9 and decide tree strategy for narrowing in on the limited set of 
         # possible choices: 4, 6, 8, 16
-        for zone_id in range(16);
-            if _getZoneSate(zone_id) != None
+        for zone_id in range(16):
+            if _getZoneSate(zone_id) != None:
                 self._max_zones = zone_id
         self._zone_map = _init_name_mapping(self._max_zones, "Zone")
 

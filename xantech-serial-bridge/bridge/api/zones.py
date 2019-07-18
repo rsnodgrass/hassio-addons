@@ -76,7 +76,7 @@ class AllOn(Resource):
         raSerial.writeCommand("BP,16,ON")
         return {'lutron': raSerial.readData()}
 
-@ns.route('/all/off')
+@ns.route('/all/off')   
 class AllOff(Resource):
     def get(self):
         raSerial.writeCommand("BP,17,OFF")

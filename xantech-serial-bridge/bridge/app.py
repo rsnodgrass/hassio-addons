@@ -1,7 +1,6 @@
 import os
 import time
 
-import yaml
 import json
 import logging
 
@@ -14,6 +13,8 @@ app = Flask(__name__)
 api = Api(app)
 
 def run():
+    import bridge.settings as settings
+
     # FIXME: this should listen on 0.0.0.0 inside the Docker container
     app.config['SERVER_NAME'] = os.getenv('BRIDGE_SERVER_NAME', '127.0.0.1:5000')
 
@@ -28,11 +29,7 @@ def run():
 @app.route('/')
 class BridgeInfo(Resource):
     def get(self):
-        # FIXME: should modules actually just be REST endpoints /xantech, etc
-        details = {
-            'version': Version,
-            'modules': Modules
-        }
+        details = {}
         return json.dumps(details)
 
 if __name__ == '__main__':
