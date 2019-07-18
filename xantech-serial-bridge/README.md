@@ -50,7 +50,7 @@ docker build -t xantech-serial-bridge .
       1: "Living Room",
       2: "Kitchen",
       3: "Master Bedroom",
-      4, "Patio"
+      4: "Patio"
    }
 }
 ```
@@ -83,5 +83,5 @@ curl -X POST http://localhost:5000/xantech/zones/1/mute/on
 
 # See Also
 
-* [Xantech multi-zone audio Home Assistant integration](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza)
+* [Home Assistant integration for the Xantech Serial Bridge](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza)
 * [Monoprice mpr-6zhmaut-api NodeJS REST server](https://github.com/jnewland/mpr-6zhmaut-api)
