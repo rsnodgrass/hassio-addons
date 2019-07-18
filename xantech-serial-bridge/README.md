@@ -99,16 +99,20 @@ Mute zone 4:
 ```bash
 curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 ```
+# Not Yet Implemented
 
-# TODO
+#### Priority
 
-* should this expose MQTT so that events from serial devices get propagated? (rather than polled)
-   - or just optionally add broker support? (in addition to REST API) (broker:port)
-* add documentation of all the API endpoints and link from here
-* add support for a remote Global Cache iTach Flex IP/Wifi serial interface where the Xantech Serial Bridge can't physically be connected via serial to the amplifier
 * ability to remote configure or rename zones/sources via the REST API
-* allow configuring a "maximum volume" for each zone, which cannot be exceeded by volume control API calls
+* add documentation of all the API endpoints and link from here
+
+#### Unplanned
+
 * allow connecting as many amplifiers via serial ports as possible and controling through a single Bridge instance
+* add support for a remote Global Cache iTach Flex IP/Wifi serial interface where the Xantech Serial Bridge can't physically be connected via serial to the amplifier
+* configurable "maximum volume" for each zone, which cannot be exceeded by volume control API calls
+* virtual master/slave across several connected multi-zone amplifiers (including across multiple brands)
+* support publishing state change events to a MQTT broker
 
 # See Also
 
