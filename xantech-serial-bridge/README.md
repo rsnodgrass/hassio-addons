@@ -17,7 +17,7 @@ docker build -t xantech-serial-bridge .
 * serial cable or network serial adapter connected to a Xantech supported multi-zone amplifier/controller
 * "server" running Docker to be able to execute container (e.g. RPi running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) hypervisor)
 
-### Supported Amplifiers/Controllers
+#### Supported Amplifiers/Controllers
 
 | Manufacturer  | Model(s)                        | Supported |
 | ------------- |:-------------------------------:| ---------:|
@@ -33,9 +33,7 @@ docker build -t xantech-serial-bridge .
   perhaps Xantech sold its amplifier line to Monoprice. Monoprice amp uses a
   version of the Xantech multi-zone controller protocol.
 
-
-
-### Hass.io Add-on Installation
+## Installation as a Hass.io Add-on
 
 1. In the Hass.io "Add-On Store" on your Home Assistant server, add this repository URL:
 <pre>
@@ -44,9 +42,22 @@ docker build -t xantech-serial-bridge .
 
 2. Find the "Serial Smart Bridge" in the list of add-ons and click Install
 
-### Configuration
+## Configuration
 
-# Command Line Interaction
+```json
+{ 
+   "zone_names": {
+      1: "Living Room",
+      2: "Kitchen",
+      3: "Master Bedroom",
+      4, "Patio"
+   }
+}
+```
+
+## Interface 
+
+#### Command Line Interaction
 
 To show zones from the command line:
 
