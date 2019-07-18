@@ -20,6 +20,9 @@ class MultiZoneController:
 
     # FIXME: one difference between Xantech and Monoprice is that the
     # prefix for change commands in Xantech is "!" and Monoprice it is ">"
+    #
+    # A second difference is Monoprice 0 pads value fields to 2-characters
+    # wheras Xantech does not pad.
 
     def is_valid_zone(zone_id):
         if zone_id <= 0:

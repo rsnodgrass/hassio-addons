@@ -8,7 +8,7 @@ def setup_logging(
     default_level=logging.INFO,
     env_key='LOG_CONFIG'
 ):
-    """Setup logging co>nfiguration
+    """Setup logging configuration
 
     """
     path = default_path

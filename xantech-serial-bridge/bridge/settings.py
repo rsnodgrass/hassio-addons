@@ -1,3 +1,5 @@
+# FIXME: move to YAML
+
 # Flask settings
 #FLASK_SERVER_NAME = '0.0.0.0:8888'  # listen to all public interfaces on host
 FLASK_DEBUG = True                   # do not use debug mode in production

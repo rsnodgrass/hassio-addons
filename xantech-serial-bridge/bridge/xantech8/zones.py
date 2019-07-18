@@ -159,6 +159,8 @@ class ZoneSourceSelect(Resource):
 
 ####
 
+# FIXME: Normalize balance to allow sliders
+
 @ns.route('/<int:id>/balance/left')
 class ZoneBalanceLeft(Resource):
     def post(self, zone_id):
@@ -171,6 +173,7 @@ class ZoneBalanceRight(Resource):
         raSerial.writeCommand("!" + zone_id + "BR+")
         return {}
 
+# FIXME: Normalize treble adjustments 0-100%...default is 50%?  E.g. 7 is 0 dB on Xantech, vs 14 is +14 dB
 
 @ns.route('/<int:id>/bass/up')
 class ZoneBassUp(Resource):
@@ -184,6 +187,7 @@ class ZoneBassDown(Resource):
         raSerial.writeCommand("!" + zone_id + "BD+")
         return {}
 
+# FIXME: Normalize treble adjustments 0-100%...default is 50%?  E.g. 7 is 0 dB on Xantech, vs 14 is +14 dB
 
 @ns.route('/<int:id>/treble/up')
 class ZoneTrebleUp(Resource):

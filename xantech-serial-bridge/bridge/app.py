@@ -18,7 +18,7 @@ def run():
     # FIXME: this should listen on 0.0.0.0 inside the Docker container
     app.config['SERVER_NAME'] = os.getenv('BRIDGE_SERVER_NAME', '127.0.0.1:5000')
 
-    # FIXME: rework this...to allow ENV override
+    # FIXME: rework this...this should be YAML driven
     app.config['SWAGGER_UI_DOC_EXPANSION'] = settings.RESTPLUS_SWAGGER_UI_DOC_EXPANSION
     app.config['RESTPLUS_VALIDATE']        = settings.RESTPLUS_VALIDATE
     app.config['RESTPLUS_MASK_SWAGGER']    = settings.RESTPLUS_MASK_SWAGGER
