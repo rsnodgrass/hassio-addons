@@ -20,7 +20,7 @@ docker build -t xantech-serial-bridge .
 #### Supported Amplifiers/Controllers
 
 | Manufacturer  | Model(s)                        | Supported |
-| ------------- |:-------------------------------:| ---------:|
+| ------------- | --------------------------------|:---------:|
 | Xantech       | MRAUDIO8X8 / MRAUDIO8X8m        | YES       |
 |               | MRC88 / MRC88m                  | YES       |
 |               | MX88 / MX88a / MX88ai / MX88vi  | YES       |
@@ -59,20 +59,21 @@ docker build -t xantech-serial-bridge .
 
 #### Command Line Interaction
 
-To show zones from the command line:
+Show details for zone 1:
 
 ```bash
 curl http://localhost:5000/xantech/zones/1
 ```
 
+Response:
+
 ```json
-{"zone": "1"}
 ```
 
-Mute zone 4 of the amplifier:
+Mute zone 4:
 
 ```bash
-curl -X POST http://localhost:5000/xantech/zones/1/mute/on
+curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 ```
 
 # TODO

@@ -159,11 +159,11 @@ class XantechSerial:
         for zone_id in range(16);
             if _getZoneSate(zone_id) != None
                 self._max_zones = zone_id
-        self._zone_map = _initNameMapping(self._max_zones, "Zone")
+        self._zone_map = _init_name_mapping(self._max_zones, "Zone")
 
         # NOTE: Monoprice only supports two inputs (bus/line), not source mapping!
 
-        self._source_map = _initNameMapping(self._max_zones, "Source")
+        self._source_map = _init_name_mapping(self._max_zones, "Source")
 
         return
 
