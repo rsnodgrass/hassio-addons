@@ -1,37 +1,38 @@
-[200~# Xantech Serial Bridge (Hass.io Add-On)
+# Multi-Zone Audio Serial Bridge (Hass.io Add-On)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
 
-Exposes a REST interface that bridges to a serial connected multi-zone amplifier that supports variations
-of the Xantech RS232 serial control protocol.
+Microservice exposing a REST interface for communicating with multi-zone audio
+controllers and amplifiers that support variations of Xantech's original RS232
+serial control protocol.
 
 ## Required Hardware
 
-* multi-zone amplifier or controller that supports to the Xantech RS232 serial protocol (see below)
+* multi-zone amplifier or controller that supports variations of the Xantech RS232 serial protocol (see below)
 * host machine with a serial cable or network serial adapter to physically connect to a Xantech supported multi-zone amplifier/controller
 * host machine for executing the Docker container (e.g. [Raspberry Pi](https://www.raspberrypi.org/) running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) hypervisor)
 
 #### Supported Amplifiers/Controllers
 
 | Manufacturer  | Model(s)                        | Zones | Supported |
-| ------------- | ------------------------------- |:-----:|---------:|
+| ------------- | ------------------------------- |:-----:|:---------:|
 | Xantech       | MRAUDIO8X8 / MRAUDIO8X8m        | 8     | YES       |
 |               | MRC88 / MRC88m                  | 8     | YES       |
 |               | MX88 / MX88a / MX88ai / MX88vi  | 8     | YES       |
 |               | MRAUDIO8X8 / MRAUDIO8X8m        | 8     | YES       |
-|               | MRAUDIO4X4                      | 4     | NO        |
-|               | MRC44 / MRC44CTL                | 4     | NO        |
-| Monoprice     | MPR-SG6Z / 10761                | 6     | MAYBE *   |
-| Dayton Audio  | DAX66                           | 6     | MAYBE *   |
+|               | MRAUDIO4X4                      | 4     | *NO*      |
+|               | MRC44 / MRC44CTL                | 4     | *NO*      |
+| Monoprice     | MPR-SG6Z / 10761                | 6     | *MAYBE*   |
+| Dayton Audio  | DAX66                           | 6     | *MAYBE*   |
 
 * The [Monoprice MPR-SG6Z](https://www.monoprice.com/product?p_id=10761) and
   [Dayton Audio DAX66](https://www.parts-express.com/dayton-audio-dax66-6-source-6-room-distributed-whole-house-audio-system-with-keypads-25-wpc--300-585)
   appear to have licensed or copies the serial interface from Xantech. Both Monoprice
   and Dayton Audio use a version of the Xantech multi-zone controller protocol.
 
-While Xantech, Monoprice, and Daytona Audio amplifiers support expanding the number of zones
-by connecting two (or three) amplifiers together, the Xantech Serial Bridge enables an
+While some amplifiers (e.g. Xantech and Monoprice) support expanding the number of zones
+by connecting two (or three) amplifiers together, the Multi-Zone Audio Serial Bridge enables an
 "unlimited" number of amplifiers to be controlled via a REST interface. In this case, a
 separate Xantech Serial Bridge should be instantiated with a separate serial cable connected
 to each amplifier.
@@ -102,9 +103,9 @@ curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 
 # Client Registry
 
-Known clients which interface with the Xantech Serial Bridge:
+Known clients which interface with the Multi-Zone Audio Serial Bridge:
 
-* [Xantech Multi-Zone Audio Control add-on](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza) for [Home Assistant](https://home-assistant.io)
+* [Multi-Zone Audio Control add-on](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza) for [Home Assistant](https://home-assistant.io)
 
 # Not Yet Implemented
 
