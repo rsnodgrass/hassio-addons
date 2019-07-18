@@ -1,3 +1,5 @@
+# NOTE: Everywhere Monoprice is referenced, this also applies to the Dayton Audio DAX66
+#
 # Not implemented:
 #
 # - explicitly setting bass/treble/balance: while easy to add, but unclear if
@@ -38,6 +40,8 @@ class ZoneCollection(Resource):
         source_map[2] = 'Home Theater' # override
 
         zone_config = {
+            'type': 'xantech', # types: [ "xantech", "monoprice", "daytona-audio" ]
+
             'max_zones': max_zones, # configurable
             'zones': { # FIXME: configurable name override
                 1: "Living Room",
@@ -78,7 +82,7 @@ class ZoneStatus(Resource):
     def put(self, zone_id):
         # { "name": "Master Bedroom", "volume": 10, "power": off, "mute": off, "source": 1 }
         # bass, treble, balance, channel
-        # PA / do-not-disturb
+        # public-address / do-not-disturb
         return {}
 
 ####

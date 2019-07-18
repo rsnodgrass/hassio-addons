@@ -1,10 +1,10 @@
-# Xantech Serial Bridge (Hass.io Add-On)
+[200~# Xantech Serial Bridge (Hass.io Add-On)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
 
-Exposes a REST interface that bridges to a serial connected multi-zone amplifier that supports the
-Xantech RS232 serial control protocol.
+Exposes a REST interface that bridges to a serial connected multi-zone amplifier that supports variations
+of the Xantech RS232 serial control protocol.
 
 ## Required Hardware
 
@@ -30,10 +30,11 @@ Xantech RS232 serial control protocol.
   appear to have licensed or copies the serial interface from Xantech. Both Monoprice
   and Dayton Audio use a version of the Xantech multi-zone controller protocol.
 
-While Xantech/Monoprice/Daytona Audio amplifiers support expanding the number of zones by connecting two (or three)
-amplifiers together, the Xantech Serial Bridge enables an "unlimited" number of amplifiers to be added
-to a system and controlled via a REST interface. In this case, for each amplifier a separate Xantech
-Serial Bridge should be instantiated with a separate serial cable connected to each amplifier.
+While Xantech, Monoprice, and Daytona Audio amplifiers support expanding the number of zones
+by connecting two (or three) amplifiers together, the Xantech Serial Bridge enables an
+"unlimited" number of amplifiers to be controlled via a REST interface. In this case, a
+separate Xantech Serial Bridge should be instantiated with a separate serial cable connected
+to each amplifier.
 
 ## Installation
 
@@ -106,6 +107,8 @@ curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 * add documentation of all the API endpoints and link from here
 * add support for a remote Global Cache iTach Flex IP/Wifi serial interface where the Xantech Serial Bridge can't physically be connected via serial to the amplifier
 * ability to remote configure or rename zones/sources via the REST API
+* allow configuring a "maximum volume" for each zone, which cannot be exceeded by volume control API calls
+* allow connecting as many amplifiers via serial ports as possible and controling through a single Bridge instance
 
 # See Also
 
@@ -118,3 +121,11 @@ curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 * [Monoprice mpr-6zhmaut-api NodeJS REST server](https://github.com/jnewland/mpr-6zhmaut-api) (Jesse Newland)
 * [Monoprice 10761 iOS and Apple Control control app](https://apps.apple.com/us/app/monoprice-whole-home-audio/id1168858624) (just as a reference, it does not use this bridge)
 * [Windows based Monoprice Amp Mixer](https://www.dropbox.com/s/aem6yck98etq9mb/MonoAmpV41.zip?file_subpath=%2FMonoAmpV41%2FMono.jpg) (Mike Pisano)
+
+#### Community Engagement
+
+Sites where there is active community engagement around the Xantech, Monoprice, and Daytona AUdio
+multi-zone amplifiers:
+
+* (https://www.avsforum.com/forum/36-home-v-distribution/1506842-any-experience-monoprice-6-zone-home-audio-multizone-controller-15.html)
+* (http://cocoontech.com/forums/topic/25893-monoprice-multi-zone-audio/)
