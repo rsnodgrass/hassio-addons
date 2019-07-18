@@ -14,17 +14,16 @@ Xantech RS232 serial control protocol.
 
 #### Supported Amplifiers/Controllers
 
-| Manufacturer  | Model(s)                        | Supported |
-| ------------- | --------------------------------|:---------:|
-| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m        | YES       |
-|               | MRC88 / MRC88m                  | YES       |
-|               | MX88 / MX88a / MX88ai / MX88vi  | YES       |
-|               | MRAUDIO8X8 / MRAUDIO8X8m        | YES       |
-|               | MRAUDIO4X4                      | NO        |
-|               | MRC44 / MRC44CTL                | NO        |
-| Monoprice     | MPR-SG6Z / 10761                | MAYBE *   |
-| Dayton Audio  | DAX66                           | MAYBE *   |
-
+| Manufacturer  | Model(s)                        | Zones | Supported |
+| ------------- | ------------------------------- |:-----:|---------:|
+| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m        | 8     | YES       |
+|               | MRC88 / MRC88m                  | 8     | YES       |
+|               | MX88 / MX88a / MX88ai / MX88vi  | 8     | YES       |
+|               | MRAUDIO8X8 / MRAUDIO8X8m        | 8     | YES       |
+|               | MRAUDIO4X4                      | 4     | NO        |
+|               | MRC44 / MRC44CTL                | 4     | NO        |
+| Monoprice     | MPR-SG6Z / 10761                | 6     | MAYBE *   |
+| Dayton Audio  | DAX66                           | 6     | MAYBE *   |
 
 * The [Monoprice MPR-SG6Z](https://www.monoprice.com/product?p_id=10761) and
   [Dayton Audio DAX66](https://www.parts-express.com/dayton-audio-dax66-6-source-6-room-distributed-whole-house-audio-system-with-keypads-25-wpc--300-585)
@@ -57,6 +56,12 @@ docker build -t xantech-serial-bridge .
 2. Find the "Xantech Serial Bridge" in the list of add-ons and click Install
 
 ## Configuration
+
+The zone and source names are optionally configurable on the Xantech Serial Bridge as
+opposed to on the client side (like in Home Assistant configuration) since there may
+be multiple clients that are accessing the Bridge's APIs, for instance a standalone
+Alexa, iOS, Apple Watch integrations or directly via a browser. This reduces the
+configuration and setup required across multiple client integrations.
 
 ```json
 { 
@@ -101,6 +106,12 @@ curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 * add documentation of all the API endpoints and link from here
 * add support for a remote Global Cache iTach Flex IP/Wifi serial interface where the Xantech Serial Bridge can't physically be connected via serial to the amplifier
 * ability to remote configure or rename zones/sources via the REST API
+
+# Thanks
+
+Thanks to Jesse Newland, Mike Pisano, and others who shared details and implementations
+connecting to different amplifiers which helped create a better understanding of the
+how each worked.
 
 # See Also
 

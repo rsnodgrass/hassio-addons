@@ -38,8 +38,6 @@ class ZoneCollection(Resource):
         source_map[2] = 'Home Theater' # override
 
         zone_config = {
-            'module': 'xantech_mza',
-
             'max_zones': max_zones, # configurable
             'zones': { # FIXME: configurable name override
                 1: "Living Room",
@@ -75,6 +73,13 @@ class ZoneStatus(Resource):
         # FIXME: inject additional info into zone?
 
         return state
+
+    # FIXME: allow renaming a zone, or setting other properties directly
+    def put(self, zone_id):
+        # { "name": "Master Bedroom", "volume": 10, "power": off, "mute": off, "source": 1 }
+        # bass, treble, balance, channel
+        # PA / do-not-disturb
+        return {}
 
 ####
 

@@ -100,7 +100,7 @@ class XantechSerialProtocol:
             elif 'SS' == data_type: # Xantech (source select)
                 state['source'] = int(data[2:])
 
-            elif 'CH' == data_type: # Monoprice (source channel)
+            elif 'CH' == data_type: # Monoprice/Daytona Audio (source channel)
                 state['source'] = int(data[2:])
 
             elif 'VO' == data_type:
@@ -126,14 +126,14 @@ class XantechSerialProtocol:
             elif 'PS' == data_type: # Xantech
                 state['paged'] = (int(data[2:]) == 1) # bool (supports xx1 and xx02)
 
-            elif 'DT' == data_type: # Monoprice
+            elif 'DT' == data_type: # Monoprice/Daytona Audio
                 state['do-not-disturb'] = (int(data[2:]) == 1) # bool (supports xx1 and xx02)
 
-            elif 'PA' == data_type: # Monoprice
+            elif 'PA' == data_type: # Monoprice/Daytona Audio
                 # note, this setting forces zone 1 to all outputs!!!
-                state['pa-12v-control'] = (int(data[2:]) == 1) # bool (supports xx1 and xx02)
+                state['public-address-12v-control'] = (int(data[2:]) == 1) # bool (supports xx1 and xx02)
 
-            elif 'IS' == data_type: # Monoprice (input select), seen in docs
+            elif 'IS' == data_type: # Monoprice/Daytona Audio (input select), seen in docs
                 if data[2] == '1':  # 0 = BUS, 1 = LINE.
                     state['input'] = 'line'
                 else:
