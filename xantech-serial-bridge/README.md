@@ -11,56 +11,13 @@ semantic packaging around a Docker container, which can also be executed directl
 docker build -t xantech-serial-bridge .
 ```
 
-### Required Hardware
+## Required Hardware
 
+* multi-zone amplifier or controller that supports to the Xantech RS232 serial protocol (see below)
 * serial cable or network serial adapter connected to a Xantech supported multi-zone amplifier/controller
 * "server" running Docker to be able to execute container (e.g. RPi running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) hypervisor)
 
-### Hass.io Add-on Installation
-
-1. In the Hass.io "Add-On Store" on your Home Assistant server, add this repository URL:
-<pre>
-     https://github.com/rsnodgrass/hassio-addons
-</pre>
-
-2. Find the "Serial Smart Bridge" in the list of add-ons and click Install
-
-### Configuration
-
-### See Also
-
-
-
-
-# Xantech Multi-Zone Audio Amplifiers and Controllers
-
-Support for Xantech multi-zone matrix audio amplifiers and controllers.
-
-# Examples
-
-You can easily test this from the command line:
-
-```
-curl http://localhost:5000/api/xantech/zones/1
-```
-
-```json
-{"zone": "1"}
-```
-
-Mute zone 4 of the amplifier:
-
-```
-curl -X POST http://localhost:5000/api/xantech/zones/1/mute/on
-```
-
-
-## TODO
-
-* should this expose MQTT so that events from serial devices get propagated? (rather than polled)
-   - or just optionally add broker support? (in addition to REST API) (broker:port)
-
-## Supported Amplifiers/Controllers
+### Supported Amplifiers/Controllers
 
 | Manufacturer  | Model(s)                        | Supported |
 | ------------- |:-------------------------------:| ---------:|
@@ -75,6 +32,43 @@ curl -X POST http://localhost:5000/api/xantech/zones/1/mute/on
 * The Monoprice MPR-SG6Z serial interface appears to be licensed from Xantech, or 
   perhaps Xantech sold its amplifier line to Monoprice. Monoprice amp uses a
   version of the Xantech multi-zone controller protocol.
+
+
+
+### Hass.io Add-on Installation
+
+1. In the Hass.io "Add-On Store" on your Home Assistant server, add this repository URL:
+<pre>
+     https://github.com/rsnodgrass/hassio-addons
+</pre>
+
+2. Find the "Serial Smart Bridge" in the list of add-ons and click Install
+
+### Configuration
+
+# Command Line Interaction
+
+To show zones from the command line:
+
+```bash
+curl http://localhost:5000/xantech/zones/1
+```
+
+```json
+{"zone": "1"}
+```
+
+Mute zone 4 of the amplifier:
+
+```bash
+curl -X POST http://localhost:5000/xantech/zones/1/mute/on
+```
+
+# TODO
+
+* should this expose MQTT so that events from serial devices get propagated? (rather than polled)
+   - or just optionally add broker support? (in addition to REST API) (broker:port)
+* add documentation of all the API endpoints and link from here
 
 # See Also
 
