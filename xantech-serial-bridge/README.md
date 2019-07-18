@@ -107,16 +107,14 @@ curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 * add support for a remote Global Cache iTach Flex IP/Wifi serial interface where the Xantech Serial Bridge can't physically be connected via serial to the amplifier
 * ability to remote configure or rename zones/sources via the REST API
 
-# Thanks
-
-Thanks to Jesse Newland, Mike Pisano, and others who shared details and implementations
-connecting to different amplifiers which helped create a better understanding of the
-how each worked.
-
 # See Also
 
 * [Home Assistant integration for the Xantech Serial Bridge](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza)
 * [Monoprice RS232 serial protocol manual](doc/Monoprice-RS232-Manual.pdf)
 * [Monoprice RS232 serial protocol control codes](doc/Monoprice-RS232-Control-Codes.pdf)
-* [Monoprice mpr-6zhmaut-api NodeJS REST server](https://github.com/jnewland/mpr-6zhmaut-api)
+
+#### Alternatives
+
+* [Monoprice mpr-6zhmaut-api NodeJS REST server](https://github.com/jnewland/mpr-6zhmaut-api) (Jesse Newland)
 * [Monoprice 10761 iOS and Apple Control control app](https://apps.apple.com/us/app/monoprice-whole-home-audio/id1168858624) (just as a reference, it does not use this bridge)
+* [Windows MonoAmp mixer for Monoprice](https://www.dropbox.com/s/aem6yck98etq9mb/MonoAmpV41.zip?file_subpath=%2FMonoAmpV41%2FMono.jpg) (Mike Pisano)
