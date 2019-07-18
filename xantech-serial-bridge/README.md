@@ -3,33 +3,18 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
 
-Exposes a REST microservice interface that maps to RS232/RS485 serial device interfaces.
+Exposes a REST interface that bridges to a serial connected multi-zone amplifier that supports the
+Xantech RS232 serial control protocol.  While this is called a Hass.io Add-on, that is merely
+semantic packaging around a Docker container, which can also be executed directly.
 
-While this is a Hass.io Add-on, that is merely semantic packaging around the Docker container for the microservice. The
-Docker image can be executed directly.
-
+```bash
+docker build -t xantech-serial-bridge .
 ```
-docker build -t RESTful-serial-bridge .
-```
-
-This is the THIRD RS232 / RS485 device I've had to integrate in the last few months. Perhaps there
-is some simplification/standardization of these wrappers.
-
-Often RS232 devices are not colocated, so you may run multple instances on different hardware that is 
-physically connected to each device you want to control.
-
-
-**NOT YET WORKING**
-
-### TODO
-
-* should this expose MQTT so that events from serial devices get propagated? (rather than polled)
-   - or just optionally add broker support? (in addition to REST API) (broker:port)
 
 ### Required Hardware
 
+* serial cable or network serial adapter connected to a Xantech supported multi-zone amplifier/controller
 * "server" running Docker to be able to execute container (e.g. RPi running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) hypervisor)
-* connection to a hardware or network serial interface to the physical hardware device
 
 ### Hass.io Add-on Installation
 
@@ -44,7 +29,6 @@ physically connected to each device you want to control.
 
 ### See Also
 
-* [Monoprice 6-zone amp API](https://github.com/jnewland/mpr-6zhmaut-api)
 
 
 
@@ -70,7 +54,13 @@ Mute zone 4 of the amplifier:
 curl -X POST http://localhost:5000/api/xantech/zones/1/mute/on
 ```
 
-# Supported Hardware
+
+## TODO
+
+* should this expose MQTT so that events from serial devices get propagated? (rather than polled)
+   - or just optionally add broker support? (in addition to REST API) (broker:port)
+
+## Supported Hardware
 
 The following 8-zone matrix audio amplifiers/controllers are supported:
 
@@ -79,13 +69,17 @@ The following 8-zone matrix audio amplifiers/controllers are supported:
 - MX88 / MX88a / MX88ai / MX88vi
 - Monoprice MPR-SG6Z (possibly)
 
-### Unsupported
-
-The following do not seem to support the Xantech multi-zone matrix audio RS232 protocol:
-
-- MRAUDIO4X4
-- MRC44 / MRC44CTL
+| Manufacturer  | Model(s)      | Supported |
+| ------------- |:-------------:| ---------:|
+| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m | YES       |
+| Xantech       | MRC88 / MRC88m    | YES       |
+| Xantech       | MX88 / MX88a / MX88ai / MX88vi    | YES       |
+| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m | YES       |
+| Xantech       | MRAUDIO4X4               | NO |
+| Xantech       | MRC44 / MRC44CTL | NO |
+| Monoprice     | centered      | MAYBE *   |
 
 # See Also
 
-* [Home Assistant integration](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza)
+* [Xantech multi-zone audio Home Assistant integration](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza)
+* [Monoprice mpr-6zhmaut-api NodeJS REST server](https://github.com/jnewland/mpr-6zhmaut-api)

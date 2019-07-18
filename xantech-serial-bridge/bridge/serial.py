@@ -1,6 +1,6 @@
-# Bridge interface to RS232 serial connection including configuration defaults and
-# helper functions. This can be shared between multiple bridges so should not contain
-# any hardware specific details.
+# Bridge to RS232 serial connection including configuration support and
+# helper functions. This can be shared between multiple bridges so should
+# not contain any hardware specific details.
 
 import os
 import sys
@@ -46,7 +46,7 @@ class BridgeSerial:
                                            bytesize=serial.EIGHTBITS, dsrdtr=True, rtscts=True)
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
-            raise RuntimeError("Connect failure to {}".format(', '.join(self._tty)))
+            raise RuntimeError("Connect failure to {}".format(self._tty))
 
     # not efficient reading one byte at a time, but way faster than waiting
     # for 1+ second timeout on every read.
@@ -65,7 +65,7 @@ class BridgeSerial:
                break
         return bytes(line).decode(self._encoding)
 
-    def write_line(self, data):
+    def write_command(self, data):
         log.debug('>>> Serial write: {}'.format(data))
         self._serial.reset_input_buffer()
         output = (data + self._newline).encode(self._encoding)

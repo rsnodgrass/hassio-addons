@@ -1,4 +1,4 @@
-# Serial support for Xantech's Multi-Zone matrix audio RS232 protocol.
+# Support for Xantech's Multi-Zone matrix audio RS232 protocol.
 #
 # NOTE: The Monoprice multi-zone amps share a variation of the same protocol as Xantech, and are likely
 # licensed (or acquired) from Xantech since they no longer produce multi-zone amplifiers/controllers.
@@ -21,11 +21,16 @@
 import re
 import logging
 
+from bridge import SerialBridge
+
 log = logging.getLogger(__name__)
 
 class XantechSerial:
-    def __init__(self):
+    def __init__(self, serial):
         self._name = 'Xantech'
+        self._serial = serial
+
+        # FIXME: interrogate the Xantech serial device for defaults
 
         self._max_zones = 8
         self._zone_map = {}
@@ -33,22 +38,26 @@ class XantechSerial:
         self._max_sources = 8
         self._source_map = {}
 
-        self._serial = self._initializeConnection()
-        self._initializeDevice()
+        try:
+            # Monoprice baudrate: 9600
+            # Xantech baudrate: 9600, though some docs suggest 19200 or 38400
+        
+            serial.write_command("!ZA0+") # disable activity based status updates (0 = true)
+            serial.write_command("!ZP0+") # disable periodic status updates (seconds = 0)
 
-    def _initializeConnection():
-        #    serial "/dev/ttyUSB0";
-        # Monoprice baudrate: 9600
-        # Xantech baudrate: 9600, though some docs suggest 19200 or 38400
-        return
+            self._discoverDefaultDeviceConfiguration()
 
-    def _initNameMapping(count, name_prefix):
+        except:
+            log.error("Unexpected error: %s", sys.exc_info()[0])
+            raise RuntimeError("Failed to initialize Xantech interface")
+
+    def _init_name_mapping(count, name_prefix):
         map = {}
         for i in range(count):
             map[i] = name_prefix + ' ' + i
         return map
 
-    def _deserializeZoneStateIntoMap(serialized_state):
+    def _deserialize_zone_state_into_map(serialized_state):
         state = {}
 
         # example Xantech status response:
@@ -125,12 +134,12 @@ class XantechSerial:
         return state
 
 
-    def getZoneState(zone_id):
-        if !self.isValidZone(zone_id):
+    def get_zone_state(zone_id):
+        if !self.is_valid_zne(zone_id):
             return None
 
-        self.writeCommand("?" + zone_id + "ZD+")
-        state = _deserializeZoneStateIntoMap(response)
+        self._serial.write_command("?" + zone_id + "ZD+")
+        state = _deserialize_zone_state_into_map(response)
         
         if state['zone'] != zone_id:
             log.error("Requested state for zone %d, received: %s", zone_id, state)
@@ -141,7 +150,7 @@ class XantechSerial:
 
         return state
 
-    def _discoverDefaultDeviceConfiguration():
+    def _discover_default_device_configuration():
         # FIXME: issue commands to identify device
 
         # determine the number of zones (inefficient, but works)...in future perhaps
@@ -158,26 +167,12 @@ class XantechSerial:
 
         return
 
-    def _initializeDevice():
-        # FIXME: should we disable state publishing automatically?
-        #self.writeCommand("!ZA0+") # disable activity notifications (0 = true)
-        #self.writeCommand("!ZP0+") # disable period auto updates (seconds = 0)
-
-        self._discoverDefaultDeviceConfiguration()
-        return
-
-    def write(string):
-        return self._serial.writeCommand(string)
-    
-    def read(string):
-        return self._serial.readData(string)
-
     # the input string should have {} as the substitution token for the zone_id
-    def writeToAllZones(string):
+    def write_to_all_zones(string):
         for zone_id in range(8):
-            self.write(string.format(zone_id))
+            self._serial.write_command(string.format(zone_id))
 
-    def isValidZone(zone_id):
+    def is_valid_zone(zone_id):
         if zone_id <= 0:
             return False
         elif zone_id > self._max_zones:
@@ -185,7 +180,7 @@ class XantechSerial:
             return False
         return True
 
-    def isValidSource(source_id):
+    def is_valid_source(source_id):
         if source_id <= 0:
             return False
         elif source_id > self._source_zones:
