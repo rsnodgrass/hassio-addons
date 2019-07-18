@@ -1,92 +1,90 @@
 # IDEAL MINIMAL SETUP:
-#
-# 1. plugin serial cable to host with bridge
-# 2. configure bridge with:
-#      - specify hardware serial connection ( /dev/tty or IP)
-#      - specify module for serial connection
-#      - specify "name" (defaults to mode)
-# 3. configure HASS with bridge endpoint(s) and interfaces
 
-# FIXME: can you autocreate HA sensors/switches/etc dynamically through code and, if so,
-# can it just use the same schema definition (perhaps with added annotations like "type"
-# of API being switch/light/etc that can be mapped to HA).
-# and perhaps even unit of measurements!?
-# 
-# curl -X GET http://192.168.1.31/temperature/
-# {"temperature": 77, "id": "sensor02", "name": "livingroom", "connected": true}
-# unit_of_measurement: "°C"
-#
-# Example HA config:
-#- platform: command_line
-#  xantech:
-#    Xantech Whole House Amplifier:
-#      up1:     curl -X POST http://192.168.1.25:5000/api/xantech/zone/1/volume/up
-#      down1    curl -X POST http://192.168.1.25:5000/api/xantech/zone/1/volume/down
-#
-#    Xantech Whole House Amplifier:
-w#      up1:     curl -X POST http://192.168.1.25:5000/api/xantech/zone/1/volume/up
-#      down1    curl -X POST http://192.168.1.25:5000/api/xantech/zone/1/volume/down
+bridge:
+  amplifiers:
+    - type: xantech8
+      tty: /dev/ttyUSB0
 
+Minimal example with multiple matrix systems:
 
-# Example HA configuration:
-#
-# switch:
-#   - platform: command_line
-#     switches:
-#       xantech_zone_1:
-#         friendly_name: Kitchen Speakers
-#	  command_on:  "/usr/bin/curl -X POST http://192.168.1.25:5000/xantech/zone/1/power/on"
-#	  command_off: "/usr/bin/curl -X POST http://192.168.1.25:5000/xantech/zone/1/power/off"
-#	  command_state: "/usr/bin/curl -X GET http://192.168.1.10/digital/4"   FIXME
-#         value_template: '{{ value == "1" }}'  FIXME
-#       xantech_zone_2:
-#         friendly_name: Master Bedroom Speakers
-#	  command_on:  "/usr/bin/curl -X POST http://192.168.1.25:5000/xantech/zone/2/power/on"
-#	  command_off: "/usr/bin/curl -X POST http://192.168.1.25:5000/xantech/zone/2/power/off"
+bridge:
+  amplifiers:
+    - type: xantech8
+      tty: /dev/ttyUSB0
+    - type: monoprice6
+      tty: /dev/ttyUSB1
+    - type: xantech8
+      name: "
+      tty: /dev/ttyUSB2  # NOTE: could be a remote iTach Flex WiFi/IP endpoint
 
+bridge:
+  port: xxxx # optional, default 5000
+  host: xxxx # optional
+  auth: # optional, authentation not yet defined
 
-#server:
-#  user: user
-#  password: password
-#  port: 8888
+  amplifiers:
+    - type: xantech8
+      tty: /dev/ttyUSB0
+      amp: xantech1 # optional slug to identify this amp, determines the amp slug, defaults to type value (plus numeric suffix if multiple)
 
-# TODO: slug should default to module (only used when multiple modules)
-modules:
-  - slug: xantech-audio 
-    name: Xantech Multi-Zone Amp
-    module: xantech-mrc88
-    tty: /dev/tty0
-#  - name: radiora
-#    module: radiora-classic
-#    tty: /dev/tty1
+    - type: xantech8
+      tty: /dev/ttyUSB1
+      name: "Second Floor Xantech"
+
+      zones: 
+        - id: 1
+	  name: Master Bedroom # optional
+	  slug: master_bedroom # optional, defaults to whitespace converted to _
+	  max_volume: 50 # optional
+        - id: 2
+	  name: Kitchen # optional
+	- id: 3
+	  name: Home Theater
+
+      sources:
+        - id: 1
+	  name: "Sonos (Main)"
+        - id: 2
+	  name: "Sonos (Secondary)"
+        - id: 3
+	  name: "TV"
+        - id: 4`<
+	  name: "CD"
+        - id: 5
+	  name: "3.5mm Input"
+        - id: 6
+	  name: "CD"
 
 
-xantech_audio:
-  number_zones: 6
-  
+NOTES: Based on the type, the zones and source configurations are defaulted, as well as various options are configured. E.g.
 
+amplifier_types:
+  - type: xantech8
+    name: "Xantech 8-zone Audio"
+    module: xantech
+    num_zones: 8
+    num_sources: 8
+    serialization:
+	command: "!{}\r"
+	query: "?{}\r"
+	response: "#{}\r"
 
+  - type: monoprice6
+    name: "Monoprice 6-zone Audio"
+    module: xantech
+    num_zones: 6
+    num_sources: 6
+    serialization:
+	command: ">{}\r"
+	query: "?{}\r"
+	response: "#{}\r"
 
-# GET /<module>
-#   returns APIs
-
-# GET /xantech
-#  returns details of the module ... version, etc.
-#  ... PLUS ideally enough information for a dynamic client to be created
-#      e.g. enough mapping details to create lights/switches/sensors/etc
-#      by a HA client, so you could:
-#
-#  serial-bridge:
-#    endpoints:
-#      - endpoint: https://endpointip.local:8888
-#        interfaces: xantech, intermatic-pool (optionally discovered!)
-#      - endpoint: https://radiora.bridge:1241
-#        interfaces: radiora
-#
-# ****
-# ... then dynamically sensors/lights/switches/etc get configured!
-# ... only implement specific to HA, let someone else do SmartThings!
-#  ...  perhaps have GET /xantech/api/<style>    GET /xantech/api/hassy
-
-# GET /
-#   returns all exposed modules (auto-discover)
+  - type: dayton6
+    name: "Dayton Audio 6-zone Matrix"
+    module: xantech
+    num_zones: 6
+    num_sources: 6
+    serialization:
+	command: ">{}\r"
+	query: "?{}\r"
+	response: "#{}\r"

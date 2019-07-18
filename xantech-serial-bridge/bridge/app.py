@@ -26,6 +26,10 @@ def run():
 
     app.run(debug=settings.FLASK_DEBUG)
 
+#GET /
+#GET /<amp>
+#GET /<amp>/zones
+
 @app.route('/')
 class BridgeInfo(Resource):
     def get(self):
