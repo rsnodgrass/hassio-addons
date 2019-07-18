@@ -4,12 +4,7 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
 
 Exposes a REST interface that bridges to a serial connected multi-zone amplifier that supports the
-Xantech RS232 serial control protocol.  While this is called a Hass.io Add-on, that is merely
-semantic packaging around a Docker container, which can also be executed directly.
-
-```bash
-docker build -t xantech-serial-bridge .
-```
+Xantech RS232 serial control protocol.  
 
 ## Required Hardware
 
@@ -33,7 +28,19 @@ docker build -t xantech-serial-bridge .
   perhaps Xantech sold its amplifier line to Monoprice. Monoprice amp uses a
   version of the Xantech multi-zone controller protocol.
 
-## Installation as a Hass.io Add-on
+
+## Installation
+
+#### Install as a Docker Container
+
+While this is called a Hass.io Add-on, that is merely semantic packaging around a Docker container,
+which can also be executed directly.
+
+```bash
+docker build -t xantech-serial-bridge .
+```
+
+#### Install as a Hass.io Add-on
 
 1. In the Hass.io "Add-On Store" on your Home Assistant server, add this repository URL:
 <pre>
@@ -47,10 +54,10 @@ docker build -t xantech-serial-bridge .
 ```json
 { 
    "zone_names": {
-      1: "Living Room",
-      2: "Kitchen",
-      3: "Master Bedroom",
-      4: "Patio"
+      "1": "Living Room",
+      "2": "Kitchen",
+      "3": "Master Bedroom",
+      "4": "Patio"
    }
 }
 ```
