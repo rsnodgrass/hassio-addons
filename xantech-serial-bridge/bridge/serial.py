@@ -44,6 +44,11 @@ class BridgeSerial:
             self._serial   = serial.Serial(self._tty, timeout=self._timeout, baudrate=self._baud_rate,
                                            parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
                                            bytesize=serial.EIGHTBITS, dsrdtr=True, rtscts=True)
+
+            # NOTE: according to Monoprice RS232 Control Codes manual, it appears that the serial
+            # baud rate defaults to 9600, but then can be reconfigured (until next time power is
+            # lost to the amplifier) up to 230400 baud!
+
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
             raise RuntimeError("Connect failure to {}".format(self._tty))

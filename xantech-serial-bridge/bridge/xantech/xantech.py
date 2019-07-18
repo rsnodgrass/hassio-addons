@@ -47,6 +47,11 @@ class XantechSerial:
 
             self._discoverDefaultDeviceConfiguration()
 
+
+            # FIXME:
+            # - should we reconfigure the connected amp with the configured zone names?
+            #   see Monoprice RS232 docs 
+
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
             raise RuntimeError("Failed to initialize Xantech interface")
@@ -69,7 +74,8 @@ class XantechSerial:
         # example Monoprice MPR-SG6Z status response in practice:
         #   #1ZS PA0 PR1 MU0 DT0 VO15 TR10 BS12 BL10 CH01 LS0
 
-        for data in serialized_state.split():
+        for data in serialized_state.upper().split():
+
             # zone identifier is a special case as it begins with a # instead of the type info
             match = re.search('#(.+?)ZS', data)
             if match:
@@ -78,10 +84,13 @@ class XantechSerial:
             # for each type of data in the response, map into the state structure
             # (not all may be returned, depending on what features the amplifier supports)
             data_type = data[0:1]
-            if data_type in ['PR', 'PO']: # Xantech / Monoprice
+            if data_type in ['PO', 'PR']: # Xantech == PO / Monoprice == PR
                 state['power'] = (data[2] == '1') # bool
                 
-            elif 'SS' == data_type: # Xantech
+            elif 'SS' == data_type: # Xantech (source select)
+                state['source'] = int(data[2:])
+
+            elif 'CH' == data_type: # Monoprice (source channel)
                 state['source'] = int(data[2:])
 
             elif 'VO' == data_type:
@@ -90,7 +99,7 @@ class XantechSerial:
                 state['volume'] = round((100 * attenuation_level) / 38)
 
             elif 'MU' == data_type:
-                state['mute'] = (data[2] == '1') # bool
+                state['mute'] = (int(data[2:]) == 1) # bool
 
             elif 'TR' == data_type:
                 state['treble'] = int(data[2:])
@@ -103,23 +112,17 @@ class XantechSerial:
 
             elif 'LS' == data_type:
                 # Xantech: linked; Monoprice: keypad status?
-                state['linked'] = (data[2] == '1') # bool
+                state['linked'] = (int(data[2:]) == 1) # bool (supports LS1 and LS02)
 
             elif 'PS' == data_type: # Xantech
-                state['paged'] = (data[2] == '1') # bool
+                state['paged'] = (int(data[2:]) == 1) # bool
 
             elif 'DT' == data_type: # Monoprice
-                # ignore unknown datatype found on Monoprice amp
-                state['dt_unknown'] = int(data[2:])
+                state['do-not-disturb'] = (int(data[2:]) == 1) # bool
 
             elif 'PA' == data_type: # Monoprice
-                state['pa_unknown'] = true # zone 1 to all outputs
-
-            elif 'CH' == data_type: # Monoprice (channel)
-                if data[2] == '1':
-                    state['channel'] = 'line'
-                else:
-                    state['channel'] = 'bus'
+                # note, this setting forces zone 1 to all outputs!!!
+                state['pa-12v-control'] = (int(data[2:]) == 1) # bool
 
             elif 'IS' == data_type: # Monoprice (audio input), seen in docs
                 if data[2] == '1':
@@ -135,7 +138,7 @@ class XantechSerial:
 
 
     def get_zone_state(zone_id):
-        if !self.is_valid_zne(zone_id):
+        if !self.is_valid_zone(zone_id):
             return None
 
         self._serial.write_command("?" + zone_id + "ZD+")
