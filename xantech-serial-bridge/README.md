@@ -4,7 +4,7 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
 
 Exposes a REST interface that bridges to a serial connected multi-zone amplifier that supports the
-Xantech RS232 serial control protocol.  
+Xantech RS232 serial control protocol.
 
 ## Required Hardware
 
@@ -28,6 +28,10 @@ Xantech RS232 serial control protocol.
   be licensed from Xantech, or perhaps Xantech sold its amplifier line to Monoprice. Monoprice amp uses a
   version of the Xantech multi-zone controller protocol.
 
+While Xantech and Monoprice amplifiers support expanding the number of zones by connecting two (or three)
+amplifiers together, the Xantech Serial Bridge enables an "unlimited" number of amplifiers to be added
+to a system and controlled via a REST interface. In this case, for each amplifier a separate Xantech
+Serial Bridge should be instantiated with a separate serial cable connected to each amplifier.
 
 ## Installation
 

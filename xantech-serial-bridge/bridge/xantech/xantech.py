@@ -6,7 +6,13 @@
 # of either LINE or BUS. Also Monoprice supports chaining together up to 2 additional amps (as slaves),
 # with the the NodeJS 6zhmaut API writing "?10\r" if single zone, followed by "?20\r" (if 2), and then
 # "?30\r" (if 3) upon startup of the server. 
-#       See: https://downloads.monoprice.com/files/manuals/31028_Manual_180731.pdf
+#       
+# "?10\r" = inquiry command structure for all zones of Main Unit 1
+# "?20\r" = inquiry command structure for all zones of Main Unit 2
+# "?30\r" = inquiry command structure for all zones of Main Unit 3
+#
+# See: https://downloads.monoprice.com/files/manuals/31028_Manual_180731.pdf
+#  
 #
 # FIXME:
 # - Determining what features are supported by doing a zone status query for zone 1,
@@ -99,7 +105,7 @@ class XantechSerial:
                 state['volume'] = round((100 * attenuation_level) / 38)
 
             elif 'MU' == data_type:
-                state['mute'] = (int(data[2:]) == 1) # bool
+                state['mute'] = (int(data[2:]) == 1) # bool (supports xx1 and xx02)
 
             elif 'TR' == data_type:
                 state['treble'] = int(data[2:])
@@ -111,21 +117,20 @@ class XantechSerial:
                 state['balance'] = int(data[2:])
 
             elif 'LS' == data_type:
-                # Xantech: linked; Monoprice: keypad status?
-                state['linked'] = (int(data[2:]) == 1) # bool (supports LS1 and LS02)
+                state['keypad-linked'] = (int(data[2:]) == 1) # bool (supports xx1 and xx02)
 
             elif 'PS' == data_type: # Xantech
-                state['paged'] = (int(data[2:]) == 1) # bool
+                state['paged'] = (int(data[2:]) == 1) # bool (supports xx1 and xx02)
 
             elif 'DT' == data_type: # Monoprice
-                state['do-not-disturb'] = (int(data[2:]) == 1) # bool
+                state['do-not-disturb'] = (int(data[2:]) == 1) # bool (supports xx1 and xx02)
 
             elif 'PA' == data_type: # Monoprice
                 # note, this setting forces zone 1 to all outputs!!!
-                state['pa-12v-control'] = (int(data[2:]) == 1) # bool
+                state['pa-12v-control'] = (int(data[2:]) == 1) # bool (supports xx1 and xx02)
 
-            elif 'IS' == data_type: # Monoprice (audio input), seen in docs
-                if data[2] == '1':
+            elif 'IS' == data_type: # Monoprice (input select), seen in docs
+                if data[2] == '1':  # 0 = BUS, 1 = LINE.
                     state['input'] = 'line'
                 else:
                     state['input'] = 'bus'
