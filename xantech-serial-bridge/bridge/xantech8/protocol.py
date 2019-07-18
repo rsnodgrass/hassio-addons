@@ -183,6 +183,10 @@ class XantechSerialProtocol:
         for zone_id in range(8):
             self._serial.write_command(string.format(zone_id))
 
+
+    # FIXME: one difference between Xantech and Monoprice is that the
+    # prefix for change commands in Xantech is "!" and Monoprice it is ">"
+
     def is_valid_zone(zone_id):
         if zone_id <= 0:
             return False
