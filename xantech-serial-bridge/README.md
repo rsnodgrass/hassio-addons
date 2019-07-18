@@ -9,8 +9,8 @@ Xantech RS232 serial control protocol.
 ## Required Hardware
 
 * multi-zone amplifier or controller that supports to the Xantech RS232 serial protocol (see below)
-* serial cable or network serial adapter connected to a Xantech supported multi-zone amplifier/controller
-* "server" running Docker to be able to execute container (e.g. RPi running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) hypervisor)
+* host machine with a serial cable or network serial adapter to physically connect to a Xantech supported multi-zone amplifier/controller
+* host machine for executing the Docker container (e.g. [Raspberry Pi](https://www.raspberrypi.org/) running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) hypervisor)
 
 #### Supported Amplifiers/Controllers
 
@@ -51,7 +51,7 @@ docker build -t xantech-serial-bridge .
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 
-2. Find the "Serial Smart Bridge" in the list of add-ons and click Install
+2. Find the "Xantech Serial Bridge" in the list of add-ons and click Install
 
 ## Configuration
 

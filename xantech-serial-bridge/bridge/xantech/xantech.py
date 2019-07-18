@@ -31,12 +31,10 @@ from bridge import SerialBridge
 
 log = logging.getLogger(__name__)
 
-class XantechSerial:
+class XantechSerialProtocol:
     def __init__(self, serial):
         self._name = 'Xantech'
         self._serial = serial
-
-        # FIXME: interrogate the Xantech serial device for defaults
 
         self._max_zones = 8
         self._zone_map = {}
@@ -45,18 +43,24 @@ class XantechSerial:
         self._source_map = {}
 
         try:
-            # Monoprice baudrate: 9600
-            # Xantech baudrate: 9600, though some docs suggest 19200 or 38400
-        
+            # According to Monoprice RS232 Control Codes manual, it appears that the serial
+            # baud rate defaults to 9600, but can be reconfigured (until next time power is
+            # lost to the amplifier) up to 230400 baud. E.g.:
+            #  <9600\r
+            #  <115200\r
+            #
+            # Dynamically try baud rates (looking for response) and then increase the baud
+            # rate automatically to 115200 (or higher). Note the configured baud rate
+            # resets to 9600 after AC power is lost.
+            # FIXME
+            # self._serial.write_command("<115200")
+            # self._serial.raw_serial.setBaudrate(115200)
+
             serial.write_command("!ZA0+") # disable activity based status updates (0 = true)
             serial.write_command("!ZP0+") # disable periodic status updates (seconds = 0)
 
+            # FIXME: interrogate the Xantech serial device for defaults
             self._discoverDefaultDeviceConfiguration()
-
-
-            # FIXME:
-            # - should we reconfigure the connected amp with the configured zone names?
-            #   see Monoprice RS232 docs 
 
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
@@ -140,7 +144,6 @@ class XantechSerial:
                             state['zone'], data_type, serialized_state)
 
         return state
-
 
     def get_zone_state(zone_id):
         if !self.is_valid_zone(zone_id):
