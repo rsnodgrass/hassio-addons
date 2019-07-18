@@ -62,7 +62,7 @@ docker build -t xantech-serial-bridge .
 }
 ```
 
-## Interface 
+## REST Interface 
 
 #### Command Line Interaction
 
