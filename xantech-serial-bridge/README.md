@@ -24,8 +24,8 @@ Xantech RS232 serial control protocol.
 |               | MRC44 / MRC44CTL                | NO        |
 | Monoprice     | MPR-SG6Z                        | MAYBE *   |
 
-* The Monoprice MPR-SG6Z serial interface appears to be licensed from Xantech, or 
-  perhaps Xantech sold its amplifier line to Monoprice. Monoprice amp uses a
+* The [Monoprice MPR-SG6Z](https://www.monoprice.com/product?p_id=10761)'s serial interface appears to
+  be licensed from Xantech, or perhaps Xantech sold its amplifier line to Monoprice. Monoprice amp uses a
   version of the Xantech multi-zone controller protocol.
 
 
@@ -92,4 +92,5 @@ curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 # See Also
 
 * [Home Assistant integration for the Xantech Serial Bridge](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza)
+* [Monoprice RS232 serial protocol control codes](doc/Monoprice-RS232-Control-Codes.pdf)
 * [Monoprice mpr-6zhmaut-api NodeJS REST server](https://github.com/jnewland/mpr-6zhmaut-api)

@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 DEFAULT_TTY = '/dev/ttyUSB0'
 DEFAULT_TTY_TIMEOUT = 1
 DEFAULT_BAUD_RATE = 9600
-DEFAULT_NEWLINE = '\r\n'
+DEFAULT_NEWLINE = '\r'
 
 EXAMPLE_TTY_PATHS = [
     '/dev/ttyS0',         # Raspberry Pi mini UART GPIO
@@ -38,7 +38,7 @@ class BridgeSerial:
             self._tty      = os.getenv('BRIDGE_TTY', DEFAULT_TTY)
             self._timeout  = int(os.getenv('BRIDGE_TTY_TIMEOUT', DEFAULT_TTY_TIMEOUT))
             self._baud     = int(os.getenv('BRIDGE_BAUD_RATE', DEFAULT_BAUD_RATE))
-            self._newline  = DEFAULT_NEWLINE
+            self._newline  = os.getenv('BRIDGE_NEWLINE', DEFAULT_NEWLINE)
             self._encoding = 'utf-8'
 
             self._serial   = serial.Serial(self._tty, timeout=self._timeout, baudrate=self._baud_rate,
