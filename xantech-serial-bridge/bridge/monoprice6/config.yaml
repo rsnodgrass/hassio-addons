@@ -1,0 +1,19 @@
+module:
+  - type: monoprice6
+    name: "Monoprice 6-Zone Audio"
+    num_zones: 6
+    num_sources: 6
+    serialization:
+	command: ">{}\r"
+	query: "?{}\r"
+	response: "#{}\r"
+
+#  - type: dayton6
+#    name: "Dayton Audio 6-zone Matrix"
+#    module: xantech
+#    num_zones: 6
+#    num_sources: 6
+#    serialization:
+#	command: ">{}\r"
+#	query: "?{}\r"
+#	response: "#{}\r"
