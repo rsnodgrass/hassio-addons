@@ -60,24 +60,21 @@ curl -X POST http://localhost:5000/api/xantech/zones/1/mute/on
 * should this expose MQTT so that events from serial devices get propagated? (rather than polled)
    - or just optionally add broker support? (in addition to REST API) (broker:port)
 
-## Supported Hardware
+## Supported Amplifiers/Controllers
 
-The following 8-zone matrix audio amplifiers/controllers are supported:
+| Manufacturer  | Model(s)                        | Supported |
+| ------------- |:-------------------------------:| ---------:|
+| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m        | YES       |
+|               | MRC88 / MRC88m                  | YES       |
+|               | MX88 / MX88a / MX88ai / MX88vi  | YES       |
+|               | MRAUDIO8X8 / MRAUDIO8X8m        | YES       |
+|               | MRAUDIO4X4                      | NO        |
+|               | MRC44 / MRC44CTL                | NO        |
+| Monoprice     | MPR-SG6Z                        | MAYBE *   |
 
-- MRAUDIO8X8 / MRAUDIO8X8m
-- MRC88 / MRC88m
-- MX88 / MX88a / MX88ai / MX88vi
-- Monoprice MPR-SG6Z (possibly)
-
-| Manufacturer  | Model(s)      | Supported |
-| ------------- |:-------------:| ---------:|
-| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m | YES       |
-| Xantech       | MRC88 / MRC88m    | YES       |
-| Xantech       | MX88 / MX88a / MX88ai / MX88vi    | YES       |
-| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m | YES       |
-| Xantech       | MRAUDIO4X4               | NO |
-| Xantech       | MRC44 / MRC44CTL | NO |
-| Monoprice     | centered      | MAYBE *   |
+* The Monoprice MPR-SG6Z serial interface appears to be licensed from Xantech, or 
+  perhaps Xantech sold its amplifier line to Monoprice. Monoprice amp uses a
+  version of the Xantech multi-zone controller protocol.
 
 # See Also
 
