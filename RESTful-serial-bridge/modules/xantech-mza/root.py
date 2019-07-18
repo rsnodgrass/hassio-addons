@@ -8,8 +8,11 @@ from bridge.api.restplus import api
 
 log = logging.getLogger(__name__)
 
-ns = api.namespace('zones', description='Xantech amplifier/controller operations')
 
+#Flask-RESTPlus provides a way to use almost the same pattern as Flask’s blueprint.
+ns = api.namespace('xantech', description='Main audio controller operations')
+
+# example: /api/xantech/power/on
 @ns.route('/power/on')
 class XantechPowerOn(Resource):
     def get(self):
