@@ -12,7 +12,9 @@ import models # bridge.models
 log = logging.getLogger(__name__)
 
 app = Flask(__name__)
-api = Api(app=app, doc='/docs')
+api = Api(app=app, doc='/docs',
+          title='Multi-Zone Audio Serial Bridge', version='0.1',
+          description='REST interface for communicating with multi-zone audio controllers and amplifiers')
 
 def run():
     import settings
@@ -28,8 +30,16 @@ def run():
 
     app.run(debug=settings.FLASK_DEBUG)
 
-# GET /<amp>
-# GET /<amp>/zones
+    # iterate over all configured interfaces and instatiate the endpoints
+    for interface in configured_interfaces:
+        endpoint = interface['endpoint']
+        name = interface['name']
+
+        # GET /<interface>
+        # GET /<interface>/zones
+        # FIXME: create object
+        api.namespace(endpoint, description='Control interface for ' + name)
+        app.register_blueprint(api, url_prefix='/' + endpoint)
 
 @api.route('/')
 class BridgeInfo(Resource):

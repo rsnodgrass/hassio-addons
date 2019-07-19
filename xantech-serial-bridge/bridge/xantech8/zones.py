@@ -63,6 +63,7 @@ class ZoneCollection(Resource):
         return zone_config
 
 @ns.route('/<int:id>')
+@api.param('id', 'Identifier for the zone')
 @api.response(404, 'Zone not found')
 class ZoneStatus(Resource):
 
@@ -90,9 +91,16 @@ class ZoneStatus(Resource):
 
 ]# we could have gone all the way to 11, but instead decided on the range 0-100%
 @ns.route('/<int:id>/volume/<int:percentage>')
+@api.param('id', 'Identifier for the zone')
+@api.param('level', 'Volume level 0–100')
+@api.response(404, 'Zone not found')
 class ZoneVolumeLevel(Resource):
     def post(self, zone_id, percentage):
         """Explicitly set the zone's volume level"""
+
+        if percentage < 0 or percentage > 100:
+            log.error("Received invalid value %d for zone %d volume level, must be 0-100", zone_id percentage)
+            return
 
         # While actual attenuation steps for Xantech is 0-38 (non-linearly from -78.75 db to 0 db),
         # for simplicity of API, we use range from 0-100% even though increase by 1%  <may not
