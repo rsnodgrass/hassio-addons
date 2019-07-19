@@ -35,11 +35,13 @@ def run():
         endpoint = interface['endpoint']
         name = interface['name']
 
+        #from .namespace1 import api as ns1
+
         # GET /<interface>
         # GET /<interface>/zones
         # FIXME: create object
-        api.namespace(endpoint, description='Control interface for ' + name)
-        app.register_blueprint(api, url_prefix='/' + endpoint)
+        ns = api.namespace(endpoint, description='Control interface for ' + name)
+        app.register_blueprint(ns, url_prefix='/' + endpoint)
 
 @api.route('/')
 class BridgeInfo(Resource):
