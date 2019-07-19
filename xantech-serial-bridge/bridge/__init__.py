@@ -1,4 +1,3 @@
-#import os
 import os
 import yaml
 import logging.config
@@ -8,9 +7,7 @@ def setup_logging(
     default_level=logging.INFO,
     env_key='LOG_CONFIG'
 ):
-    """Setup logging configuration
-
-    """
+    """Setup logging configuration"""
     path = default_path
     value = os.getenv(env_key, None)
     if value:

@@ -8,7 +8,7 @@ controllers and amplifiers that support variations of Xantech's original RS232
 serial control protocol.
 
 ## Required Hardware
-
+ 
 * multi-zone amplifier or controller that supports variations of the Xantech RS232 serial protocol (see below)
 * host machine with a serial cable or network serial adapter to physically connect to a Xantech supported multi-zone amplifier/controller
 * host machine for executing the Docker container (e.g. [Raspberry Pi](https://www.raspberrypi.org/) running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) hypervisor)
@@ -32,10 +32,8 @@ serial control protocol.
   and Dayton Audio use a version of the Xantech multi-zone controller protocol.
 
 While some amplifiers (e.g. Xantech and Monoprice) support expanding the number of zones
-by connecting two (or three) amplifiers together, the Multi-Zone Audio Serial Bridge enables an
-"unlimited" number of amplifiers to be controlled via a REST interface. In this case, a
-separate Xantech Serial Bridge should be instantiated with a separate serial cable connected
-to each amplifier.
+by connecting two (or three) amplifiers together, the Multi-Zone Audio Serial Bridge enables
+an "unlimited" number of amplifiers to be controlled via a REST interface.
 
 ## Installation
 
@@ -55,12 +53,12 @@ docker build -t xantech-serial-bridge .
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 
-2. Find the "Xantech Serial Bridge" in the list of add-ons and click Install
+2. Find the "Multi-Zone Audio Serial Bridge" in the list of add-ons and click Install
 
 ## Configuration
 
-The zone and source names are optionally configurable on the Xantech Serial Bridge as
-opposed to on the client side (like in Home Assistant configuration) since there may
+The zone and source names are optionally configurable on the Multi-Zone Audio Serial Bridge
+as opposed to on the client side (like in Home Assistant configuration) since there may
 be multiple clients that are accessing the Bridge's APIs, for instance a standalone
 Alexa, iOS, Apple Watch integrations or directly via a browser. This reduces the
 configuration and setup required across multiple client integrations.
@@ -130,13 +128,13 @@ Known clients which interface with the Multi-Zone Audio Serial Bridge:
 
 #### Alternatives
 
-* [Monoprice mpr-6zhmaut-api NodeJS REST server](https://github.com/jnewland/mpr-6zhmaut-api) (Jesse Newland)
+* [Monoprice mpr-6zhmaut-api NodeJS REST server](https://github.com/jnewland/mpr-6zhmaut-api)
 * [Monoprice 10761 iOS and Apple Control control app](https://apps.apple.com/us/app/monoprice-whole-home-audio/id1168858624) (just as a reference, it does not use this bridge)
-* [Windows based Monoprice Amp Mixer](https://www.dropbox.com/s/aem6yck98etq9mb/MonoAmpV41.zip?file_subpath=%2FMonoAmpV41%2FMono.jpg) (Mike Pisano)
+* [Monoprice Amp Mixer for Windows](https://www.dropbox.com/s/aem6yck98etq9mb/MonoAmpV41.zip?file_subpath=%2FMonoAmpV41%2FMono.jpg)
 
 #### Community Engagement
 
-Sites where there is active community engagement around the Xantech, Monoprice, and Daytona AUdio
+Sites with active community engagement around the Xantech, Monoprice, and Daytona AUdio
 multi-zone amplifiers:
 
 * (https://www.avsforum.com/forum/36-home-v-distribution/1506842-any-experience-monoprice-6-zone-home-audio-multizone-controller-15.html)
