@@ -5,7 +5,7 @@ FROM $BUILD_FROM
 ARG BUILD_ARCH
 ARG BUILD_VERSION
 
-LABEL authors="RS"
+LABEL authors="Ryan Snodgrass"
 
 # install git and Python3 environment
 RUN apk update \
@@ -16,11 +16,11 @@ RUN apk update \
  && cd /usr/bin \
  && ln -sf pip3 pip \
  && ln -sf python3 python \
+ $$ pip3 install --no-cache-dir -r "${APP_DIR}/dependencies"
  && rm -rf /root/.cache /var/cache
 
 ARG APP_DIR="/app"
-
-RUN pip3 install --no-cache-dir -r "${APP_DIR}/dependencies"
+COPY . $APP_DIR
 
 EXPOSE 5000
 
