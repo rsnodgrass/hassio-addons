@@ -35,14 +35,14 @@ class BridgeSerial:
         try:
             self._tty = config['tty']
             self._baud_rate = int(config['baud_rate'])
-            self._timeout = DEFAULT_TTY_TIMEOUT_SECONDS
-            self._newline = int(config['tty'])
+            self._timeout = DEFAULT_TTY_TIMEOUT_SECONDS  #int(config['timeout'])
             self._newlines = config['newline']
             self._encoding = 'utf-8' # config['encoding']
 
-            self._serial   = serial.Serial(self._tty, timeout=self._timeout, baudrate=self._baud_rate,
-                                           parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
-                                           bytesize=serial.EIGHTBITS, dsrdtr=True, rtscts=True)
+            self._serial = serial.Serial(self._tty, timeout=self._timeout, baudrate=self._baud_rate,
+                                         parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
+                                         bytesize=serial.EIGHTBITS, dsrdtr=True, rtscts=True)
+            log.info("Connected to %s (baud rate=%d; timeout=%d)", self._tty, self._baud_rate, self._timeout)
 
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
