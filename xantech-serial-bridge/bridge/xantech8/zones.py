@@ -20,7 +20,7 @@ from bridge.api.restplus import api
 log = logging.getLogger(__name__)
 
 # /api/xantech/zones
-ns = api.namespace('zones', description='Audio zone operations')
+ns = api.namespace('zones', description='Zone operations')
 
 @ns.route('/')
 class ZoneCollection(Resource):
@@ -66,10 +66,10 @@ class ZoneCollection(Resource):
 @api.response(404, 'Zone not found')
 class ZoneStatus(Resource):
 
-
     #@api.marshal_with(zone)
     def get(self, zone_id):
-        state = xantechInterface.getZoneState(zone_id)
+        """Return the current status details for this zone"""
+        state = xantechInterface.get_zone_state(zone_id)
         if state == None:
             # FIXME: return error
             return False
@@ -80,6 +80,7 @@ class ZoneStatus(Resource):
 
     # FIXME: allow renaming a zone, or setting other properties directly
     def put(self, zone_id):
+        """Update details for this zone"""
         # { "name": "Master Bedroom", "volume": 10, "power": off, "mute": off, "source": 1 }
         # bass, treble, balance, channel
         # public-address / do-not-disturb
@@ -91,6 +92,7 @@ class ZoneStatus(Resource):
 @ns.route('/<int:id>/volume/<int:percentage>')
 class ZoneVolumeLevel(Resource):
     def post(self, zone_id, percentage):
+        """Explicitly set the zone's volume level"""
 
         # While actual attenuation steps for Xantech is 0-38 (non-linearly from -78.75 db to 0 db),
         # for simplicity of API, we use range from 0-100% even though increase by 1%  <may not
@@ -102,12 +104,14 @@ class ZoneVolumeLevel(Resource):
 @ns.route('/<int:id>/volume/up')
 class ZoneVolumeUp(Resource):
     def post(self, zone_id):
+        """Increase the zone's volume level"""
         xantechInterface.write_command("!" + zone_id + "VI+")
         return {}
 
 @ns.route('/<int:id>/volume/down')
 class ZoneVolumeDown(Resource):
     def post(self, zone_id):
+        """Decrease the zone's volume level"""
         xantechInterface.write_command("!" + zone_id + "VD+")
         return {}
 
@@ -121,12 +125,14 @@ class ZoneVolumeDown(Resource):
 @ns.route('/<int:id>/power/on')
 class ZonePowerOn(Resource):
     def post(self, zone_id):
+        """Power this zone on"""
         xantechInterface.write_command("!" + zone_id + "PR1+")
         return {}
 
 @ns.route('/<int:id>/power/off')
 class ZonePowerOff(Resource):
     def post(self, zone_id):
+        """Power this zone off"""
         xantechInterface.write_command("!" + zone_id + "PR0+")
         return {}
 
@@ -135,12 +141,14 @@ class ZonePowerOff(Resource):
 @ns.route('/<int:id>/mute/on')
 class ZoneMuteOn(Resource):
     def post(self, zone_id):
+        """Mute this zone"""
         xantechInterface.write_command("!" + zone_id + "MU1+")
         return {}
 
 @ns.route('/<int:id>/mute/off') 
 class ZoneMuteOff(Resource):
     def post(self, zone_id):
+        """Unmute this zone"""
         xantechInterface.write_command("!" + zone_id + "MU0+")
         return {}
 
@@ -154,6 +162,7 @@ class ZoneMuteOff(Resource):
 @ns.route('/<int:id>/source/<int:source_id>')
 class ZoneSourceSelect(Resource):
     def post(self, zone_id, source_id):
+        """Select which source the zone should play"""
         xantechInterface.write_command("!" + zone_id + "SS" + source_id + "+")
         return {}
 
@@ -164,12 +173,14 @@ class ZoneSourceSelect(Resource):
 @ns.route('/<int:id>/balance/left')
 class ZoneBalanceLeft(Resource):
     def post(self, zone_id):
+        """Dial this zone's balance to the left"""
         xantechInterface.write_command("!" + zone_id + "BL+")
         return {}
 
 @ns.route('/<int:id>/balance/right')
 class ZoneBalanceRight(Resource):
     def post(self, zone_id):
+        """Dial this zone's balance to the right"""
         xantechInterface.write_command("!" + zone_id + "BR+")
         return {}
 
@@ -178,12 +189,14 @@ class ZoneBalanceRight(Resource):
 @ns.route('/<int:id>/bass/up')
 class ZoneBassUp(Resource):
     def post(self, zone_id):
+        """Increase the base for this zone"""
         xantechInterface.write_command("!" + zone_id + "BI+")
         return {}
 
 @ns.route('/<int:id>/bass/down')
 class ZoneBassDown(Resource):
     def post(self, zone_id):
+        """Decrease the base for this zone"""
         xantechInterface.write_command("!" + zone_id + "BD+")
         return {}
 
@@ -192,11 +205,13 @@ class ZoneBassDown(Resource):
 @ns.route('/<int:id>/treble/up')
 class ZoneTrebleUp(Resource):
     def post(self, zone_id):
+        """Increase the treble for this zone"""
         xantechInterface.write_command("!" + zone_id + "TI+")
         return {}
 
 @ns.route('/<int:id>/treble/down')
 class ZoneTrebleDown(Resource):
     def post(self, zone_id):
+        """Decrease the treble for this zone"""
         xantechInterface.write_command("!" + zone_id + "TD+")
         return {}

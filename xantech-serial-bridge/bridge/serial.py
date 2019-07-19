@@ -1,8 +1,8 @@
-# Bridge to RS232 serial connection including configuration support and
-# helper functions. This can be shared between multiple bridges so should
-# not contain any hardware specific details.
+# Common support functionality for RS232 serial connection including
+# configuration and helper functions. This can be shared between
+# multiple bridges/interfaces so should not contain any hardware
+# specific details.
 
-import os
 import sys
 import time
 import serial
@@ -11,7 +11,7 @@ import logging
 log = logging.getLogger(__name__)
 
 DEFAULT_TTY = '/dev/ttyUSB0'
-DEFAULT_TTY_TIMEOUT = 1
+DEFAULT_TTY_TIMEOUT_SECONDS = 1
 DEFAULT_BAUD_RATE = 9600
 DEFAULT_NEWLINE = '\r'
 
@@ -26,20 +26,19 @@ EXAMPLE_TTY_PATHS = [
     '/dev/ttyUSB2'        # Linux USB serial 3
 ]
 
-#def get_env_value(envname, default):
-#    if envname in os.environ:
-#        return os.getenv(envname)
-#    return default
+# FIXME: the constructor of this should pass in tty, timeouts, baud rate, since they
+# should be configured on a per-interface level. Not ENV!
 
 class BridgeSerial:
 
-    def __init__(self):
+    def __init__(self, config, interface_slug):
         try:
-            self._tty      = os.getenv('BRIDGE_TTY', DEFAULT_TTY)
-            self._timeout  = int(os.getenv('BRIDGE_TTY_TIMEOUT', DEFAULT_TTY_TIMEOUT))
-            self._baud     = int(os.getenv('BRIDGE_BAUD_RATE', DEFAULT_BAUD_RATE))
-            self._newline  = os.getenv('BRIDGE_NEWLINE', DEFAULT_NEWLINE)
-            self._encoding = 'utf-8'
+            self._tty = config['tty']
+            self._baud_rate = int(config['baud_rate'])
+            self._timeout = DEFAULT_TTY_TIMEOUT_SECONDS
+            self._newline = int(config['tty'])
+            self._newlines = config['newline']
+            self._encoding = 'utf-8' # config['encoding']
 
             self._serial   = serial.Serial(self._tty, timeout=self._timeout, baudrate=self._baud_rate,
                                            parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
