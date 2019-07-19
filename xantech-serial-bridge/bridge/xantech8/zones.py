@@ -69,7 +69,7 @@ class ZoneStatus(Resource):
 
     #@api.marshal_with(zone)
     def get(self, zone_id):
-        state = xantechSerial.getZoneState(zone_id)
+        state = xantechInterface.getZoneState(zone_id)
         if state == None:
             # FIXME: return error
             return False
@@ -96,19 +96,19 @@ class ZoneVolumeLevel(Resource):
         # for simplicity of API, we use range from 0-100% even though increase by 1%  <may not
         # necessarily change volume if it remains within the same dB attenuation step.
         attenuation_level = (38 * percentage) / 100
-        raSerial.writeCommand("!" + zone_id + "VO" + attenuation_level + "+")
+        xantechInterface.write_command("!" + zone_id + "VO" + attenuation_level + "+")
         return {}
 
 @ns.route('/<int:id>/volume/up')
 class ZoneVolumeUp(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "VI+")
+        xantechInterface.write_command("!" + zone_id + "VI+")
         return {}
 
 @ns.route('/<int:id>/volume/down')
 class ZoneVolumeDown(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "VD+")
+        xantechInterface.write_command("!" + zone_id + "VD+")
         return {}
 
 # NOTE: Monoprice's Xantech-style interface also supports saving the current volume 
@@ -121,13 +121,13 @@ class ZoneVolumeDown(Resource):
 @ns.route('/<int:id>/power/on')
 class ZonePowerOn(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "PR1+")
+        xantechInterface.write_command("!" + zone_id + "PR1+")
         return {}
 
 @ns.route('/<int:id>/power/off')
 class ZonePowerOff(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "PR0+")
+        xantechInterface.write_command("!" + zone_id + "PR0+")
         return {}
 
 ####
@@ -135,13 +135,13 @@ class ZonePowerOff(Resource):
 @ns.route('/<int:id>/mute/on')
 class ZoneMuteOn(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "MU1+")
+        xantechInterface.write_command("!" + zone_id + "MU1+")
         return {}
 
 @ns.route('/<int:id>/mute/off') 
 class ZoneMuteOff(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "MU0+")
+        xantechInterface.write_command("!" + zone_id + "MU0+")
         return {}
 
 ####
@@ -154,7 +154,7 @@ class ZoneMuteOff(Resource):
 @ns.route('/<int:id>/source/<int:source_id>')
 class ZoneSourceSelect(Resource):
     def post(self, zone_id, source_id):
-        raSerial.writeCommand("!" + zone_id + "SS" + source_id + "+")
+        xantechInterface.write_command("!" + zone_id + "SS" + source_id + "+")
         return {}
 
 ####
@@ -164,13 +164,13 @@ class ZoneSourceSelect(Resource):
 @ns.route('/<int:id>/balance/left')
 class ZoneBalanceLeft(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "BL+")
+        xantechInterface.write_command("!" + zone_id + "BL+")
         return {}
 
 @ns.route('/<int:id>/balance/right')
 class ZoneBalanceRight(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "BR+")
+        xantechInterface.write_command("!" + zone_id + "BR+")
         return {}
 
 # FIXME: Normalize treble adjustments 0-100%...default is 50%?  E.g. 7 is 0 dB on Xantech, vs 14 is +14 dB
@@ -178,13 +178,13 @@ class ZoneBalanceRight(Resource):
 @ns.route('/<int:id>/bass/up')
 class ZoneBassUp(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "BI+")
+        xantechInterface.write_command("!" + zone_id + "BI+")
         return {}
 
 @ns.route('/<int:id>/bass/down')
 class ZoneBassDown(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "BD+")
+        xantechInterface.write_command("!" + zone_id + "BD+")
         return {}
 
 # FIXME: Normalize treble adjustments 0-100%...default is 50%?  E.g. 7 is 0 dB on Xantech, vs 14 is +14 dB
@@ -192,11 +192,11 @@ class ZoneBassDown(Resource):
 @ns.route('/<int:id>/treble/up')
 class ZoneTrebleUp(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "TI+")
+        xantechInterface.write_command("!" + zone_id + "TI+")
         return {}
 
 @ns.route('/<int:id>/treble/down')
 class ZoneTrebleDown(Resource):
     def post(self, zone_id):
-        raSerial.writeCommand("!" + zone_id + "TD+")
+        xantechInterface.write_command("!" + zone_id + "TD+")
         return {}

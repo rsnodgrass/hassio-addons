@@ -20,3 +20,4 @@ def setup_logging(
         logging.basicConfig(level=default_level)
 
 setup_logging()
+

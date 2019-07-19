@@ -5,15 +5,17 @@ import json
 import logging
 
 from flask import Flask
-from flask_restplus import Api
+from flask_restplus import Api, Resource
+
+import models # bridge.models
 
 log = logging.getLogger(__name__)
 
 app = Flask(__name__)
-api = Api(app)
+api = Api(app=app, doc='/docs')
 
 def run():
-    import bridge.settings as settings
+    import settings
 
     # FIXME: this should listen on 0.0.0.0 inside the Docker container
     app.config['SERVER_NAME'] = os.getenv('BRIDGE_SERVER_NAME', '127.0.0.1:5000')
@@ -26,14 +28,19 @@ def run():
 
     app.run(debug=settings.FLASK_DEBUG)
 
-#GET /
-#GET /<amp>
-#GET /<amp>/zones
+# GET /<amp>
+# GET /<amp>/zones
 
-@app.route('/')
+@api.route('/')
 class BridgeInfo(Resource):
     def get(self):
-        details = {}
+        """
+        Return details on all the multi-zone audio devices available
+        """
+        details = {
+            "controllers": { "xantech8":   "Xantech 8-Zone Audio (Second Floor)",
+                             "xantech8-2": "Xantech 8-Zone Audio (Basement)" }
+        }
         return json.dumps(details)
 
 if __name__ == '__main__':
