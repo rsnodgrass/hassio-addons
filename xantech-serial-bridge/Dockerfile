@@ -20,8 +20,7 @@ RUN apk update \
 
 ARG APP_DIR="/app"
 
-#RUN git clone 
-# && pip install --no-cache-dir -r "${APP_DIR}/requirements.txt"
+RUN pip3 install --no-cache-dir -r "${APP_DIR}/dependencies"
 
 EXPOSE 5000
 

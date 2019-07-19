@@ -63,3 +63,8 @@ your pool equipment. There is no input validation as the complex configuration i
 See [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) project for how to install the SmartApp and Device Handlers via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/). 
 
 FUTURE: The *outputToSmartThings* interface to the nodejs-poolController is already added to the Node.js service as part of this Hass.io add-on.
+
+# See Also
+
+* [Interface for talking RS485 to a variety of pool equipment](https://www.npmjs.com/package/nodejs-poolcontroller)
+* [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair)

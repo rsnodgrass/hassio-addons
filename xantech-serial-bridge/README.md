@@ -131,11 +131,13 @@ Known clients which interface with the Multi-Zone Audio Serial Bridge:
 * [Monoprice mpr-6zhmaut-api NodeJS REST server](https://github.com/jnewland/mpr-6zhmaut-api)
 * [Monoprice 10761 iOS and Apple Control control app](https://apps.apple.com/us/app/monoprice-whole-home-audio/id1168858624) (just as a reference, it does not use this bridge)
 * [Monoprice Amp Mixer for Windows](https://www.dropbox.com/s/aem6yck98etq9mb/MonoAmpV41.zip?file_subpath=%2FMonoAmpV41%2FMono.jpg)
+* [Monoprice Whole Home Audio iOS app](https://apps.apple.com/us/app/monoprice-whole-home-audio/id1168858624)
+* [Whole House Audio - Small Price / Big Value](https://chrisschuld.com/2019/05/whole-house-audio/)
 
 #### Community Engagement
 
 Sites with active community engagement around the Xantech, Monoprice, and Daytona AUdio
 multi-zone amplifiers:
 
-* (https://www.avsforum.com/forum/36-home-v-distribution/1506842-any-experience-monoprice-6-zone-home-audio-multizone-controller-15.html)
+* (https://www.avsforum.com/forum/36-home-v-distribution/1506842-any-experience-monoprice-6-zone-home-audio-multizone-controller-23.html)
 * (http://cocoontech.com/forums/topic/25893-monoprice-multi-zone-audio/)
