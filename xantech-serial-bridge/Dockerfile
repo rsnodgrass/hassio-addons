@@ -25,4 +25,4 @@ COPY . $APP_DIR
 EXPOSE 5000
 
 WORKDIR $APP_DIR
-CMD [ "python", "bridge" ]
+CMD [ "python3", "bridge" ]
