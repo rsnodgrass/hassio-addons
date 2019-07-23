@@ -42,91 +42,88 @@ bridge:
 
       zones: 
         1:
-	  name: Master Bedroom # optional
-	  slug: master_bedroom # optional, defaults to whitespace converted to _
-	  max_volume: 50 # optional
+	        name: Master Bedroom # optional
+	        slug: master_bedroom # optional, defaults to whitespace converted to _
+	        max_volume: 50 # optional
         2:
-	  name: Kitchen # optional
-	3:
-	  name: Home Theater
+	        name: Kitchen # optional
+	      3:
+	        name: Home Theater
 
       sources:
         1:
-	  name: "Sonos (Main)"
+	        name: "Sonos (Main)"
         2:
-	  name: "Sonos (Secondary)"
+	        name: "Sonos (Secondary)"
         3:
-	  name: "TV"
+	        name: "TV"
         4:
-	  name: "CD"
+	        name: "CD"
         5:
-	  name: "3.5mm Input"
+	        name: "3.5mm Input"
         6:
-	  name: "CD"
+	        name: "CD"
 
 
+example_zones:
+  - Atrium
+  - Basement
+  - Bathroom
+  - Bedroom
+  - Deck
+  - Dinette
+  - Dining Room
+  - Dressing Room
+  - Entrance
+  - Family Room
+  - Foyer
+  - Game Room
+  - Guest Suite
+  - Gym
+  - Hallway
+  - Kids Room 1
+  - Kids Room 2
+  - Kitchen
+  - Lanai
+  - ibrary
+  - Living Room
+  - Loft
+  - Master Bath
+  - Master Bedroom
+  - Master Suite
+  - Media Room
+  - Observatory
+  - Office
+  - Outside
+  - Patio
+  - Play Room
+  - Pool Area
+  - Powder Room
+  - Sitting Room
+  - Solarium
+  - Theater
 
-Atrium
-Basement
-Bathroom
-Bedroom
-Deck
-Dinette
-Dining Room
-Dressing Room
-Entrnace
-Family Room
-Foyer
-Game Room
-Guest Suite
-Gym
-Hallway
-Kids Room 1
-Kids Room 2
-Kitchen
-Lanai
-Library
-Living Room
-Loft
-Master Bath
-Master Bedroom
-Master Suite
-Media Room
-Observatory
-Observatory
-Office
-Outside
-Patio
-Play Room
-Pool Area
-Powder Room
-Sitting Room
-Solarium
-Theater
-
-
-SOURCES
-
-Auxiliary 1
-Auxiliary 2
-AM-FM
-Apple TV
-Blu-Ray
-Cable
-Computer
-CD
-DVD
-DVR
-FM
-Game Console
-iPod
-Internet Radio
-Media Player
-Media System
-Record Player
-Sirius Radio
-Streaming
-TV
-TiVo
-VCR
-XM Radio
+example_sources:
+  - Auxiliary 1
+  - Auxiliary 2
+  - AM-FM
+  - Apple TV
+  - Blu-Ray
+  - Cable
+  - Computer
+  - CD
+  - DVD
+  - DVR
+  - FM
+  - Game Console
+  - iPod
+  - Internet Radio
+  - Media Player
+  - Media System
+  - Record Player
+  - Sirius Radio
+  - Streaming
+  - TV
+  - TiVo
+  - VCR
+  - XM Radio
