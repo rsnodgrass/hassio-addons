@@ -1,4 +1,4 @@
-# IDEAL MINIMAL SETUP:
+# Ideal minimal setup:
 
 bridge:
   amplifiers:
@@ -6,7 +6,7 @@ bridge:
       type: xantech8
       serial: /dev/ttyUSB0
 
-Minimal example with multiple matrix systems:
+# Minimal example with multiple matrix systems:
 
 bridge:
   amplifiers:
@@ -26,9 +26,8 @@ bridge:
       serial: /dev/ttyUSB3
 
 bridge:
-  port: xxxx # optional, default 5000
-  host: xxxx # optional
-  auth: # optional, authentation not yet defined
+  port: 5000     # optional, default 5000
+  host: 0.0.0.0  # optional, default 0.0.0.0 to listen to all network interface
 
   amplifiers:
     - type: xantech8
