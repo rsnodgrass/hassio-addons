@@ -2,8 +2,9 @@
 
 bridge:
   amplifiers:
-    - type: xantech8
-      tty: /dev/ttyUSB0
+    xantech:
+      type: xantech8
+      serial: /dev/ttyUSB0
 
 Minimal example with multiple matrix systems:
 

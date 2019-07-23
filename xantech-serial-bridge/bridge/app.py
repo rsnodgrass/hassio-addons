@@ -13,8 +13,11 @@ import models # bridge.models
 
 log = logging.getLogger(__name__)
 
+VERSION = '0.1'
+
 app = Flask(__name__)
-api = Api(app=app, doc='/docs', title='Multi-Zone Audio Serial Bridge', version='0.1',
+api = Api(app=app, doc='/docs', title='Multi-Zone Audio Serial Bridge', version=VERSION,
+          url="https://github.com/rsnodgrass/hassio-addons/tree/master/xantech-serial-bridge",
           description='REST interface for communicating with multi-zone audio controllers and amplifiers')
 
 @api.route('/')

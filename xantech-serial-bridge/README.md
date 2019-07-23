@@ -121,6 +121,7 @@ Known clients which interface with the Multi-Zone Audio Serial Bridge:
 * virtual master/slave across several connected multi-zone amplifiers (including across multiple brands)
 * support publishing state change events to a MQTT broker
 * theoretically the Bridge's REST API, design model, and code structure could support other RS232 compatible matrix audio controller protocols (such as the Niles IntelliControl ICS GXR2), but no plans to implement
+* learn from (https://github.com/koolsb/pyblackbird)
 
 # See Also
 
