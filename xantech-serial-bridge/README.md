@@ -111,6 +111,7 @@ Known clients which interface with the Multi-Zone Audio Serial Bridge:
 
 * ability to remote configure or rename zones/sources via the REST API
 * add documentation of all the API endpoints and link from here
+* look at matrix switching for inspiration: https://www.home-assistant.io/components/blackbird/
 
 #### Unplanned
 
