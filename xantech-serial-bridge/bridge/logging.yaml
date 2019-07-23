@@ -2,12 +2,14 @@ version: 1
 formatters:
   simple:
     format: '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+  minimal:
+    format: '%(levelname)-10s %(message)s'
 
 handlers:
   console:
     class: logging.StreamHandler
     level: DEBUG
-    formatter: simple
+    formatter: minimal
     stream: ext://sys.stdout
 
   stderr:

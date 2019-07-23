@@ -12,7 +12,10 @@ def setup_logging(
     value = os.getenv(env_key, None)
     if value:
         path = value
+
+        print "Opening " + path
     if os.path.exists(path):
+        print "Opening " + path
         with open(path, 'rt') as f:
             config = yaml.safe_load(f.read())
         logging.config.dictConfig(config)
@@ -20,4 +23,3 @@ def setup_logging(
         logging.basicConfig(level=default_level)
 
 setup_logging()
-
