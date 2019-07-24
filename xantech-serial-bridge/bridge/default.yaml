@@ -1,0 +1,15 @@
+# DO NOT EDIT!
+# default configuration for a bridge instance (override these in config.yaml)
+
+bridge:
+  port: 5000
+  host: 0.0.0.0
+
+flask:
+  debug: true # WARNING: do not use debug mode in production
+  
+restplus:
+  swagger_ui_doc_expansion: "list"
+  validate: true
+  mask_swagger: false
+  error_404_help: false

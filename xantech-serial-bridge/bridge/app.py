@@ -3,6 +3,7 @@ import time
 
 import json
 import yaml
+import hiyapyco # yaml
 import logging
 import logging.config
 
@@ -10,6 +11,10 @@ from flask import Flask
 from flask_restplus import Api, Resource
 
 import models # bridge.models
+
+# FIXME: for dynamic import of modules
+#   see  https://www.bnmetrics.com/blog/dynamic-import-in-python3
+#from importlib import import_module
 
 log = logging.getLogger(__name__)
 
@@ -49,15 +54,31 @@ def setup_logging(
         path = value
 
     if os.path.exists(path):
-        print("Opening logging configuration" + path)
         with open(path, 'rt') as f:
             config = yaml.safe_load(f.read())
         logging.config.dictConfig(config)
     else:
-        print("Could not find logging configuration: " + path)
+        print("ERROR! Couldn't find logging configuration: " + path)
         logging.basicConfig(level=default_level)
 
 setup_logging()
+
+def load_config(config_file='bridge_config.yaml'):
+
+    with open(config_file, 'r') as stream:
+        log.info("Loading configuration from %s", config_file)
+        try:
+            config = hiyapyco.load('bridge/defaults.yaml', config_file)
+
+            #config = yaml.safe_load(stream)
+            print config
+            log.debug("Loading configuration %s", config)
+        except yaml.YAMLError as exc:
+            print(exc)
+
+def load_modules(name, config):
+    # FIXME: load the code, then load the default configuration
+    # see https://www.bnmetrics.com/blog/dynamic-import-in-python3
 
 def run():
     import settings
@@ -72,10 +93,23 @@ def run():
     app.config['RESTPLUS_MASK_SWAGGER']    = settings.RESTPLUS_MASK_SWAGGER
     app.config['ERROR_404_HELP']           = settings.RESTPLUS_ERROR_404_HELP
 
-    app.run(debug=settings.FLASK_DEBUG)
+    # FIXME: dynamicalyl load based on configuration
+    config = load_config()
+#    if config['bridge']['port']:
+#        port = config['bridge']['port']
+
+    port = config['port']
+    host = config['host']
 
     # iterate over all configured interfaces and instatiate the endpoints
-    #for interface in configured_interfaces:
+    for interface in config['amplifiers']:
+        log.info("Configuring equipment '%s'", interface)
+
+        # merge in any default YAML configuration for each equipment
+
+        module = import_module('.' )
+
+
         #endpoint = interface['endpoint']
        # name = interface['name']
 
@@ -86,6 +120,9 @@ def run():
         # FIXME: create object
        # ns = api.namespace(endpoint, description='Control interface for ' + name)
        # app.register_blueprint(ns, url_prefix='/' + endpoint)
+
+    app.run(debug=settings.FLASK_DEBUG)
+
 
 if __name__ == '__main__':
     run()
