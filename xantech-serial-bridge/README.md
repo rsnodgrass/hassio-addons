@@ -21,7 +21,7 @@ serial control protocol.
 |               | MRC88 / MRC88m                  | 8     | YES       |
 |               | MX88 / MX88a / MX88ai / MX88vi  | 8     | YES       |
 |               | MRAUDIO8X8 / MRAUDIO8X8m        | 8     | YES       |
-|               | MRAUDIO4X4                      | 4     | *NO*      |
+|               | MRAUDIO4X4 / BXAUDIO4x4         | 4     | *NO*      |
 |               | MRC44 / MRC44CTL                | 4     | *NO*      |
 | Monoprice     | MPR-SG6Z / 10761                | 6     | *MAYBE*   |
 | Dayton Audio  | DAX66                           | 6     | *MAYBE*   |
@@ -122,6 +122,7 @@ Known clients which interface with the Multi-Zone Audio Serial Bridge:
 * support publishing state change events to a MQTT broker
 * theoretically the Bridge's REST API, design model, and code structure could support other RS232 compatible matrix audio controller protocols (such as the Niles IntelliControl ICS GXR2), but no plans to implement
 * learn from (https://github.com/koolsb/pyblackbird)
+* Matrix Audio Switching Bridge
 
 # See Also
 
