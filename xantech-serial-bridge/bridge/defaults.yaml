@@ -3,6 +3,9 @@
 
 bridge:
   port: 5000
+  
+  # Default to listen on all interefaces. Note this may be insecure if run outside the
+  # context of a Docker container since this is accessible on all network interfaces.
   host: 0.0.0.0
 
 flask:

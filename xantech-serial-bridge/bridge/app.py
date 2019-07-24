@@ -3,9 +3,11 @@ import time
 
 import json
 import yaml
-import hiyapyco # yaml
 import logging
 import logging.config
+
+import pprint
+import hiyapyco # yaml
 
 from flask import Flask
 from flask_restplus import Api, Resource
@@ -63,55 +65,58 @@ def setup_logging(
 
 setup_logging()
 
-def load_config(config_file='bridge_config.yaml'):
-
+def load_config(config_file):
     with open(config_file, 'r') as stream:
         log.info("Loading configuration from %s", config_file)
         try:
-            config = hiyapyco.load('bridge/defaults.yaml', config_file)
-
+            # FIXME: better loading configuration...
+            config = hiyapyco.load('bridge/defaults.yaml',
+                                   'bridge/interfaces/xantech8/config.yaml',
+                                   'bridge/interfaces/monoprice6/config.yaml',
+                                    config_file,
+                                    method=hiyapyco.METHOD_MERGE,
+                                    interpolate=True,
+                                    failonmissingfiles=True)
             #config = yaml.safe_load(stream)
-            print config
             log.debug("Loading configuration %s", config)
+            return config
         except yaml.YAMLError as exc:
             print(exc)
 
-def load_modules(name, config):
+def load_interface(name, config):
     # FIXME: load the code, then load the default configuration
     # see https://www.bnmetrics.com/blog/dynamic-import-in-python3
+    log.error("Could not load interface %s", name)
+
+# copy specified keys from YAML to the Flask app config
+def yaml_to_flask_app_config(config, keys):
+    for key in keys:
+        app.config['key'] = config[key.lower()]
 
 def run():
-    import settings
+    config = load_config('bridge_config.yaml') # FIXME: allow env override?
+    print(hiyapyco.dump(config))
 
-    # Default to listen on all interefaces. Note this may be insecure if run outside the
-    # context of a Docker container since this is accessible on all network interfaces.
-    app.config['SERVER_NAME'] = os.getenv('BRIDGE_SERVER_NAME', '0.0.0.0:5000')
+    bridge_config = config['bridge'] 
+    host = str(bridge_config['host']) # FIXME: allow env override?
+    port = str(bridge_config['port']) # FIXME: allow env override?
+    app.config['SERVER_NAME'] = host + '":' + port
 
-    # FIXME: rework this...this should be YAML driven for consistency
-    app.config['SWAGGER_UI_DOC_EXPANSION'] = settings.RESTPLUS_SWAGGER_UI_DOC_EXPANSION
-    app.config['RESTPLUS_VALIDATE']        = settings.RESTPLUS_VALIDATE
-    app.config['RESTPLUS_MASK_SWAGGER']    = settings.RESTPLUS_MASK_SWAGGER
-    app.config['ERROR_404_HELP']           = settings.RESTPLUS_ERROR_404_HELP
-
-    # FIXME: dynamicalyl load based on configuration
-    config = load_config()
-#    if config['bridge']['port']:
-#        port = config['bridge']['port']
-
-    port = config['port']
-    host = config['host']
+    yaml_to_flask_app_config(config['restplus'], [ 'SWAGGER_UI_DOC_EXPANSION',
+                                                   'RESTPLUS_VALIDATE',
+                                                   'RESTPLUS_MASK_SWAGGER',
+                                                   'ERROR_404_HELP' ])
 
     # iterate over all configured interfaces and instatiate the endpoints
     for interface in config['amplifiers']:
         log.info("Configuring equipment '%s'", interface)
 
+        interface_type = 'xantech8'
+        load_interface(interface_type)
+
+        # FIXME: map the logical name to the interface type
+
         # merge in any default YAML configuration for each equipment
-
-        module = import_module('.' )
-
-
-        #endpoint = interface['endpoint']
-       # name = interface['name']
 
         #from .namespace1 import api as ns1
 
@@ -121,7 +126,8 @@ def run():
        # ns = api.namespace(endpoint, description='Control interface for ' + name)
        # app.register_blueprint(ns, url_prefix='/' + endpoint)
 
-    app.run(debug=settings.FLASK_DEBUG)
+    flask_debug = config['flask']['debug']
+    app.run(debug=flask_debug)
 
 
 if __name__ == '__main__':
