@@ -6,7 +6,6 @@ import yaml
 import logging
 import logging.config
 
-import pprint
 import hiyapyco # yaml
 
 from flask import Flask
@@ -32,7 +31,7 @@ api = Api(app=app, doc='/docs', title='Multi-Zone Audio Serial Bridge', version=
 class BridgeInfo(Resource):
     def get(self):
         """
-        Return details on all the multi-zone audio devices available
+        Return details on all the control interfaces available
         """
         details = {
             "controllers": { "xantech8":   "Xantech 8-Zone Audio (Second Floor)",
@@ -61,7 +60,7 @@ def setup_logging(
             config = yaml.safe_load(f.read())
         logging.config.dictConfig(config)
     else:
-        print("ERROR! Couldn't find logging configuration: " + path)
+        print(f"ERROR! Couldn't find logging configuration: {path}")
         logging.basicConfig(level=default_level)
 
 setup_logging()
@@ -72,7 +71,7 @@ def load_config(config_file):
         try:
             config_files = ['config/default.yaml']
             for interface in INTERFACES:
-                config_files.append( 'bridge/interfaces/' + interface + '/config.yaml')
+                config_files.append(f"bridge/interfaces/{interface}/config.yaml")
             config_files.append(config_file)
 
             log.debug("Loading configuration from: %s", config_files)
@@ -85,7 +84,8 @@ def load_config(config_file):
             log.debug("Loading configuration %s", config)
             return config
         except yaml.YAMLError as exc:
-            print(exc)
+            sys.stderr.write(f"FATAL! {exc}")
+            sys.exit(1)
 
 def load_interface(name, config):
     # FIXME: load the code, then load the default configuration
@@ -97,19 +97,22 @@ def yaml_to_flask_app_config(config, keys):
     for key in keys:
         app.config['key'] = config[key.lower()]
 
-def run():
+def main():
     config = load_config('bridge_config.yaml') # FIXME: allow env override?
-    print(hiyapyco.dump(config))
+    #print(hiyapyco.dump(config))
 
     bridge_config = config['bridge'] 
     host = os.getenv('BRIDGE_HOST', bridge_config['host'])
     port = int(os.getenv('BRIDGE_PORT', bridge_config['port']))
+
     app.config['SERVER_NAME'] = f"{host}:{port}"
     
     yaml_to_flask_app_config(config['restplus'], [ 'SWAGGER_UI_DOC_EXPANSION',
                                                    'VALIDATE',
                                                    'MASK_SWAGGER',
                                                    'ERROR_404_HELP' ])
+
+
 
     # iterate over all configured interfaces and instatiate the endpoints
     for interface in config['amplifiers']:
@@ -132,7 +135,7 @@ def run():
 
     flask_debug = config['flask']['debug']
     app.run(debug=flask_debug)
-
+    
 
 if __name__ == '__main__':
-    run()
+    main()
