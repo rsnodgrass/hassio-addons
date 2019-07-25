@@ -104,8 +104,8 @@ def run():
     bridge_config = config['bridge'] 
     host = os.getenv('BRIDGE_HOST', bridge_config['host'])
     port = int(os.getenv('BRIDGE_PORT', bridge_config['port']))
-    app.config['SERVER_NAME'] = str.format('%s:%d', host, port )
-
+    app.config['SERVER_NAME'] = f"{host}:{port}"
+    
     yaml_to_flask_app_config(config['restplus'], [ 'SWAGGER_UI_DOC_EXPANSION',
                                                    'VALIDATE',
                                                    'MASK_SWAGGER',
