@@ -21,6 +21,7 @@ import models # bridge.models
 log = logging.getLogger(__name__)
 
 VERSION = '0.1'
+INTERFACES = [ 'xantech8', 'monoprice6' ]
 
 app = Flask(__name__)
 api = Api(app=app, doc='/docs', title='Multi-Zone Audio Serial Bridge', version=VERSION,
@@ -45,7 +46,7 @@ class HelloWorld(Resource):
         return {'hello': 'world'}
 
 def setup_logging(
-    default_path='logging.yaml',
+    default_path='config/logging.yaml',
     default_level=logging.INFO,
     env_key='LOG_CONFIG'
 ):
@@ -69,14 +70,17 @@ def load_config(config_file):
     with open(config_file, 'r') as stream:
         log.info("Loading configuration from %s", config_file)
         try:
-            # FIXME: better loading configuration...
-            config = hiyapyco.load('bridge/defaults.yaml',
-                                   'bridge/interfaces/xantech8/config.yaml',
-                                   'bridge/interfaces/monoprice6/config.yaml',
-                                    config_file,
+            config_files = ['config/default.yaml']
+            for interface in INTERFACES:
+                config_files.append( 'bridge/interfaces/' + interface + '/config.yaml')
+            config_files.append(config_file)
+
+            log.debug("Loading configuration from: %s", config_files)
+            config = hiyapyco.load(config_files,
                                     method=hiyapyco.METHOD_MERGE,
                                     interpolate=True,
                                     failonmissingfiles=True)
+
             #config = yaml.safe_load(stream)
             log.debug("Loading configuration %s", config)
             return config
@@ -98,13 +102,13 @@ def run():
     print(hiyapyco.dump(config))
 
     bridge_config = config['bridge'] 
-    host = str(bridge_config['host']) # FIXME: allow env override?
-    port = str(bridge_config['port']) # FIXME: allow env override?
-    app.config['SERVER_NAME'] = host + '":' + port
+    host = os.getenv('BRIDGE_HOST', bridge_config['host'])
+    port = int(os.getenv('BRIDGE_PORT', bridge_config['port']))
+    app.config['SERVER_NAME'] = str.format('%s:%d', host, port )
 
     yaml_to_flask_app_config(config['restplus'], [ 'SWAGGER_UI_DOC_EXPANSION',
-                                                   'RESTPLUS_VALIDATE',
-                                                   'RESTPLUS_MASK_SWAGGER',
+                                                   'VALIDATE',
+                                                   'MASK_SWAGGER',
                                                    'ERROR_404_HELP' ])
 
     # iterate over all configured interfaces and instatiate the endpoints
@@ -112,7 +116,7 @@ def run():
         log.info("Configuring equipment '%s'", interface)
 
         interface_type = 'xantech8'
-        load_interface(interface_type)
+        load_interface(interface_type, config)
 
         # FIXME: map the logical name to the interface type
 

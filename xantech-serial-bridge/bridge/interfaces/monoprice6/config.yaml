@@ -1,5 +1,6 @@
 monoprice6:
   name: "Monoprice 6-Zone Audio"
+  description: "Supports 6-zone Monoprice and Dayton Audio amplifiers"
   num_zones: 6
   num_sources: 6
   serialization:
