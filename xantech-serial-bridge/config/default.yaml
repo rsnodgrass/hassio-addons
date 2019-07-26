@@ -7,6 +7,7 @@ bridge:
   # Default to listen on all interfaces. Note this may be insecure if run outside the
   # context of a Docker container since this is accessible on all network interfaces.
   #   host: 0.0.0.0
+  host: 127.0.0.1
 
 flask:
   debug: true # WARNING: do not use debug mode in production

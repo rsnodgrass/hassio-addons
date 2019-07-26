@@ -1,10 +1,12 @@
 import os
 import time
 
+import re
 import json
 import yaml
 import logging
 import logging.config
+from pathlib import Path
 
 import hiyapyco # yaml
 
@@ -17,32 +19,12 @@ import models # bridge.models
 #   see  https://www.bnmetrics.com/blog/dynamic-import-in-python3
 #from importlib import import_module
 
-log = logging.getLogger(__name__)
-
 VERSION = '0.1'
-INTERFACES = [ 'xantech8', 'monoprice6' ]
 
 app = Flask(__name__)
 api = Api(app=app, doc='/docs', title='Multi-Zone Audio Serial Bridge', version=VERSION,
           url="https://github.com/rsnodgrass/hassio-addons/tree/master/xantech-serial-bridge",
-          description='REST interface for communicating with multi-zone audio controllers and amplifiers')
-
-@api.route('/')
-class BridgeInfo(Resource):
-    def get(self):
-        """
-        Return details on all the control interfaces available
-        """
-        details = {
-            "controllers": { "xantech8":   "Xantech 8-Zone Audio (Second Floor)",
-                             "xantech8-2": "Xantech 8-Zone Audio (Basement)" }
-        }
-        return json.dumps(details)
-
-@api.route('/hello')
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
+          description='API to multi-zone audio controllers and amplifiers')
 
 def setup_logging(
     default_path='config/logging.yaml',
@@ -64,10 +46,22 @@ def setup_logging(
         logging.basicConfig(level=default_level)
 
 setup_logging()
+log = logging.getLogger(__name__)
+
+# discover what hardware interfaces are available
+def discover_interfaces():
+    interfaces = []
+    for filename in Path('bridge/interfaces/').glob('**/config.yaml'):
+        m = re.search("bridge/interfaces/(?P<interface>.+)/config.yaml", str(filename))
+        if m:
+            interface = m.group('interface')
+            log.debug("Discovered interface '%s'", interface)
+            interfaces.append(interface)
+    return interfaces
+INTERFACES = discover_interfaces()
 
 def load_config(config_file):
     with open(config_file, 'r') as stream:
-        log.info("Loading configuration from %s", config_file)
         try:
             config_files = ['config/default.yaml']
             for interface in INTERFACES:
@@ -76,21 +70,31 @@ def load_config(config_file):
 
             log.debug("Loading configuration from: %s", config_files)
             config = hiyapyco.load(config_files,
-                                    method=hiyapyco.METHOD_MERGE,
-                                    interpolate=True,
-                                    failonmissingfiles=True)
+                                   method=hiyapyco.METHOD_MERGE,
+                                   interpolate=True,
+                                   failonmissingfiles=True)
 
             #config = yaml.safe_load(stream)
-            log.debug("Loading configuration %s", config)
             return config
         except yaml.YAMLError as exc:
             sys.stderr.write(f"FATAL! {exc}")
             sys.exit(1)
 
-def load_interface(name, config):
+def load_interface(config):
     # FIXME: load the code, then load the default configuration
     # see https://www.bnmetrics.com/blog/dynamic-import-in-python3
-    log.error("Could not load interface %s", name)
+    print(config)
+    log.error("Could not load interface %s", config['name'])
+
+
+        # FIXME: map the logical name to the interface type
+
+        # merge in any default YAML configuration for each equipment
+
+        #from .namespace1 import api as ns1
+
+
+
 
 # copy specified keys from YAML to the Flask app config
 def yaml_to_flask_app_config(config, keys):
@@ -104,8 +108,6 @@ def main():
     bridge_config = config['bridge'] 
     host = os.getenv('BRIDGE_HOST', bridge_config['host'])
     port = int(os.getenv('BRIDGE_PORT', bridge_config['port']))
-
-    app.config['SERVER_NAME'] = f"{host}:{port}"
     
     yaml_to_flask_app_config(config['restplus'], [ 'SWAGGER_UI_DOC_EXPANSION',
                                                    'VALIDATE',
@@ -117,15 +119,10 @@ def main():
     # iterate over all configured interfaces and instatiate the endpoints
     for interface in config['amplifiers']:
         log.info("Configuring equipment '%s'", interface)
+        conf = config['amplifiers'][interface]
+        conf['id'] = interface # inject the interface name as the id
 
-        interface_type = 'xantech8'
-        load_interface(interface_type, config)
-
-        # FIXME: map the logical name to the interface type
-
-        # merge in any default YAML configuration for each equipment
-
-        #from .namespace1 import api as ns1
+        load_interface(conf)
 
         # GET /<interface>
         # GET /<interface>/zones
@@ -134,8 +131,27 @@ def main():
        # app.register_blueprint(ns, url_prefix='/' + endpoint)
 
     flask_debug = config['flask']['debug']
-    app.run(debug=flask_debug)
-    
+    app.run(debug=flask_debug, host=host, port=port)
+
+@api.route('/f')
+class BridgeInfo(Resource):
+    def get(self):
+        """
+        Return details on all the control interfaces available
+        """
+        details = {
+            "controllers": {
+                "xantech8": { 
+                    "name": "Xantech 8-Zone Audio (Second Floor)",
+                    "url": "/xantech8/<slug>" },
+                "xantech8-2": {
+                    "name": "Xantech 8-Zone Audio (Basement)",
+                    "url": "/xantech8/<slug2>"
+                }
+            }
+        }
+        return json.dumps(details)
+
 
 if __name__ == '__main__':
     main()
