@@ -20,7 +20,7 @@ MULTICAST_PORT = 9131
 MULTICAST_TTL = 2
 
 def get_mac():
-    return ':'.join(re.findall('..', '%012x' % uuid.getnode()))
+    return ''.join(re.findall('..', '%012x' % uuid.getnode())).upper()
 
 def get_ip():
     return "127.0.0.1"
@@ -45,14 +45,15 @@ class HeartbeatBeacon():
             "Make"       : "GlobalCache", # required
             "Model"      : "iTachFlexEthernet", # "iTachWF2IR",  # required
             "Config-URL" : "http://192.168.1.70",
-            "Status"     : "Ready",
-            "Revision"   : "710-1001-05",
-            "Pkg_Level"  : "GCPK001",
-            "PCB_PN"     : "025-0026-06"  # 025-0033-10
+            "Revision"   : "710-2000-15",
+            "Pkg_Level"  : "", # "GCPK001",
+            "PCB_PN"     : "025-0033-10",
+            "Status"     : "Ready"
             }
         heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items()) + "\r"
  
         while True:
-            log.info(f"Broadcasting heartbeat package: {heartbeat_packet}")
+            log.info("Broadcasting heartbeat package: %s", heartbeat_packet)
+            print(f"Broadcasting heartbeat package: {heartbeat_packet}")
             sock.sendto(b"{heartbeat_packet}", (MULTICAST_IP, MULTICAST_PORT))
-            time.sleep(10) # heartbeat every 10 seconds (FIXME: should we add jitter to this?)
+            time.sleep(5) # heartbeat every 10 seconds
