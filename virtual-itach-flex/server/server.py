@@ -1,10 +1,9 @@
 #!/usr/local/bin/python3
 #
-# Emulates a Global Cache iTach Flex IP to Serial (IP2SL) to provide bidirectional
+# Emulates a Global Cache iTach Flex IP2SL (IP to Serial) to provide bidirectional
 # TCP-to-serial connections to physical serial ports connected to the host running
 # this microservice. Up to eight physical RS232/RS485 serial ports can be exposed
 # through the TCP API by each running instance of this Virtual Adapter.
-
 
 import logging
 from flask import Flask
@@ -28,7 +27,10 @@ from beacon import HeartbeatBeacon
 
 log = logging.getLogger(__name__)
 
-ITACH_FLEX_COMMAND_TCP_PORT = 4999
+ITACH_FLEX_TCP_API_VERSION = '1.6'
+
+ITACH_FLEX_COMMAND_TCP_PORT = 4998
+ITACH_FLEX_TCP_PORT_START = 4999
 
 app = Flask(__name__)
 
@@ -45,6 +47,13 @@ ERR_INVALID_BAUD_RATE    ="ERR SL001" # Invalid baud rate
 ERR_INVALID_FLOW_SETTING ="ERR SL002" # Invalid flow control or duplex setting
 ERR_INVALID_PARITY       ="ERR SL003" # Invalid parity setting
 ERR_INVALID_STOP_BITS    ="ERR SL004" # Invalid stop bits setting
+
+Valid_Config_Values = {
+#    "baud": [] # 300|…|115200
+    "flow":     [ 'FLOW_HARDWARE', 'FLOW_NONE', 'DUPLEX_HALF', 'DUPLEX_FULL' ],
+    "parity":   [ 'PARITY_NO', 'PARITY_ODD', 'PARITY_EVEN' ],
+    "stopbits": [ 'STOPBITS_1', 'STOPBITS_2' ] # optional
+}
 
 def read_config(config_file):
     with open(config_file, 'r') as stream:
@@ -178,11 +187,13 @@ def main():
 
     start_command_listener()
 
-    port = 4999
+    # start the individual TCP ports for each serial port
+    port = ITACH_FLEX_TCP_PORT_START
     for serial_config in config['serial']:
-        log.info("Found serial config for %s", serial_config)
+        log.info("Found serial config for port %d: %s", port, serial_config)
+        port = port + 1
 
-    # run the Flask http console server in the main thread
+    # run the http console server in the main thread
     app.run(debug=True, host='127.0.0.1', port='8080') # FIXME: allow env override, but default to 80!
 
 
