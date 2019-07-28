@@ -24,10 +24,11 @@ def get_ip():
 class AMXDiscoveryBeacon():
     def __init__(self, config):
         self._config = config
+        self._beacon_interval = 5 # heartbeat every 10 seconds
 
-        thread = threading.Thread(target=self.heartbeat, args=())
-        thread.daemon = True
-        thread.start()
+        self._thread = threading.Thread(target=self.heartbeat, args=())
+        self._thread.daemon = True
+        self._thread.start()
 
     def heartbeat(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
@@ -55,4 +56,4 @@ class AMXDiscoveryBeacon():
             log.debug("Broadcasting heartbeat beacon: %s", heartbeat_packet)
             print(f"Broadcasting heartbeat beacon: {heartbeat_packet}")
             sock.sendto(b"{heartbeat_packet}\r", (MULTICAST_IP, MULTICAST_PORT))
-            time.sleep(5) # heartbeat every 10 seconds
+            time.sleep(self._beacon_interval)

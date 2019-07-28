@@ -189,8 +189,10 @@ def main():
 
     host = os.getenv('FLEX_SERVER_IP', '0.0.0.0')
 
+    # until Flask http bind issue is resolved, just wait for all threads to complete before exiting
     for a_thread in threads:
         a_thread.join()
+    exit
 
     # run the http console server in the main thread
     console_port = 4444
