@@ -19,8 +19,8 @@ from bridge.api.restplus import api
 
 log = logging.getLogger(__name__)
 
-# /api/xantech/zones
-ns = api.namespace('zones', description='Zone operations')
+# /api/xantech8/zones
+ns = api.namespace('xantech8', description='Zone operations')
 
 @ns.route('/')
 class EquipmentList(Resource):

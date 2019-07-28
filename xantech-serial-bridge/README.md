@@ -144,3 +144,4 @@ multi-zone amplifiers:
 
 * (https://www.avsforum.com/forum/36-home-v-distribution/1506842-any-experience-monoprice-6-zone-home-audio-multizone-controller-23.html)
 * (http://cocoontech.com/forums/topic/25893-monoprice-multi-zone-audio/)
+* (https://community.home-assistant.io/t/monoprice-whole-home-audio-controller-10761-success/19734/67)

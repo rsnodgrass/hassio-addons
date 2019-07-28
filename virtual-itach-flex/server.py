@@ -66,11 +66,11 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
         print("{} wrote:".format(self.client_address[0]))
         print(self._data)
 
-        if self.data == b"getdevices":
+        if self._data == b"getdevices":
             self.handle_getdevices()
-        elif self.data == b"getversion":
+        elif self._data == b"getversion":
             self.handle_getversion()
-        else
+        else:
             print("Unknown request: {self._data}")
 
     def send_response(self, response):
@@ -105,17 +105,23 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
 def main():
-
     beacon = HeartbeatBeacon()
 
-    server = socketserver.TCPServer(("localhost", ITACH_FLEX_TCP_PORT), iTachFlexTCPHandler)
+    server = ThreadedTCPServer(("localhost", ITACH_FLEX_TCP_PORT), ThreadedTCPRequestHandler)
+
+    # start a thread with the server -- that thread will start a new thread for each request
+    server_thread = threading.Thread(target=server.serve_forever)
+    #server_thread.daemon = True # exit the server thread when the main thread terminates
+    #server_thread.start()
+    #print("Server loop running in thread:", server_thread.name)
+
     server.serve_forever()
+
+#    server.shutdown()
+#    server.server_close()
 
 if __name__ == '__main__':
   main()
-
-# FIXME: add local name resolution using the multicast DNS mechanism (see Network Discovery section in API docs)
-# 
 
 # 
 #iTach Flex supports up to eight (8) simultaneous, bidirectional TCP-to-serial
