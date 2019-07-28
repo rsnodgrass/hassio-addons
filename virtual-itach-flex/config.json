@@ -1,5 +1,5 @@
 {
-  "name": "Virtual iTach Flex IP2SL (IP to Serial)",
+  "name": "Virtual Flex IP2SL (IP to Serial)",
   "version": "0.0.1",
   "slug": "virtual-itach-flex",
   "description": "Emulates a Global Cache iTach Flex IP to Serial (IP2SL) to provide bidirectional TCP-to-serial connections to physical serial ports connected to the host running this microservice. Up to eight physical RS232/RS485 serial ports can be exposed for remote access."

@@ -1,4 +1,4 @@
-# Virtual iTach Flex IP2SL (IP to Serial)
+# Virtual Flex IP2SL (IP to Serial)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
@@ -29,7 +29,7 @@ executed as a standalone server.
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 
-2. Find the "Virtual iTach Flex IP2SL (IP to Serial)" in the list of add-ons and click Install
+2. Find the "Virtual Flex IP2SL (IP to Serial)" in the list of add-ons and click Install
 
 # Configuration
 
@@ -114,16 +114,20 @@ ports is relayed directly out the RS232 serial port associated with that TCP por
 configuration. Similarly, any data received from the RS232 will be written to the TCP
 port. The RS232 ports are defaulted to /dev/ttyUSB0 through /dev/ttyUSB7.
 
-| TCP Port | Description                           | Default TTY  |
-| 4998     | iTach Flex command and control port   |
-| 4999     | raw TCP port to the first serial port | /dev/ttyUSB0 |
-| 5000     | ... second serial port
-| 5001     | ... third serial port
-| 5002     | ... fourth serial port
-| 5003     | ... fifth serial port
-| 5004     | ... sixth serial port
-| 5005     | ... seventh serial port
-| 5006     | raw TCP port to the eighth serial port
+| TCP Port | Description                            | Default TTY  |
+| -------- | -------------------------------------- | ------------ |
+| 4998     | iTach Flex command and control port    |              |
+| 4999     | raw TCP port to the first serial port  | /dev/ttyUSB0 |
+| 5000     | ... second serial port                 | /dev/ttyUSB1 |
+| 5001     | ... third serial port                  | /dev/ttyUSB2 |
+| 5002     | ... fourth serial port                 | /dev/ttyUSB3 |
+| 5003     | ... fifth serial port                  | /dev/ttyUSB4 |
+| 5004     | ... sixth serial port                  | /dev/ttyUSB5 |
+| 5005     | ... seventh serial port                | /dev/ttyUSB6 |
+| 5006     | raw TCP port to the eighth serial port | /dev/ttyUSB7 |
+
+For enhanced security, it is recommended disabling via configuration any ports
+that are not in use.
 
 # TODO
 
