@@ -1,5 +1,5 @@
 # see the "iTach Flex TCP API Specification" PDF manual for the available configuration
-# options for each serial port
+# values for each option.
 
 serial:
   1: # port 1

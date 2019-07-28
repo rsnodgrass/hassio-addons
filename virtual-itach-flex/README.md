@@ -5,7 +5,7 @@
 
 *NOT YET IMPLEMENTED*
 
-Emulates a Global Caché iTach IP to Serial (IP2SL) to provide bidirectional
+Emulates a Global Caché iTach Flex IP2SL (IP to Serial) to provide bidirectional
 TCP-to-serial connections to physical serial ports connected to the host running
 this microservice. By implementing the iTach Flex TCP API, this allows for exposes
 up to eight physical RS232/RS485 serial ports per running microservice instance.
@@ -90,19 +90,6 @@ serial:
     stop_bits: STOPBITS_1
 ```
 
-# See Also
-
-* [iTach Flex TCP API Specification v1.6](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)
-* [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
-* [iTach TCP/IP to Serial (RS232) IP2IR specs](https://www.globalcache.com/products/itach/ip2slspecs/)
-* [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
-
-# TODO
-
-* implement serial communication
-* implement configuration of serial ports
-* implement web UI
-
 ### Example TTY Paths
 
 | Serial Path        | Description                                         |
@@ -116,8 +103,23 @@ serial:
 | /dev/ttyUSB1       | USB serial adapter 2                                |
 | /dev/ttyUSB2       | USB serial adapter 3                                |
 
+# TODO
+
+* extend API to support [GC-100](https://www.globalcache.com/files/docs/API-GC-100.pdf)
+* ensure client emulation compatibility for GC-100-xx, iTach IP2SL, or Flex
+* implement serial communication
+* implement web UI (show config, statistics)
+
 #### Community Engagement
 
 Links to active community engagement around iTach Flex integrations:
 
-* 
+* (https://community.home-assistant.io/t/itach-ip2sl/28805)
+
+# See Also
+
+* [Home Assistant GC100](https://www.home-assistant.io/components/gc100)
+* [iTach Flex TCP API Specification v1.6](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf) [v1.5](https://www.globalcache.com/files/docs/API-iTach.pdf)
+* [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
+* [iTach TCP/IP to Serial (RS232) IP2IR specs](https://www.globalcache.com/products/itach/ip2slspecs/)
+* [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
