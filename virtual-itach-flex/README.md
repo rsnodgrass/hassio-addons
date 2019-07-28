@@ -1,4 +1,4 @@
-# Virtual iTach Flex Serial Adapter
+# Virtual iTach Flex IP2SL (IP to Serial)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
@@ -13,7 +13,7 @@ up to eight physical RS232/RS485 serial ports per running microservice instance.
 While built as a Docker container (with additional support for making it a plug-and-play
 Home Assistant HASS.IO add-on), this can just as easily be executed as a standalone server.
 
-The Virtual Adapter listens on ports 4999-5007, depending on configuration.
+The Virtual IP2SL listens on ports 4999-5007, depending on configuration.
 
 Data sent to any of these ports is relayed directly out the RS232 serial port associated
 with that TCP port in configuration. Similarly, any data received from the RS232 will
@@ -26,7 +26,7 @@ be written to the TCP port. The RS232 ports are defaulted to /dev/ttyUSB0 throug
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 
-2. Find the "Virtual iTach Flex Serial" in the list of add-ons and click Install
+2. Find the "Virtual iTach Flex IP2SL (IP to Serial)" in the list of add-ons and click Install
 
 # Configuration
 
