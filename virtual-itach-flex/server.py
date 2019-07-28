@@ -3,9 +3,10 @@
 # Emulates a GlobalCache IP to serial adapter by passing commands to locally
 # configured serial ports.
 
-#import logger
+import logging
 from flask import Flask
 
+import os
 import uuid
 import time
 import re
@@ -13,6 +14,8 @@ import re
 import threading
 import socket
 import socketserver
+
+log = logging.getLogger(__name__)
 
 MULTICAST_IP = '239.255.250.250'
 MULTICAST_GROUP = '01:00:5E:7F:FA:FA'
@@ -24,7 +27,7 @@ MULTICAST_PORT = 9131
 # be re-sent/broadcast (see https://www.tldp.org/HOWTO/Multicast-HOWTO-6.html)
 MULTICAST_TTL = 2
 
-ITACH_FLEX_TCP_PORT = 5999
+ITACH_FLEX_COMMAND_TCP_PORT = 4999
 
 app = Flask(__name__)
 
@@ -81,10 +84,10 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
         elif self._data.startsWith("set_SERIAL"):
             self._handle_set_SERIAL()
         else:
-            print("Unknown request: {self._data}")
+            log.ERROR("Unknown request: {self._data}")
 
     def send_response(self, response):
-        print(f"Sending response: {response}")
+        log.INFO(f"Sending response: {response}")
         self.request.sendall(b"{response}")
 
     def handle_getdevices(self):
@@ -115,6 +118,18 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
 
+# we only allow a single client to connect to the TCP for a serial
+class SerialRelayTCPServer(socketserver.TCPServer):
+    def __init__(self, serial_path):
+        self._serial_path = serial_path
+        # FIXME: open serial connection
+
+    def handle(self):
+        self._data = self.request.recv(1024).strip()
+        print("{} wrote:".format(self.client_address[0]))
+        print(self._data)
+
+
 @app.route('/')
 def web_console():
     return '<h1>Virtual iTach Flex Serial Console</h1>'
@@ -122,7 +137,7 @@ def web_console():
 def main():
     beacon = HeartbeatBeacon()
 
-    server = ThreadedTCPServer(("localhost", ITACH_FLEX_TCP_PORT), ThreadedTCPRequestHandler)
+    server = ThreadedTCPServer(("localhost", ITACH_FLEX_COMMAND_TCP_PORT), ThreadedTCPRequestHandler)
 
     # start a thread with the server -- that thread will start a new thread for each request
     server_thread = threading.Thread(target=server.serve_forever)
@@ -137,7 +152,4 @@ def main():
 
     server.shutdown()
     server.server_close()
-
-if __name__ == '__main__':
-  main()
 
