@@ -44,51 +44,51 @@ PDF manual for the available configuration values for each serial port.
 serial:
   1: # port 1
     path: /dev/ttyUSB0
-    baud: 9600,
-    flow: FLOW_NONE, # flowcontrol = RS232
-    parity: PARITY_NO,
+    baud: 9600
+    flow: FLOW_NONE # flowcontrol = RS232
+    parity: PARITY_NO
     stop_bits: STOPBITS_1
   2: 
     path: /dev/ttyUSB1
-    baud: 9600,
-    flow: FLOW_NONE, # flowcontrol = RS232
-    parity: PARITY_NO,
+    baud: 9600
+    flow: FLOW_NONE # flowcontrol = RS232
+    parity: PARITY_NO
     stop_bits: STOPBITS_1
   3: 
     path: /dev/ttyUSB2
-    baud: 14400,
-    flow: FLOW_NONE, # flowcontrol = RS232
-    parity: PARITY_NO,
+    baud: 14400
+    flow: FLOW_NONE # flowcontrol = RS232
+    parity: PARITY_NO
     stop_bits: STOPBITS_1
   4: 
     path: /dev/ttyUSB3
-    baud: 14400,
-    flow: FLOW_NONE, # flowcontrol = RS232
-    parity: PARITY_NO,
+    baud: 14400
+    flow: FLOW_NONE # flowcontrol = RS232
+    parity: PARITY_NO
     stop_bits: STOPBITS_1
   5: 
     path: /dev/ttyUSB4
-    baud: 115200,
-    flow: FLOW_NONE, # flowcontrol = RS232
-    parity: PARITY_NO,
+    baud: 115200
+    flow: FLOW_NONE # flowcontrol = RS232
+    parity: PARITY_NO
     stop_bits: STOPBITS_1
   6:
     path: /dev/ttyUSB5
-    baud: 115200,
-    flow: FLOW_NONE, # flowcontrol = RS232
-    parity: PARITY_NO,
+    baud: 115200
+    flow: FLOW_NONE # flowcontrol = RS232
+    parity: PARITY_NO
     stop_bits: STOPBITS_1
   7:
     path: /dev/ttyUSB6
-    baud: 115200,
-    flow: FLOW_NONE, # flowcontrol = RS232
-    parity: PARITY_NO,
+    baud: 115200
+    flow: FLOW_NONE # flowcontrol = RS232
+    parity: PARITY_NO
     stop_bits: STOPBITS_1
   8:
     path: /dev/ttyUSB7
-    baud: 115200,
-    flow: DUPLEX_FULL, # duplex = RS485
-    parity: PARITY_NO,
+    baud: 115200
+    flow: DUPLEX_FULL # duplex = RS485
+    parity: PARITY_NO
     stop_bits: STOPBITS_1
 ```
 

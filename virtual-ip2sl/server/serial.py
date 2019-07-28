@@ -15,12 +15,17 @@ DEFAULT_BAUD_RATE = 9600
 # FIXME: the constructor of this should pass in tty, timeouts, baud rate, since they
 # should be configured on a per-interface level. Not ENV!
 
-class BridgeSerial:
+class SerialInterface:
 
-    def __init__(self, config, interface_slug):
+    def __init__(self, config):
         try:
-            self._tty = config['tty']
-            self._baud_rate = int(config['baud_rate'])
+            self._tty_path  = config['path']
+            self._baud_rate = int(config['baud'])  # FIXME: validate 300-????
+            self._flow      = config['flow']
+            self._parity    = config['parity']
+            self._stop_bits = config['stop_bits']
+
+
             self._timeout = DEFAULT_TTY_TIMEOUT_SECONDS  #int(config['timeout'])
 
             self._serial = serial.Serial(self._tty, timeout=self._timeout, baudrate=self._baud_rate,
