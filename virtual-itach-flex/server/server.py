@@ -24,13 +24,12 @@ import logging.config
 import server
 
 from beacon import AMXDiscoveryBeacon
+from listener import start_serial_listeners
 
 log = logging.getLogger(__name__)
 
 ITACH_FLEX_TCP_API_VERSION = '1.6'
-
 ITACH_FLEX_COMMAND_TCP_PORT = 4998
-ITACH_FLEX_TCP_PORT_START = 4999
 
 app = Flask(__name__)
 
@@ -75,11 +74,14 @@ def setup_logging(
     value = os.getenv(env_key, None)
     if value:
         path = value
-
+    
     if os.path.exists(path):
         with open(path, 'rt') as f:
             config = yaml.safe_load(f.read())
         logging.config.dictConfig(config)
+
+        log = logging.getLogger(__name__)
+        log.debug("Read logging configuration from %s: %s", path, config)
     else:
         print(f"ERROR! Couldn't find logging configuration: {path}")
         logging.basicConfig(level=default_level)
@@ -90,8 +92,8 @@ log = logging.getLogger(__name__)
 class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
     def handle(self):
         self._data = self.request.recv(1024).strip()
-        print("{} wrote:".format(self.client_address[0]))
-        print(self._data)
+        print(f"{self.client_address[0]} wrote: {self._data}")
+        log.debug(f"{self.client_address[0]} wrote: %s", self._data)
 
         if self._data == b"getdevices":
             self.handle_getdevices()
@@ -104,10 +106,10 @@ class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
         elif self._data.startsWith("set_SERIAL"):
             self.handle_set_SERIAL()
         else:
-            log.ERROR("Unknown request: {self._data}")
+            log.error("Unknown request: {self._data}")
 
     def send_response(self, response):
-        log.INFO("Sending response: %s", response)
+        log.info("Sending response: %s", response)
         self.request.sendall(b"{response}")
 
     def handle_getdevices(self):
@@ -151,18 +153,6 @@ class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
-# listener that relays data to/from a specific RS232 port
-# ... we only allow a single client to connect to the TCP for a serial
-class RS232SerialTCPServer(socketserver.TCPServer):
-    def __init__(self, serial_path):
-        self._serial_path = serial_path
-        # FIXME: open serial connection
-
-    def handle(self):
-        self._data = self.request.recv(1024).strip()
-        print("{} wrote:".format(self.client_address[0]))
-        print(self._data)
-
 
 @app.route('/')
 def web_console():
@@ -175,7 +165,7 @@ def start_command_listener():
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.daemon = True # exit the server thread when the main thread terminates
     server_thread.start()
-
+    
     # FIXME: should we limit the maximum threads that can be created (e.g. max simultaneous clients)
     # server.serve_forever()
 
@@ -184,14 +174,8 @@ def start_command_listener():
 
 def main():
     beacon = AMXDiscoveryBeacon(config)
-
     start_command_listener()
-
-    # start the individual TCP ports for each serial port
-    port = ITACH_FLEX_TCP_PORT_START
-    for serial_config in config['serial']:
-        log.info("Found serial config for port %d: %s", port, serial_config)
-        port = port + 1
+    start_serial_listeners(config)
 
     # run the http console server in the main thread
     app.run(debug=True, host='127.0.0.1', port='8080') # FIXME: allow env override, but default to 80!
