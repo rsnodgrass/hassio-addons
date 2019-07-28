@@ -4,6 +4,7 @@
 # configured serial ports.
 
 #import logger
+from flask import Flask
 
 import uuid
 import time
@@ -24,6 +25,8 @@ MULTICAST_PORT = 9131
 MULTICAST_TTL = 2
 
 ITACH_FLEX_TCP_PORT = 5999
+
+app = Flask(__name__)
 
 def get_mac():
     return ':'.join(re.findall('..', '%012x' % uuid.getnode()))
@@ -112,6 +115,10 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
 
+@app.route('/')
+def web_console():
+    return 'Hello world'
+
 def main():
     beacon = HeartbeatBeacon()
 
@@ -119,16 +126,17 @@ def main():
 
     # start a thread with the server -- that thread will start a new thread for each request
     server_thread = threading.Thread(target=server.serve_forever)
-    #server_thread.daemon = True # exit the server thread when the main thread terminates
-    #server_thread.start()
+    server_thread.daemon = True # exit the server thread when the main thread terminates
+    server_thread.start()
     #print("Server loop running in thread:", server_thread.name)
 
     # FIXME: should we limit the maximum threads that can be created (e.g. max simultaneous clients)
+#    server.serve_forever()
 
-    server.serve_forever()
+    app.run(debug=True, host='127.0.0.1', port='8081')
 
-#    server.shutdown()
-#    server.server_close()
+    server.shutdown()
+    server.server_close()
 
 if __name__ == '__main__':
   main()
