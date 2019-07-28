@@ -169,7 +169,7 @@ def shutdown_listeners():
     #command_server.server_close()
 
 def start_command_listener():
-    host = os.getenv('FLEX_SERVER_IP', '0.0.0.0')
+    host = os.getenv('IP2SL_SERVER_IP', '0.0.0.0')
 
     log.info(f"Starting Flex TCP API command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
     print(f"Starting Flex TCP API command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
@@ -187,7 +187,7 @@ def main():
     start_command_listener()
     start_serial_listeners(config)
 
-    host = os.getenv('FLEX_SERVER_IP', '0.0.0.0')
+    host = os.getenv('IP2SL_SERVER_IP', '0.0.0.0')
 
     # until Flask http bind issue is resolved, just wait for all threads to complete before exiting
     for a_thread in threads:

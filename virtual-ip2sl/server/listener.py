@@ -7,7 +7,7 @@ import socketserver
 
 log = logging.getLogger(__name__)
 
-FLEX_SERIAL_TCP_PORT_START = 4999
+IP2SL_SERIAL_TCP_PORT_START = 4999
 serial_listeners = []
 
 Valid_Config_Values = {
@@ -42,8 +42,8 @@ def shutdown_all_listeners():
         server.server_close()
 
 def start_serial_listeners(config):
-    host = os.getenv('FLEX_SERVER_IP', '0.0.0.0')
-    port = FLEX_SERIAL_TCP_PORT_START
+    host = os.getenv('IP2SL_SERVER_IP', '0.0.0.0')
+    port = IP2SL_SERIAL_TCP_PORT_START
 
     # start the individual TCP ports for each serial port
     for serial_config in config['serial']:
@@ -54,8 +54,8 @@ def start_serial_listeners(config):
         server_thread = threading.Thread(target=server.serve_forever)
         server_thread.daemon = True # exit the server thread when the main thread terminates
 
-        log.info(f"Starting raw serial TCP listener at {host}:{port}")
-        print(f"Starting raw serial TCP listener at {host}:{port}")
+        log.info(f"Starting raw IP-to-serial TCP listener at {host}:{port}")
+        print(f"Starting raw IP-to-serial TCP listener at {host}:{port}")
         server_thread.start()
 
         # retain references to the thread and server

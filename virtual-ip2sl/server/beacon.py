@@ -34,8 +34,9 @@ class AMXDiscoveryBeacon():
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, MULTICAST_TTL)
 
         # must be externally accessible and routable IP (not 0.0.0.0 or localhost)
-        ip = get_ip() # FIXME: alternatively use whatever is in config!
-#       ip = self._config['server']['ip']
+        ip = os.getenv('IP2SL_SERVER_IP', get_ip())
+#       ip = self._config['server']['ip'] # FIXME: should we use what is in config?
+
 
         # iTach Flex discovery beacon is a AMX-styles multicast UDP packet sent to IP 239.255.250.250, port 9131.
         data = {
