@@ -4,6 +4,7 @@ FROM $BUILD_FROM
 
 ARG BUILD_ARCH
 ARG BUILD_VERSION
+ARG APP_DIR="/app"
 
 LABEL authors="Ryan Snodgrass"
 
@@ -19,7 +20,6 @@ RUN apk update \
  $$ pip3 install --no-cache-dir -r "${APP_DIR}/dependencies"
  && rm -rf /root/.cache /var/cache
 
-ARG APP_DIR="/app"
 COPY . $APP_DIR
 
 EXPOSE 80
