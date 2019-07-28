@@ -13,13 +13,13 @@ I decided to build this after having physical USB to serial adapters hooked up t
 Raspberry Pi (such as the 
 [StarTech ICUSB232I 8-port USB serial adapter](https://amazon.com/StarTech-com-USB-Serial-Adapter-Hub/dp/B009AT5TB2) and native Raspberry Pi GPIO pin outs), but had several iOS and other client applications 
 which supported RS232/RS485 over IP using the published iTach Flex protocol. While Open
-Source projects existed to emulate iTach Flex IR devices, none implemented a serial
-interface. 
+Source projects existed to emulate iTach Flex IR devices, none implemented raw access
+to serial ports via TCP.
 
-While built as a Docker container (with additional support for
+Built as a Docker container (with additional support for
 making it a plug-and-play [HASS.IO](https://www.home-assistant.io/hassio/) add-on
-for Home Assistant](https://www.home-assistant.io/)), this can just as easily be
-executed as a standalone server.
+for Home Assistant](https://www.home-assistant.io/)), this can also easily be
+used as a standalone server.
 
 #### Install as a Hass.io Add-on
 
