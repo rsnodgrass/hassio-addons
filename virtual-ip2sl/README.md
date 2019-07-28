@@ -1,21 +1,20 @@
-# Virtual Flex IP2SL (IP to Serial)
+# Virtual IP2SL (IP to Serial)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
 
 *NOT YET IMPLEMENTED*
 
-This emulates a Global Caché iTach Flex IP2SL (IP to Serial) to provide bidirectional
-TCP-to-serial access to physical serial ports connected to the host running
-this microservice. By implementing the iTach Flex TCP API, this allows for exposes
-up to eight physical RS232/RS485 serial ports per running microservice instance.
+Provides bidirectional TCP-to-serial access to physical serial ports connected to the
+host running this microservice by emulating a iTach Flex IP to Serial (IP2SL). Up to
+eight physical RS232/RS485 serial ports can be exposed for remote access.
 
 I decided to build this after having physical USB to serial adapters hooked up to a
 Raspberry Pi, but several client applications that supported RS232 over IP using
 the published iTach Flex protocol. While Open Source microservices existed to
 simulate the iTach Flex IR protocols, none implemented the serial interface. This
 was built using a [StarTech ICUSB232I 8-port USB serial adapter](https://amazon.com/StarTech-com-USB-Serial-Adapter-Hub/dp/B009AT5TB2) as well as native Raspberry Pi GPIO
-pin outs.
+pin outs. 
 
 While this microservice is built as a Docker container (with additional support for
 making it a plug-and-play [HASS.IO](https://www.home-assistant.io/hassio/) add-on
@@ -29,7 +28,7 @@ executed as a standalone server.
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 
-2. Find the "Virtual Flex IP2SL (IP to Serial)" in the list of add-ons and click Install
+2. Find the "Virtual IP2SL (IP to Serial)" in the list of add-ons and click Install
 
 # Configuration
 
@@ -95,6 +94,9 @@ serial:
 
 ### Network Ports
 
+This microservice implements the open AMX Discovery Beacon protocol, raw TCP sockets to 
+RS232/RS485 serial ports, and a pTCP ort exposing the iTach command protocol.
+
 The Virtual IP2SL listens on a variety of TCP ports, both for controlling the service
 as well as the configuration for each serial port interface. Data sent to any of these
 ports is relayed directly out the RS232 serial port associated with that TCP port in
@@ -138,6 +140,11 @@ The following are a variety of example TTY paths that can be configured for each
 Links to active community engagement around iTach Flex integrations:
 
 * (https://community.home-assistant.io/t/itach-ip2sl/28805)
+
+
+### Home Assistant Integration
+
+# https://github.com/tinglis1/home-assistant-custom/tree/master/custom_components/notify (last updated 2016)
 
 ### See Also
 
