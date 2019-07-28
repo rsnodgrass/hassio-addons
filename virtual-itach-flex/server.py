@@ -71,11 +71,11 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
             self.handle_getdevices()
         elif self._data == b"getversion":
             self.handle_getversion()
-        elif self._data.startsWith("get_NET")
+        elif self._data.startsWith("get_NET"):
             self._handle_get_NET()
-        elif self._data.startsWith("get_SERIAL")
+        elif self._data.startsWith("get_SERIAL"):
             self._handle_get_SERIAL()
-        elif self._data.startsWith("set_SERIAL")
+        elif self._data.startsWith("set_SERIAL"):
             self._handle_set_SERIAL()
         else:
             print("Unknown request: {self._data}")
