@@ -16,7 +16,7 @@ RUN apk update \
  && cd /usr/bin \
  && ln -sf pip3 pip \
  && ln -sf python3 python \
- $$ pip3 install --no-cache-dir -r "${APP_DIR}/dependencies"
+ && pip3 install --no-cache-dir -r "${APP_DIR}/dependencies" \
  && rm -rf /root/.cache /var/cache
 
 ARG APP_DIR="/app"
