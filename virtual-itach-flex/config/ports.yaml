@@ -1,0 +1,52 @@
+# see the "iTach Flex TCP API Specification" PDF manual for the available configuration
+# options for each serial port
+
+serial:
+  1: # port 1
+    path: /dev/ttyUSB0
+    baudrate: 115200,
+    flowcontrol: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  2: 
+    path: /dev/ttyUSB1
+    baudrate: 115200,
+    flowcontrol: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  3: 
+    path: /dev/ttyUSB2
+    baudrate: 115200,
+    flowcontrol: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  4: 
+    path: /dev/ttyUSB3
+    baudrate: 115200,
+    flowcontrol: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  5: 
+    path: /dev/ttyUSB4
+    baudrate: 115200,
+    flowcontrol: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  6:
+    path: /dev/ttyUSB5
+    baudrate: 115200,
+    flowcontrol: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  7:
+    path: /dev/ttyUSB6
+    baudrate: 115200,
+    flowcontrol: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  8:
+    path: /dev/ttyUSB7
+    baudrate: 115200,
+    duplex: DUPLEX_FULL, # duplex = RS485
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1

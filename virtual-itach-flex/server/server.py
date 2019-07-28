@@ -10,6 +10,7 @@ import os
 import uuid
 import time
 import re
+import yaml
 
 import threading
 import socket
@@ -22,17 +23,6 @@ log = logging.getLogger(__name__)
 ITACH_FLEX_COMMAND_TCP_PORT = 4999
 
 app = Flask(__name__)
-
-serial_listeners = {
-    "1": "/dev/ttyUSB0",
-    "2": "/dev/ttyUSB0",
-    "3": "/dev/ttyUSB0",
-    "4": "/dev/ttyUSB0",
-    "5": "/dev/ttyUSB0",
-    "6": "/dev/ttyUSB0",
-    "7": "/dev/ttyUSB0",
-    "8": "/dev/ttyUSB0"
-}
 
 class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
     def handle(self):
@@ -115,14 +105,24 @@ def start_command_listener():
     server.shutdown()
     server.server_close()
 
+def read_config(config_file):
+    with open(config_file, 'r') as stream:
+        try:
+            return yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            sys.stderr.write(f"FATAL! {exc}")
+            sys.exit(1)
+
+config = read_config("config/ports.yaml")
+
 def main():
     beacon = HeartbeatBeacon()
 
     start_command_listener()
 
     port = 4999
-    for serial in serial_listeners:
-        log.info("Setup listener on port %d for %s", port, serial)
+    for serial_config in config['serial']:
+        log.info("Found serial config for %s", serial_config)
 
     # run the Flask http console server in the main thread
     app.run(debug=True, host='127.0.0.1', port='8080') # FIXME: allow env override, but default to 80!
