@@ -2,13 +2,22 @@
   "name": "Virtual iTach Flex Serial",
   "version": "0.0.1",
   "slug": "virtual-itach-flex",
-  "description": "Emulator for iTach Flex serial connector",
+  "description": "Emulates a Global Cache iTach Flex IP to Serial (IP2SL) to provide bidirectional TCP-to-serial connections to physical serial ports connected to the host running this microservice. Up to eight physical RS232/RS485 serial ports can be exposed for remote access."
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/virtual-itach-flex",
   "startup": "services",
   "boot": "auto",
   "ports": {
     "80/tcp": 80,
-    "5999/tcp": 5999,
+    "4998/tcp": 4998,
+    "4999/tcp": 4999,
+    "5000/tcp": 5000,
+    "5001/tcp": 5001,
+    "5002/tcp": 5002,
+    "5003/tcp": 5003,
+    "5004/tcp": 5004,
+    "5005/tcp": 5005,
+    "5006/tcp": 5006,
+    "5007/tcp": 5007,
     "9131/udp": 9131
   },
   "arch": [

@@ -1,10 +1,13 @@
 # Virtual iTach Flex Serial Adapter
 
-Like the physical iTach Flex serial devices, this supports up to eight simultaenous,
-bidirectional TCP-to-serial connections on port 4999.
+Emulates a Global Cache iTach Flex IP to Serial (IP2SL) to provide bidirectional
+TCP-to-serial connections to physical serial ports connected to the host running
+this microservice. Up to eight physical RS232/RS485 serial ports can be exposed
+through the TCP API by each running instance of this Virtual Adapter.
 
-This is built as a Home Assistant HASS.IO add-on Docker container, however this
-can just as easily be used as a standalone server.
+This microservice package is built as a Docker container (with additional support
+for making it a plug-and-play Home Assistant HASS.IO add-on), but this can just as
+easily be executed as a standalone server.
 
 The Virtual Adapter listens on ports 4999-5007, depending on configuration.
 
@@ -36,11 +39,11 @@ serial:
 
 | Serial Path        | Description                                         |
 | ------------------ | --------------------------------------------------- |
-| /dev/ttyS0         | Raspberry Pi mini UART GPIO
-| /dev/ttyAMA0       | Raspberry Pi GPIO pins 14/15 (pre-Bluetooth RPi 3)
-| /dev/serial0       | RPi 3/RPi 4 serial port alias 1
-| /dev/serial1       | RPi 3/RPi 4 serial port alias 2
-| /dev/tty.usbserial | typical MacOS USB serial adapter
-| /dev/ttyUSB0       | USB serial adapter 1
-| /dev/ttyUSB1       | USB serial adapter 2
-| /dev/ttyUSB2       | USB serial adapter 3
+| /dev/ttyS0         | Raspberry Pi mini UART GPIO                         |
+| /dev/ttyAMA0       | Raspberry Pi GPIO pins 14/15 (pre-Bluetooth RPi 3)  |
+| /dev/serial0       | RPi 3/RPi 4 serial port alias 1                     |
+| /dev/serial1       | RPi 3/RPi 4 serial port alias 2                     |
+| /dev/tty.usbserial | typical MacOS USB serial adapter                    |
+| /dev/ttyUSB0       | USB serial adapter 1                                |
+| /dev/ttyUSB1       | USB serial adapter 2                                |
+| /dev/ttyUSB2       | USB serial adapter 3                                |

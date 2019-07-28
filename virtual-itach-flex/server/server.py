@@ -1,7 +1,10 @@
 #!/usr/local/bin/python3
 #
-# Emulates a GlobalCache IP to serial adapter by passing commands to
-# locally configured serial ports.
+# Emulates a Global Cache iTach Flex IP to Serial (IP2SL) to provide bidirectional
+# TCP-to-serial connections to physical serial ports connected to the host running
+# this microservice. Up to eight physical RS232/RS485 serial ports can be exposed
+# through the TCP API by each running instance of this Virtual Adapter.
+
 
 import logging
 from flask import Flask
@@ -17,6 +20,10 @@ import threading
 import socket
 import socketserver
 
+import logging
+import logging.config
+import server
+
 from beacon import HeartbeatBeacon
 
 log = logging.getLogger(__name__)
@@ -26,12 +33,12 @@ ITACH_FLEX_COMMAND_TCP_PORT = 4999
 app = Flask(__name__)
 
 # general errors
-ERR_INVALID_REQUEST      ="ERR 001" # Invalid request. Command not found.
-ERR_INVALID_SYNTAX       ="ERR 002" # Bad request syntax used with a known command
-ERR_INVALID_MODULE       ="ERR 003" # Invalid or missing module and/or connector address
-ERR_NO_CR                ="ERR 004" # No carriage return found.
-ERR_NOT_SUPPORTED        ="ERR 005" # Command not supported by current Flex Link Port setting.
-ERR_SETTINGS_LOCKED      ="ERR_006" # Settings are locked
+ERR_INVALID_REQUEST      ="ERR 001"   # Invalid request. Command not found.
+ERR_INVALID_SYNTAX       ="ERR 002"   # Bad request syntax used with a known command
+ERR_INVALID_MODULE       ="ERR 003"   # Invalid or missing module and/or connector address
+ERR_NO_CR                ="ERR 004"   # No carriage return found.
+ERR_NOT_SUPPORTED        ="ERR 005"   # Command not supported by current Flex Link Port setting.
+ERR_SETTINGS_LOCKED      ="ERR_006"   # Settings are locked
 
 # serial errors
 ERR_INVALID_BAUD_RATE    ="ERR SL001" # Invalid baud rate
@@ -48,6 +55,28 @@ def read_config(config_file):
             sys.exit(1)
 
 config = read_config("config/ports.yaml")
+
+def setup_logging(
+    default_path='config/logging.yaml',
+    default_level=logging.INFO,
+    env_key='LOG_CONFIG'
+):
+    """Setup logging configuration"""
+    path = default_path
+    value = os.getenv(env_key, None)
+    if value:
+        path = value
+
+    if os.path.exists(path):
+        with open(path, 'rt') as f:
+            config = yaml.safe_load(f.read())
+        logging.config.dictConfig(config)
+    else:
+        print(f"ERROR! Couldn't find logging configuration: {path}")
+        logging.basicConfig(level=default_level)
+
+setup_logging()
+log = logging.getLogger(__name__)
 
 class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
     def handle(self):

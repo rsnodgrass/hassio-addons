@@ -1,11 +1,9 @@
 #!/usr/local/bin/python3
-
-import logging
-
+import re
 import uuid
 import time
-import re
 
+import logging
 import threading
 import socket
 
