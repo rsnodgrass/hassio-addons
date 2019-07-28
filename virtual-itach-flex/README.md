@@ -1,5 +1,8 @@
 # Virtual iTach Flex Serial Adapter
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
+
 Emulates a Global Caché iTach IP to Serial (IP2SL) to provide bidirectional
 TCP-to-serial connections to physical serial ports connected to the host running
 this microservice. By implementing the iTach Flex TCP API, this allows for exposes
@@ -14,32 +17,45 @@ Data sent to any of these ports is relayed directly out the RS232 serial port as
 with that TCP port in configuration. Similarly, any data received from the RS232 will
 be written to the TCP port. The RS232 ports are defaulted to /dev/ttyUSB0 through /dev/ttyUSB7.
 
+#### Install as a Hass.io Add-on
+
+1. In the Hass.io "Add-On Store" on your Home Assistant server, add this repository URL:
+<pre>
+     https://github.com/rsnodgrass/hassio-addons
+</pre>
+
+2. Find the "Virtual iTach Flex Serial" in the list of add-ons and click Install
 
 # Configuration
+
+By default, this is configured to open ports for eight USB to serial port adapters
+with an assortment of baud rates. However, you will want to configure this to
+your exact use cases. Additionally, you can comment out any ports you do not
+want accessible.
 
 ```yaml
 serial:
   1: # port 1
     path: /dev/ttyUSB0
-    baud: 115200,
+    baud: 9600,
     flow: FLOW_NONE, # flowcontrol = RS232
     parity: PARITY_NO,
     stop_bits: STOPBITS_1
   2: 
     path: /dev/ttyUSB1
-    baud: 115200,
+    baud: 9600,
     flow: FLOW_NONE, # flowcontrol = RS232
     parity: PARITY_NO,
     stop_bits: STOPBITS_1
   3: 
     path: /dev/ttyUSB2
-    baud: 115200,
+    baud: 14400,
     flow: FLOW_NONE, # flowcontrol = RS232
     parity: PARITY_NO,
     stop_bits: STOPBITS_1
   4: 
     path: /dev/ttyUSB3
-    baud: 115200,
+    baud: 14400,
     flow: FLOW_NONE, # flowcontrol = RS232
     parity: PARITY_NO,
     stop_bits: STOPBITS_1

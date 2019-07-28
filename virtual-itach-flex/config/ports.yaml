@@ -4,25 +4,25 @@
 serial:
   1: # port 1
     path: /dev/ttyUSB0
-    baud: 115200,
+    baud: 9600,
     flow: FLOW_NONE, # flowcontrol = RS232
     parity: PARITY_NO,
     stop_bits: STOPBITS_1
   2: 
     path: /dev/ttyUSB1
-    baud: 115200,
+    baud: 9600,
     flow: FLOW_NONE, # flowcontrol = RS232
     parity: PARITY_NO,
     stop_bits: STOPBITS_1
   3: 
     path: /dev/ttyUSB2
-    baud: 115200,
+    baud: 14400,
     flow: FLOW_NONE, # flowcontrol = RS232
     parity: PARITY_NO,
     stop_bits: STOPBITS_1
   4: 
     path: /dev/ttyUSB3
-    baud: 115200,
+    baud: 14400,
     flow: FLOW_NONE, # flowcontrol = RS232
     parity: PARITY_NO,
     stop_bits: STOPBITS_1
