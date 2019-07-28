@@ -6,8 +6,8 @@
 *NOT YET IMPLEMENTED*
 
 Provides bidirectional TCP-to-serial access to physical serial ports connected to the
-host running this microservice by emulating a iTach Flex IP to Serial (IP2SL). Up to
-eight physical RS232/RS485 serial ports can be exposed for remote access.
+host running this microservice by emulating a iTach Flex IP to Serial (IP2SL). Each instance
+of the Virtual IP2SL microservice can expose up to eight physical RS232/RS485 serial ports.
 
 I decided to build this after having physical USB to serial adapters hooked up to a
 Raspberry Pi (such as the 
@@ -139,8 +139,7 @@ The following are a variety of example TTY paths that can be configured for each
 
 Links to active community engagement around iTach Flex integrations:
 
-* (https://community.home-assistant.io/t/itach-ip2sl/28805)
-
+* https://community.home-assistant.io/t/itach-ip2sl/28805
 
 ### Home Assistant Integration
 
