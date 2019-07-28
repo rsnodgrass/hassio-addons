@@ -95,7 +95,7 @@ serial:
 ### Network Ports
 
 This microservice implements the open AMX Discovery Beacon protocol, raw TCP sockets to 
-RS232/RS485 serial ports, and a pTCP ort exposing the iTach command protocol.
+RS232/RS485 serial ports, and a TCP Port exposing the iTach command protocol.
 
 The Virtual IP2SL listens on a variety of TCP ports, both for controlling the service
 as well as the configuration for each serial port interface. Data sent to any of these
