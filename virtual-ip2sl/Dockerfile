@@ -8,6 +8,8 @@ ARG APP_DIR="/app"
 
 LABEL authors="Ryan Snodgrass"
 
+COPY . $APP_DIR
+
 # install git and Python3 environment
 RUN apk update \
  && apk add --no-cache bash git python3 \
@@ -17,23 +19,10 @@ RUN apk update \
  && cd /usr/bin \
  && ln -sf pip3 pip \
  && ln -sf python3 python \
- && pip3 install --no-cache-dir -r "${APP_DIR}/dependencies" \
+ && pip3 install --no-cache-dir -r "${APP_DIR}/requirements.txt" \
  && rm -rf /root/.cache /var/cache
 
-COPY . $APP_DIR
-
-EXPOSE 80
-EXPOSE 4998
-EXPOSE 4999
-EXPOSE 5000
-EXPOSE 5001
-EXPOSE 5002
-EXPOSE 5003
-EXPOSE 5004
-EXPOSE 5005
-EXPOSE 5006
-EXPOSE 5007
-EXPOSE 9131
+EXPOSE 80 4998 4999 5000 5001 5002 5003 5004 5005 5006 5007 9131/udp
 
 WORKDIR $APP_DIR
 CMD [ "python3", "server.py" ]
