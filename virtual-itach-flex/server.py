@@ -42,6 +42,7 @@ class HeartbeatBeacon():
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, MULTICAST_TTL)
 
         # the iTach Flex discovery beacon is a multicast UDP packet sent to IP 239.255.250.250, port 9131.
+        # AMX beacons must be terminated by a carriage return (‘\r’, 0x0D)
         data = {
             "UUID"       : f"GlobalCache_{get_mac()}", # required for IP as unique identifer, could be UUID=WF2IR_
             "SDKClass"   : "Utility",     # required
@@ -53,8 +54,8 @@ class HeartbeatBeacon():
 #            "Pkg_Level"  : "GCPK001",
 #            "PCB_PN"     : "025-0026-06", #025-0033-10
             }
-        heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items())
-
+        heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items()) + "\r"
+ 
         while True:
             print(f"Broadcasting heartbeat package: {heartbeat_packet}")
             sock.sendto(b"{heartbeat_packet}", (MULTICAST_IP, MULTICAST_PORT))
