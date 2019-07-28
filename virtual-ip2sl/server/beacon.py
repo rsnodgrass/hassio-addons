@@ -34,7 +34,7 @@ class AMXDiscoveryBeacon():
             host = self._config['ip2sl']['ip']
 
         # allow overridding discovered/configured IP address with ENV variable
-        host = os.getenv('IP2SL_SERVER_IP', host) 
+        host = os.getenv('IP2SL_SERVER_HOST', host) 
         return host
 
     def heartbeat(self):

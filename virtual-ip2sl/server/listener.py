@@ -42,7 +42,7 @@ def shutdown_all_listeners():
         server.server_close()
 
 def start_serial_listeners(config):
-    host = os.getenv('IP2SL_SERVER_IP', '0.0.0.0')
+    host = os.getenv('IP2SL_SERVER_HOST', '0.0.0.0')
     tcp_port = IP2SL_SERIAL_TCP_PORT_START
 
     # start the individual TCP ports for each serial port
