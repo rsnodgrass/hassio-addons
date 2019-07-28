@@ -192,8 +192,8 @@ def main():
 
     # run the http console server in the main thread
     console_port = 4444
-    log.info("Starting http console at port %d", console_port)
-    print(f"Starting http console at port {console_port}")
+    log.info(f"Starting UI console at http://{host}:{console_port}")
+    print(f"Starting UI console at http://{host}:{console_port}")
     app.run(debug=True, host=host, port=console_port) # FIXME: allow env override, but default to 80!
 
 if __name__ == '__main__':

@@ -35,7 +35,7 @@ class SerialTCPHandler(socketserver.BaseRequestHandler):
 
 # self.request.sendall(self.data.upper())
 
-"""Ensure all listeners are cleanly shutdown""
+"""Ensure all listeners are cleanly shutdown"""
 def shutdown_all_listeners():
     for server in serial_listeners:
         server.shutdown()
