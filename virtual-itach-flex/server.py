@@ -117,7 +117,7 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 
 @app.route('/')
 def web_console():
-    return 'Hello world'
+    return '<h1>Virtual iTach Flex Serial Console</h1>'
 
 def main():
     beacon = HeartbeatBeacon()
@@ -128,12 +128,12 @@ def main():
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.daemon = True # exit the server thread when the main thread terminates
     server_thread.start()
-    #print("Server loop running in thread:", server_thread.name)
 
     # FIXME: should we limit the maximum threads that can be created (e.g. max simultaneous clients)
-#    server.serve_forever()
+    # server.serve_forever()
 
-    app.run(debug=True, host='127.0.0.1', port='8081')
+    # run the Flask http console server in the main thread
+    app.run(debug=True, host='127.0.0.1', port='80')
 
     server.shutdown()
     server.server_close()
@@ -141,4 +141,3 @@ def main():
 if __name__ == '__main__':
   main()
 
-# FIXME: add the port 80 server for web UI management?
