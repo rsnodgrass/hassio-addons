@@ -23,7 +23,7 @@ once per connection to the server.  Since the serial port communication is not
 multiplexed, we only allow a single instance of this instantiated at a time
 (this is the default behavior with out we've constructed the threading model).
 """
-class SerialTCPHandler(socketserver.BaseRequestHandler):
+class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
 #    def __init__(self, config, virtual_port):
 #        self._config = config
 #        self._port = virtual_port
@@ -48,7 +48,9 @@ def start_serial_listeners(config):
     # start the individual TCP ports for each serial port
     for serial_config in config['serial']:
         log.info("Found serial config: %s (port %d)", serial_config, port)
-        server = socketserver.TCPServer((host, port), SerialTCPHandler)
+        server = socketserver.TCPServer((host, port), IPToSerialTCPHandler)
+
+        # FIXME: if serial port /dev/tty does not exist, should port be opened?
 
         # each listener has a dedicated thread (one thread per port, as serial port communication isn't multiplexed)
         server_thread = threading.Thread(target=server.serve_forever)
