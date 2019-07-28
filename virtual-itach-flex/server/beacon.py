@@ -48,7 +48,7 @@ class AMXDiscoveryBeacon():
         heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items())
 
         while True:
-            log.info("Broadcasting heartbeat package: %s", heartbeat_packet)
-            print(f"PRINT: Broadcasting heartbeat package: {heartbeat_packet}")
+            log.info("Broadcasting heartbeat beacon: %s", heartbeat_packet)
+            print(f"Broadcasting heartbeat beacon: {heartbeat_packet}")
             sock.sendto(b"{heartbeat_packet}\r", (MULTICAST_IP, MULTICAST_PORT))
             time.sleep(5) # heartbeat every 10 seconds
