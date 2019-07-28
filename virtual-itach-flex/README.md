@@ -17,15 +17,10 @@ simulate the iTach Flex IR protocols, none implemented the serial interface. Thi
 was built using a [StarTech ICUSB232I 8-port USB serial adapter](https://amazon.com/StarTech-com-USB-Serial-Adapter-Hub/dp/B009AT5TB2) as well as native Raspberry Pi GPIO
 pin outs.
 
-While built as a Docker container (with additional support for making it a plug-and-play
-[HASS.IO](https://www.home-assistant.io/hassio/) add-on for Home Assistant](https://www.home-assistant.io/)),
-this can just as easily be executed as a standalone server.
-
-The Virtual IP2SL listens on ports 4999-5007, depending on configuration.
-
-Data sent to any of these ports is relayed directly out the RS232 serial port associated
-with that TCP port in configuration. Similarly, any data received from the RS232 will
-be written to the TCP port. The RS232 ports are defaulted to /dev/ttyUSB0 through /dev/ttyUSB7.
+While this microservice is built as a Docker container (with additional support for
+making it a plug-and-play [HASS.IO](https://www.home-assistant.io/hassio/) add-on
+for Home Assistant](https://www.home-assistant.io/)), this can just as easily be
+executed as a standalone server.
 
 #### Install as a Hass.io Add-on
 
@@ -110,6 +105,25 @@ serial:
 | /dev/ttyUSB0       | USB serial adapter 1                                |
 | /dev/ttyUSB1       | USB serial adapter 2                                |
 | /dev/ttyUSB2       | USB serial adapter 3                                |
+
+### Network Ports
+
+The Virtual IP2SL listens on a variety of TCP ports, both for controlling the service
+as well as the configuration for each serial port interface. Data sent to any of these
+ports is relayed directly out the RS232 serial port associated with that TCP port in
+configuration. Similarly, any data received from the RS232 will be written to the TCP
+port. The RS232 ports are defaulted to /dev/ttyUSB0 through /dev/ttyUSB7.
+
+| TCP Port | Description                           | Default TTY  |
+| 4998     | iTach Flex command and control port   |
+| 4999     | raw TCP port to the first serial port | /dev/ttyUSB0 |
+| 5000     | ... second serial port
+| 5001     | ... third serial port
+| 5002     | ... fourth serial port
+| 5003     | ... fifth serial port
+| 5004     | ... sixth serial port
+| 5005     | ... seventh serial port
+| 5006     | raw TCP port to the eighth serial port
 
 # TODO
 
