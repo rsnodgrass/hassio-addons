@@ -33,13 +33,17 @@ class AMXDiscoveryBeacon():
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, MULTICAST_TTL)
 
+        # must be externally accessible and routable IP (not 0.0.0.0 or localhost)
+        ip = get_ip() # FIXME: alternatively use whatever is in config!
+#       ip = self._config['server']['ip']
+
         # iTach Flex discovery beacon is a AMX-styles multicast UDP packet sent to IP 239.255.250.250, port 9131.
         data = {
             "UUID"       : f"GlobalCache_{get_mac()}", # required for IP as unique identifer, could be UUID=WF2IR_
-            "SDKClass"   : "Utility",           # required
-            "Make"       : "GlobalCache",       # required
-            "Model"      : "iTachFlexEthernet", # required; note GC-100-12 for legacy model
-            "Config-URL" : f"http://{get_ip()}",
+            "SDKClass"   : "Utility",            # required
+            "Make"       : "GlobalCache",        # required
+            "Model"      : "iTachFlexEthernet",  # required; note GC-100-12 for legacy model
+            "Config-URL" : f"http://{ip}",
             "Revision"   : "710-2000-15",
             "Pkg_Level"  : "", # "GCPK001",
             "PCB_PN"     : "025-0033-10",
