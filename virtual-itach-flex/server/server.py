@@ -8,11 +8,11 @@
 import logging
 from flask import Flask
 
-import sys
 import os
+import re
+import sys
 import uuid
 import time
-import re
 import yaml
 
 import threading
@@ -159,14 +159,21 @@ def web_console():
     return '<h1>Virtual iTach Flex Serial Console</h1>'
 
 def start_command_listener():
-    log.info(f"Starting Flex API command listener on TCP port {ITACH_FLEX_COMMAND_TCP_PORT}")
-    print(f"Starting Flex API command listener on TCP port {ITACH_FLEX_COMMAND_TCP_PORT}")
-    server = ThreadedTCPServer(("localhost", ITACH_FLEX_COMMAND_TCP_PORT), iTachCommandTCPRequestHandler)
+    host = os.getenv('FLEX_SERVER_IP', '0.0.0.0')
+
+    log.info(f"Starting Flex TCP API command listener at {host}:{ITACH_FLEX_COMMAND_TCP_PORT}")
+    print(f"Starting Flex TCP API command listener at {host}:{ITACH_FLEX_COMMAND_TCP_PORT}")
+    server = ThreadedTCPServer((host, ITACH_FLEX_COMMAND_TCP_PORT), iTachCommandTCPRequestHandler)
 
     # the command listener is in its own thread which then creates a new thread for each TCP request
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.daemon = True # exit the server thread when the main thread terminates
     server_thread.start()
+
+    # FIXME: do we need ot shutdown the server cleanly on exit?
+    # server.shutdown()
+    # server.server_close()
+
 
 def main():
     beacon = AMXDiscoveryBeacon(config)

@@ -1,5 +1,6 @@
 import logging
 
+import os
 import time
 import threading
 import socketserver
@@ -35,13 +36,10 @@ class SerialTCPHandler(socketserver.BaseRequestHandler):
 # self.request.sendall(self.data.upper())
 
 def start_serial_listeners(config):
-
-    # start the individual TCP ports for each serial port
-
-    log.info("Starting serial port TCP listeners")
-    host = "localhost"
+    host = os.getenv('FLEX_SERVER_IP', '0.0.0.0')
     port = ITACH_FLEX_SERIAL_TCP_PORT_START
 
+    # start the individual TCP ports for each serial port
     for serial_config in config['serial']:
         log.info("Found serial config: %s (port %d)", serial_config, port)
         server = socketserver.TCPServer((host, port), SerialTCPHandler)
@@ -50,10 +48,15 @@ def start_serial_listeners(config):
         server_thread = threading.Thread(target=server.serve_forever)
         server_thread.daemon = True # exit the server thread when the main thread terminates
 
-        log.info(f"Starting Flex raw serial TCP listener on {host}:{port}")
-        print(f"Starting Flex raw serial TCP listener on {host}:{port}")
+        log.info(f"Starting Flex raw serial TCP listener at {host}:{port}")
+        print(f"Starting Flex raw serial TCP listener at {host}:{port}")
         server_thread.start()
 
         # retain references to the thread and server
         serial_listeners.append( server )
         port += 1
+
+    # FIXME: do we need to shutdown each server on exit?
+    #for server in serial_listeners:
+    #    server.shutdown()
+    #    server.server_close()
