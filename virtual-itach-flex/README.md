@@ -93,19 +93,6 @@ serial:
     stop_bits: STOPBITS_1
 ```
 
-### Example TTY Paths
-
-| Serial Path        | Description                                         |
-| ------------------ | --------------------------------------------------- |
-| /dev/ttyS0         | Raspberry Pi mini UART GPIO                         |
-| /dev/ttyAMA0       | Raspberry Pi GPIO pins 14/15 (pre-Bluetooth RPi 3)  |
-| /dev/serial0       | RPi 3/RPi 4 serial port alias 1                     |
-| /dev/serial1       | RPi 3/RPi 4 serial port alias 2                     |
-| /dev/tty.usbserial | typical MacOS USB serial adapter                    |
-| /dev/ttyUSB0       | USB serial adapter 1                                |
-| /dev/ttyUSB1       | USB serial adapter 2                                |
-| /dev/ttyUSB2       | USB serial adapter 3                                |
-
 ### Network Ports
 
 The Virtual IP2SL listens on a variety of TCP ports, both for controlling the service
@@ -129,20 +116,30 @@ port. The RS232 ports are defaulted to /dev/ttyUSB0 through /dev/ttyUSB7.
 For enhanced security, it is recommended disabling via configuration any ports
 that are not in use.
 
-# TODO
+### Example TTY Paths
 
-* extend API to support [GC-100](https://www.globalcache.com/files/docs/API-GC-100.pdf)
-* ensure client emulation compatibility for GC-100-xx, iTach IP2SL, or Flex
-* implement serial communication
-* implement web UI (show config, statistics)
+The following are a variety of example TTY paths that can be configured for each serial port:
 
-#### Community Engagement
+| Serial Path        | Description                                         |
+| ------------------ | --------------------------------------------------- |
+| /dev/ttyS0         | Raspberry Pi mini UART GPIO                         |
+| /dev/ttyAMA0       | Raspberry Pi GPIO pins 14/15 (pre-Bluetooth RPi 3)  |
+| /dev/serial0       | RPi 3/RPi 4 serial port alias 1                     |
+| /dev/serial1       | RPi 3/RPi 4 serial port alias 2                     |
+| /dev/tty.usbserial | typical MacOS USB serial adapter                    |
+| /dev/ttyUSB0       | USB serial adapter 1                                |
+| /dev/ttyUSB1       | USB serial adapter 2                                |
+| /dev/ttyUSB2       | USB serial adapter 3                                |
+
+# Support
+
+### Community Engagement
 
 Links to active community engagement around iTach Flex integrations:
 
 * (https://community.home-assistant.io/t/itach-ip2sl/28805)
 
-# See Also
+### See Also
 
 * [Home Assistant GC100](https://www.home-assistant.io/components/gc100)
 * [iTach Flex TCP API Specification v1.6](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)
@@ -150,3 +147,11 @@ Links to active community engagement around iTach Flex integrations:
 * [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
 * [iTach TCP/IP to Serial (RS232) IP2IR specs](https://www.globalcache.com/products/itach/ip2slspecs/)
 * [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
+
+# Future Work
+
+#### Not Planned
+
+* emulation compatibility for [GC-100-xx](https://www.globalcache.com/files/docs/API-GC-100.pdf)
+* implement serial communication
+* implement web UI (show config, statistics)
