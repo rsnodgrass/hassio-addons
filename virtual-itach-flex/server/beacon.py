@@ -9,15 +9,10 @@ import socket
 
 log = logging.getLogger(__name__)
 
-MULTICAST_IP = '239.255.250.250'
+MULTICAST_IP    = '239.255.250.250'
 MULTICAST_GROUP = '01:00:5E:7F:FA:FA'
-MULTICAST_PORT = 9131
-
-# regarding socket.IP_MULTICAST_TTL
-# ---------------------------------
-# for all packets sent, after two hops on the network the packet will not 
-# be re-sent/broadcast (see https://www.tldp.org/HOWTO/Multicast-HOWTO-6.html)
-MULTICAST_TTL = 2
+MULTICAST_PORT  = 9131
+MULTICAST_TTL   = 3 # after three network hops the beacon packet should be discarded
 
 def get_mac():
     return ''.join(re.findall('..', '%012x' % uuid.getnode())).upper()
@@ -25,7 +20,8 @@ def get_mac():
 def get_ip():
     return "127.0.0.1"
 
-class HeartbeatBeacon():
+# Implements a version of the AMX Beacon device discovery protocol with periodic heartbeats
+class AMXDiscoveryBeacon():
     def __init__(self, config):
         self._config = config
 
@@ -37,13 +33,12 @@ class HeartbeatBeacon():
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, MULTICAST_TTL)
 
-        # the iTach Flex discovery beacon is a multicast UDP packet sent to IP 239.255.250.250, port 9131.
-        # AMX beacons must be terminated by a carriage return (‘\r’, 0x0D)
+        # iTach Flex discovery beacon is a AMX-styles multicast UDP packet sent to IP 239.255.250.250, port 9131.
         data = {
             "UUID"       : f"GlobalCache_{get_mac()}", # required for IP as unique identifer, could be UUID=WF2IR_
             "SDKClass"   : "Utility",           # required
             "Make"       : "GlobalCache",       # required
-            "Model"      : "iTachFlexEthernet", # required
+            "Model"      : "iTachFlexEthernet", # required; note GC-100-12 for legacy model
             "Config-URL" : "http://192.168.1.70",
             "Revision"   : "710-2000-15",
             "Pkg_Level"  : "", # "GCPK001",

@@ -23,7 +23,7 @@ import logging
 import logging.config
 import server
 
-from beacon import HeartbeatBeacon
+from beacon import AMXDiscoveryBeacon
 
 log = logging.getLogger(__name__)
 
@@ -183,7 +183,7 @@ def start_command_listener():
     server.server_close()
 
 def main():
-    beacon = HeartbeatBeacon(config)
+    beacon = AMXDiscoveryBeacon(config)
 
     start_command_listener()
 
