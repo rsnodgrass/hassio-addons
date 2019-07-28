@@ -6,7 +6,7 @@
 *NOT YET IMPLEMENTED*
 
 This emulates a Global Caché iTach Flex IP2SL (IP to Serial) to provide bidirectional
-TCP-to-serial connections to physical serial ports connected to the host running
+TCP-to-serial access to physical serial ports connected to the host running
 this microservice. By implementing the iTach Flex TCP API, this allows for exposes
 up to eight physical RS232/RS485 serial ports per running microservice instance.
 
@@ -14,7 +14,8 @@ I decided to build this after having physical USB to serial adapters hooked up t
 Raspberry Pi, but several client applications that supported RS232 over IP using
 the published iTach Flex protocol. While Open Source microservices existed to
 simulate the iTach Flex IR protocols, none implemented the serial interface. This
-was built and tested using a [StarTech ICUSB232I 8-port USB serial adapter](https://amazon.com/StarTech-com-USB-Serial-Adapter-Hub/dp/B009AT5TB2).
+was built using a [StarTech ICUSB232I 8-port USB serial adapter](https://amazon.com/StarTech-com-USB-Serial-Adapter-Hub/dp/B009AT5TB2) as well as native Raspberry Pi GPIO
+pin outs.
 
 While built as a Docker container (with additional support for making it a plug-and-play
 [HASS.IO](https://www.home-assistant.io/hassio/) add-on for Home Assistant](https://www.home-assistant.io/)),
