@@ -41,19 +41,19 @@ class HeartbeatBeacon():
         # AMX beacons must be terminated by a carriage return (‘\r’, 0x0D)
         data = {
             "UUID"       : f"GlobalCache_{get_mac()}", # required for IP as unique identifer, could be UUID=WF2IR_
-            "SDKClass"   : "Utility",     # required
-            "Make"       : "GlobalCache", # required
-            "Model"      : "iTachFlexEthernet", # "iTachWF2IR",  # required
+            "SDKClass"   : "Utility",           # required
+            "Make"       : "GlobalCache",       # required
+            "Model"      : "iTachFlexEthernet", # required
             "Config-URL" : "http://192.168.1.70",
             "Revision"   : "710-2000-15",
             "Pkg_Level"  : "", # "GCPK001",
             "PCB_PN"     : "025-0033-10",
             "Status"     : "Ready"
             }
-        heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items()) + "\r"
- 
+        heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items())
+
         while True:
             log.info("Broadcasting heartbeat package: %s", heartbeat_packet)
-            print(f"Broadcasting heartbeat package: {heartbeat_packet}")
-            sock.sendto(b"{heartbeat_packet}", (MULTICAST_IP, MULTICAST_PORT))
+            print(f"PRINT: Broadcasting heartbeat package: {heartbeat_packet}")
+            sock.sendto(b"{heartbeat_packet}\r", (MULTICAST_IP, MULTICAST_PORT))
             time.sleep(5) # heartbeat every 10 seconds
