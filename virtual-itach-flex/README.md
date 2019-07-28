@@ -5,13 +5,14 @@
 
 *NOT YET IMPLEMENTED*
 
-Emulates a Global Caché iTach Flex IP2SL (IP to Serial) to provide bidirectional
+This mulates a Global Caché iTach Flex IP2SL (IP to Serial) to provide bidirectional
 TCP-to-serial connections to physical serial ports connected to the host running
 this microservice. By implementing the iTach Flex TCP API, this allows for exposes
 up to eight physical RS232/RS485 serial ports per running microservice instance.
 
 While built as a Docker container (with additional support for making it a plug-and-play
-Home Assistant HASS.IO add-on), this can just as easily be executed as a standalone server.
+[HASS.IO](https://www.home-assistant.io/hassio/) add-on for Home Assistant](https://www.home-assistant.io/)),
+this can just as easily be executed as a standalone server.
 
 The Virtual IP2SL listens on ports 4999-5007, depending on configuration.
 
@@ -35,8 +36,8 @@ with an assortment of baud rates. However, you will want to configure this to
 your exact use cases. Additionally, you can comment out any ports you do not
 want accessible.
 
-See the "iTach Flex TCP API Specification" PDF manual for the available configuration
-values for each serial port.
+See the "[iTach Flex TCP API Specification](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)"
+PDF manual for the available configuration values for each serial port.
 
 ```yaml
 serial:
