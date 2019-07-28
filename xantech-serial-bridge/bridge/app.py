@@ -141,7 +141,7 @@ class BridgeInfo(Resource):
         """
         details = {
             "controllers": {
-                "xantech8": { 
+                "xantech8": {
                     "name": "Xantech 8-Zone Audio (Second Floor)",
                     "url": "/xantech8/<slug>" },
                 "xantech8-2": {

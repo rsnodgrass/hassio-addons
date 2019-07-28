@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 #
-# Emulates a GlobalCache IP to serial adapter by passing commands to locally
-# configured serial ports.
+# Emulates a GlobalCache IP to serial adapter by passing commands to
+# locally configured serial ports.
 
 import logging
 from flask import Flask
@@ -23,6 +23,20 @@ log = logging.getLogger(__name__)
 ITACH_FLEX_COMMAND_TCP_PORT = 4999
 
 app = Flask(__name__)
+
+# general errors
+ERR_INVALID_REQUEST      ="ERR 001" # Invalid request. Command not found.
+ERR_INVALID_SYNTAX       ="ERR 002" # Bad request syntax used with a known command
+ERR_INVALID_MODULE       ="ERR 003" # Invalid or missing module and/or connector address
+ERR_NO_CR                ="ERR 004" # No carriage return found.
+ERR_NOT_SUPPORTED        ="ERR 005" # Command not supported by current Flex Link Port setting.
+ERR_SETTINGS_LOCKED      ="ERR_006" # Settings are locked
+
+# serial errors
+ERR_INVALID_BAUD_RATE    ="ERR SL001" # Invalid baud rate
+ERR_INVALID_FLOW_SETTING ="ERR SL002" # Invalid flow control or duplex setting
+ERR_INVALID_PARITY       ="ERR SL003" # Invalid parity setting
+ERR_INVALID_STOP_BITS    ="ERR SL004" # Invalid stop bits setting
 
 class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
     def handle(self):
@@ -58,13 +72,27 @@ class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
         self.send_response("710-2000-15") # firmware version part number
 
     def handle_get_NET(self):
-        # NET,0:1,<configlock>,<ipsetting>,<ipaddress>,<subnet>,<gateway>
+        # the iTach Flex host network module address is always hardcoded 0:1
+        #   NET,0:1,<configlock>,<ipsetting>,<ipaddress>,<subnet>,<gateway>
+#        if !self._data.startsWith("get_NET,0:1"):
+#            throw error
         self.send_response("NET,0:1,LOCKED,STATIC,127.0.0.1,255.255.255.0,127.0.0.1")
 
     def handle_get_SERIAL(self):
-        self.send_response("SERIAL,1:1,115200,FLOW_NONE,PARITY_NO,STOPBITS_1")
+        m = re.search("get_SERIAL,1:(?P<port>.+)", self._data)
+        if m:
+            port = int(m.group('port'))
+
+            serial = config['serial']['port']
+            if serial:
+                self.send_response(f"SERIAL,1:{port},{serial['baud']},{serial['flow']},{serial['parity']},{serial['stop_bits']}")
+
+            else:
+                send_error()
 
     def handle_set_SERIAL(self):
+        # FIXME: do we update the in-memory config!?  Or just disable setting serial configuration?
+
         # set_SERIAL,<module>:<port>
         # set_SERIAL,<module>:<port>,<baudrate>,<flowcontrol/duplex>,<parity>,[stopbits]
 
@@ -116,7 +144,7 @@ def read_config(config_file):
 config = read_config("config/ports.yaml")
 
 def main():
-    beacon = HeartbeatBeacon()
+    beacon = HeartbeatBeacon(config)
 
     start_command_listener()
 
