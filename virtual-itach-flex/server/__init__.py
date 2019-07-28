@@ -29,7 +29,3 @@ def setup_logging(
 
 setup_logging()
 log = logging.getLogger(__name__)
-
-if __name__ == '__main__':
-  server.main()
-
