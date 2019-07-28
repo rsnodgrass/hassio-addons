@@ -45,10 +45,10 @@ class HeartbeatBeacon():
             "Make"       : "GlobalCache", # required
             "Model"      : "iTachFlexEthernet", # "iTachWF2IR",  # required
             "Config-URL" : "http://192.168.1.70",
-            "Status"     : "Ready"
-#            "Revision"   : "710-1001-05",
-#            "Pkg_Level"  : "GCPK001",
-#            "PCB_PN"     : "025-0026-06", #025-0033-10
+            "Status"     : "Ready",
+            "Revision"   : "710-1001-05",
+            "Pkg_Level"  : "GCPK001",
+            "PCB_PN"     : "025-0026-06"  # 025-0033-10
             }
         heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items()) + "\r"
  

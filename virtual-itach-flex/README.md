@@ -1,13 +1,12 @@
 # Virtual iTach Flex Serial Adapter
 
-Emulates a Global Cache iTach Flex IP to Serial (IP2SL) to provide bidirectional
+Emulates a Global Caché iTach IP to Serial (IP2SL) to provide bidirectional
 TCP-to-serial connections to physical serial ports connected to the host running
-this microservice. Up to eight physical RS232/RS485 serial ports can be exposed
-through the TCP API by each running instance of this Virtual Adapter.
+this microservice. By implementing the iTach Flex TCP API, this allows for exposes
+up to eight physical RS232/RS485 serial ports per running microservice instance.
 
-This microservice package is built as a Docker container (with additional support
-for making it a plug-and-play Home Assistant HASS.IO add-on), but this can just as
-easily be executed as a standalone server.
+While built as a Docker container (with additional support for making it a plug-and-play
+Home Assistant HASS.IO add-on), this can just as easily be executed as a standalone server.
 
 The Virtual Adapter listens on ports 4999-5007, depending on configuration.
 
@@ -20,14 +19,62 @@ be written to the TCP port. The RS232 ports are defaulted to /dev/ttyUSB0 throug
 
 ```yaml
 serial:
-	1: /dev/ttyUSB0,
-	2: /dev/ttyAMA0, # example: Raspberry Pi direct GPIO mapping
+  1: # port 1
+    path: /dev/ttyUSB0
+    baud: 115200,
+    flow: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  2: 
+    path: /dev/ttyUSB1
+    baud: 115200,
+    flow: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  3: 
+    path: /dev/ttyUSB2
+    baud: 115200,
+    flow: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  4: 
+    path: /dev/ttyUSB3
+    baud: 115200,
+    flow: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  5: 
+    path: /dev/ttyUSB4
+    baud: 115200,
+    flow: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  6:
+    path: /dev/ttyUSB5
+    baud: 115200,
+    flow: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  7:
+    path: /dev/ttyUSB6
+    baud: 115200,
+    flow: FLOW_NONE, # flowcontrol = RS232
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
+  8:
+    path: /dev/ttyUSB7
+    baud: 115200,
+    flow: DUPLEX_FULL, # duplex = RS485
+    parity: PARITY_NO,
+    stop_bits: STOPBITS_1
 ```
 
 # See Also
 
 * [iTach Flex TCP API Specification v1.6](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)
-* (https://github.com/probonopd/ESP8266iTachEmulator/)
+* [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
+* [iTach TCP/IP to Serial (RS232) IP2IR specs](https://www.globalcache.com/products/itach/ip2slspecs/)
+* [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
 
 # TODO
 
