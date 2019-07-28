@@ -4,11 +4,10 @@ import os
 import time
 import threading
 import socketserver
-import atexit
 
 log = logging.getLogger(__name__)
 
-ITACH_FLEX_SERIAL_TCP_PORT_START = 4999
+FLEX_SERIAL_TCP_PORT_START = 4999
 serial_listeners = []
 
 Valid_Config_Values = {
@@ -36,8 +35,7 @@ class SerialTCPHandler(socketserver.BaseRequestHandler):
 
 # self.request.sendall(self.data.upper())
 
-"""Ensure all listeners are cleanly shutdown on process exit"""
-@atexit.register
+"""Ensure all listeners are cleanly shutdown""
 def shutdown_all_listeners():
     for server in serial_listeners:
         server.shutdown()
@@ -45,7 +43,7 @@ def shutdown_all_listeners():
 
 def start_serial_listeners(config):
     host = os.getenv('FLEX_SERVER_IP', '0.0.0.0')
-    port = ITACH_FLEX_SERIAL_TCP_PORT_START
+    port = FLEX_SERIAL_TCP_PORT_START
 
     # start the individual TCP ports for each serial port
     for serial_config in config['serial']:

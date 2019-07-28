@@ -15,6 +15,7 @@ import uuid
 import time
 import yaml
 
+import atexit
 import threading
 import socket
 import socketserver
@@ -28,8 +29,8 @@ from listener import start_serial_listeners
 
 log = logging.getLogger(__name__)
 
-ITACH_FLEX_TCP_API_VERSION = '1.6'
-ITACH_FLEX_COMMAND_TCP_PORT = 4998
+FLEX_TCP_API_VERSION = '1.6'
+FLEX_COMMAND_TCP_PORT = 4998
 
 app = Flask(__name__)
 
@@ -158,12 +159,19 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 def web_console():
     return '<h1>Virtual iTach Flex Serial Console</h1>'
 
+@atexit.register
+def shutdown_listeners():
+    log.info("Atexit handler shutdown_listeners()")
+    #shutdown_all_listeners()
+    #command_server.shutdown()
+    #command_server.server_close()
+
 def start_command_listener():
     host = os.getenv('FLEX_SERVER_IP', '0.0.0.0')
 
-    log.info(f"Starting Flex TCP API command listener at {host}:{ITACH_FLEX_COMMAND_TCP_PORT}")
-    print(f"Starting Flex TCP API command listener at {host}:{ITACH_FLEX_COMMAND_TCP_PORT}")
-    server = ThreadedTCPServer((host, ITACH_FLEX_COMMAND_TCP_PORT), iTachCommandTCPRequestHandler)
+    log.info(f"Starting Flex TCP API command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
+    print(f"Starting Flex TCP API command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
+    server = ThreadedTCPServer((host, FLEX_COMMAND_TCP_PORT), iTachCommandTCPRequestHandler)
 
     # the command listener is in its own thread which then creates a new thread for each TCP request
     server_thread = threading.Thread(target=server.serve_forever)
