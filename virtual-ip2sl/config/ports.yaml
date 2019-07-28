@@ -1,6 +1,9 @@
 # see the "iTach Flex TCP API Specification" PDF manual for the available configuration
 # values for each option.
 
+ip2sl:
+  ip: localhost
+
 serial:
   1: # port 1
     path: /dev/ttyUSB0

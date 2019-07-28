@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+import os
 import re
 import uuid
 import time
@@ -13,12 +13,6 @@ MULTICAST_IP   = '239.255.250.250'
 MULTICAST_PORT = 9131
 MULTICAST_TTL  = 2 # after TWO network hops the beacon packet should be discarded
 
-def get_mac():
-    return ''.join(re.findall('..', '%012x' % uuid.getnode())).upper()
-
-def get_ip():
-    return "127.0.0.1"
-
 # Implements a version of the AMX Beacon device discovery protocol with periodic heartbeats
 class AMXDiscoveryBeacon():
     def __init__(self, config):
@@ -29,22 +23,31 @@ class AMXDiscoveryBeacon():
         self._thread.daemon = True
         self._thread.start()
 
+    def get_mac(self):
+        return ''.join(re.findall('..', '%012x' % uuid.getnode())).upper()
+
+    def get_host(self):
+        # must be externally accessible and routable IP (not 0.0.0.0 or localhost)
+        host = '127.0.0.1' # invalid default except for testing
+
+        if ('ip2sl' in self._config and 'ip' in self._config['ip2sl']):
+            host = self._config['ip2sl']['ip']
+
+        # allow overridding discovered/configured IP address with ENV variable
+        host = os.getenv('IP2SL_SERVER_IP', host) 
+        return host
+
     def heartbeat(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, MULTICAST_TTL)
 
-        # must be externally accessible and routable IP (not 0.0.0.0 or localhost)
-        ip = os.getenv('IP2SL_SERVER_IP', get_ip())
-#       ip = self._config['server']['ip'] # FIXME: should we use what is in config?
-
-
         # iTach Flex discovery beacon is a AMX-styles multicast UDP packet sent to IP 239.255.250.250, port 9131.
         data = {
-            "UUID"       : f"VirtualIP2SL_{get_mac()}", # required for IP as unique identifer, could be UUID=GlobalCache_
+            "UUID"       : f"VirtualIP2SL_{self.get_mac()}", # required for IP as unique identifer, could be UUID=GlobalCache_
             "SDKClass"   : "Utility",            # required
             "Make"       : "GlobalCache",        # required
             "Model"      : "iTachFlexEthernet",  # required; note GC-100-12 for legacy model
-            "Config-URL" : f"http://{ip}",
+            "Config-URL" : f"http://{self.get_host()}",
             "Revision"   : "710-2000-15",
             "Pkg_Level"  : "", # "GCPK001",
             "PCB_PN"     : "025-0033-10",

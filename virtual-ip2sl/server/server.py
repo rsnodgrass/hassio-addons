@@ -157,6 +157,17 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
 
+def get_host(config):
+    # must be externally accessible and routable IP (not 0.0.0.0 or localhost)
+    host = '127.0.0.1' # invalid default except for testing
+
+    if ('ip2sl' in config and 'ip' in config['ip2sl']):
+        host = config['ip2sl']['ip']
+
+    # allow overridding discovered/configured IP address with ENV variable
+    host = os.getenv('IP2SL_SERVER_IP', host) 
+    return host
+
 @app.route('/')
 def web_console():
     return '<h1>Virtual iTach Flex Serial Console</h1>'
@@ -169,7 +180,7 @@ def shutdown_listeners():
     #command_server.server_close()
 
 def start_command_listener():
-    host = os.getenv('IP2SL_SERVER_IP', '0.0.0.0')
+    host = get_host(config)
 
     log.info(f"Starting Flex TCP API command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
     print(f"Starting Flex TCP API command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
@@ -187,7 +198,7 @@ def main():
     start_command_listener()
     start_serial_listeners(config)
 
-    host = os.getenv('IP2SL_SERVER_IP', '0.0.0.0')
+    host = get_host(config)
 
     # until Flask http bind issue is resolved, just wait for all threads to complete before exiting
     for a_thread in threads:
