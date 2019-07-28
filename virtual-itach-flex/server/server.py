@@ -161,16 +161,10 @@ def web_console():
 def start_command_listener():
     server = ThreadedTCPServer(("localhost", ITACH_FLEX_COMMAND_TCP_PORT), iTachCommandTCPRequestHandler)
 
-    # start a thread with the server -- that thread will start a new thread for each request
+    # the command listener is in its own thread which then creates a new thread for each TCP request
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.daemon = True # exit the server thread when the main thread terminates
     server_thread.start()
-    
-    # FIXME: should we limit the maximum threads that can be created (e.g. max simultaneous clients)
-    # server.serve_forever()
-
-    server.shutdown()
-    server.server_close()
 
 def main():
     beacon = AMXDiscoveryBeacon(config)
@@ -178,8 +172,8 @@ def main():
     start_serial_listeners(config)
 
     # run the http console server in the main thread
-    app.run(debug=True, host='127.0.0.1', port='8080') # FIXME: allow env override, but default to 80!
-
+#    app.run(debug=True, host='127.0.0.1', port='4997') # FIXME: allow env override, but default to 80!
+    time.sleep(100)
 
 if __name__ == '__main__':
   main()
