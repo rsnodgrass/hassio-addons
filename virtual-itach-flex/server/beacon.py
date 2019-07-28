@@ -27,8 +27,8 @@ def get_mac():
 def get_ip():
     return "127.0.0.1"
 
-class HeartbeatBeacon(config):
-    def __init__(self):
+class HeartbeatBeacon():
+    def __init__(self, config):
         self._config = config
 
         thread = threading.Thread(target=self.heartbeat, args=())

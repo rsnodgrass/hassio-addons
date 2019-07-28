@@ -6,6 +6,7 @@
 import logging
 from flask import Flask
 
+import sys
 import os
 import uuid
 import time
@@ -38,6 +39,16 @@ ERR_INVALID_FLOW_SETTING ="ERR SL002" # Invalid flow control or duplex setting
 ERR_INVALID_PARITY       ="ERR SL003" # Invalid parity setting
 ERR_INVALID_STOP_BITS    ="ERR SL004" # Invalid stop bits setting
 
+def read_config(config_file):
+    with open(config_file, 'r') as stream:
+        try:
+            return yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            sys.stderr.write(f"FATAL! {exc}")
+            sys.exit(1)
+
+config = read_config("config/ports.yaml")
+
 class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
     def handle(self):
         self._data = self.request.recv(1024).strip()
@@ -49,11 +60,11 @@ class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
         elif self._data == b"getversion":
             self.handle_getversion()
         elif self._data.startsWith("get_NET"):
-            self._handle_get_NET()
+            self.handle_get_NET()
         elif self._data.startsWith("get_SERIAL"):
-            self._handle_get_SERIAL()
+            self.handle_get_SERIAL()
         elif self._data.startsWith("set_SERIAL"):
-            self._handle_set_SERIAL()
+            self.handle_set_SERIAL()
         else:
             log.ERROR("Unknown request: {self._data}")
 
@@ -132,16 +143,6 @@ def start_command_listener():
 
     server.shutdown()
     server.server_close()
-
-def read_config(config_file):
-    with open(config_file, 'r') as stream:
-        try:
-            return yaml.safe_load(stream)
-        except yaml.YAMLError as exc:
-            sys.stderr.write(f"FATAL! {exc}")
-            sys.exit(1)
-
-config = read_config("config/ports.yaml")
 
 def main():
     beacon = HeartbeatBeacon(config)
