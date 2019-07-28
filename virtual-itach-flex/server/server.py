@@ -159,6 +159,8 @@ def web_console():
     return '<h1>Virtual iTach Flex Serial Console</h1>'
 
 def start_command_listener():
+    log.info(f"Starting Flex API command listener on TCP port {ITACH_FLEX_COMMAND_TCP_PORT}")
+    print(f"Starting Flex API command listener on TCP port {ITACH_FLEX_COMMAND_TCP_PORT}")
     server = ThreadedTCPServer(("localhost", ITACH_FLEX_COMMAND_TCP_PORT), iTachCommandTCPRequestHandler)
 
     # the command listener is in its own thread which then creates a new thread for each TCP request
@@ -171,9 +173,13 @@ def main():
     start_command_listener()
     start_serial_listeners(config)
 
+    host = os.getenv('FLEX_SERVER_IP', '0.0.0.0')
+
     # run the http console server in the main thread
-#    app.run(debug=True, host='127.0.0.1', port='4997') # FIXME: allow env override, but default to 80!
-    time.sleep(100)
+    console_port = 4444
+    log.info("Starting http console at port %d", console_port)
+    print(f"Starting http console at port {console_port}")
+    app.run(debug=True, host=host, port=console_port) # FIXME: allow env override, but default to 80!
 
 if __name__ == '__main__':
   main()

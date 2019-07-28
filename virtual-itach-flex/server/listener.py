@@ -50,7 +50,8 @@ def start_serial_listeners(config):
         server_thread = threading.Thread(target=server.serve_forever)
         server_thread.daemon = True # exit the server thread when the main thread terminates
 
-        log.info(f"Starting Flex TCP listener on %s:%d", host, port)
+        log.info(f"Starting Flex raw serial TCP listener on {host}:{port}")
+        print(f"Starting Flex raw serial TCP listener on {host}:{port}")
         server_thread.start()
 
         # retain references to the thread and server
