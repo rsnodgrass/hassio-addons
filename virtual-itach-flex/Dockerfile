@@ -1,10 +1,11 @@
-ARG BUILD_FROM=hassioaddons/base
+#ARG BUILD_FROM=hassioaddons/base
+ARG BUILD_FROM=jfloff/alpine-python:3.6-onbuild
 FROM $BUILD_FROM
 
 ARG BUILD_ARCH
 ARG BUILD_VERSION
 
-LABEL authors="Homemations"
+LABEL authors="Ryan Snodgrass"
 
 # install git and Python3 environment
 RUN apk update \
@@ -15,18 +16,14 @@ RUN apk update \
  && cd /usr/bin \
  && ln -sf pip3 pip \
  && ln -sf python3 python \
+ $$ pip3 install --no-cache-dir -r "${APP_DIR}/dependencies"
  && rm -rf /root/.cache /var/cache
 
-# install Homemation's latest Lutron RadioRA Classic Bridge
-ARG APP_DIR="/homemations/Lutron RadioRA Classic/Bridge"
+ARG APP_DIR="/app"
+COPY . $APP_DIR
 
-RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations
- && pip install --no-cache-dir -r "${APP_DIR}/requirements.txt"
-
-# FUTURE: overwrite the default db.sqlite with our defaults (until better config option exists)
-#COPY data/db.sqlite "${APP_DIR}/lutron"
-
-EXPOSE 8333
+EXPOSE 80
+EXPOSE 4999
 
 WORKDIR $APP_DIR
-CMD [ "./run.sh" ]
+CMD [ "python3", "server.py" ]
