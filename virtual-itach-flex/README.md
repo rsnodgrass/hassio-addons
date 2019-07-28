@@ -3,6 +3,8 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
 
+*NOT YET IMPLEMENTED*
+
 Emulates a Global Caché iTach IP to Serial (IP2SL) to provide bidirectional
 TCP-to-serial connections to physical serial ports connected to the host running
 this microservice. By implementing the iTach Flex TCP API, this allows for exposes
@@ -32,6 +34,9 @@ By default, this is configured to open ports for eight USB to serial port adapte
 with an assortment of baud rates. However, you will want to configure this to
 your exact use cases. Additionally, you can comment out any ports you do not
 want accessible.
+
+See the "iTach Flex TCP API Specification" PDF manual for the available configuration
+values for each serial port.
 
 ```yaml
 serial:
@@ -110,3 +115,9 @@ serial:
 | /dev/ttyUSB0       | USB serial adapter 1                                |
 | /dev/ttyUSB1       | USB serial adapter 2                                |
 | /dev/ttyUSB2       | USB serial adapter 3                                |
+
+#### Community Engagement
+
+Links to active community engagement around iTach Flex integrations:
+
+* 
