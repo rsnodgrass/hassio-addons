@@ -32,3 +32,15 @@ serial:
 * implement configuration of serial ports
 * implement web UI
 
+### Example TTY Paths
+
+| Serial Path        | Description                                         |
+| ------------------ | --------------------------------------------------- |
+| /dev/ttyS0         | Raspberry Pi mini UART GPIO
+| /dev/ttyAMA0       | Raspberry Pi GPIO pins 14/15 (pre-Bluetooth RPi 3)
+| /dev/serial0       | RPi 3/RPi 4 serial port alias 1
+| /dev/serial1       | RPi 3/RPi 4 serial port alias 2
+| /dev/tty.usbserial | typical MacOS USB serial adapter
+| /dev/ttyUSB0       | USB serial adapter 1
+| /dev/ttyUSB1       | USB serial adapter 2
+| /dev/ttyUSB2       | USB serial adapter 3
