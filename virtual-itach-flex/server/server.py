@@ -34,6 +34,8 @@ FLEX_COMMAND_TCP_PORT = 4998
 
 app = Flask(__name__)
 
+threads = []
+
 # general errors
 ERR_INVALID_REQUEST      ="ERR 001"   # Invalid request. Command not found.
 ERR_INVALID_SYNTAX       ="ERR 002"   # Bad request syntax used with a known command
@@ -178,10 +180,7 @@ def start_command_listener():
     server_thread.daemon = True # exit the server thread when the main thread terminates
     server_thread.start()
 
-    # FIXME: do we need ot shutdown the server cleanly on exit?
-    # server.shutdown()
-    # server.server_close()
-
+    threads.append(server_thread)
 
 def main():
     beacon = AMXDiscoveryBeacon(config)
@@ -189,6 +188,9 @@ def main():
     start_serial_listeners(config)
 
     host = os.getenv('FLEX_SERVER_IP', '0.0.0.0')
+
+    for a_thread in threads:
+        a_thread.join()
 
     # run the http console server in the main thread
     console_port = 4444
