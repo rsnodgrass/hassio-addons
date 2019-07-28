@@ -47,18 +47,18 @@ class HeartbeatBeacon():
             "SDKClass"   : "Utility",     # required
             "Make"       : "GlobalCache", # required
             "Model"      : "iTachFlexEthernet", # "iTachWF2IR",  # required
-            "Revision"   : "710-1001-05",
-            "Pkg_Level"  : "GCPK001",
             "Config-URL" : "http://192.168.1.70",
-            "PCB_PN"     : "025-0026-06", #025-0033-10
             "Status"     : "Ready"
+#            "Revision"   : "710-1001-05",
+#            "Pkg_Level"  : "GCPK001",
+#            "PCB_PN"     : "025-0026-06", #025-0033-10
             }
         heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items())
 
         while True:
             print(f"Broadcasting heartbeat package: {heartbeat_packet}")
             sock.sendto(b"{heartbeat_packet}", (MULTICAST_IP, MULTICAST_PORT))
-            time.sleep(10) # heartbeat every 10 seconds
+            time.sleep(10) # heartbeat every 10 seconds (FIXME: should we add jitter to this?)
 
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
     def handle(self):
@@ -70,6 +70,12 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
             self.handle_getdevices()
         elif self._data == b"getversion":
             self.handle_getversion()
+        elif self._data.startsWith("get_NET")
+            self._handle_get_NET()
+        elif self._data.startsWith("get_SERIAL")
+            self._handle_get_SERIAL()
+        elif self._data.startsWith("set_SERIAL")
+            self._handle_set_SERIAL()
         else:
             print("Unknown request: {self._data}")
 
@@ -104,6 +110,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
+
 def main():
     beacon = HeartbeatBeacon()
 
@@ -115,6 +122,8 @@ def main():
     #server_thread.start()
     #print("Server loop running in thread:", server_thread.name)
 
+    # FIXME: should we limit the maximum threads that can be created (e.g. max simultaneous clients)
+
     server.serve_forever()
 
 #    server.shutdown()
@@ -123,6 +132,4 @@ def main():
 if __name__ == '__main__':
   main()
 
-# 
-#iTach Flex supports up to eight (8) simultaneous, bidirectional TCP-to-serial
-#connections on port 4999
+# FIXME: add the port 80 server for web UI management?
