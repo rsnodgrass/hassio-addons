@@ -23,7 +23,18 @@ ITACH_FLEX_COMMAND_TCP_PORT = 4999
 
 app = Flask(__name__)
 
-class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
+serial_listeners = {
+    "1": "/dev/ttyUSB0",
+    "2": "/dev/ttyUSB0",
+    "3": "/dev/ttyUSB0",
+    "4": "/dev/ttyUSB0",
+    "5": "/dev/ttyUSB0",
+    "6": "/dev/ttyUSB0",
+    "7": "/dev/ttyUSB0",
+    "8": "/dev/ttyUSB0"
+}
+
+class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
     def handle(self):
         self._data = self.request.recv(1024).strip()
         print("{} wrote:".format(self.client_address[0]))
@@ -43,7 +54,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
             log.ERROR("Unknown request: {self._data}")
 
     def send_response(self, response):
-        log.INFO(f"Sending response: {response}")
+        log.INFO("Sending response: %s", response)
         self.request.sendall(b"{response}")
 
     def handle_getdevices(self):
@@ -73,9 +84,9 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
-
-# we only allow a single client to connect to the TCP for a serial
-class SerialRelayTCPServer(socketserver.TCPServer):
+# listener that relays data to/from a specific RS232 port
+# ... we only allow a single client to connect to the TCP for a serial
+class RS232SerialTCPServer(socketserver.TCPServer):
     def __init__(self, serial_path):
         self._serial_path = serial_path
         # FIXME: open serial connection
@@ -90,10 +101,8 @@ class SerialRelayTCPServer(socketserver.TCPServer):
 def web_console():
     return '<h1>Virtual iTach Flex Serial Console</h1>'
 
-def main():
-    beacon = HeartbeatBeacon()
-
-    server = ThreadedTCPServer(("localhost", ITACH_FLEX_COMMAND_TCP_PORT), ThreadedTCPRequestHandler)
+def start_command_listener():
+    server = ThreadedTCPServer(("localhost", ITACH_FLEX_COMMAND_TCP_PORT), iTachCommandTCPRequestHandler)
 
     # start a thread with the server -- that thread will start a new thread for each request
     server_thread = threading.Thread(target=server.serve_forever)
@@ -103,11 +112,21 @@ def main():
     # FIXME: should we limit the maximum threads that can be created (e.g. max simultaneous clients)
     # server.serve_forever()
 
+    server.shutdown()
+    server.server_close()
+
+def main():
+    beacon = HeartbeatBeacon()
+
+    start_command_listener()
+
+    port = 4999
+    for serial in serial_listeners:
+        log.info("Setup listener on port %d for %s", port, serial)
+
     # run the Flask http console server in the main thread
     app.run(debug=True, host='127.0.0.1', port='8080') # FIXME: allow env override, but default to 80!
 
-    server.shutdown()
-    server.server_close()
 
 if __name__ == '__main__':
   main()

@@ -11,18 +11,6 @@ log = logging.getLogger(__name__)
 DEFAULT_TTY = '/dev/ttyUSB0'
 DEFAULT_TTY_TIMEOUT_SECONDS = 1
 DEFAULT_BAUD_RATE = 9600
-DEFAULT_NEWLINE = '\r'
-
-EXAMPLE_TTY_PATHS = [
-    '/dev/ttyS0',         # Raspberry Pi mini UART GPIO
-    '/dev/ttyAMA0',       # Raspberry Pi GPIO pins 14/15 (pre-Bluetooth RPi 3)
-    '/dev/serial0',       # RPi 3 serial port alias 1
-    '/dev/serial1',       # RPi 3 serial port alias 2
-    '/dev/tty.usbserial', # typical MacOS USB serial adapter
-    '/dev/ttyUSB0',       # Linux USB serial 1
-    '/dev/ttyUSB1',       # Linux USB serial 2
-    '/dev/ttyUSB2'        # Linux USB serial 3
-]
 
 # FIXME: the constructor of this should pass in tty, timeouts, baud rate, since they
 # should be configured on a per-interface level. Not ENV!

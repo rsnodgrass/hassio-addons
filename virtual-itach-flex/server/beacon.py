@@ -53,6 +53,6 @@ class HeartbeatBeacon():
         heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items()) + "\r"
  
         while True:
-            print(f"Broadcasting heartbeat package: {heartbeat_packet}")
+            log.info(f"Broadcasting heartbeat package: {heartbeat_packet}")
             sock.sendto(b"{heartbeat_packet}", (MULTICAST_IP, MULTICAST_PORT))
             time.sleep(10) # heartbeat every 10 seconds (FIXME: should we add jitter to this?)
