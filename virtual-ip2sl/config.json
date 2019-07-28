@@ -2,7 +2,7 @@
   "name": "Virtual IP2SL (IP to Serial)",
   "version": "0.0.1",
   "slug": "virtual-ip2sl",
-  "description": "Provides bidirectional TCP-to-serial access to physical serial ports connected to the host running this microservice by emulating a iTach Flex IP to Serial (IP2SL). Up to eight physical RS232/RS485 serial ports can be exposed for remote access."
+  "description": "Bidirectional TCP communication to physical serial ports by implementing the iTach Flex IP to Serial (IP2SL) protocol."
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/virtual-ip2sl",
   "startup": "services",
   "boot": "auto",
