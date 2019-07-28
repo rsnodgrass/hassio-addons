@@ -39,7 +39,7 @@ class AMXDiscoveryBeacon():
             "SDKClass"   : "Utility",           # required
             "Make"       : "GlobalCache",       # required
             "Model"      : "iTachFlexEthernet", # required; note GC-100-12 for legacy model
-            "Config-URL" : "http://192.168.1.70",
+            "Config-URL" : f"http://{get_ip()}",
             "Revision"   : "710-2000-15",
             "Pkg_Level"  : "", # "GCPK001",
             "PCB_PN"     : "025-0033-10",
@@ -48,7 +48,7 @@ class AMXDiscoveryBeacon():
         heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items())
 
         while True:
-            log.info("Broadcasting heartbeat beacon: %s", heartbeat_packet)
+            log.debug("Broadcasting heartbeat beacon: %s", heartbeat_packet)
             print(f"Broadcasting heartbeat beacon: {heartbeat_packet}")
             sock.sendto(b"{heartbeat_packet}\r", (MULTICAST_IP, MULTICAST_PORT))
             time.sleep(5) # heartbeat every 10 seconds
