@@ -11,14 +11,14 @@ log = logging.getLogger(__name__)
 DEFAULT_TTY_TIMEOUT_SECONDS = 5
 
 PARITY = {
-    'PARITY_NO':   serial.PARITY_NONE,
-    'PARITY_ODD':  serial.PARITY_ODD,
-    'PARITY_EVEN': serial.PARITY_EVEN
+    'PARITY_NO':   'N', # serial.PARITY_NONE,
+    'PARITY_ODD':  'O', # serial.PARITY_ODD,
+    'PARITY_EVEN': 'E'  # serial.PARITY_EVEN
 }
 
 STOP_BITS = {
-    'STOPBITS_1':  serial.STOPBITS_ONE,
-    'STOPBITS_2':  serial.STOPBITS_TWO
+    'STOPBITS_1':  1, # serial.STOPBITS_ONE
+    'STOPBITS_2':  2  # serial.STOPBITS_TWO
 }
 
 FLOW_OR_DUPLEX = {
@@ -32,7 +32,7 @@ class IP2SLSerialInterface:
 
     def __init__(self, config):
         self._tty_path = config['path']
-        reset_serial_parameters(self, config)
+        self.reset_serial_parameters(config)
 
     def serial(self):
         return self._serial
@@ -92,4 +92,4 @@ class IP2SLSerialInterface:
 
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
-            raise RuntimeError("Connect failure to {}".format(self._tty))
+            raise RuntimeError("Connect failure to {}".format(self._tty_path))

@@ -200,7 +200,7 @@ def web_console():
 @atexit.register
 def shutdown_listeners():
     log.info("Atexit handler shutdown_listeners()")
-    #shutdown_all_listeners()
+    #stop_all_listeners()
     #command_server.shutdown()
     #command_server.server_close()
 

@@ -38,9 +38,9 @@ class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
 # self.request.sendall(self.data.upper())
 
 """Ensure all listeners are cleanly shutdown"""
-def shutdown_all_listeners():
+def stop_all_listeners():
     for port_number, server in Serial_Listeners.items():
-        
+        stop_listener(port_number)
 
 def stop_listener(port_number):
     log.debug("Stopping listener for serial 1")
