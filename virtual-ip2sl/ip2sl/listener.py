@@ -6,8 +6,8 @@ import serial
 import threading
 import socketserver
 
-import ip2serial
 import util
+import ip2serial
 
 log = logging.getLogger(__name__)
 
