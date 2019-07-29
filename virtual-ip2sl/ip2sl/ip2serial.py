@@ -55,7 +55,7 @@ class IP2SLSerialInterface:
             self._baud = max(min(baud, 115200), 300) # ensure baud is ranged between 300-115200
             config['baud'] = self._baud # rewrite config to ensure it is within range
 
-            self._parity    = PARITY[lookup_with_default(config, 'parity']
+            self._parity    = PARITY[lookup_with_default(config, 'parity')]
             self._stop_bits = STOP_BITS[lookup_with_default(config, 'stop_bits')]
             self._timeout   = int( lookup_with_default(config, 'timeout') )
             
@@ -116,11 +116,8 @@ class IP2SLSerialInterface:
             self._timeout   = int( lookup_with_default(config, 'timeout') )
             
             # default to hardware flow control on (FLOW_HARDWARE)
-            flow_rtscts = True
-            flow_dsrdtr = True
-            if self._flow == 'FLOW_NONE':
-                flow_rtscts = False
-                flow_dsrdtr = False
+            flow_rtscts = (self._flow == 'FLOW_NONE')
+            flow_dsrdtr = flow_rtscts
 
             self._serial = serial.Serial(self._tty_path,
                                          timeout=self._timeout,
