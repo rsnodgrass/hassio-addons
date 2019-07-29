@@ -17,7 +17,9 @@ MULTICAST_TTL  = 2 # after TWO network hops the beacon packet should be discarde
 class AMXDiscoveryBeacon():
     def __init__(self, config):
         self._config = config
-        self._beacon_interval = 5 # heartbeat every 10 seconds
+
+        # heartbeat interval in seconds (default is every 10 seconds); ENV override for testing
+        self._beacon_interval = max(1, int(os.getenv('IP2SL_BEACON_INTERVAL', '10')))
 
         self._thread = threading.Thread(target=self.heartbeat, args=())
         self._thread.daemon = True
