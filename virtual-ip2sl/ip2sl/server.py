@@ -181,7 +181,7 @@ def main():
 
     # run the http console server in the main thread
     host = util.get_host(config)
-    console_port = 4444
+    console_port = int(os.getenv('IP2SL_CONSOLE_PORT', 4444))
 
     log.info(f"Starting UI console at http://{host}:{console_port}")
     print(f"Starting UI console at http://{host}:{console_port}")
