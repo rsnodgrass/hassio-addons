@@ -33,22 +33,14 @@ used as a standalone server.
 
 # Configuration
 
-By default, the Virtual IPSL is configured to open a single port attached 
+By default, the Virtual IP2SL is configured to open a single port attached 
 at 9600 baud to one USB serial port adapter on //dev/ttyUSB0. However, a
-wide variety of serial port configurations are possible, up to eight distinct
-ports per running instance (for the default Flex command protocol, but more
-can be added for manual configurations).
+wide variety of serial port configurations are possible, up to eight
+serial ports per Virutal IP2SL instance.
 
-
-o serial port adapters
-with an assortment of baud rates. However, you will want to configure this to
-your exact use cases. Additionally, you can comment out any ports you do not
-want accessible.
-
+Below is an example of four USB serial ports connected.
 See the "[iTach Flex TCP API Specification](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)"
 PDF manual for the available configuration values for each serial port.
-
-Here is an example:
 
 ```yaml
 serial:

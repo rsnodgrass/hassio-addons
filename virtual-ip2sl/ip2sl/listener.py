@@ -78,7 +78,6 @@ def start_listener(config, port_number, serial_config):
     tcp_port = SERIAL_PORT_TO_TCP_PORT[port_number]
 
     log.info(f"Serial {port_number} configuration: {serial_config} (TCP port {host}:{tcp_port})")
-    print(f"Serial {port_number} configuration: {serial_config} (TCP port {host}:{tcp_port})")
     serial_connection = ip2serial.IP2SLSerialInterface(serial_config)
     # FIXME: if serial port /dev/tty does not exist, should port be opened?
 
