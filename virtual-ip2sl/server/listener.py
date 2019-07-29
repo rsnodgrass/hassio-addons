@@ -49,8 +49,7 @@ def start_listener(port_number, listener_config):
         server.shutdown()
         server.server_close()
 
-
-    log.info("Serial %d configuration: %s (port %d)", port_number, serial_config, tcp_port)
+    log.info(f"Serial {port_number} configuration: {serial_config} (TCP port {tcp_port})")
     server = socketserver.TCPServer((host, tcp_port), IPToSerialTCPHandler)
 
     # FIXME: if serial port /dev/tty does not exist, should port be opened?
@@ -67,7 +66,7 @@ def start_listener(port_number, listener_config):
 
     # retain references to the thread and server
     serial_listeners[port_number] = ( server )
-
+    return server
 
 def start_serial_listeners(config):
     host = os.getenv('IP2SL_SERVER_HOST', '0.0.0.0')
