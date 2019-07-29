@@ -75,17 +75,17 @@ ports is relayed directly out the RS232 serial port associated with that TCP por
 configuration. Similarly, any data received from the RS232 will be written to the TCP
 port. The RS232 ports are defaulted to /dev/ttyUSB0 through /dev/ttyUSB7.
 
-| TCP Port | Description                            | Default TTY  |
-| -------- | -------------------------------------- | ------------ |
-| 4998     | iTach Flex command and control port    |              |
-| 4999     | raw TCP port to the first serial port  | /dev/ttyUSB0 |
-| 5000     | ... second serial port                 | /dev/ttyUSB1 |
-| 5001     | ... third serial port                  | /dev/ttyUSB2 |
-| 5002     | ... fourth serial port                 | /dev/ttyUSB3 |
-| 5003     | ... fifth serial port                  | /dev/ttyUSB4 |
-| 5004     | ... sixth serial port                  | /dev/ttyUSB5 |
-| 5005     | ... seventh serial port                | /dev/ttyUSB6 |
-| 5006     | raw TCP port to the eighth serial port | /dev/ttyUSB7 |
+| TCP Port | Description                              | Default TTY  |
+| -------- | ---------------------------------------- | ------------ |
+| 4998     | iTach Flex TCP API command/control port  | n/a          |
+| 4999     | raw TCP port to the first serial port    | /dev/ttyUSB0 |
+| 5000     | ... second serial port                   | /dev/ttyUSB1 |
+| 5001     | ... third serial port                    | /dev/ttyUSB2 |
+| 5002     | ... fourth serial port                   | /dev/ttyUSB3 |
+| 5003     | ... fifth serial port                    | /dev/ttyUSB4 |
+| 5004     | ... sixth serial port                    | /dev/ttyUSB5 |
+| 5005     | ... seventh serial port                  | /dev/ttyUSB6 |
+| 5006     | raw TCP port to the eighth serial port   | /dev/ttyUSB7 |
 
 For enhanced security, it is recommended disabling via configuration any ports
 that are not in use.
