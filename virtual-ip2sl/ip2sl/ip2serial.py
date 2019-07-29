@@ -131,7 +131,7 @@ class IP2SLSerialInterface:
 
             self._rs485 = self._flow in [ 'DUPLEX_FULL', 'DUPLEX_HALF' ]
             if self._rs485:
-                message = f"RS485 communication not yet supported! (detected RS485 flow/duplex {self._flow} configuration)"
+                message = f"RS485 not yet supported! (detected RS485 flow/duplex {self._flow} configuration)"
                 log.error(message)
                 raise RuntimeError(message)
                 # FIXME: support RS485

@@ -7,6 +7,7 @@ import threading
 import socketserver
 
 import ip2serial
+import util
 
 log = logging.getLogger(__name__)
 
@@ -29,24 +30,34 @@ multiplexed, only allow a single instance of this instantiated at a time
 (this is the default behavior given the current threading model).
 """
 class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
-    def __init__(self, serial):
+    def __init__(self):
+        print(f"Connecting to serial ...")
+
+    def handle(self):
+        with self.server._lock:
+             data = self.request.recv(1024).strip()
+             print(f"{self.client_address[0]} wrote: {data}")
+             log.debug(f"{self.client_address[0]} wrote: %s", data)
+
+    #        self.server._serial = self.server._serial
+
+    def update_serial(new_config):
+        with self.server._lock:
+           self.server._serial.reset_serial_parameters(new_config)
+
+
+class IP2SLServer(socketserver.TCPServer):
+    def __init__(self, server_address, RequestHandlerClass, serial_connection):
+        socketserver.TCPServer.__init__(self, server_address, RequestHandlerClass)
+        
+        self._serial = serial_connection
+
         # each listener has a lock, since the main control thread can modify
         # parameters for the serial connetion such as baud rate. We do not want
         # one large lock shared across listeners since then that serializes the
         # processing for all threads.
         self._lock = threading.Lock()
 
-        self._serial = serial
-
-    def handle(self):
-        with self._lock:
-             data = self.request.recv(1024).strip()
-             print(f"{self.client_address[0]} wrote: {data}")
-             log.debug(f"{self.client_address[0]} wrote: %s", data)
-
-    def update_serial(new_config):
-        with self._lock:
-           self._serial.reset_serial_parameters(new_config)
 
 # self.request.sendall(self.data.upper())
 
@@ -62,8 +73,8 @@ def stop_listener(port_number):
        server.shutdown()
        server.server_close()
 
-def start_listener(port_number, serial_config):
-    host = os.getenv('IP2SL_SERVER_HOST', '0.0.0.0') # FIXME: and from config!
+def start_listener(config, port_number, serial_config):
+    host = util.get_host(config)
     tcp_port = SERIAL_PORT_TO_TCP_PORT[port_number]
 
     log.info(f"Serial {port_number} configuration: {serial_config} (TCP port {host}:{tcp_port})")
@@ -71,15 +82,13 @@ def start_listener(port_number, serial_config):
     serial_connection = ip2serial.IP2SLSerialInterface(serial_config)
     # FIXME: if serial port /dev/tty does not exist, should port be opened?
 
-    server = socketserver.TCPServer((host, tcp_port),
-                                    IPToSerialTCPHandler(serial_connection))
+    server = IP2SLServer((host, tcp_port), IPToSerialTCPHandler, serial_connection)
 
     # each listener has a dedicated thread (one thread per port, as serial port communication isn't multiplexed)        
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.daemon = True # exit the server thread when the main thread terminates
 
     log.info(f"Starting raw IP-to-serial TCP listener at {host}:{tcp_port}")
-    print(f"Starting raw IP-to-serial TCP listener at {host}:{tcp_port}")
     server_thread.start()
 
     # retain references to the thread and server
@@ -89,4 +98,4 @@ def start_listener(port_number, serial_config):
 def start_serial_listeners(config):
     # start the individual TCP ports for each serial port
     for port_number, serial_config in config['serial'].items():
-        start_listener(port_number, serial_config)
+        start_listener(config, port_number, serial_config)

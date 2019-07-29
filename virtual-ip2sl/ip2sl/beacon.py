@@ -9,8 +9,8 @@ import socket
 
 log = logging.getLogger(__name__)
 
-MULTICAST_IP   = '239.255.250.250'
 MULTICAST_PORT = 9131
+MULTICAST_IP   = '239.255.250.250'
 MULTICAST_TTL  = 2 # after TWO network hops the beacon packet should be discarded
 
 # Implements a version of the AMX Beacon device discovery protocol with periodic heartbeats
@@ -57,6 +57,6 @@ class AMXDiscoveryBeacon():
 
         while True:
             log.debug("Broadcasting heartbeat beacon: %s", heartbeat_packet)
-            print(f"Broadcasting heartbeat beacon: {heartbeat_packet}")
+            # print(f"Broadcasting heartbeat beacon: {heartbeat_packet}")
             sock.sendto(b"{heartbeat_packet}\r", (MULTICAST_IP, MULTICAST_PORT))
             time.sleep(self._beacon_interval)
