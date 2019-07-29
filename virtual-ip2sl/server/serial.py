@@ -39,6 +39,8 @@ class IP2SLSerialInterface:
         else:
             return default
 
+    # FIXME: ideally this class would be immutable once created, so really the
+    # listener itself should be closed...and then recreated, thus no race conditions
     def reset_serial_parameters(self, config):
         try:
             self._config = config
