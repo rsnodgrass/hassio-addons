@@ -57,11 +57,11 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
             self.handle_getdevices()
         elif self._data == b"getversion":
             self.handle_getversion()
-        elif self._data.startsWith("get_NET"):
+        elif self._data.startswith("get_NET"):
             self.handle_get_NET()
-        elif self._data.startsWith("get_SERIAL"):
+        elif self._data.startswith("get_SERIAL"):
             self.handle_get_SERIAL()
-        elif self._data.startsWith("set_SERIAL"):
+        elif self._data.startswith("set_SERIAL"):
             self.handle_set_SERIAL()
         else:
             log.error("Unknown request: {self._data}")

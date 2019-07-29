@@ -109,11 +109,18 @@ The following are a variety of example TTY paths for different serial port inter
 
 ## See Also
 
+#### Relevant Clients
+
+* [iTest for Windows](https://www.globalcache.com/downloads/) and [iTest for MacOS (by Martijn Rijnbeek)](http://www.rmartijnr.eu/itest.html) - tools for connecting and sending test queries
 * [Home Assistant GC100](https://www.home-assistant.io/components/gc100)
+* [Home Assistant Notifier](https://github.com/tinglis1/home-assistant-custom/tree/master/custom_components/notify) (last updated 2016)
+
+#### Other
+
+* [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
 * [iTach Flex TCP API Specification v1.6](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)
   (earlier [v1.5 specificaiton](https://www.globalcache.com/files/docs/API-iTach.pdf))
-* [iTach TCP/IP to Serial (RS232) IP2IR specs](https://www.globalcache.com/products/itach/ip2slspecs/) and [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
-* [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
+* [iTach TCP/IP to Serial (RS232) specs](https://www.globalcache.com/products/itach/ip2slspecs/) and [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
 
 ## Support
 
@@ -125,7 +132,7 @@ Links to active community engagement around iTach Flex integrations:
 
 ### Home Assistant Integration
 
-* https://github.com/tinglis1/home-assistant-custom/tree/master/custom_components/notify (last updated 2016)
+* 
 
 ## TODO
 
