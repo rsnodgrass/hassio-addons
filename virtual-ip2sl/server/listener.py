@@ -60,6 +60,9 @@ def start_serial_listeners(config):
         print(f"Starting raw IP-to-serial TCP listener at {host}:{tcp_port}")
         server_thread.start()
 
+#        serial = listener.IP2SLSerialInterface(config)
+
+
         # retain references to the thread and server
         serial_listeners.append( server )
         tcp_port += 1

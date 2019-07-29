@@ -21,7 +21,7 @@ STOP_BITS = {
     'STOPBITS_2':  serial.STOPBITS_TWO
 }
 
-class SerialInterface:
+class IP2SLSerialInterface:
 
     def __init__(self, config):
         self._tty_path = config['path']
@@ -71,6 +71,7 @@ class SerialInterface:
                                          dsrdtr=flow_dsrdtr,
                                          rtscts=flow_rtscts)
             log.info(f"Connected to {self._tty_path} (config={self._config})")
+            print(f"Connected to {self._tty_path} (config={self._config})")
 
             self._rs485 = self._flow in [ 'DUPLEX_FULL', 'DUPLEX_HALF' ]
             if self._rs485:

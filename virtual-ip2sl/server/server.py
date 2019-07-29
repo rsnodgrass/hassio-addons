@@ -92,7 +92,7 @@ def setup_logging(
 setup_logging()
 log = logging.getLogger(__name__)
 
-class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
+class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
         self._data = self.request.recv(1024).strip()
         print(f"{self.client_address[0]} wrote: {self._data}")
@@ -126,33 +126,56 @@ class iTachCommandTCPRequestHandler(socketserver.BaseRequestHandler):
         self.send_response("710-2000-15") # firmware version part number
 
     def handle_get_NET(self):
-        # the iTach Flex host network module address is always hardcoded 0:1
+        # the Flex host network module address is always hardcoded 0:1
         #   NET,0:1,<configlock>,<ipsetting>,<ipaddress>,<subnet>,<gateway>
 #        if !self._data.startsWith("get_NET,0:1"):
 #            throw error
+        # FIXME: can we just ignore this API?
         self.send_response("NET,0:1,LOCKED,STATIC,127.0.0.1,255.255.255.0,127.0.0.1")
 
-    def handle_get_SERIAL(self):
-        m = re.search("get_SERIAL,1:(?P<port>.+)", self._data)
+    # response: SERIAL,1:1,<baudrate>,<flowcontrol/duplex>,<parity>,<stopbits>
+    def _prepare_SERIAL_response(self):
+        m = re.search("et_SERIAL,1:(?P<port>.+)", self._data)
         if m:
             port = int(m.group('port'))
 
-            serial = config['serial']['port']
-            if serial:
-                self.send_response(f"SERIAL,1:{port},{serial['baud']},{serial['flow']},{serial['parity']},{serial['stop_bits']}")
-
-            else:
-                send_error()
+            # FIXME: actually get this form the serial object (since it could have changed)
+            cfg = config['serial']['port']
+            if cfg:
+                return f"SERIAL,1:{port},{cfg['baud']},{cfg['flow']},{cfg['parity']},{cfg['stop_bits']}"
+            return None # FIXME
+   
+    def handle_get_SERIAL(self):
+        response = self._prepare_SERIAL_response()
+        self.send_response(response)
 
     def handle_set_SERIAL(self):
         # FIXME: do we update the in-memory config!?  Or just disable setting serial configuration?
-
+        # FIXME: should we persist this across restarts?
+        
         # set_SERIAL,<module>:<port>
         # set_SERIAL,<module>:<port>,<baudrate>,<flowcontrol/duplex>,<parity>,[stopbits]
+        response = self._prepare_SERIAL_response()
 
-        # response: SERIAL,1:1,<baudrate>,<flowcontrol/duplex>,<parity>,<stopbits>
-        self.send_response("SERIAL,1:1,115200,FLOW_NONE,PARITY_NO,STOPBITS_1")
+        # FIXME: partial search of stopbits!
+        m = re.search("set_SERIAL,1:(?P<port>.+),(?P<baud>.+),(?P<flow>.+),(?P<parity>.+),(?P<stop_bits>.+)", self._data)
+        if m:
+            cfg = config['serial']['port']
+            if cfg:
+                cfg['baud'] = int(m.group('baud'))
+                cfg['parity'] = m.group('parity')
+                # FIXME: flow!
+                cfg['stop_bits'] = m.group('stop_bits')
 
+                # FIXME: find the serial port that matches, and update
+                #self._serial.reset_configuration(cfg) # FIXME
+            else:
+                log.error(f"Major set_SERIAL error! Could not parse: {self._data}")
+                # FIXME: return error
+ 
+        # always reply with the current configuration
+        response = self._prepare_SERIAL_response()
+        self.send_response(response)
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
@@ -182,9 +205,9 @@ def shutdown_listeners():
 def start_command_listener():
     host = get_host(config)
 
-    log.info(f"Starting Flex TCP API command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
-    print(f"Starting Flex TCP API command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
-    server = ThreadedTCPServer((host, FLEX_COMMAND_TCP_PORT), iTachCommandTCPRequestHandler)
+    log.info(f"Starting Flex TCP command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
+    print(f"Starting Flex TCP command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
+    server = ThreadedTCPServer((host, FLEX_COMMAND_TCP_PORT), FlexCommandTCPHandler)
 
     # the command listener is in its own thread which then creates a new thread for each TCP request
     server_thread = threading.Thread(target=server.serve_forever)
@@ -195,8 +218,8 @@ def start_command_listener():
 
 def main():
     beacon = AMXDiscoveryBeacon(config)
-    start_command_listener()
     start_serial_listeners(config)
+    start_command_listener()
 
     host = get_host(config)
 
