@@ -22,11 +22,7 @@ from listener import start_serial_listeners
 log = logging.getLogger(__name__)
 
 FLEX_TCP_API_VERSION = '1.6'
-FLEX_COMMAND_TCP_PORT = 4998
-
-app = Flask(__name__)
-
-threads = []
+FLEX_TCP_COMMAND_PORT = 4998
 
 # general errors
 ERR_INVALID_REQUEST      ='ERR 001'   # Invalid request. Command not found.
@@ -41,6 +37,10 @@ ERR_INVALID_BAUD_RATE    ='ERR SL001' # Invalid baud rate
 ERR_INVALID_FLOW_SETTING ='ERR SL002' # Invalid flow control or duplex setting
 ERR_INVALID_PARITY       ='ERR SL003' # Invalid parity setting
 ERR_INVALID_STOP_BITS    ='ERR SL004' # Invalid stop bits setting
+
+app = Flask(__name__)
+
+threads = []
 
 util.setup_logging()
 log = logging.getLogger(__name__)
@@ -139,6 +139,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
         # always reply with the current configuration
         response = self._prepare_SERIAL_response()
         self.send_response(response)
+        
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 
@@ -156,9 +157,9 @@ def shutdown_listeners():
 def start_command_listener():
     host = util.get_host(config)
 
-    log.info(f"Starting Flex TCP command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
-    print(f"Starting Flex TCP command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
-    server = ThreadedTCPServer((host, FLEX_COMMAND_TCP_PORT), FlexCommandTCPHandler)
+    log.info(f"Starting Flex TCP command listener at {host}:{FLEX_TCP_COMMAND_PORT}")
+    print(f"Starting Flex TCP command listener at {host}:{FLEX_TCP_COMMAND_PORT}")
+    server = ThreadedTCPServer((host, FLEX_TCP_COMMAND_PORT), FlexCommandTCPHandler)
 
     # the command listener is in its own thread which then creates a new thread for each TCP request
     server_thread = threading.Thread(target=server.serve_forever)
