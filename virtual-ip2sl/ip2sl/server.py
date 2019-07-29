@@ -10,10 +10,8 @@ from flask import Flask
 
 import os
 import re
-import sys
 import uuid
 import time
-import yaml
 
 import atexit
 import threading
@@ -50,38 +48,10 @@ ERR_INVALID_FLOW_SETTING ='ERR SL002' # Invalid flow control or duplex setting
 ERR_INVALID_PARITY       ='ERR SL003' # Invalid parity setting
 ERR_INVALID_STOP_BITS    ='ERR SL004' # Invalid stop bits setting
 
-def read_config(config_file='config/default.yaml'):
-    config_file = os.getenv('IP2SL_CONFIG', config_file) # ENV variable overrides all
-
-    with open(config_file, 'r') as stream:
-        try:
-            return yaml.safe_load(stream)
-        except yaml.YAMLError as exc:
-            sys.stderr.write(f"FATAL! {exc}")
-            sys.exit(1)
-
-config = read_config()
-
-def setup_logging(
-    default_path='config/logging.yaml',
-    default_level=logging.INFO
-):
-    """Setup logging configuration"""
-    path = os.getenv('IP2SL_LOG_CONFIG', default_path)
-    
-    if os.path.exists(path):
-        with open(path, 'rt') as f:
-            config = yaml.safe_load(f.read())
-        logging.config.dictConfig(config)
-
-        log = logging.getLogger(__name__)
-        log.debug(f"Read logging configuration from {path}: {config}")
-    else:
-        print(f"ERROR! Couldn't find logging configuration: {path}")
-        logging.basicConfig(level=default_level)
-
-setup_logging()
+util.setup_logging()
 log = logging.getLogger(__name__)
+
+config = util.read_config()
 
 class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
