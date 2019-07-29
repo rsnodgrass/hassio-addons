@@ -8,24 +8,17 @@ import logging
 
 log = logging.getLogger(__name__)
 
-DEFAULT_TTY_TIMEOUT_SECONDS = 1
+DEFAULT_TTY_TIMEOUT_SECONDS = 5
 
 PARITY = {
-    'PARITY_NO': serial.PARITY_NONE,
-    'PARITY_ODD': serial.PARITY_ODD,
+    'PARITY_NO':   serial.PARITY_NONE,
+    'PARITY_ODD':  serial.PARITY_ODD,
     'PARITY_EVEN': serial.PARITY_EVEN
 }
 
-FLOW = {
-    'FLOW_HARDWARE':
-    'FLOW_NONE':
-    'DUPLEX_HALF':
-    'DUPLEX_FULL':
-}
-
 STOP_BITS = {
-    'STOPBITS_1': serial.STOPBITS_ONE,
-    'STOPBITS_2': serial.STOPBITS_TWO
+    'STOPBITS_1':  serial.STOPBITS_ONE,
+    'STOPBITS_2':  serial.STOPBITS_TWO
 }
 
 class SerialInterface:
@@ -37,20 +30,25 @@ class SerialInterface:
     def serial(self):
         return self._serial
 
+    def default(config, key, default):
+        if key in config:
+            return config[key]
+        else:
+            return default
+
     def reset_serial_parameters(self, config):
         try:
             # if serial port is already opened, then close before reconfiguring
             if self._serial:
                 self._serial.close()
 
-            # ensure baud is ranged between 300-115200
-            self._baud = max(min(config['baud'], 115200), 300)
-           
-            self._flow      = FLOW[config['flow']]
-            self._parity    = PARITY[config['parity']]
-            self._stop_bits = STOP_BITS[config['stop_bits']]
-            self._timeout   = DEFAULT_TTY_TIMEOUT_SECONDS  #int(config['timeout'])
+            baud = int(default(config, 'baud', 9600))
+            self._baud = max(min(baud, 115200), 300) # ensure baud is ranged between 300-115200
 
+            self._parity    = PARITY[default(config, 'parity', 'PARITY_NO')]
+            self._stop_bits = STOP_BITS[default(config, 'stop_bits', 'STOPBITS_1')]
+            self._timeout   = int( default(config, 'timeout', DEFAULT_TTY_TIMEOUT_SECONDS) )
+            
             # default to hardware flow control on (FLOW_HARDWARE)
             flow_rtscts = True
             flow_dsrdtr = True
@@ -70,11 +68,11 @@ class SerialInterface:
 
             self._rs485 = self._flow in [ 'DUPLEX_FULL', 'DUPLEX_HALF' ]
             if self._rs485:
-                message = f"RS485 communication note yet supported!  RS485 flow/duplex {self._flow} specified."
+                message = f"RS485 communication not yet supported! (detected RS485 flow/duplex {self._flow} configuration)"
                 log.error(message)
                 raise RuntimeError(message)
-                # FIXME: add more settings!
-                #              ser.rs485_mode = serial.rs485.RS485Settings(
+                # FIXME: support RS485
+                #   ser.rs485_mode = serial.rs485.RS485Settings()
 
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])

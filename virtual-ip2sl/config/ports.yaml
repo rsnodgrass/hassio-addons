@@ -50,6 +50,6 @@ serial:
   8:
     path: /dev/ttyUSB7
     baud: 115200
-    flow: DUPLEX_FULL # duplex = RS485
+    flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1

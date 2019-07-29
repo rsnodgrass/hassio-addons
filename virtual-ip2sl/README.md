@@ -7,12 +7,12 @@
 
 Provides bidirectional TCP-to-serial access to physical serial ports connected to the
 host running this microservice by emulating a iTach Flex IP to Serial (IP2SL). Each instance
-of the Virtual IP2SL microservice can expose up to eight physical RS232/RS485 serial ports.
+of the Virtual IP2SL microservice can expose up to eight physical RS232 serial ports.
 
 I decided to build this after having physical USB to serial adapters hooked up to a
 Raspberry Pi (such as the 
 [StarTech ICUSB232I 8-port USB serial adapter](https://amazon.com/StarTech-com-USB-Serial-Adapter-Hub/dp/B009AT5TB2) and native Raspberry Pi GPIO pin outs), but had several iOS and other client applications 
-which supported RS232/RS485 over IP using the published iTach Flex protocol. While Open
+which supported RS232 over IP using the published iTach Flex protocol. While Open
 Source projects existed to emulate iTach Flex IR devices, none implemented raw access
 to serial ports via TCP.
 
@@ -48,6 +48,7 @@ serial:
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
+    timeout: 4      # optional, default = 5 seconds
   2: 
     path: /dev/ttyUSB1
     baud: 9600
@@ -87,7 +88,7 @@ serial:
   8:
     path: /dev/ttyUSB7
     baud: 115200
-    flow: DUPLEX_FULL # duplex = RS485
+    flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
 ```
@@ -95,7 +96,7 @@ serial:
 ### Network Ports
 
 This microservice implements the open AMX Discovery Beacon protocol, raw TCP sockets to 
-RS232/RS485 serial ports, and a TCP Port exposing the iTach command protocol.
+RS232 serial ports, and a TCP Port exposing the iTach command protocol.
 
 The Virtual IP2SL listens on a variety of TCP ports, both for controlling the service
 as well as the configuration for each serial port interface. Data sent to any of these
@@ -153,7 +154,9 @@ Links to active community engagement around iTach Flex integrations:
 * [iTach TCP/IP to Serial (RS232) IP2IR specs](https://www.globalcache.com/products/itach/ip2slspecs/) and [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
 * [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
 
-# Future Work
+# TODO
+
+* add support for RS485 connections
 
 #### Not Planned
 
