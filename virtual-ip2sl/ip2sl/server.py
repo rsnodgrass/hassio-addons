@@ -32,8 +32,8 @@ threads = []
 ERR_INVALID_REQUEST      ='ERR 001'   # Invalid request. Command not found.
 ERR_INVALID_SYNTAX       ='ERR 002'   # Bad request syntax used with a known command
 ERR_INVALID_MODULE       ='ERR 003'   # Invalid or missing module and/or connector address
-ERR_NO_CR                ='ERR 004'   # No carriage return found.
-ERR_NOT_SUPPORTED        ='ERR 005'   # Command not supported by current Flex Link Port setting.
+ERR_NO_CR                ='ERR 004'   # No carriage return found
+ERR_NOT_SUPPORTED        ='ERR 005'   # Command not supported by current Flex Link Port setting
 ERR_SETTINGS_LOCKED      ='ERR_006'   # Settings are locked
 
 # serial errors
@@ -45,7 +45,7 @@ ERR_INVALID_STOP_BITS    ='ERR SL004' # Invalid stop bits setting
 util.setup_logging()
 log = logging.getLogger(__name__)
 
-config = util.read_config()
+config = util.load_config()
 
 class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
@@ -66,15 +66,19 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
         else:
             log.error("Unknown request: {self._data}")
 
+    def _return_error(self, error_code, message):
+        log.error(f"Error reply {error_code}: {message}")
+        self.send_response(error_code)
+
     def send_response(self, response):
-        log.info("Sending response: %s", response)
+        log.info(f"Sending response: {response}"")
         self.request.sendall(b"{response}")
 
     def handle_getdevices(self):
         response = "\n".join([
-                "device,0,0 ETHERNET",
-                "device,1,1 SERIAL",
-                "endlistdevices"])
+            "device,0,0 ETHERNET",
+            "device,1,1 SERIAL",
+            "endlistdevices"])
         self.send_response(response)
 
     def handle_getversion(self):
@@ -85,8 +89,11 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
         #   NET,0:1,<configlock>,<ipsetting>,<ipaddress>,<subnet>,<gateway>
 #        if !self._data.startsWith("get_NET,0:1"):
 #            throw error
-        # FIXME: can we just ignore this API?
-        self.send_response("NET,0:1,LOCKED,STATIC,127.0.0.1,255.255.255.0,127.0.0.1")
+#        host = util.get_host(self._config)
+#        gateway = '127.0.0.1'
+#        netmask = '255.255.255.0'
+#        self.send_response(f"NET,0:1,LOCKED,STATIC,{host},{netmask},{gateway}")
+        self._error_reply(ERR_NOT_SUPPORTED, "Network lookup not currently supported")
 
     # response: SERIAL,1:1,<baudrate>,<flowcontrol/duplex>,<parity>,<stopbits>
     def _prepare_SERIAL_response(self):
@@ -127,8 +134,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
                 # FIXME: find the serial port that matches, and update
                 #self._serial.reset_configuration(cfg) # FIXME
             else:
-                log.error(f"Major set_SERIAL error! Could not parse: {self._data}")
-                # FIXME: return error
+                self._return_error(ERR_INVALID_SYNTAX, f"set_SERIAL error! Could not parse: {self._data}")
  
         # always reply with the current configuration
         response = self._prepare_SERIAL_response()
@@ -160,14 +166,14 @@ def start_command_listener():
     server_thread.start()
 
     threads.append(server_thread)
+    return server
 
 def main():
     ip2sl_beacon = beacon.AMXDiscoveryBeacon(config)
+    port_listeners = start_serial_listeners(config)
+    command_listener = start_command_listener()
 
-    start_serial_listeners(config)
-    start_command_listener()
-
-    # until Flask http bind issue is resolved, just wait for all threads to complete before exiting
+    # FIXME: until Flask http bind issue is resolved, just wait for all threads to complete before exiting
     for a_thread in threads:
         a_thread.join()
     exit

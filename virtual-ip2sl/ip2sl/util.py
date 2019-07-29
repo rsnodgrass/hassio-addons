@@ -19,11 +19,10 @@ def get_host(config):
     return host
 
 def setup_logging(
-    default_path='config/logging.yaml',
     default_level=logging.INFO
 ):
     """Setup logging configuration"""
-    path = os.getenv('IP2SL_LOG_CONFIG', default_path)
+    path = os.getenv('IP2SL_LOG_CONFIG', 'config/logging.yaml')
     
     if os.path.exists(path):
         with open(path, 'rt') as f:
@@ -36,7 +35,8 @@ def setup_logging(
         print(f"ERROR! Couldn't find logging configuration: {path}")
         logging.basicConfig(level=default_level)
 
-def read_config(config_file='config/default.yaml'):
+def load_config(config_file='config/default.yaml'):
+    """Load the application configuration"""
     config_file = os.getenv('IP2SL_CONFIG', config_file) # ENV variable overrides all
 
     with open(config_file, 'r') as stream:
@@ -45,8 +45,3 @@ def read_config(config_file='config/default.yaml'):
         except yaml.YAMLError as exc:
             sys.stderr.write(f"FATAL! {exc}")
             sys.exit(1)
-
-def get_with_default(config, key):
-    if key not in config:
-        config[key] = DEFAULT_CONFIG[key] # update the config with default if missing
-    return config[key]

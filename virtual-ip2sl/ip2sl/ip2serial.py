@@ -1,6 +1,3 @@
-# Common support functionality for RS232 serial connection including
-# configuration and helper functions.
-
 import sys
 import time
 import serial
@@ -37,7 +34,7 @@ FLOW_OR_DUPLEX = {
 
 def get_with_default(config, key):
     if key not in config:
-        config[key] = DEFAULT_CONFIG[key] # update the config with default if missing
+        config[key] = DEFAULT_CONFIG[key] # update config with default if missing
     return config[key]
 
 class IP2SLSerialInterface:
@@ -74,11 +71,10 @@ class IP2SLSerialInterface:
 
             self._rs485 = self._flow in [ 'DUPLEX_FULL', 'DUPLEX_HALF' ]
             if self._rs485:
-                message = f"RS485 communication not yet supported! (detected RS485 flow/duplex {self._flow} configuration)"
+                message = f"RS485 not yet supported! (detected RS485 flow/duplex '{self._flow}' configuration)"
                 log.error(message)
                 raise RuntimeError(message)
-                # FIXME: support RS485
-                #   ser.rs485_mode = serial.rs485.RS485Settings()
+                # FIXME: support RS485 --> ser.rs485_mode = serial.rs485.RS485Settings()
 
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
@@ -101,6 +97,10 @@ class IP2SLSerialInterface:
             self._reset_serial_parameters(config)
 
     def _reset_serial_paramters(self, config):
+        # FIXME: this should really just change the existing serial connection, but for
+        # now we will just swap and replace the serial object.
+        self._serial.close()
+
         try:
             self._config = config
 
@@ -129,11 +129,10 @@ class IP2SLSerialInterface:
 
             self._rs485 = self._flow in [ 'DUPLEX_FULL', 'DUPLEX_HALF' ]
             if self._rs485:
-                message = f"RS485 not yet supported! (detected RS485 flow/duplex {self._flow} configuration)"
+                message = f"RS485 not yet supported! (detected RS485 flow/duplex '{self._flow}' configuration)"
                 log.error(message)
                 raise RuntimeError(message)
-                # FIXME: support RS485
-                #   ser.rs485_mode = serial.rs485.RS485Settings()
+                # FIXME: support RS485 --> ser.rs485_mode = serial.rs485.RS485Settings()
 
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
