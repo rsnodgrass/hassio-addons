@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 #
-# Emulates a Global Cache iTach Flex IP2SL (IP to Serial) to provide bidirectional
+# Emulates a Global Cache iTach IP2SL (IP to Serial) to provide bidirectional
 # TCP-to-serial connections to physical serial ports connected to the host running
 # this microservice. Up to eight physical RS232/RS485 serial ports can be exposed
 # through the TCP API by a Virtual IP2SL instance.
