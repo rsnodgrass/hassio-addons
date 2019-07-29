@@ -1,4 +1,4 @@
-# Multi-Zone Audio Serial Bridge (Hass.io Add-On)
+# Matrix Audio Serial Bridge (Hass.io Add-On)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
@@ -9,7 +9,7 @@ serial control protocol.
 
 ## Required Hardware
  
-* multi-zone amplifier or controller that supports variations of the Xantech RS232 serial protocol (see below)
+* multi-zone/matrix amplifier or controller that supports variations of the Xantech RS232 serial protocol (see below)
 * host machine with a serial cable or network serial adapter to physically connect to a Xantech supported multi-zone amplifier/controller
 * host machine for executing the Docker container (e.g. [Raspberry Pi](https://www.raspberrypi.org/) running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) hypervisor)
 
@@ -122,7 +122,7 @@ Known clients which interface with the Multi-Zone Audio Serial Bridge:
 * support publishing state change events to a MQTT broker
 * theoretically the Bridge's REST API, design model, and code structure could support other RS232 compatible matrix audio controller protocols (such as the Niles IntelliControl ICS GXR2), but no plans to implement
 * learn from (https://github.com/koolsb/pyblackbird)
-* Matrix Audio Switching Bridge
+* consider generalizing this into a matrix switching controller (audio/video), supporting basics of switching sources/zones, and providing common functionality such as volume; provide raw serial command access for supporting features beyond the core
 
 # See Also
 

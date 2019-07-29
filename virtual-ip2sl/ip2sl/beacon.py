@@ -47,7 +47,7 @@ class AMXDiscoveryBeacon():
 
         # iTach Flex discovery beacon is a AMX-styles multicast UDP packet sent to IP 239.255.250.250, port 9131.
         data = {
-            'UUID'       : f"VirtualIP2SL_{self.get_mac()}", # required for IP as unique identifer, could be UUID=GlobalCache_
+            'UUID'       : f"GlobalCache_{self.get_mac()}", # required for IP as unique identifer, could be UUID=GlobalCache_
             'SDKClass'   : 'Utility',            # required
             'Make'       : 'GlobalCache',        # required
             'Model'      : 'iTachFlexEthernet',  # required; note GC-100-12 for legacy model

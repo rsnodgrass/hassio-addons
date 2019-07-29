@@ -131,10 +131,7 @@ The following are a variety of example TTY paths for different serial port inter
 Links to active community engagement around iTach Flex integrations:
 
 * https://community.home-assistant.io/t/itach-ip2sl/28805
-
-### Home Assistant Integration
-
-* 
+* https://community.smartthings.com/t/home-theater-macro-global-cache-itach/126450
 
 ## TODO
 
@@ -146,5 +143,6 @@ Ideas of what should be eventually implemented (but no plans by me to add):
 
 * add support for RS485 connections
 * web UI console showing details about the config and each port (including metrics)
-* emulation compatibility for [GC-100-xx](https://www.globalcache.com/files/docs/API-GC-100.pdf)
 * unit tests
+* emulation compatibility for [GC-100-xx](https://www.globalcache.com/files/docs/API-GC-100.pdf)
+* extend to support relays, 5V/12V/24V triggers, and IR (e.g. beyond serial)
