@@ -167,6 +167,8 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
                 # FIXME: flow!
                 cfg['stop_bits'] = m.group('stop_bits')
 
+                # FIXME: find the listener/serial, close it, and recreate a new one (treat as immutable)
+
                 # FIXME: find the serial port that matches, and update
                 #self._serial.reset_configuration(cfg) # FIXME
             else:
