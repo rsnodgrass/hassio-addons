@@ -22,9 +22,8 @@ import socketserver
 
 import logging
 import logging.config
-import server
 
-from beacon import AMXDiscoveryBeacon
+import beacon
 from listener import start_serial_listeners
 
 log = logging.getLogger(__name__)
@@ -212,7 +211,8 @@ def start_command_listener():
     threads.append(server_thread)
 
 def main():
-    beacon = AMXDiscoveryBeacon(config)
+    ip2sl_beacon = beacon.AMXDiscoveryBeacon(config)
+    
     start_serial_listeners(config)
     start_command_listener()
 

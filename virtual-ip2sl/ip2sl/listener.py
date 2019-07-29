@@ -6,7 +6,7 @@ import serial
 import threading
 import socketserver
 
-import ip2sl-serial
+import ip2serial
 
 log = logging.getLogger(__name__)
 
@@ -68,7 +68,7 @@ def start_listener(port_number, serial_config):
 
     log.info(f"Serial {port_number} configuration: {serial_config} (TCP port {tcp_port})")
 
-    serial_connection = server.serial.IP2SLSerialInterface(serial_config)
+    serial_connection = ip2serial.IP2SLSerialInterface(serial_config)
     # FIXME: if serial port /dev/tty does not exist, should port be opened?
 
     server = socketserver.TCPServer((host, tcp_port),
