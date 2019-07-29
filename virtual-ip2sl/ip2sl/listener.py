@@ -30,7 +30,7 @@ multiplexed, only allow a single instance of this instantiated at a time
 (this is the default behavior given the current threading model).
 """
 class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
-    def __init__(self):
+    def __init__(self, request, client_address, what_self):
         print(f"Connecting to serial ...")
 
     def handle(self):

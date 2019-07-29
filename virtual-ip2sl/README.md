@@ -31,7 +31,7 @@ used as a standalone server.
 
 2. Find the "Virtual IP2SL (IP to Serial)" in the list of add-ons and click Install
 
-# Configuration
+## Configuration
 
 By default, the Virtual IP2SL is configured to open a single port attached 
 at 9600 baud to one USB serial port adapter on //dev/ttyUSB0. However, a
@@ -64,7 +64,7 @@ serial:
     baud: 115200
 ```
 
-### Network Ports
+#### Network Ports
 
 This microservice implements the open AMX Discovery Beacon protocol, raw TCP sockets to 
 RS232 serial ports, and a TCP Port exposing the iTach command protocol.
@@ -90,7 +90,7 @@ port. The RS232 ports are defaulted to /dev/ttyUSB0 through /dev/ttyUSB7.
 For enhanced security, it is recommended disabling via configuration any ports
 that are not in use.
 
-### Example TTY Paths
+#### Example TTY Paths
 
 The following are a variety of example TTY paths for different serial port interfaces:
 
@@ -106,7 +106,15 @@ The following are a variety of example TTY paths for different serial port inter
 | /dev/tty.usbserial-A501SGSU | StarTach ICUSB232I (8-port) serial port 1 (MacOS)   |
 | /dev/tty.usbserial-A501SGSV | StarTach ICUSB232I (8-port) serial port 2 (MacOS)   |
 
-# Support
+## See Also
+
+* [Home Assistant GC100](https://www.home-assistant.io/components/gc100)
+* [iTach Flex TCP API Specification v1.6](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)
+  (earlier [v1.5 specificaiton](https://www.globalcache.com/files/docs/API-iTach.pdf))
+* [iTach TCP/IP to Serial (RS232) IP2IR specs](https://www.globalcache.com/products/itach/ip2slspecs/) and [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
+* [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
+
+## Support
 
 ### Community Engagement
 
@@ -118,20 +126,15 @@ Links to active community engagement around iTach Flex integrations:
 
 * https://github.com/tinglis1/home-assistant-custom/tree/master/custom_components/notify (last updated 2016)
 
-### See Also
+## TODO
 
-* [Home Assistant GC100](https://www.home-assistant.io/components/gc100)
-* [iTach Flex TCP API Specification v1.6](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)
-  (earlier [v1.5 specificaiton](https://www.globalcache.com/files/docs/API-iTach.pdf))
-* [iTach TCP/IP to Serial (RS232) IP2IR specs](https://www.globalcache.com/products/itach/ip2slspecs/) and [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
-* [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
+NOTE: While this works for my use cases (and most common ones users will encounter),
+it would be great to have other contributors help take this to the next level and
+implement features, stability improvements, etc.
 
-# TODO
+Ideas of what should be eventually implemented (but no plans by me to add):
 
 * add support for RS485 connections
-
-#### Not Planned
-
+* web UI console showing details about the config and each port (including metrics)
 * emulation compatibility for [GC-100-xx](https://www.globalcache.com/files/docs/API-GC-100.pdf)
-* implement serial communication
-* implement web UI (show config, statistics)
+* unit tests
