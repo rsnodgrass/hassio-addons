@@ -25,7 +25,7 @@ FLOW_OR_DUPLEX = {
     'FLOW_HARDWARE': 'rs232',
     'FLOW_NONE':     'rs232',
     'DUPLEX_HALF':   'rs485',
-    'DUPLEX_FULL':   'rs485' ]
+    'DUPLEX_FULL':   'rs485'
 }
 
 class IP2SLSerialInterface:
