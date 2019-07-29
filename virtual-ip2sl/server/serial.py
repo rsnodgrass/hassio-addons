@@ -15,23 +15,63 @@ DEFAULT_BAUD_RATE = 9600
 # FIXME: the constructor of this should pass in tty, timeouts, baud rate, since they
 # should be configured on a per-interface level. Not ENV!
 
+
+PARITY = {
+    'PARITY_NO': serial.PARITY_NONE,
+    'PARITY_ODD': serial.PARITY_ODD,
+    'PARITY_EVEN': serial.PARITY_EVEN
+}
+
+FLOW = {
+    'FLOW_HARDWARE':
+    'FLOW_NONE':
+    'DUPLEX_HALF':
+    'DUPLEX_FULL':
+}
+
+STOP_BITS = {
+    'STOPBITS_1': serial.STOPBITS_ONE,
+    'STOPBITS_2': serial.STOPBITS_TWO
+}
+
 class SerialInterface:
 
     def __init__(self, config):
         try:
             self._tty_path  = config['path']
-            self._baud_rate = int(config['baud'])  # FIXME: validate 300-????
-            self._flow      = config['flow']
-            self._parity    = config['parity']
-            self._stop_bits = config['stop_bits']
 
+            # ensure baud is ranged between 300-115200
+            self._baud = max(min(config['baud'], 115200), 300)
+           
+            self._flow      = FLOW[config['flow']]
+            self._parity    = PARITY[config['parity']]
+            self._stop_bits = STOP_BITS[config['stop_bits']]
+            self._timeout   = DEFAULT_TTY_TIMEOUT_SECONDS  #int(config['timeout'])
 
-            self._timeout = DEFAULT_TTY_TIMEOUT_SECONDS  #int(config['timeout'])
+            # default to hardware flow control on (FLOW_HARDWARE)
+            flow_rtscts = True
+            flow_dsrdtr = True
+            if self._flow == 'FLOW_NONE':
+                flow_rtscts = False
+                flow_dsrdtr = False
 
-            self._serial = serial.Serial(self._tty, timeout=self._timeout, baudrate=self._baud_rate,
-                                         parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
-                                         bytesize=serial.EIGHTBITS, dsrdtr=True, rtscts=True)
-            log.info("Connected to %s (baud rate=%d; timeout=%d)", self._tty, self._baud_rate, self._timeout)
+            self._serial = serial.Serial(self._tty,
+                                         timeout=self._timeout,
+                                         baudrate=self._baud,
+                                         parity=self._parity,
+                                         stopbits=self._stop_bits,
+                                         bytesize=serial.EIGHTBITS,
+                                         dsrdtr=flow_dsrdtr,
+                                         rtscts=flow_rtscts)
+            log.info(f"Connected to {self._tty,} (baud rate={self._baud}; timeout={self._timeout})")
+
+            self._rs485 = self._flow in [ 'DUPLEX_FULL', 'DUPLEX_HALF' ]
+            if self._rs485:
+                message = f"RS485 communication note yet supported!  RS485 flow/duplex {self._flow} specified."
+                log.error(message)
+                raise RuntimeError(message)
+                # FIXME: add more settings!
+                #              ser.rs485_mode = serial.rs485.RS485Settings(
 
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
