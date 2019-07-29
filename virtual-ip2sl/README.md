@@ -121,6 +121,7 @@ The following are a variety of example TTY paths for different serial port inter
 * [iTach Flex TCP API Specification v1.6](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)
   (earlier [v1.5 specificaiton](https://www.globalcache.com/files/docs/API-iTach.pdf))
 * [iTach TCP/IP to Serial (RS232) specs](https://www.globalcache.com/products/itach/ip2slspecs/) and [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
+* Special thanks to [Global Caché](https://www.globalcache.com/products/) for opening and publishing TCP control APIs
 
 ## Support
 
