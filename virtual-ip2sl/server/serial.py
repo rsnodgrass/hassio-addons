@@ -30,6 +30,9 @@ class SerialInterface:
     def serial(self):
         return self._serial
 
+    def config(self):
+        return self._config
+
     def default(config, key, default):
         if key in config:
             return config[key]
@@ -38,6 +41,8 @@ class SerialInterface:
 
     def reset_serial_parameters(self, config):
         try:
+            self._config = config
+            
             # if serial port is already opened, then close before reconfiguring
             if self._serial:
                 self._serial.close()
