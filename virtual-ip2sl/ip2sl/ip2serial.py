@@ -12,10 +12,11 @@ log = logging.getLogger(__name__)
 DEFAULT_TTY_TIMEOUT_SECONDS = 5
 
 DEFAULT_CONFIG = {
-    'baud':      '9600',
+    'baud':      9600,
     'flow':      'FLOW_NONE',
     'parity':    'PARITY_NO',
-    'stop_bits': 'STOPBITS_1'
+    'stop_bits': 'STOPBITS_1',
+    'timeout':   10
 }
 
 PARITY = {
@@ -36,11 +37,11 @@ FLOW_OR_DUPLEX = {
     'DUPLEX_FULL':   'rs485'
 }
 
-def DEFAULT(config, key, default):
+def lookup_with_default(config, key):
     if key in config:
         return config[key]
     else:
-        return default
+        return DEFAULT_CONFIG[key]
 
 class IP2SLSerialInterface:
     def __init__(self, config):
@@ -50,13 +51,13 @@ class IP2SLSerialInterface:
         try:
             self._config = config
 
-            baud = int(DEFAULT(config, 'baud', 9600))
+            baud = int(lookup_with_default(config, 'baud'))
             self._baud = max(min(baud, 115200), 300) # ensure baud is ranged between 300-115200
             config['baud'] = self._baud # rewrite config to ensure it is within range
 
-            self._parity    = PARITY[DEFAULT(config, 'parity', 'PARITY_NO')]
-            self._stop_bits = STOP_BITS[DEFAULT(config, 'stop_bits', 'STOPBITS_1')]
-            self._timeout   = int( DEFAULT(config, 'timeout', DEFAULT_TTY_TIMEOUT_SECONDS) )
+            self._parity    = PARITY[lookup_with_default(config, 'parity']
+            self._stop_bits = STOP_BITS[lookup_with_default(config, 'stop_bits')]
+            self._timeout   = int( lookup_with_default(config, 'timeout') )
             
             # default to hardware flow control on (FLOW_HARDWARE)
             self._flow  = DEFAULT(config, 'flow', 'FLOW_HARDWARE')
@@ -106,13 +107,13 @@ class IP2SLSerialInterface:
         try:
             self._config = config
 
-            baud = int(DEFAULT(config, 'baud', 9600))
+            baud = int(lookup_with_default(config, 'baud'))
             self._baud = max(min(baud, 115200), 300) # ensure baud is ranged between 300-115200
             config['baud'] = self._baud # rewrite config to ensure it is within range
 
-            self._parity    = PARITY[DEFAULT(config, 'parity', 'PARITY_NO')]
-            self._stop_bits = STOP_BITS[DEFAULT(config, 'stop_bits', 'STOPBITS_1')]
-            self._timeout   = int( DEFAULT(config, 'timeout', DEFAULT_TTY_TIMEOUT_SECONDS) )
+            self._parity    = PARITY[lookup_with_default(config, 'parity')]
+            self._stop_bits = STOP_BITS[lookup_with_default(config, 'stop_bits')]
+            self._timeout   = int( lookup_with_default(config, 'timeout') )
             
             # default to hardware flow control on (FLOW_HARDWARE)
             flow_rtscts = True
