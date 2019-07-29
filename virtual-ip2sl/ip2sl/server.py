@@ -8,18 +8,12 @@
 import logging
 from flask import Flask
 
-import os
 import re
-import uuid
-import time
 
 import atexit
 import threading
 import socket
 import socketserver
-
-import logging
-import logging.config
 
 import beacon
 import util
@@ -154,7 +148,7 @@ def shutdown_listeners():
     #command_server.server_close()
 
 def start_command_listener():
-    host = get_host(config)
+    host = util.get_host(config)
 
     log.info(f"Starting Flex TCP command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
     print(f"Starting Flex TCP command listener at {host}:{FLEX_COMMAND_TCP_PORT}")
@@ -179,7 +173,7 @@ def main():
     exit
 
     # run the http console server in the main thread
-    host = get_host(config)
+    host = util.get_host(config)
     console_port = 4444
 
     log.info(f"Starting UI console at http://{host}:{console_port}")

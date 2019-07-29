@@ -9,8 +9,6 @@ import threading
 
 log = logging.getLogger(__name__)
 
-DEFAULT_TTY_TIMEOUT_SECONDS = 5
-
 DEFAULT_CONFIG = {
     'baud':      9600,
     'flow':      'FLOW_NONE',
@@ -37,7 +35,7 @@ FLOW_OR_DUPLEX = {
     'DUPLEX_FULL':   'rs485'
 }
 
-def lookup_with_default(config, key):
+def get_with_default(config, key):
     if key not in config:
         config[key] = DEFAULT_CONFIG[key] # update the config with default if missing
     return config[key]
@@ -50,16 +48,16 @@ class IP2SLSerialInterface:
         try:
             self._config = config
 
-            baud = int(lookup_with_default(config, 'baud'))
+            baud = int(get_with_default(config, 'baud'))
             self._baud = max(min(baud, 115200), 300) # ensure baud is ranged between 300-115200
             config['baud'] = self._baud # rewrite config to ensure it is within range
 
-            self._parity    = PARITY[lookup_with_default(config, 'parity')]
-            self._stop_bits = STOP_BITS[lookup_with_default(config, 'stop_bits')]
-            self._timeout   = int( lookup_with_default(config, 'timeout') )
+            self._parity    = PARITY[get_with_default(config, 'parity')]
+            self._stop_bits = STOP_BITS[get_with_default(config, 'stop_bits')]
+            self._timeout   = int( get_with_default(config, 'timeout') )
             
             # default to hardware flow control on (FLOW_HARDWARE)
-            self._flow  = lookup_with_default(config, 'flow')
+            self._flow  = get_with_default(config, 'flow')
             flow_rtscts = (self._flow == 'FLOW_HARDWARE')
             flow_dsrdtr = flow_rtscts
 
@@ -106,13 +104,13 @@ class IP2SLSerialInterface:
         try:
             self._config = config
 
-            baud = int(lookup_with_default(config, 'baud'))
+            baud = int(get_with_default(config, 'baud'))
             self._baud = max(min(baud, 115200), 300) # ensure baud is ranged between 300-115200
             config['baud'] = self._baud # rewrite config to ensure it is within range
 
-            self._parity    = PARITY[lookup_with_default(config, 'parity')]
-            self._stop_bits = STOP_BITS[lookup_with_default(config, 'stop_bits')]
-            self._timeout   = int( lookup_with_default(config, 'timeout') )
+            self._parity    = PARITY[get_with_default(config, 'parity')]
+            self._stop_bits = STOP_BITS[get_with_default(config, 'stop_bits')]
+            self._timeout   = int( get_with_default(config, 'timeout') )
             
             # default to hardware flow control on (FLOW_HARDWARE)
             flow_rtscts = (self._flow == 'FLOW_NONE')

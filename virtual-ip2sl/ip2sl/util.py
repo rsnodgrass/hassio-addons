@@ -1,4 +1,5 @@
 import logging
+import logging.config
 
 import os
 import sys
@@ -44,3 +45,8 @@ def read_config(config_file='config/default.yaml'):
         except yaml.YAMLError as exc:
             sys.stderr.write(f"FATAL! {exc}")
             sys.exit(1)
+
+def get_with_default(config, key):
+    if key not in config:
+        config[key] = DEFAULT_CONFIG[key] # update the config with default if missing
+    return config[key]
