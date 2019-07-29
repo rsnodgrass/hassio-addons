@@ -50,42 +50,49 @@ serial:
     parity: PARITY_NO
     stop_bits: STOPBITS_1
     timeout: 4      # optional, default = 5 seconds
+
   2: 
     path: /dev/ttyUSB1
     baud: 9600
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
+
   3: 
     path: /dev/ttyUSB2
     baud: 14400
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
+
   4: 
     path: /dev/ttyUSB3
     baud: 14400
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
+
   5: 
     path: /dev/ttyUSB4
     baud: 115200
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
+
   6:
     path: /dev/ttyUSB5
     baud: 115200
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
+
   7:
     path: /dev/ttyUSB6
     baud: 115200
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
+
   8:
     path: /dev/ttyUSB7
     baud: 115200
@@ -122,18 +129,20 @@ that are not in use.
 
 ### Example TTY Paths
 
-The following are a variety of example TTY paths that can be configured for each serial port:
+The following are a variety of example TTY paths for different serial port interfaces:
 
-| Serial Path        | Description                                         |
-| ------------------ | --------------------------------------------------- |
-| /dev/ttyS0         | Raspberry Pi mini UART GPIO                         |
-| /dev/ttyAMA0       | Raspberry Pi GPIO pins 14/15 (pre-Bluetooth RPi 3)  |
-| /dev/serial0       | RPi 3/RPi 4 serial port alias 1                     |
-| /dev/serial1       | RPi 3/RPi 4 serial port alias 2                     |
-| /dev/tty.usbserial | typical MacOS USB serial adapter                    |
-| /dev/ttyUSB0       | USB serial adapter 1                                |
-| /dev/ttyUSB1       | USB serial adapter 2                                |
-| /dev/ttyUSB2       | USB serial adapter 3                                |
+| Serial Path                 | Description                                         |
+| --------------------------- | --------------------------------------------------- |
+| /dev/ttyS0                  | Raspberry Pi mini UART GPIO                         |
+| /dev/ttyAMA0                | Raspberry Pi GPIO pins 14/15 (pre-Bluetooth RPi 3)  |
+| /dev/serial0                | RPi 3/RPi 4 serial port alias 1                     |
+| /dev/serial1                | RPi 3/RPi 4 serial port alias 2                     |
+| /dev/tty.usbserial          | typical MacOS USB serial adapter                    |
+| /dev/ttyUSB0                | USB serial adapter 1                                |
+| /dev/ttyUSB1                | USB serial adapter 2                                |
+| /dev/ttyUSB2                | USB serial adapter 3                                |
+| /dev/tty.usbserial-A501SGSU | StarTach (8-port) serial port 1                     |
+| /dev/tty.usbserial-A501SGSV | StarTach (8-port) serial port 2                     |
 
 # Support
 

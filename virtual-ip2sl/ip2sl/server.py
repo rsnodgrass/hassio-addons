@@ -212,11 +212,9 @@ def start_command_listener():
 
 def main():
     ip2sl_beacon = beacon.AMXDiscoveryBeacon(config)
-    
+
     start_serial_listeners(config)
     start_command_listener()
-
-    host = get_host(config)
 
     # until Flask http bind issue is resolved, just wait for all threads to complete before exiting
     for a_thread in threads:
@@ -224,7 +222,9 @@ def main():
     exit
 
     # run the http console server in the main thread
+    host = get_host(config)
     console_port = 4444
+
     log.info(f"Starting UI console at http://{host}:{console_port}")
     print(f"Starting UI console at http://{host}:{console_port}")
     app.run(debug=True, host=host, port=console_port) # FIXME: allow env override, but default to 80!

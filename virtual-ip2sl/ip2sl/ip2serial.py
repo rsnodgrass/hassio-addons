@@ -11,6 +11,13 @@ log = logging.getLogger(__name__)
 
 DEFAULT_TTY_TIMEOUT_SECONDS = 5
 
+DEFAULT_CONFIG = {
+    'baud':      '9600',
+    'flow':      'FLOW_NONE',
+    'parity':    'PARITY_NO',
+    'stop_bits': 'STOPBITS_1'
+}
+
 PARITY = {
     'PARITY_NO':   'N', # serial.PARITY_NONE,
     'PARITY_ODD':  'O', # serial.PARITY_ODD,

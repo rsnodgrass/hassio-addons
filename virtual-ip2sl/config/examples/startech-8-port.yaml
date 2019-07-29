@@ -1,61 +1,67 @@
-# see the "iTach Flex TCP API Specification" PDF manual for the available configuration
-# values for each option.
+# Example configuration for a StarTech 8-port
 
 ip2sl:
-  ip: localhost
+  ip: localhost  # ...or ENV IP2SL_SERVER_HOST
 
 serial:
+
+#  default:
+#    baud: 9600
+#    flow: FLOW_NONE # flowcontrol = RS232
+#    parity: PARITY_NO
+#    stop_bits: STOPBITS_1
+
   1: # port 1
-    path: /dev/ttyUSB0
+    path: /dev/tty.usbserial-A501SGSU
     baud: 9600
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
 
   2:
-    path: /dev/ttyUSB1
+    path: /dev/tty.usbserial-A501SGSV
     baud: 9600
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
 
   3:
-    path: /dev/ttyUSB2
+    path: /dev/tty.usbserial-A501SGSW
     baud: 14400
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
 
   4:
-    path: /dev/ttyUSB3
+    path: /dev/tty.usbserial-A501SGSX
     baud: 14400
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
 
   5:
-    path: /dev/ttyUSB4
+    path: /dev/tty.usbserial-A501SGSY
     baud: 115200
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
 
   6:
-    path: /dev/ttyUSB5
+    path: /dev/tty.usbserial-A501SGSZ
     baud: 115200
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
 
   7:
-    path: /dev/ttyUSB6
+    path: /dev/tty.usbserial-A501SGT0
     baud: 115200
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
     stop_bits: STOPBITS_1
 
   8:
-    path: /dev/ttyUSB7
+    path: /dev/tty.usbserial-A501SGT1
     baud: 115200
     flow: FLOW_NONE # flowcontrol = RS232
     parity: PARITY_NO
