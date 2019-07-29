@@ -33,7 +33,14 @@ used as a standalone server.
 
 # Configuration
 
-By default, this is configured to open ports for eight USB to serial port adapters
+By default, the Virtual IPSL is configured to open a single port attached 
+at 9600 baud to one USB serial port adapter on //dev/ttyUSB0. However, a
+wide variety of serial port configurations are possible, up to eight distinct
+ports per running instance (for the default Flex command protocol, but more
+can be added for manual configurations).
+
+
+o serial port adapters
 with an assortment of baud rates. However, you will want to configure this to
 your exact use cases. Additionally, you can comment out any ports you do not
 want accessible.
@@ -41,64 +48,28 @@ want accessible.
 See the "[iTach Flex TCP API Specification](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)"
 PDF manual for the available configuration values for each serial port.
 
+Here is an example:
+
 ```yaml
 serial:
   1: # port 1
     path: /dev/ttyUSB0
     baud: 9600
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
-    timeout: 4      # optional, default = 5 seconds
+    flow: FLOW_NONE
+    timeout: 4 # optional, default = 5 seconds
 
   2: 
     path: /dev/ttyUSB1
     baud: 9600
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
+    flow: FLOW_HARDWARE
 
   3: 
     path: /dev/ttyUSB2
     baud: 14400
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
 
   4: 
     path: /dev/ttyUSB3
-    baud: 14400
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
-
-  5: 
-    path: /dev/ttyUSB4
     baud: 115200
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
-
-  6:
-    path: /dev/ttyUSB5
-    baud: 115200
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
-
-  7:
-    path: /dev/ttyUSB6
-    baud: 115200
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
-
-  8:
-    path: /dev/ttyUSB7
-    baud: 115200
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
 ```
 
 ### Network Ports
@@ -137,12 +108,11 @@ The following are a variety of example TTY paths for different serial port inter
 | /dev/ttyAMA0                | Raspberry Pi GPIO pins 14/15 (pre-Bluetooth RPi 3)  |
 | /dev/serial0                | RPi 3/RPi 4 serial port alias 1                     |
 | /dev/serial1                | RPi 3/RPi 4 serial port alias 2                     |
-| /dev/tty.usbserial          | typical MacOS USB serial adapter                    |
+| /dev/tty.usbserial          | MacOS USB serial adapter                            |
 | /dev/ttyUSB0                | USB serial adapter 1                                |
 | /dev/ttyUSB1                | USB serial adapter 2                                |
-| /dev/ttyUSB2                | USB serial adapter 3                                |
-| /dev/tty.usbserial-A501SGSU | StarTach (8-port) serial port 1                     |
-| /dev/tty.usbserial-A501SGSV | StarTach (8-port) serial port 2                     |
+| /dev/tty.usbserial-A501SGSU | StarTach ICUSB232I (8-port) serial port 1 (MacOS)   |
+| /dev/tty.usbserial-A501SGSV | StarTach ICUSB232I (8-port) serial port 2 (MacOS)   |
 
 # Support
 

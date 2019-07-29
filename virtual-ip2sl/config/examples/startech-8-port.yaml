@@ -1,15 +1,6 @@
-# Example configuration for a StarTech 8-port
-
-ip2sl:
-  ip: localhost  # ...or ENV IP2SL_SERVER_HOST
+# Example config for a StarTech 8-port USB serial adapter (ICUSB232I)
 
 serial:
-
-#  default:
-#    baud: 9600
-#    flow: FLOW_NONE # flowcontrol = RS232
-#    parity: PARITY_NO
-#    stop_bits: STOPBITS_1
 
   1: # port 1
     path: /dev/tty.usbserial-A501SGSU
@@ -21,48 +12,27 @@ serial:
   2:
     path: /dev/tty.usbserial-A501SGSV
     baud: 9600
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
 
   3:
     path: /dev/tty.usbserial-A501SGSW
     baud: 14400
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
 
   4:
     path: /dev/tty.usbserial-A501SGSX
     baud: 14400
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
 
   5:
     path: /dev/tty.usbserial-A501SGSY
     baud: 115200
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
 
   6:
     path: /dev/tty.usbserial-A501SGSZ
     baud: 115200
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
 
   7:
     path: /dev/tty.usbserial-A501SGT0
     baud: 115200
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1
 
   8:
     path: /dev/tty.usbserial-A501SGT1
     baud: 115200
-    flow: FLOW_NONE # flowcontrol = RS232
-    parity: PARITY_NO
-    stop_bits: STOPBITS_1

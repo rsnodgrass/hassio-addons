@@ -71,7 +71,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
         self.send_response(error_code)
 
     def send_response(self, response):
-        log.info(f"Sending response: {response}"")
+        log.info(f"Sending response: {response}")
         self.request.sendall(b"{response}")
 
     def handle_getdevices(self):

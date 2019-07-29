@@ -11,17 +11,17 @@ import util
 
 log = logging.getLogger(__name__)
 
-SERIAL_PORT_TO_TCP_PORT = {
-        1: 4999,
-        2: 5000,
-        3: 5001,
-        4: 5002,
-        5: 5003,
-        6: 5004,
-        7: 5005,
-        8: 5006
-}
 Serial_Listeners = {}
+
+# initialize the map of serial port number to TCP port; we only limit to 8 ports
+# since existing hardware which implements the Flex command protocol isn't found
+# in sizes larger than 8 ports, so unclear what client behavior would be.
+SERIAL_PORT_TO_TCP_PORT = { 8: 5007 }
+def initialize_serial_port_to_tcp_port():
+    num_ports = 8
+    for i in range(1, num_ports):
+        SERIAL_PORT_TO_TCP_PORT[i] = 4998 + i
+initialize_serial_port_to_tcp_port()
 
 """ 
 Listener that relays data to/from a specific serial port. This is instantiated
