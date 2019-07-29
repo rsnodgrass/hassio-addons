@@ -50,13 +50,6 @@ ERR_INVALID_FLOW_SETTING ="ERR SL002" # Invalid flow control or duplex setting
 ERR_INVALID_PARITY       ="ERR SL003" # Invalid parity setting
 ERR_INVALID_STOP_BITS    ="ERR SL004" # Invalid stop bits setting
 
-Valid_Config_Values = {
-#    "baud": [] # 300|…|115200
-    "flow":     [ 'FLOW_HARDWARE', 'FLOW_NONE', 'DUPLEX_HALF', 'DUPLEX_FULL' ],
-    "parity":   [ 'PARITY_NO', 'PARITY_ODD', 'PARITY_EVEN' ],
-    "stopbits": [ 'STOPBITS_1', 'STOPBITS_2' ] # optional
-}
-
 def read_config(config_file):
     with open(config_file, 'r') as stream:
         try:

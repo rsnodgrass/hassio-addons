@@ -1,1 +1,1 @@
-python3 server/server.py
+python3 ip2sl/server.py

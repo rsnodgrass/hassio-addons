@@ -6,6 +6,8 @@ import serial
 import threading
 import socketserver
 
+import ip2sl-serial
+
 log = logging.getLogger(__name__)
 
 SERIAL_PORT_TO_TCP_PORT = {
@@ -28,12 +30,23 @@ multiplexed, only allow a single instance of this instantiated at a time
 """
 class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
     def __init(self, serial):
+        # each listener has a lock, since the main control thread can modify
+        # parameters for the serial connetion such as baud rate. We do not want
+        # one large lock shared across listeners since then that serializes the
+        # processing for all threads.
+        self._lock = threading.Lock()
+
         self._serial = serial
 
     def handle(self):
-        data = self.request.recv(1024).strip()
-        print(f"{self.client_address[0]} wrote: {data}")
-        log.debug(f"{self.client_address[0]} wrote: %s", data)
+        with self._lock:
+             data = self.request.recv(1024).strip()
+             print(f"{self.client_address[0]} wrote: {data}")
+             log.debug(f"{self.client_address[0]} wrote: %s", data)
+
+    def update_serial(new_config):
+        with self._lock:
+           self._serial.reset_serial_parameters(new_config)
 
 # self.request.sendall(self.data.upper())
 
@@ -50,17 +63,12 @@ def stop_listener(port_number):
        server.server_close()
 
 def start_listener(port_number, serial_config):
-    # if existing listener for this port number is running, close it and kill the thread;
-    # this should only happen when the listener/serial connection is reconfigured
-    if port_number in Serial_Listeners:
-       stop_listener(port_number)
-
     host = os.getenv('IP2SL_SERVER_HOST', '0.0.0.0') # FIXME: and from config!
     tcp_port = SERIAL_PORT_TO_TCP_PORT[port_number]
 
     log.info(f"Serial {port_number} configuration: {serial_config} (TCP port {tcp_port})")
 
-    serial_connection = serial.IP2SLSerialInterface(serial_config)
+    serial_connection = server.serial.IP2SLSerialInterface(serial_config)
     # FIXME: if serial port /dev/tty does not exist, should port be opened?
 
     server = socketserver.TCPServer((host, tcp_port),
