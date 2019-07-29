@@ -38,10 +38,9 @@ FLOW_OR_DUPLEX = {
 }
 
 def lookup_with_default(config, key):
-    if key in config:
-        return config[key]
-    else:
-        return DEFAULT_CONFIG[key]
+    if key not in config:
+        config[key] = DEFAULT_CONFIG[key] # update the config with default if missing
+    return config[key]
 
 class IP2SLSerialInterface:
     def __init__(self, config):
@@ -60,7 +59,7 @@ class IP2SLSerialInterface:
             self._timeout   = int( lookup_with_default(config, 'timeout') )
             
             # default to hardware flow control on (FLOW_HARDWARE)
-            self._flow  = DEFAULT(config, 'flow', 'FLOW_HARDWARE')
+            self._flow  = lookup_with_default(config, 'flow')
             flow_rtscts = (self._flow == 'FLOW_HARDWARE')
             flow_dsrdtr = flow_rtscts
 
