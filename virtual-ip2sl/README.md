@@ -14,7 +14,8 @@ Raspberry Pi (such as the
 [StarTech ICUSB232I 8-port USB serial adapter](https://amazon.com/StarTech-com-USB-Serial-Adapter-Hub/dp/B009AT5TB2) and native Raspberry Pi GPIO pin outs), but had several iOS and other client applications 
 which supported RS232 over IP using the published iTach Flex protocol. While Open
 Source projects existed to emulate iTach Flex IR devices, none implemented raw access
-to serial ports via TCP.
+to serial ports via TCP. Since some of my RS232/RS485 devices aren't colocated with my
+Raspberry Pi, I will also need to buy several [Global Caché iTach Flex WF2IP](/amazon.com/Global-Cache-iTach-Wi-Fi-Serial/dp/B0051BU42W) hardware devices to communicate with everything.
 
 Built as a Docker container (with additional support for
 making it a plug-and-play [HASS.IO](https://www.home-assistant.io/hassio/) add-on
