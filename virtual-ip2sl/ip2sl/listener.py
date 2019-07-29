@@ -29,7 +29,7 @@ multiplexed, only allow a single instance of this instantiated at a time
 (this is the default behavior given the current threading model).
 """
 class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
-    def __init(self, serial):
+    def __init__(self, serial):
         # each listener has a lock, since the main control thread can modify
         # parameters for the serial connetion such as baud rate. We do not want
         # one large lock shared across listeners since then that serializes the
@@ -66,8 +66,8 @@ def start_listener(port_number, serial_config):
     host = os.getenv('IP2SL_SERVER_HOST', '0.0.0.0') # FIXME: and from config!
     tcp_port = SERIAL_PORT_TO_TCP_PORT[port_number]
 
-    log.info(f"Serial {port_number} configuration: {serial_config} (TCP port {tcp_port})")
-
+    log.info(f"Serial {port_number} configuration: {serial_config} (TCP port {host}:{tcp_port})")
+    print(f"Serial {port_number} configuration: {serial_config} (TCP port {host}:{tcp_port})")
     serial_connection = ip2serial.IP2SLSerialInterface(serial_config)
     # FIXME: if serial port /dev/tty does not exist, should port be opened?
 

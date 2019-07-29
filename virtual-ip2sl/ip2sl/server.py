@@ -36,20 +36,22 @@ app = Flask(__name__)
 threads = []
 
 # general errors
-ERR_INVALID_REQUEST      ="ERR 001"   # Invalid request. Command not found.
-ERR_INVALID_SYNTAX       ="ERR 002"   # Bad request syntax used with a known command
-ERR_INVALID_MODULE       ="ERR 003"   # Invalid or missing module and/or connector address
-ERR_NO_CR                ="ERR 004"   # No carriage return found.
-ERR_NOT_SUPPORTED        ="ERR 005"   # Command not supported by current Flex Link Port setting.
-ERR_SETTINGS_LOCKED      ="ERR_006"   # Settings are locked
+ERR_INVALID_REQUEST      ='ERR 001'   # Invalid request. Command not found.
+ERR_INVALID_SYNTAX       ='ERR 002'   # Bad request syntax used with a known command
+ERR_INVALID_MODULE       ='ERR 003'   # Invalid or missing module and/or connector address
+ERR_NO_CR                ='ERR 004'   # No carriage return found.
+ERR_NOT_SUPPORTED        ='ERR 005'   # Command not supported by current Flex Link Port setting.
+ERR_SETTINGS_LOCKED      ='ERR_006'   # Settings are locked
 
 # serial errors
-ERR_INVALID_BAUD_RATE    ="ERR SL001" # Invalid baud rate
-ERR_INVALID_FLOW_SETTING ="ERR SL002" # Invalid flow control or duplex setting
-ERR_INVALID_PARITY       ="ERR SL003" # Invalid parity setting
-ERR_INVALID_STOP_BITS    ="ERR SL004" # Invalid stop bits setting
+ERR_INVALID_BAUD_RATE    ='ERR SL001' # Invalid baud rate
+ERR_INVALID_FLOW_SETTING ='ERR SL002' # Invalid flow control or duplex setting
+ERR_INVALID_PARITY       ='ERR SL003' # Invalid parity setting
+ERR_INVALID_STOP_BITS    ='ERR SL004' # Invalid stop bits setting
 
-def read_config(config_file):
+def read_config(config_file='config/default.yaml'):
+    config_file = os.getenv('IP2SL_CONFIG', config_file) # ENV variable overrides all
+
     with open(config_file, 'r') as stream:
         try:
             return yaml.safe_load(stream)
@@ -57,18 +59,14 @@ def read_config(config_file):
             sys.stderr.write(f"FATAL! {exc}")
             sys.exit(1)
 
-config = read_config("config/ports.yaml")
+config = read_config()
 
 def setup_logging(
     default_path='config/logging.yaml',
-    default_level=logging.INFO,
-    env_key='LOG_CONFIG'
+    default_level=logging.INFO
 ):
     """Setup logging configuration"""
-    path = default_path
-    value = os.getenv(env_key, None)
-    if value:
-        path = value
+    path = os.getenv('IP2SL_LOG_CONFIG', default_path)
     
     if os.path.exists(path):
         with open(path, 'rt') as f:
@@ -76,7 +74,7 @@ def setup_logging(
         logging.config.dictConfig(config)
 
         log = logging.getLogger(__name__)
-        log.debug("Read logging configuration from %s: %s", path, config)
+        log.debug(f"Read logging configuration from {path}: {config}")
     else:
         print(f"ERROR! Couldn't find logging configuration: {path}")
         logging.basicConfig(level=default_level)
