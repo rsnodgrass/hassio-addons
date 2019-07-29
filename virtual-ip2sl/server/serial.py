@@ -42,13 +42,14 @@ class SerialInterface:
     def reset_serial_parameters(self, config):
         try:
             self._config = config
-            
+
             # if serial port is already opened, then close before reconfiguring
-            if self._serial:
-                self._serial.close()
+            if self._serial != None:
+                self._serial.close() 
 
             baud = int(default(config, 'baud', 9600))
             self._baud = max(min(baud, 115200), 300) # ensure baud is ranged between 300-115200
+            config['baud'] = self._baud # rewrite config to ensure it is within range
 
             self._parity    = PARITY[default(config, 'parity', 'PARITY_NO')]
             self._stop_bits = STOP_BITS[default(config, 'stop_bits', 'STOPBITS_1')]
@@ -69,7 +70,7 @@ class SerialInterface:
                                          bytesize=serial.EIGHTBITS,
                                          dsrdtr=flow_dsrdtr,
                                          rtscts=flow_rtscts)
-            log.info(f"Connected to {self._tty_path} (baud rate={self._baud}; timeout={self._timeout})")
+            log.info(f"Connected to {self._tty_path} (config={self._config})")
 
             self._rs485 = self._flow in [ 'DUPLEX_FULL', 'DUPLEX_HALF' ]
             if self._rs485:
