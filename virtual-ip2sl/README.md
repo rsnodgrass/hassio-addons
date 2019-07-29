@@ -72,23 +72,24 @@ RS232 serial ports, and a TCP Port exposing the iTach command protocol.
 The Virtual IP2SL listens on a variety of TCP ports, both for controlling the service
 as well as the configuration for each serial port interface. Data sent to any of these
 ports is relayed directly out the RS232 serial port associated with that TCP port in
-configuration. Similarly, any data received from the RS232 will be written to the TCP
-port. The RS232 ports are defaulted to /dev/ttyUSB0 through /dev/ttyUSB7.
+configuration. Similarly, any data received from the RS232 will be written to the
+TCP port.
 
-| TCP Port | Description                              | Default TTY  |
-| -------- | ---------------------------------------- | ------------ |
-| 4998     | iTach Flex TCP API command/control port  | n/a          |
-| 4999     | raw TCP port to the first serial port    | /dev/ttyUSB0 |
-| 5000     | ... second serial port                   | /dev/ttyUSB1 |
-| 5001     | ... third serial port                    | /dev/ttyUSB2 |
-| 5002     | ... fourth serial port                   | /dev/ttyUSB3 |
-| 5003     | ... fifth serial port                    | /dev/ttyUSB4 |
-| 5004     | ... sixth serial port                    | /dev/ttyUSB5 |
-| 5005     | ... seventh serial port                  | /dev/ttyUSB6 |
-| 5006     | raw TCP port to the eighth serial port   | /dev/ttyUSB7 |
+| TCP Port | Description                              |
+| -------- | ---------------------------------------- |
+| 4998     | iTach Flex TCP API command/control port  |
+| 4999     | raw TCP port to the first serial port    |
+| 5000     | ... second serial port                   |
+| 5001     | ... third serial port                    |
+| 5002     | ... fourth serial port                   |
+| 5003     | ... fifth serial port                    |
+| 5004     | ... sixth serial port                    |
+| 5005     | ... seventh serial port                  |
+| 5006     | raw TCP port to the eighth serial port   |
 
-For enhanced security, it is recommended disabling via configuration any ports
-that are not in use.
+For enhanced security, it is recommended disabling any ports that are not in use.
+If no configuration exists for a given serial port (1-8), the associated TCP port
+will not be opened.
 
 #### Example TTY Paths
 
