@@ -27,8 +27,10 @@ class AMXDiscoveryBeacon():
         return ''.join(re.findall('..', '%012x' % uuid.getnode())).upper()
 
     def get_host(self):
-        # must be externally accessible and routable IP (not 0.0.0.0 or localhost)
-        host = '127.0.0.1' # invalid default except for testing
+        # In "production", this must be externally accessible and routable
+        # IP address (not 0.0.0.0 or localhost) so clients can discover and 
+        # communicate with this instance.
+        host = '0.0.0.0' # default for testing
 
         if ('ip2sl' in self._config and 'ip' in self._config['ip2sl']):
             host = self._config['ip2sl']['ip']
@@ -43,20 +45,19 @@ class AMXDiscoveryBeacon():
 
         # iTach Flex discovery beacon is a AMX-styles multicast UDP packet sent to IP 239.255.250.250, port 9131.
         data = {
-            "UUID"       : f"VirtualIP2SL_{self.get_mac()}", # required for IP as unique identifer, could be UUID=GlobalCache_
-            "SDKClass"   : "Utility",            # required
-            "Make"       : "GlobalCache",        # required
-            "Model"      : "iTachFlexEthernet",  # required; note GC-100-12 for legacy model
-            "Config-URL" : f"http://{self.get_host()}",
-            "Revision"   : "710-2000-15",
-            "Pkg_Level"  : "", # "GCPK001",
-            "PCB_PN"     : "025-0033-10",
-            "Status"     : "Ready"
+            'UUID'       : f"VirtualIP2SL_{self.get_mac()}", # required for IP as unique identifer, could be UUID=GlobalCache_
+            'SDKClass'   : 'Utility',            # required
+            'Make'       : 'GlobalCache',        # required
+            'Model'      : 'iTachFlexEthernet',  # required; note GC-100-12 for legacy model
+            'Config-URL' : f"http://{self.get_host()}",
+            'Revision'   : '710-2000-15',
+            'Pkg_Level'  : '', # "GCPK001",
+            'PCB_PN'     : '025-0033-10',
+            'Status'     : 'Ready'
             }
         heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items())
 
         while True:
-            log.debug("Broadcasting heartbeat beacon: %s", heartbeat_packet)
-            # print(f"Broadcasting heartbeat beacon: {heartbeat_packet}")
+            log.debug(f"Broadcasting heartbeat beacon: {heartbeat_packet}")
             sock.sendto(b"{heartbeat_packet}\r", (MULTICAST_IP, MULTICAST_PORT))
             time.sleep(self._beacon_interval)
