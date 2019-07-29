@@ -31,6 +31,12 @@ STOP_BITS = {
 class SerialInterface:
 
     def __init__(self, config):
+        reset_serial_parameters(self, config)
+
+    def serial(self):
+        return self._serial
+
+    def reset_serial_parameters(self, config):
         try:
             self._tty_path  = config['path']
 
@@ -70,6 +76,3 @@ class SerialInterface:
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
             raise RuntimeError("Connect failure to {}".format(self._tty))
-
-    def raw_serial(self):
-        return self._serial
