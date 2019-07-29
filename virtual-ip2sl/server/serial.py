@@ -21,6 +21,13 @@ STOP_BITS = {
     'STOPBITS_2':  serial.STOPBITS_TWO
 }
 
+FLOW_OR_DUPLEX = {
+    'FLOW_HARDWARE': 'rs232',
+    'FLOW_NONE':     'rs232',
+    'DUPLEX_HALF':   'rs485',
+    'DUPLEX_FULL':   'rs485' ]
+}
+
 class IP2SLSerialInterface:
 
     def __init__(self, config):

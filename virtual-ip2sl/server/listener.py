@@ -10,13 +10,6 @@ log = logging.getLogger(__name__)
 IP2SL_SERIAL_TCP_PORT_START = 4999
 serial_listeners = {}
 
-Valid_Config_Values = {
-#    "baud": [] # 300|…|115200
-    "flow":     [ 'FLOW_HARDWARE', 'FLOW_NONE', 'DUPLEX_HALF', 'DUPLEX_FULL' ],
-    "parity":   [ 'PARITY_NO', 'PARITY_ODD', 'PARITY_EVEN' ],
-    "stopbits": [ 'STOPBITS_1', 'STOPBITS_2' ] # optional
-}
-
 """ 
 Listener that relays data to/from a specific serial port. This is instantiated
 once per connection to the server.  Since the serial port communication is not
