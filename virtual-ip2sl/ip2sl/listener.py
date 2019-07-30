@@ -30,10 +30,17 @@ multiplexed, only allow a single instance of this instantiated at a time
 (this is the default behavior given the current threading model).
 """
 class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
-    def __init__(self, request, client_address, what_self):
-        print(f"Connecting to serial ...")
+    def __init__(self, request, client_address, server):
+        log.debug(f"New serial connection from %s: %s", client_address[0], {request})
+        print(f"New serial connection from {client_address[0]}: {request} {server}")
+        self._server = server
+
+        # call the baseclass initializer as the last thing; note __init__ waits on bytes to call handle()
+        socketserver.BaseRequestHandler.__init__(self, request, client_address, server)
+
 
     def handle(self):
+        print("IPToSerialTCPHandler ... handle()")
         with self.server._lock:
              data = self.request.recv(1024).strip()
              print(f"{self.client_address[0]} wrote: {data}")
