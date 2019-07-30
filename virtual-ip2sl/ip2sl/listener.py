@@ -32,7 +32,6 @@ multiplexed, only allow a single instance of this instantiated at a time
 class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
     def __init__(self, request, client_address, server):
         log.debug(f"New serial connection from %s: %s", client_address[0], {request})
-        print(f"New serial connection from {client_address[0]}: {request} {server}")
         self._server = server
 
         # call the baseclass initializer as the last thing; note __init__ waits on bytes to call handle()
@@ -40,13 +39,14 @@ class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
 
 
     def handle(self):
-        print("IPToSerialTCPHandler ... handle()")
         with self.server._lock:
              data = self.request.recv(1024).strip()
-             print(f"{self.client_address[0]} wrote: {data}")
-             log.debug(f"{self.client_address[0]} wrote: %s", data)
+             log.debug(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
+             print(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
 
-    #        self.server._serial = self.server._serial
+             # FIXME: could we add MORE layers here :(
+             # pass all bytes directly to the serial port
+             self._server._serial._serial.write(data)
 
     def update_serial(new_config):
         with self.server._lock:
