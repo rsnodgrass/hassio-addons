@@ -78,7 +78,7 @@ TCP port.
 
 | TCP Port | Description                              |
 | -------- | ---------------------------------------- |
-| 4998     | iTach Flex TCP API command/control port  |
+| 4998     | iTach TCP API command/control port       |
 | 4999     | raw TCP port to the first serial port    |
 | 5000     | ... second serial port                   |
 | 5001     | ... third serial port                    |
