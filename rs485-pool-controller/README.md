@@ -10,8 +10,8 @@ For comprehensive details on the latest supported devices, see the release notes
 
 #### Controllers
 
-* Intermatic PE635RC (plus expansion modules P5043ME, PE25065RC)
-* Pentair IntelliTouch
+* [Intermatic PE653RC](https://www.intermatic.com/en/pool-and-spa/electronic-controls/pe653rc) (plus expansion modules P5043ME, PE25065RC)
+* [Pentair IntelliTouch](https://www.pentair.com/en/products/pool-spa-equipment/pool-automation/intellitouch_systems.html)
 * Pentair EasyTouch
 * Pentair IntelliCom II
 * Pentair SunTouch
@@ -66,3 +66,7 @@ FUTURE: The *outputToSmartThings* interface to the nodejs-poolController is alre
 
 * [Interface for talking RS485 to a variety of pool equipment](https://www.npmjs.com/package/nodejs-poolcontroller)
 * [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair)
+
+# Community Support
+
+* https://community.smartthings.com/t/intermatic-pe653-pool-control-system/936
