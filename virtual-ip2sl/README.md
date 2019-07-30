@@ -29,7 +29,7 @@ used as a standalone server.
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 
-2. Find the "Virtual IP2SL (IP to Serial)" in the list of add-ons and click Install
+2. Find "*Virtual IP2SL (IP to Serial)*" in the list of add-ons and click Install
 
 ## Configuration
 
