@@ -37,7 +37,7 @@ By default, the Virtual IP2SL is configured to open a single port attached
 at 9600 baud to one USB serial port adapter on //dev/ttyUSB0. However, a
 wide variety of serial port configurations are possible, up to eight
 serial ports per Virutal IP2SL instance. The environment variable IP2SL_CONFIG
-can be used to point to YAML config files other than the default.
+can be used to point to YAML config files other than [config/default.yaml](config/default.yaml).
 
 Below is an example of four USB serial ports connected.
 See the "[iTach TCP API Specification](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)"

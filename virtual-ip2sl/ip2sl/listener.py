@@ -48,6 +48,8 @@ class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
              # pass all bytes directly to the serial port
              self._server._serial._serial.write(data)
 
+             # FIXME: what about reading from serial and sending bytes back to client
+
     def update_serial(new_config):
         with self.server._lock:
            self.server._serial.reset_serial_parameters(new_config)
