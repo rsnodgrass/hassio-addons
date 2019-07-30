@@ -19,8 +19,8 @@ Raspberry Pi, I will also purchase several Global Caché [iTach WF2IP](/amazon.c
 
 Built as a Docker container (with additional support for
 making it a plug-and-play [HASS.IO](https://www.home-assistant.io/hassio/) add-on
-for Home Assistant](https://www.home-assistant.io/)), this can also easily be
-used as a standalone server.
+for Home Assistant](https://www.home-assistant.io/), this can also easily be
+used as a standalone server outside of any Home Assistant environment.
 
 #### Install as a Hass.io Add-on
 
