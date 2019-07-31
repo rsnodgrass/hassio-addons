@@ -79,8 +79,8 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
     def handle_getdevices(self):
         entries = [ "device,0,0 ETHERNET" ]
 
-        # iterate across all the serial ports that are accepting connections
-        for port in get_serial_listeners():
+        # included all serial ports exposed by configuration
+        for port in config['serial'].keys():
             entries.append(f"device,1,{port} SERIAL")
  
         entries.append("endlistdevices")
@@ -102,62 +102,61 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
         self._return_error(ERR_NOT_SUPPORTED, "Network lookup not currently supported")
 
     # response: SERIAL,1:1,<baudrate>,<flowcontrol/duplex>,<parity>,<stopbits>
-    def _prepare_SERIAL_response(self):
-        m = re.search("et_SERIAL,1:(?P<port>.+)", self._data)
-        if m:
-            port = int(m.group('port'))
-
-            # FIXME: actually get this form the serial object (since it could have changed)
-            cfg = config['serial']['port']
-            if cfg:
-                return f"SERIAL,1:{port},{cfg['baud']},{cfg['flow']},{cfg['parity']},{cfg['stop_bits']}"
-            return None # FIXME
+    def _SERIAL_response(self, port):
+        # FIXME: actually get this form the serial object (since it could have changed)
+        cfg = config['serial'][port]
+        if cfg:
+            return f"SERIAL,1:{port},{cfg['baud']},{cfg['flow']},{cfg['parity']},{cfg['stop_bits']}"
+        return None # FIXME
    
     def handle_get_SERIAL(self):
         m = re.search("get_SERIAL,1:(?P<port>.+)", self._data)
         if m:
             port = int(m.group('port'))
-            if port in Serial_Listeners[port]:
-                serial = Serial_Listeners[port]._serial
-
-                cfg = config['serial']['port']
-                if cfg:
-                    reply = f"SERIAL,1:{port},{cfg['baud']},{cfg['flow']},{cfg['parity']},{cfg['stop_bits']}"
-                    self.send_response(reply)
-                    return
+            if port in config['serial']:
+                return self.send_response( _SERIAL_response(port) )
 
         self._return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
 
-
     def handle_set_SERIAL(self):
-        # FIXME: do we update the in-memory config!?  Or just disable setting serial configuration?
-        # FIXME: should we persist this across restarts?
-        
-        # set_SERIAL,<module>:<port>
+        # TODO: is this valid and needs supporting?   set_SERIAL,<module>:<port>
+
         # set_SERIAL,<module>:<port>,<baudrate>,<flowcontrol/duplex>,<parity>,[stopbits]
-        response = self._prepare_SERIAL_response()
+        # set_SERIAL,1:1,115200,FLOW_NONE,PARITY_NO
 
-        # FIXME: partial search of stopbits!
-        m = re.search("set_SERIAL,1:(?P<port>.+),(?P<baud>.+),(?P<flow>.+),(?P<parity>.+),(?P<stop_bits>.+)", self._data)
+        # FIXME: handle optional stop bits
+
+        m = re.search("set_SERIAL,1:(?P<port>.+),(?P<baud>.+),(?P<flow>.+),(?P<parity>.+),(?P<stop_bits>.+)",
+                      self._data)
         if m:
-            cfg = config['serial']['port']
+            port = int(m.group('port'))
+            cfg = config['serial']
             if cfg:
-                cfg['baud'] = int(m.group('baud'))
-                cfg['parity'] = m.group('parity')
-                # FIXME: flow!
-                cfg['stop_bits'] = m.group('stop_bits')
+                # FIXME: do we update the in-memory config!?  Or just disable setting serial configuration?
+                # FIXME: should we persist this across restarts?
 
-                # FIXME: find the listener/serial, close it, and recreate a new one (treat as immutable)
+                # update the existing configuration in memory (NOTE: possibly threading issue)
+                cfg['baud']      = int(m.group('baud'))
+                cfg['flow']      = m.group('flow')
+                cfg['parity']    = int(m.group('parity'))
+                cfg['stop_bits'] = int(m.group('stop_bits'))
 
-                # FIXME: find the serial port that matches, and update
-                #self._serial.reset_configuration(cfg) # FIXME
+                # update the serial connection with the new configuration
+                listeners = get_serial_listeners()
+                listeners[port].reset_serial_parameters(cfg)
+
+                return self.send_response( _SERIAL_response(port) )
+
             else:
                 self._return_error(ERR_INVALID_SYNTAX, f"set_SERIAL error! Could not parse: {self._data}")
  
         # always reply with the current configuration
         response = self._prepare_SERIAL_response()
         self.send_response(response)
-        
+
+        self._return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
+
+
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
 

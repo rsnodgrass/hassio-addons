@@ -41,21 +41,15 @@ class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
 
 
     def handle(self):
-        with self.server._lock:
-             data = self.request.recv(1024).strip()
-             log.debug(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
-             print(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
+        data = self.request.recv(1024).strip()
+        log.debug(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
+        print(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
 
-             # FIXME: could we add MORE layers here :(
-             # pass all bytes directly to the serial port
-             self._server._serial._serial.write(data)
+        # FIXME: could we add MORE layers here :(
+        # pass all bytes directly to the serial port
+        self._server._serial._serial.write(data)
 
-             # FIXME: what about reading from serial and sending bytes back to client
-
-    def update_serial(new_config):
-        with self.server._lock:
-           self.server._serial.reset_serial_parameters(new_config)
-
+        # FIXME: what about reading from serial and sending bytes back to client
 
 class IP2SLServer(socketserver.TCPServer):
     def __init__(self, server_address, RequestHandlerClass, serial_connection):
@@ -63,14 +57,13 @@ class IP2SLServer(socketserver.TCPServer):
         
         self._serial = serial_connection
 
+        # FIXME: NOT YET IMPLEMENTED
         # each listener has a lock, since the main control thread can modify
         # parameters for the serial connetion such as baud rate. We do not want
         # one large lock shared across listeners since then that serializes the
         # processing for all threads.
         self._lock = threading.Lock()
 
-
-# self.request.sendall(self.data.upper())
 
 """Ensure all listeners are cleanly shutdown"""
 def stop_all_listeners():
