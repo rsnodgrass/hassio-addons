@@ -3,6 +3,7 @@ import logging
 import os
 import time
 import serial
+import select
 import threading
 import socketserver
 
@@ -10,6 +11,8 @@ import util
 import ip2serial
 
 log = logging.getLogger(__name__)
+
+BUFFER_SIZE=4096
 
 # initialize the map of serial port number to TCP port; we only limit to 8 ports
 # since existing hardware which implements the Flex command protocol isn't found
@@ -32,15 +35,17 @@ port communication is not multiplexed, only allow a single instance of this
 instantiated at a time (this is the default behavior given the current threading model).
 """
 class TCPToSerialProxy(socketserver.StreamRequestHandler):
+
     def __init__(self, request, client_address, server):
         log.debug(f"New serial connection from %s: %s", client_address[0], {request})
         self._server = server
+        self._running = True
 
         # call the baseclass initializer as the last thing; note __init__ waits on bytes to call handle()
         socketserver.StreamRequestHandler.__init__(self, request, client_address, server)
 
     def handle(self):
-        data = self.request.recv(1024).strip()
+        data = self.request.recv(BUFFER_SIZE).strip()
         log.debug(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
         print(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
 
@@ -48,20 +53,21 @@ class TCPToSerialProxy(socketserver.StreamRequestHandler):
         # pass all bytes directly to the serial port
         self._server._serial._serial.write(data)
 
-    def proxy_loop(self, server, serial):
-        while True:
-            r, w, e = select.select([client, serial], [], [])
+    # FIXME: do we need a mechanism to kill the loop (e.g. stop)
+    def proxy_loop(self, client, serial):
+        while self._running:
+            input_ready, output_ready, except_ready = select.select([client, serial], [], [])
 
-            if client in r:
-                data = client.recv(4096)
-                log.debug("Proxying from %s to serial: %s", client_address[0], data)
-                if serial.send(data) <= 0:
+            if client in input_ready:
+                data = client.recv(BUFFER_SIZE)
+                log.debug("Proxy %s to serial: %s", client_address[0], data)
+                if serial.write(data) <= 0:
                         break
 
             # if data available from the serial port, read it and forward to TCP socket
-            if serial in r:
-                data = serial.recv(4096)
-                log.debug("Proxying from serial to %s: %s", client_address[0], data)
+            if serial in input_ready:
+                data = serial.recv(BUFFER_SIZE)
+                log.debug("Proxy serial to %s: %s", client_address[0], data)
                 if client.send() <= 0:
                         break
 
