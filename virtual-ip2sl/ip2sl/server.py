@@ -49,30 +49,32 @@ config = util.load_config()
 
 class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
-        self._data = self.request.recv(1024).strip()
-        print(f"{self.client_address[0]} wrote: {self._data}")
-        log.debug(f"{self.client_address[0]} wrote: %s", self._data)
+        self._data = self.request.recv(1024).strip().decode()
+        print(f"{self.client_address[0]} sent command: {self._data}")
+        log.debug(f"{self.client_address[0]} sent command: %s", self._data)
 
-        if self._data == b"getdevices":
+        print(f"Data {self._data}")
+        if self._data.startswith('getdevices'):
             self.handle_getdevices()
-        elif self._data == b"getversion":
+        elif self._data.startswith('getversion'):
             self.handle_getversion()
-        elif self._data.startswith("get_NET"):
+        elif self._data.startswith('get_NET'):
             self.handle_get_NET()
-        elif self._data.startswith("get_SERIAL"):
+        elif self._data.startswith('get_SERIAL'):
             self.handle_get_SERIAL()
-        elif self._data.startswith("set_SERIAL"):
+        elif self._data.startswith('set_SERIAL'):
             self.handle_set_SERIAL()
         else:
-            log.error("Unknown request: {self._data}")
+            self._return_error(ERR_INVALID_REQUEST, "Unknown request: {self._data}")
 
     def _return_error(self, error_code, message):
-        log.error(f"Error reply {error_code}: {message}")
+        log.error(f"Error reply '{error_code}': {message}")
         self.send_response(error_code)
 
     def send_response(self, response):
         log.info(f"Sending response: {response}")
-        self.request.sendall(b"{response}")
+        print(f"Sending response: {response}")
+        self.request.sendall(response.encode())
 
     def handle_getdevices(self):
         response = "\n".join([
@@ -82,7 +84,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
         self.send_response(response)
 
     def handle_getversion(self):
-        self.send_response("710-2000-15") # firmware version part number
+        self.send_response("710-3000-18") # firmware version part number
 
     def handle_get_NET(self):
         # the Flex host network module address is always hardcoded 0:1
@@ -93,7 +95,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
 #        gateway = '127.0.0.1'
 #        netmask = '255.255.255.0'
 #        self.send_response(f"NET,0:1,LOCKED,STATIC,{host},{netmask},{gateway}")
-        self._error_reply(ERR_NOT_SUPPORTED, "Network lookup not currently supported")
+        self._return_error(ERR_NOT_SUPPORTED, "Network lookup not currently supported")
 
     # response: SERIAL,1:1,<baudrate>,<flowcontrol/duplex>,<parity>,<stopbits>
     def _prepare_SERIAL_response(self):
@@ -108,8 +110,20 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
             return None # FIXME
    
     def handle_get_SERIAL(self):
-        response = self._prepare_SERIAL_response()
-        self.send_response(response)
+        m = re.search("get_SERIAL,1:(?P<port>.+)", self._data)
+        if m:
+            port = int(m.group('port'))
+            if port in Serial_Listeners[port]:
+                serial = Serial_Listeners[port]._serial
+
+                cfg = config['serial']['port']
+                if cfg:
+                    reply = f"SERIAL,1:{port},{cfg['baud']},{cfg['flow']},{cfg['parity']},{cfg['stop_bits']}"
+                    self.send_response(reply)
+                    return
+
+        self._return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
+
 
     def handle_set_SERIAL(self):
         # FIXME: do we update the in-memory config!?  Or just disable setting serial configuration?
