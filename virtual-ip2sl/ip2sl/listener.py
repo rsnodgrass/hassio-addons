@@ -31,13 +31,13 @@ once per connection to the server.  Since the serial port communication is not
 multiplexed, only allow a single instance of this instantiated at a time
 (this is the default behavior given the current threading model).
 """
-class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
+class TCPToSerialProxy(socketserver.StreamRequestHandler):
     def __init__(self, request, client_address, server):
         log.debug(f"New serial connection from %s: %s", client_address[0], {request})
         self._server = server
 
         # call the baseclass initializer as the last thing; note __init__ waits on bytes to call handle()
-        socketserver.BaseRequestHandler.__init__(self, request, client_address, server)
+        socketserver.StreamRequestHandler.__init__(self, request, client_address, server)
 
     def handle(self):
         data = self.request.recv(1024).strip()
@@ -48,7 +48,22 @@ class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
         # pass all bytes directly to the serial port
         self._server._serial._serial.write(data)
 
-        # FIXME: what about reading from serial and sending bytes back to client
+    def proxy_loop(self, server, serial):
+        while True:
+            r, w, e = select.select([client, serial], [], [])
+
+            if client in r:
+                data = client.recv(4096)
+                log.debug("Proxying to serial: %s", data)
+                if serial.send(data) <= 0:
+                        break
+
+            # if data available from the serial port, read it and forward to TCP socket
+            if serial in r:
+                data = serial.recv(4096)
+                log.debug("Proxying to TCP client: %s", data)
+                if client.send() <= 0:
+                        break
 
 class IP2SLServer(socketserver.TCPServer):
     def __init__(self, server_address, RequestHandlerClass, serial_connection):
@@ -62,7 +77,6 @@ class IP2SLServer(socketserver.TCPServer):
         # one large lock shared across listeners since then that serializes the
         # processing for all threads.
         self._lock = threading.Lock()
-
 
 """Ensure all listeners are cleanly shutdown"""
 def stop_all_listeners():
@@ -84,13 +98,13 @@ def start_listener(config, port_number, serial_config):
     serial_connection = ip2serial.IP2SLSerialInterface(serial_config)
     # FIXME: if serial port /dev/tty does not exist, should port be opened?
 
-    server = IP2SLServer((host, tcp_port), IPToSerialTCPHandler, serial_connection)
+    IP2SLServer((host, tcp_port), TCPToSerialProxy, serial_connection)
 
     # each listener has a dedicated thread (one thread per port, as serial port communication isn't multiplexed)        
     server_thread = threading.Thread(target=server.serve_forever)
     server_thread.daemon = True # exit the server thread when the main thread terminates
 
-    log.info(f"Starting raw IP-to-serial TCP listener at {host}:{tcp_port}")
+    log.info(f"Starting thread for TCP proxy to serial {port_number} at {host}:{tcp_port}")
     server_thread.start()
 
     # retain references to the thread and server

@@ -1,14 +1,11 @@
 import os
 import yaml
-
 import logging
 import logging.config
 
 import server
 
-def setup_logging():
-    """Setup logging configuration"""
-    
+def setup_logging():    
     path = os.getenv('IP2SL_LOG_CONFIG', 'config/logging.yaml')
     if os.path.exists(path):
         with open(path, 'rt') as f:

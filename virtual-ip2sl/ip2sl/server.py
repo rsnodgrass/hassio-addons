@@ -9,7 +9,7 @@ import logging
 from flask import Flask
 
 import re
-
+import os
 import atexit
 import threading
 import socket
@@ -18,6 +18,8 @@ import socketserver
 import util
 import beacon
 from listener import start_serial_listeners, get_serial_listeners
+
+log = logging.getLogger(__name__)
 
 FLEX_TCP_API_VERSION = '1.6'
 FLEX_TCP_COMMAND_PORT = 4998
@@ -39,8 +41,6 @@ ERR_INVALID_STOP_BITS    ='ERR SL004' # Invalid stop bits setting
 app = Flask(__name__)
 
 threads = []
-
-log = logging.getLogger(__name__)
 
 config = util.load_config()
 
