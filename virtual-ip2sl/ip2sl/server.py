@@ -118,15 +118,19 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
 
         self._return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
 
-    # FIXME: should we persist setting serial this across restarts?
+    # Interface: set_SERIAL,<module>:<port>,<baudrate>,<flowcontrol/duplex>,<parity>,[stopbits]
+    # Example:   set_SERIAL,1:1,115200,FLOW_NONE,PARITY_NO
     def handle_set_SERIAL(self):
-        # set_SERIAL,<module>:<port>,<baudrate>,<flowcontrol/duplex>,<parity>,[stopbits]
-        # set_SERIAL,1:1,115200,FLOW_NONE,PARITY_NO
+        stop_bits = None
 
-        # FIXME: handle optional stop bits
+        # handle the optional stop bits field
+        base_pattern = "set_SERIAL,1:(?P<port>.+),(?P<baud>.+),(?P<flow>.+),(?P<parity>.+)"
+        m = re.search(base_pattern + ",(?P<stop_bits>.+)", self._data)
+        if m:
+            stop_bits = m.group('stop_bits')
+        else:
+            m = re.search(base_pattern, self._data)
 
-        m = re.search("set_SERIAL,1:(?P<port>.+),(?P<baud>.+),(?P<flow>.+),(?P<parity>.+),(?P<stop_bits>.+)",
-                      self._data)
         if m:
             print("HERE1")
             port = int(m.group('port'))
@@ -138,12 +142,15 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
                 cfg['flow']      = m.group('flow')
                 cfg['parity']    = m.group('parity')
 
-                if m.group('stop_bits'):   # handle optional stop bits
-                    cfg['stop_bits'] = m.group('stop_bits')
+                # handle optional stop bits
+                if stop_bits:
+                    cfg['stop_bits'] = stop_bits
 
                 # update the serial connection with the new configuration
                 listeners = get_serial_listeners()
                 listeners[port]._serial.reset_serial_parameters(cfg)
+
+                # FIXME: should we persist setting serial this across restarts?
 
                 return self.send_response( self._SERIAL_response(port) )
 
