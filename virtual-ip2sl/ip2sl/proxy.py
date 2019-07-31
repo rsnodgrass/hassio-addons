@@ -52,6 +52,7 @@ class TCPToSerialProxy(socketserver.StreamRequestHandler):
         # FIXME: could we add MORE layers here :(
         # pass all bytes directly to the serial port
         self._server._serial._serial.write(data)
+#        proxy_loop(self._server, self._server._serial._serial)
 
     # FIXME: do we need a mechanism to kill the loop (e.g. stop)
     def proxy_loop(self, client, serial):
@@ -61,6 +62,7 @@ class TCPToSerialProxy(socketserver.StreamRequestHandler):
             if client in input_ready:
                 data = client.recv(BUFFER_SIZE)
                 log.debug("Proxy %s to serial: %s", client_address[0], data)
+                print(f"Proxy {client_address[0]} to serial: {data}")
                 if serial.write(data) <= 0:
                         break
 
@@ -68,6 +70,7 @@ class TCPToSerialProxy(socketserver.StreamRequestHandler):
             if serial in input_ready:
                 data = serial.recv(BUFFER_SIZE)
                 log.debug("Proxy serial to %s: %s", client_address[0], data)
+                print(f"Proxy serial to {client_address[0]}: {data}")
                 if client.send() <= 0:
                         break
 
@@ -84,14 +87,17 @@ class IP2SLServer(socketserver.TCPServer):
         # processing for all threads.
         self._lock = threading.Lock()
 
+#    def stop()
+#        pass
+
 """Ensure all listeners are cleanly shutdown"""
 def stop_all_listeners():
-    for port_number, server in Serial_Listeners.items():
-        stop_listener(port_number)
+    for port_number, server in Serial_Proxies.items():
+        stop_proxy(port_number)
 
-def stop_listener(port_number):
-    log.debug("Stopping listener for serial 1")
-    server = Serial_Listeners[port_number]
+def stop_proxy(port_number):
+    log.debug(f"Stopping proxy for serial {port_number}")
+    server = Serial_Proxies[port_number]
     if server != None:
        server.shutdown()
        server.server_close()
@@ -100,15 +106,13 @@ def start_proxy_listener(config, port_number, serial_config):
     host = util.get_host(config)
     tcp_port = SERIAL_PORT_TO_TCP_PORT[port_number]
 
-    log.info(f"Serial {port_number} configuration: {serial_config} (TCP port {host}:{tcp_port})")
+    log.info(f"Serial {port_number} (TCP port {host}:{tcp_port}) config: {serial_config}")
     serial_connection = ip2serial.IP2SLSerialInterface(serial_config)
-
-    # FIXME: if serial port /dev/tty does not exist, should port be opened?
-
-    IP2SLServer((host, tcp_port), TCPToSerialProxy, serial_connection)
+    # FIXME: if serial port /dev/tty does not exist, should port be opened? or pending connection of device?
 
     # each listener has a dedicated thread (one thread per port, as serial port communication isn't multiplexed)        
     log.info(f"Starting thread for TCP proxy to serial {port_number} at {host}:{tcp_port}")
+    IP2SLServer((host, tcp_port), TCPToSerialProxy, serial_connection)
     proxy_thread = threading.Thread(target=proxy.serve_forever)
     proxy_thread.daemon = True # exit the server thread when the main thread terminates
     proxy_thread.start()
