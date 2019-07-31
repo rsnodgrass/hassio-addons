@@ -118,28 +118,26 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
 
         self._return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
 
+    # FIXME: should we persist setting serial this across restarts?
     def handle_set_SERIAL(self):
-        # TODO: is this valid and needs supporting?   set_SERIAL,<module>:<port>
-
         # set_SERIAL,<module>:<port>,<baudrate>,<flowcontrol/duplex>,<parity>,[stopbits]
         # set_SERIAL,1:1,115200,FLOW_NONE,PARITY_NO
 
         # FIXME: handle optional stop bits
 
-        m = re.search("set_SERIAL,1:(?P<port>.+),(?P<baud>.+),(?P<flow>.+),(?P<parity>.+),(?P<stop_bits>.+)",
+        m = re.search("set_SERIAL,1:(?P<port>.+),(?P<baud>.+),(?P<flow>.+),(?P<parity>.+),(?P<stop_bits>.+?)",
                       self._data)
         if m:
             port = int(m.group('port'))
             cfg = config['serial']
             if cfg:
-                # FIXME: do we update the in-memory config!?  Or just disable setting serial configuration?
-                # FIXME: should we persist this across restarts?
-
                 # update the existing configuration in memory (NOTE: possibly threading issue)
                 cfg['baud']      = int(m.group('baud'))
                 cfg['flow']      = m.group('flow')
                 cfg['parity']    = int(m.group('parity'))
-                cfg['stop_bits'] = int(m.group('stop_bits'))
+
+                if m.group('stop_bits'): # handle optional stop bits
+                    cfg['stop_bits'] = int(m.group('stop_bits'))
 
                 # update the serial connection with the new configuration
                 listeners = get_serial_listeners()
