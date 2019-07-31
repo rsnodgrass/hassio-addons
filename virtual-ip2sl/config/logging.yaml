@@ -7,24 +7,24 @@ formatters:
 
 handlers:
   console:
-    class: logging.StreamHandler
     level: DEBUG
+    class: logging.StreamHandler
     formatter: simple
     stream: ext://sys.stdout
 
   stderr:
-    class: logging.StreamHandler
     level: DEBUG
+    class: logging.StreamHandler
     formatter: simple
     stream: ext://sys.stderr
 
-  server_log:
-    class: logging.FileHandler
+  logfile:
     level: INFO
+    filename: ip2sl.log
+    class: logging.FileHandler
     formatter: simple
-    filename: server.log
     encoding: utf8
 
 root:
   level: DEBUG
-  handlers: [console]
+  handlers: [console, logfile]
