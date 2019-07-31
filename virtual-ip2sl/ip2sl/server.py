@@ -65,9 +65,9 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
         elif self._data.startswith('set_SERIAL'):
             self.handle_set_SERIAL()
         else:
-            self._return_error(ERR_INVALID_REQUEST, "Unknown request: {self._data}")
+            self.return_error(ERR_INVALID_REQUEST, "Unknown request: {self._data}")
 
-    def _return_error(self, error_code, message):
+    def return_error(self, error_code, message):
         log.error(f"Error reply '{error_code}': {message}")
         self.send_response(error_code)
 
@@ -90,16 +90,10 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
     def handle_getversion(self):
         self.send_response("710-3000-18") # firmware version part number
 
+    # the Flex host network module address is always hardcoded 0:1
+    #   NET,0:1,<configlock>,<ipsetting>,<ipaddress>,<subnet>,<gateway>
     def handle_get_NET(self):
-        # the Flex host network module address is always hardcoded 0:1
-        #   NET,0:1,<configlock>,<ipsetting>,<ipaddress>,<subnet>,<gateway>
-#        if !self._data.startsWith("get_NET,0:1"):
-#            throw error
-#        host = util.get_host(self._config)
-#        gateway = '127.0.0.1'
-#        netmask = '255.255.255.0'
-#        self.send_response(f"NET,0:1,LOCKED,STATIC,{host},{netmask},{gateway}")
-        self._return_error(ERR_NOT_SUPPORTED, "Network lookup not currently supported")
+        self.return_error(ERR_NOT_SUPPORTED, "Network lookup not currently supported")
 
     # response: SERIAL,1:1,<baudrate>,<flowcontrol/duplex>,<parity>,<stopbits>
     def _SERIAL_response(self, port):
@@ -154,7 +148,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
 
                 return self.send_response( self._SERIAL_response(port) )
 
-        self._return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
+        self.return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
 
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
