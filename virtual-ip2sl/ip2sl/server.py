@@ -114,7 +114,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
         if m:
             port = int(m.group('port'))
             if port in config['serial']:
-                return self.send_response( _SERIAL_response(port) )
+                return self.send_response( self._SERIAL_response(port) )
 
         self._return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
 
@@ -125,7 +125,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
 
         # FIXME: handle optional stop bits
 
-        m = re.search("set_SERIAL,1:(?P<port>.+),(?P<baud>.+),(?P<flow>.+),(?P<parity>.+),(?P<stop_bits>.+?)",
+        m = re.search("set_SERIAL,1:(?P<port>.+),(?P<baud>.+),(?P<flow>.+),(?P<parity>.+),(?P<stop_bits>.+)",
                       self._data)
         if m:
             print("HERE1")
@@ -145,7 +145,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
                 listeners = get_serial_listeners()
                 listeners[port]._serial.reset_serial_parameters(cfg)
 
-                return self.send_response( _SERIAL_response(port) )
+                return self.send_response( self._SERIAL_response(port) )
 
         self._return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
 

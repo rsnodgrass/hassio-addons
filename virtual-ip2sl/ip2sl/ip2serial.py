@@ -129,4 +129,4 @@ class IP2SLSerialInterface:
 
         except:
             log.error("Unexpected error: %s", sys.exc_info()[0])
-            raise RuntimeError("Connect failure to {}".format(self._tty_))
+            raise RuntimeError("Connect failure to {}".format(self._tty_path))
