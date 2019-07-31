@@ -102,7 +102,9 @@ def stop_proxy(port_number):
        server.shutdown()
        server.server_close()
 
-def start_proxy_listener(config, port_number, serial_config):
+def start_proxy(port_number, config):
+    serial_config = config['serial'][port_number]
+
     host = util.get_host(config)
     tcp_port = SERIAL_PORT_TO_TCP_PORT[port_number]
 
@@ -123,6 +125,6 @@ def start_proxy_listener(config, port_number, serial_config):
 
 def start_serial_proxies(config):
     # start the individual TCP listeners for each serial port proxy
-    for port_number, serial_config in config['serial'].items():
-        start_proxy_listener(config, port_number, serial_config)
+    for port_number in config['serial'].items():
+        start_proxy(port_number, config)
         
