@@ -125,11 +125,9 @@ The following are a variety of example TTY paths for different serial port inter
 * [Home Assistant gc100 sensor/switch (no serial)](https://www.home-assistant.io/components/gc100)
 * Special thanks to [Global Caché](https://www.globalcache.com/products/) for opening and publishing TCP control APIs
 
-## Support
+## Community Support
 
-### Community Engagement
-
-Links to active community engagement around iTach Flex integrations:
+Links to several forums for community engagement around iTach Flex:
 
 * https://community.home-assistant.io/t/itach-ip2sl/28805
 * https://community.smartthings.com/t/home-theater-macro-global-cache-itach/126450
@@ -142,6 +140,7 @@ implement features, stability improvements, etc.
 
 Priority:
 
+* implement actual serial read/writes
 * improve error handling (e.g. invalid port modules specified in get_SERIAL)
 
 Ideas of what should be eventually implemented (but no plans by me to add):

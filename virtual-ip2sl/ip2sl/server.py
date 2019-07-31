@@ -192,11 +192,11 @@ def main():
 
     # run the http console server in the main thread
     host = util.get_host(config)
-    console_port = int(os.getenv('IP2SL_CONSOLE_PORT', 4444))
+    console_port = int(os.getenv('IP2SL_CONSOLE_PORT', 80))
 
     log.info(f"Starting UI console at http://{host}:{console_port}")
     print(f"Starting UI console at http://{host}:{console_port}")
-    app.run(debug=True, host=host, port=console_port) # FIXME: allow env override, but default to 80!
+    app.run(debug=True, host=host, port=console_port)
 
 if __name__ == '__main__':
   main()
