@@ -116,12 +116,6 @@ The following are a variety of example TTY paths for different serial port inter
 * [Home Assistant IP2SL client by tinglis1](https://github.com/tinglis1/home-assistant-custom/tree/master/custom_components/notify) (last updated 2016)
 * [Home Assistant gc100 sensor/switch (no serial)](https://www.home-assistant.io/components/gc100)
 
-#### Emulator
-
-* [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
-* [GlobalCovfefe](https://platformio.org/lib/show/5679/GlobalCovfefe): Global Cache device emulator with one IR sender and one optional IR learner
-* [ESP8266iTachEmulator](https://github.com/probonopd/ESP8266iTachEmulator): iTach/LIRC emulator for IR signals
-
 #### API
 
 Special thanks to [Global Caché](https://www.globalcache.com/products/) for opening and publishing TCP control APIs:
@@ -129,6 +123,11 @@ Special thanks to [Global Caché](https://www.globalcache.com/products/) for ope
 * [iTach Flex TCP API Specification v1.6](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)
   (earlier [v1.5 specificaiton](https://www.globalcache.com/files/docs/API-iTach.pdf))
 * [iTach TCP/IP to Serial (RS232) specs](https://www.globalcache.com/products/itach/ip2slspecs/) and [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
+
+#### Related Emulators
+
+* [GlobalCovfefe](https://platformio.org/lib/show/5679/GlobalCovfefe): Global Cache device emulator with one IR sender and one optional IR learner
+* [ESP8266iTachEmulator](https://github.com/probonopd/ESP8266iTachEmulator): iTach/LIRC IP2IR emulator for IR signals
 
 ## Community Support
 
