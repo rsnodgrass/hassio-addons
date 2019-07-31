@@ -11,8 +11,6 @@ import ip2serial
 
 log = logging.getLogger(__name__)
 
-Serial_Listeners = {}
-
 # initialize the map of serial port number to TCP port; we only limit to 8 ports
 # since existing hardware which implements the Flex command protocol isn't found
 # in sizes larger than 8 ports, so unclear what client behavior would be.
@@ -22,6 +20,10 @@ def initialize_serial_port_to_tcp_port():
     for i in range(1, num_ports):
         SERIAL_PORT_TO_TCP_PORT[i] = 4998 + i
 initialize_serial_port_to_tcp_port()
+
+Serial_Listeners = {}
+def get_serial_listeners():
+    return Serial_Listeners
 
 """ 
 Listener that relays data to/from a specific serial port. This is instantiated

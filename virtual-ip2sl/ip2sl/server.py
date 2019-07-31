@@ -17,7 +17,7 @@ import socketserver
 
 import beacon
 import util
-from listener import start_serial_listeners
+from listener import start_serial_listeners, get_serial_listeners
 
 log = logging.getLogger(__name__)
 
@@ -77,10 +77,14 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
         self.request.sendall(response.encode())
 
     def handle_getdevices(self):
-        response = "\n".join([
-            "device,0,0 ETHERNET",
-            "device,1,1 SERIAL",
-            "endlistdevices"])
+        entries = [ "device,0,0 ETHERNET" ]
+
+        # iterate across all the serial ports that are accepting connections
+        for port in get_serial_listeners():
+            entries.append("device,1,{port} SERIAL")
+ 
+        entries.append("endlistdevices")
+        response = f"\n".join(entries)
         self.send_response(response)
 
     def handle_getversion(self):
