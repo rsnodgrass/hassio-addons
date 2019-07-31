@@ -81,7 +81,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
 
         # iterate across all the serial ports that are accepting connections
         for port in get_serial_listeners():
-            entries.append("device,1,{port} SERIAL")
+            entries.append(f"device,1,{port} SERIAL")
  
         entries.append("endlistdevices")
         response = f"\n".join(entries)
