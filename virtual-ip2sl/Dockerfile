@@ -25,4 +25,4 @@ RUN apk update \
 EXPOSE 80 4998 4999 5000 5001 5002 5003 5004 5005 5006 5007 9131/udp
 
 WORKDIR $APP_DIR
-CMD [ "python3", "ip2sl/server.py" ]
+CMD [ "./run.sh" ]

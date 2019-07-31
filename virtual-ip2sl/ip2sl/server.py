@@ -15,11 +15,9 @@ import threading
 import socket
 import socketserver
 
-import beacon
 import util
+import beacon
 from listener import start_serial_listeners, get_serial_listeners
-
-log = logging.getLogger(__name__)
 
 FLEX_TCP_API_VERSION = '1.6'
 FLEX_TCP_COMMAND_PORT = 4998
@@ -42,7 +40,6 @@ app = Flask(__name__)
 
 threads = []
 
-util.setup_logging()
 log = logging.getLogger(__name__)
 
 config = util.load_config()
@@ -190,6 +187,3 @@ def main():
 
     log.info(f"Starting UI console at http://{host}:{console_port}")
     app.run(debug=True, host=host, port=console_port)
-
-if __name__ == '__main__':
-  main()

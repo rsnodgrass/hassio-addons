@@ -1,11 +1,8 @@
 import logging
-import logging.config
 
 import os
 import sys
 import yaml
-
-log = logging.getLogger(__name__)
 
 def get_host(config):
     # must be externally accessible and routable IP (not 0.0.0.0 or localhost)
@@ -17,23 +14,6 @@ def get_host(config):
     # allow overridding discovered/configured IP address with ENV variable
     host = os.getenv('IP2SL_SERVER_HOST', host) 
     return host
-
-def setup_logging(
-    default_level=logging.INFO
-):
-    """Setup logging configuration"""
-    path = os.getenv('IP2SL_LOG_CONFIG', 'config/logging.yaml')
-    
-    if os.path.exists(path):
-        with open(path, 'rt') as f:
-            config = yaml.safe_load(f.read())
-        logging.config.dictConfig(config)
-
-        log = logging.getLogger(__name__)
-        log.debug(f"Read logging configuration from {path}: {config}")
-    else:
-        print(f"ERROR! Couldn't find logging configuration: {path}")
-        logging.basicConfig(level=default_level)
 
 def load_config(config_file='config/default.yaml'):
     """Load the application configuration"""

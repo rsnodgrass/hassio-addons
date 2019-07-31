@@ -19,7 +19,7 @@ handlers:
     stream: ext://sys.stderr
 
   logfile:
-    level: INFO
+    level: DEBUG
     filename: ip2sl.log
     class: logging.FileHandler
     formatter: simple
