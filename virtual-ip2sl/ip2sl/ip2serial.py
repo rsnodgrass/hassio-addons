@@ -89,14 +89,7 @@ class IP2SLSerialInterface:
             self._serial.flush()
             self._serial.close()
 
-#    def read():
-#        with self._lock:
-
     def reset_serial_parameters(self, config):
-        with self._lock:
-            self._reset_serial_parameters(config)
-
-    def _reset_serial_paramters(self, config):
         # FIXME: this should really just change the existing serial connection, but for
         # now we will just swap and replace the serial object.
         self._serial.close()

@@ -128,29 +128,24 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
         m = re.search("set_SERIAL,1:(?P<port>.+),(?P<baud>.+),(?P<flow>.+),(?P<parity>.+),(?P<stop_bits>.+?)",
                       self._data)
         if m:
+            print("HERE1")
             port = int(m.group('port'))
             cfg = config['serial']
             if cfg:
+                print("HERE")
                 # update the existing configuration in memory (NOTE: possibly threading issue)
                 cfg['baud']      = int(m.group('baud'))
                 cfg['flow']      = m.group('flow')
-                cfg['parity']    = int(m.group('parity'))
+                cfg['parity']    = m.group('parity')
 
-                if m.group('stop_bits'): # handle optional stop bits
-                    cfg['stop_bits'] = int(m.group('stop_bits'))
+                if m.group('stop_bits'):   # handle optional stop bits
+                    cfg['stop_bits'] = m.group('stop_bits')
 
                 # update the serial connection with the new configuration
                 listeners = get_serial_listeners()
-                listeners[port].reset_serial_parameters(cfg)
+                listeners[port]._serial.reset_serial_parameters(cfg)
 
                 return self.send_response( _SERIAL_response(port) )
-
-            else:
-                self._return_error(ERR_INVALID_SYNTAX, f"set_SERIAL error! Could not parse: {self._data}")
- 
-        # always reply with the current configuration
-        response = self._prepare_SERIAL_response()
-        self.send_response(response)
 
         self._return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
 
