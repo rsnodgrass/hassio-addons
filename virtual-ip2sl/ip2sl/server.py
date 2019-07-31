@@ -50,10 +50,8 @@ config = util.load_config()
 class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
         self._data = self.request.recv(1024).strip().decode()
-        print(f"{self.client_address[0]} sent command: {self._data}")
         log.debug(f"{self.client_address[0]} sent command: %s", self._data)
 
-        print(f"Data {self._data}")
         if self._data.startswith('getdevices'):
             self.handle_getdevices()
         elif self._data.startswith('getversion'):
@@ -73,7 +71,6 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
 
     def send_response(self, response):
         log.info(f"Sending response: {response}")
-        print(f"Sending response: {response}")
         self.request.sendall(response.encode())
 
     def handle_getdevices(self):
@@ -126,11 +123,9 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
             m = re.search(base_pattern, self._data)
 
         if m:
-            print("HERE1")
             port = int(m.group('port'))
             cfg = config['serial']
             if cfg:
-                print("HERE")
                 # update the existing configuration in memory (NOTE: possibly threading issue)
                 cfg['baud']      = int(m.group('baud'))
                 cfg['flow']      = m.group('flow')
@@ -169,7 +164,6 @@ def start_command_listener():
     host = util.get_host(config)
 
     log.info(f"Starting Flex TCP command listener at {host}:{FLEX_TCP_COMMAND_PORT}")
-    print(f"Starting Flex TCP command listener at {host}:{FLEX_TCP_COMMAND_PORT}")
     server = ThreadedTCPServer((host, FLEX_TCP_COMMAND_PORT), FlexCommandTCPHandler)
 
     # the command listener is in its own thread which then creates a new thread for each TCP request
@@ -195,7 +189,6 @@ def main():
     console_port = int(os.getenv('IP2SL_CONSOLE_PORT', 80))
 
     log.info(f"Starting UI console at http://{host}:{console_port}")
-    print(f"Starting UI console at http://{host}:{console_port}")
     app.run(debug=True, host=host, port=console_port)
 
 if __name__ == '__main__':

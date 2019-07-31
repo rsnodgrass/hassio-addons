@@ -67,7 +67,6 @@ class IP2SLSerialInterface:
                                          dsrdtr=flow_dsrdtr,
                                          rtscts=flow_rtscts)
             log.info(f"Connected to {self._tty_path} (config={self._config})")
-            print(f"Connected to {self._tty_path} (config={self._config})")
 
             self._rs485 = self._flow in [ 'DUPLEX_FULL', 'DUPLEX_HALF' ]
             if self._rs485:
@@ -118,7 +117,6 @@ class IP2SLSerialInterface:
                                          dsrdtr=flow_dsrdtr,
                                          rtscts=flow_rtscts)
             log.info(f"Connected to {self._tty_path} (config={self._config})")
-            print(f"Connected to {self._tty_path} (config={self._config})")
 
             self._rs485 = self._flow in [ 'DUPLEX_FULL', 'DUPLEX_HALF' ]
             if self._rs485:

@@ -39,7 +39,6 @@ class IPToSerialTCPHandler(socketserver.BaseRequestHandler):
         # call the baseclass initializer as the last thing; note __init__ waits on bytes to call handle()
         socketserver.BaseRequestHandler.__init__(self, request, client_address, server)
 
-
     def handle(self):
         data = self.request.recv(1024).strip()
         log.debug(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
