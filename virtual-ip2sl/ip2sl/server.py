@@ -17,7 +17,7 @@ import socketserver
 
 import util
 import beacon
-from listener import start_serial_listeners, get_serial_listeners
+from proxy import start_serial_proxies, get_serial_proxies
 
 log = logging.getLogger(__name__)
 
@@ -133,8 +133,8 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
                     cfg['stop_bits'] = stop_bits
 
                 # update the serial connection with the new configuration
-                listeners = get_serial_listeners()
-                listeners[port]._serial.reset_serial_parameters(cfg)
+                proxies = get_serial_proxies()
+                proxies[port]._serial.reset_serial_parameters(cfg)
 
                 # FIXME: should we persist setting serial this across restarts?
 
@@ -173,7 +173,7 @@ def start_command_listener():
 
 def main():
     ip2sl_beacon = beacon.AMXDiscoveryBeacon(config)
-    port_listeners = start_serial_listeners(config)
+    proxies = start_serial_proxies(config)
     command_listener = start_command_listener()
 
     # FIXME: until Flask http bind issue is resolved, just wait for all threads to complete before exiting
