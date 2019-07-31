@@ -12,10 +12,10 @@ of the Virtual IP2SL microservice can expose up to eight physical RS232 serial p
 I decided to build this after having physical USB to serial adapters hooked up to a
 Raspberry Pi (such as the 
 [StarTech ICUSB232I 8-port USB serial adapter](https://amazon.com/StarTech-com-USB-Serial-Adapter-Hub/dp/B009AT5TB2?tag=carreramfi-20) and native Raspberry Pi GPIO pin outs), but had several iOS and other client applications 
-which supported RS232 over IP using the published iTach TCP protocol. While Open
-Source projects existed to emulate iTach IR devices, none implemented raw access
-to serial ports via TCP. Since some of my RS232/RS485 devices aren't colocated with my
-Raspberry Pi, I will also purchase several Global Caché [iTach WF2IP](/amazon.com/Global-Cache-iTach-Wi-Fi-Serial/dp/B0051BU42W?tag=carreramfi-20) and [Flex IP](https://amazon.com/Global-Cache-iTach-Flex-IP/dp/B00C6FRPIC/?tag=carreramfi-20)) hardware devices to communicate with everything.
+which supported RS232 over IP by implementing a subset of the published iTach TCP protocol.
+While Open Source projects existed to emulate iTach IR devices, none implemented raw access
+to serial ports via TCP. Since several of my RS232/RS485 devices aren't colocated with my
+Raspberry Pi, I will also purchase Global Caché [iTach WF2IP](/amazon.com/Global-Cache-iTach-Wi-Fi-Serial/dp/B0051BU42W?tag=carreramfi-20) and [Flex IP](https://amazon.com/Global-Cache-iTach-Flex-IP/dp/B00C6FRPIC/?tag=carreramfi-20)) hardware devices to communicate with everything.
 
 Built as a Docker container (with additional support for
 making it a plug-and-play [HASS.IO](https://www.home-assistant.io/hassio/) add-on
@@ -118,7 +118,8 @@ The following are a variety of example TTY paths for different serial port inter
 #### Other
 
 * [iTach IP2IR Infrared Emulator](https://github.com/probonopd/ESP8266iTachEmulator/)
-* [GlobalCovfefe](https://platformio.org/lib/show/5679/GlobalCovfefe): GlobalCache device emulator with one IR sender and one optional IR learner
+* [GlobalCovfefe](https://platformio.org/lib/show/5679/GlobalCovfefe): Global Cache device emulator with one IR sender and one optional IR learner
+* [ESP8266iTachEmulator](https://github.com/probonopd/ESP8266iTachEmulator): iTach/LIRC emulator for IR signals
 * [iTach Flex TCP API Specification v1.6](https://www.globalcache.com/files/releases/flex-16/API-Flex_TCP_1.6.pdf)
   (earlier [v1.5 specificaiton](https://www.globalcache.com/files/docs/API-iTach.pdf))
 * [iTach TCP/IP to Serial (RS232) specs](https://www.globalcache.com/products/itach/ip2slspecs/) and [Flex specs](https://www.globalcache.com/products/flex/flc-slspec/)
