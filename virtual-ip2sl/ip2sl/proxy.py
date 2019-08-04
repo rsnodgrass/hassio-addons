@@ -37,7 +37,7 @@ instantiated at a time (this is the default behavior given the current threading
 class TCPToSerialProxy(socketserver.StreamRequestHandler):
 
     def __init__(self, request, client_address, server):
-        log.debug(f"New serial connection from %s: %s", client_address[0], {request})
+        log.debug(f"New serial connection from %s: %s", client_address[0], request)
         self._server = server
         self._running = True
 
@@ -102,9 +102,7 @@ def stop_proxy(port_number):
        server.shutdown()
        server.server_close()
 
-def start_proxy(port_number, config):
-    serial_config = config['serial'][port_number]
-
+def start_proxy(port_number, serial_config, config):
     host = util.get_host(config)
     tcp_port = SERIAL_PORT_TO_TCP_PORT[port_number]
 
@@ -125,6 +123,6 @@ def start_proxy(port_number, config):
 
 def start_serial_proxies(config):
     # start the individual TCP listeners for each serial port proxy
-    for port_number in config['serial'].items():
-        start_proxy(port_number, config)
+    for port_number, serial_config in config['serial'].items():
+        start_proxy(port_number, serial_config, config)
         
