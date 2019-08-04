@@ -3,8 +3,6 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
 
-*NOT YET IMPLEMENTED*
-
 Provides bidirectional TCP-to-serial access to physical serial ports connected to the
 host running this microservice by emulating an iTach IP to Serial (IP2SL). Each instance
 of the Virtual IP2SL microservice can expose up to eight physical RS232 serial ports.

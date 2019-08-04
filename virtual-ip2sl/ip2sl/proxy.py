@@ -80,8 +80,8 @@ class TCPToSerialProxy(socketserver.StreamRequestHandler):
             if serial_fd in read_ready:
                 time.sleep(0.05) # wait 50 ms for serial buffer to queue up
                 data = raw_serial.read(raw_serial.in_waiting)
-                log.debug("Proxy %s --> %s: %s", tty_path, self._client_id, data)
-                print(f"Proxy {tty_path} --> {self._client_id}: {data}")
+                log.debug("Proxy %s <-- %s: %s", self._client_id, tty_path, data)
+                print(f"Proxy {self._client_id} <-- {tty_path}: {data}")
                 if tcp_client.send(data) <= 0:
                         break
 
