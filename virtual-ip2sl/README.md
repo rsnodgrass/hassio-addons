@@ -165,3 +165,4 @@ Ideas for eventual implementation (**no plans by me to add**):
 * web UI console showing details about the config and each port (including metrics)
 * emulation compatibility for [GC-100-xx](https://www.globalcache.com/files/docs/API-GC-100.pdf)
 * extend to support relays, 5V/12V/24V triggers, and IR (e.g. beyond serial)
+* add an optional MQTT interface
