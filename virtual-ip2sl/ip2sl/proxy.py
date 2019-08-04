@@ -39,39 +39,50 @@ class TCPToSerialProxy(socketserver.StreamRequestHandler):
     def __init__(self, request, client_address, server):
         log.debug(f"New serial connection from %s: %s", client_address[0], request)
         self._server = server
+        self._client_id = client_address[0]
         self._running = True
 
         # call the baseclass initializer as the last thing; note __init__ waits on bytes to call handle()
         socketserver.StreamRequestHandler.__init__(self, request, client_address, server)
 
     def handle(self):
-        data = self.request.recv(BUFFER_SIZE).strip()
-        log.debug(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
-        print(f"{self.client_address[0]} wrote to %s: %s", self._server._serial._tty_path, data)
+        #data = self.request.recv(BUFFER_SIZE).strip()
+        #tty_path = self._server._serial._tty_path
+        #log.debug(f"{self.client_address[0]} wrote to {tty_path}: {data}")
+        #print(f"{self.client_address[0]} wrote to {tty_path}: {data}")
+
 
         # FIXME: could we add MORE layers here :(
         # pass all bytes directly to the serial port
-        self._server._serial._serial.write(data)
-#        proxy_loop(self._server, self._server._serial._serial)
+        #self._server._serial._serial.write(data)
+        raw_serial = self._server._serial._serial
+        self.proxy_loop(self._server, self._server._serial)
 
     # FIXME: do we need a mechanism to kill the loop (e.g. stop)
-    def proxy_loop(self, client, serial):
-        while self._running:
-            input_ready, output_ready, except_ready = select.select([client, serial], [], [])
+    def proxy_loop(self, tcp_client2, serial):
+        raw_serial = serial._serial
+        serial_fd = raw_serial.fileno()
+        tty_path = serial._tty_path
 
-            if client in input_ready:
-                data = client.recv(BUFFER_SIZE)
-                log.debug("Proxy %s to serial: %s", client_address[0], data)
-                print(f"Proxy {client_address[0]} to serial: {data}")
-                if serial.write(data) <= 0:
+        tcp_client = self.request
+ 
+        while self._running:
+            read_ready, write_ready, exception = select.select([tcp_client, serial_fd], [], [], 1)
+
+            if tcp_client in read_ready:
+                data = tcp_client.recv(BUFFER_SIZE)
+                log.debug("Proxy %s --> %s: %s", self._client_id, tty_path, data)
+                print(f"Proxy {self._client_id} --> {tty_path}: {data}")
+                if raw_serial.write(data) <= 0:
                         break
 
             # if data available from the serial port, read it and forward to TCP socket
-            if serial in input_ready:
-                data = serial.recv(BUFFER_SIZE)
-                log.debug("Proxy serial to %s: %s", client_address[0], data)
-                print(f"Proxy serial to {client_address[0]}: {data}")
-                if client.send() <= 0:
+            if serial_fd in read_ready:
+                time.sleep(0.05) # wait 50 ms for serial buffer to queue up
+                data = raw_serial.read(raw_serial.in_waiting)
+                log.debug("Proxy %s --> %s: %s", tty_path, self._client_id, data)
+                print(f"Proxy {tty_path} --> {self._client_id}: {data}")
+                if tcp_client.send(data) <= 0:
                         break
 
 class IP2SLServer(socketserver.TCPServer):

@@ -109,13 +109,17 @@ class IP2SLSerialInterface:
             flow_dsrdtr = flow_rtscts
 
             self._serial = serial.Serial(self._tty_path,
-                                         timeout=self._timeout,
+                                         timeout=0,
                                          baudrate=self._baud,
                                          parity=self._parity,
                                          stopbits=self._stop_bits,
                                          bytesize=serial.EIGHTBITS,
                                          dsrdtr=flow_dsrdtr,
                                          rtscts=flow_rtscts)
+
+            # configure serial port for non-blocking mode (POSTIX only), requires timeout=0
+            self._serial.nonblocking()
+
             log.info(f"Connected to {self._tty_path} (config={self._config})")
 
             self._rs485 = self._flow in [ 'DUPLEX_FULL', 'DUPLEX_HALF' ]
