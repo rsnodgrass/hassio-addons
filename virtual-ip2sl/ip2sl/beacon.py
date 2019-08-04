@@ -44,23 +44,11 @@ class AMXDiscoveryBeacon():
             'Make'       : 'GlobalCache',        # required
             'Model'      : 'iTachFlexEthernet',  # required; note GC-100-12 for legacy model, or iTachIP2SL for v1.5 API
             'Config-URL' : f"http://{self._console_host}:{self._console_port}",
-            'Revision'   : '710-2000-15',
-            'Pkg_Level'  : '', # "GCPK001",
-            'PCB_PN'     : '025-0033-10',
-            'Status'     : 'Ready'
-            }
-
-        data = { # FIXME: remove this test once working
-            'UUID'       : f"GlobalCache_000C1EE0E330", # required; unique identifer for this instance
-            'SDKClass'   : 'Utility',            # required
-            'Make'       : 'GlobalCache',        # required
-            'Model'      : 'iTachFlexEthernet',  # required; note GC-100-12 for legacy model
-            'Config-URL' : f"http://{self._console_host}",
             'Revision'   : '710-3000-18',
-            'Pkg_Level'  : '',
+            'Pkg_Level'  : '', # "GCPK001",
             'PCB_PN'     : '025-0034-12',
             'Status'     : 'Ready'
-            }          
+            }
         heartbeat_packet = "AMXB" + ''.join(F"<-{k}={v}>" for (k,v) in data.items())
 
         while True:

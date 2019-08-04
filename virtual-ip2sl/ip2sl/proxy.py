@@ -75,15 +75,7 @@ class TCPToSerialProxy(socketserver.StreamRequestHandler):
 class IP2SLServer(socketserver.TCPServer):
     def __init__(self, server_address, RequestHandlerClass, serial_connection):
         socketserver.TCPServer.__init__(self, server_address, RequestHandlerClass)
-        
         self._serial = serial_connection
-
-        # FIXME: NOT YET IMPLEMENTED
-        # each listener has a lock, since the main control thread can modify
-        # parameters for the serial connetion such as baud rate. We do not want
-        # one large lock shared across listeners since then that serializes the
-        # processing for all threads.
-        self._lock = threading.Lock()
 
 """Ensure all listeners are cleanly shutdown"""
 def stop_all_listeners():
@@ -103,7 +95,9 @@ def start_proxy(port_number, serial_config, config):
 
     log.info(f"Serial {port_number} (TCP port {host}:{tcp_port}) config: {serial_config}")
     serial_connection = ip2serial.IP2SLSerialInterface(serial_config)
+
     # FIXME: if serial port /dev/tty does not exist, should port be opened? or pending connection of device?
+    # ...or a queue that is checked periodically and reopened?
 
     # each listener has a dedicated thread (one thread per port, as serial port communication isn't multiplexed)        
     log.info(f"Starting thread for TCP proxy to serial {port_number} at {host}:{tcp_port}")

@@ -6,7 +6,7 @@ import yaml
 
 def get_host(config):
     # must be externally accessible and routable IP (not 0.0.0.0 or localhost)
-    host = '127.0.0.1' # invalid default except for testing
+    host = '0.0.0.0' # invalid default except for testing
 
     if ('ip2sl' in config and 'ip' in config['ip2sl']):
         host = config['ip2sl']['ip']

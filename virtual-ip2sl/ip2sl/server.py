@@ -136,8 +136,7 @@ class FlexCommandTCPHandler(socketserver.BaseRequestHandler):
                 proxies = get_serial_proxies()
                 proxies[port]._serial.reset_serial_parameters(cfg)
 
-                # FIXME: should we persist setting serial this across restarts?
-
+                # FIXME: should serial settings be persisted across restarts?
                 return self.send_response( self._SERIAL_response(port) )
 
         self.return_error(ERR_INVALID_MODULE, f"Invalid module or port specified for: {self._data}")
@@ -176,14 +175,13 @@ def main():
     proxies = start_serial_proxies(config)
     command_listener = start_command_listener()
 
-    # FIXME: until Flask http bind issue is resolved, just wait for all threads to complete before exiting
+    # run the http console server in the main thread
+#    host = util.get_host(config)
+#    console_port = int(os.getenv('IP2SL_CONSOLE_PORT', 8232))
+#    log.info(f"Starting UI console at http://{host}:{console_port}")
+#    app.run(debug=True, host=host, port=console_port)
+
+    # wait for all threads to complete before exiting
     for a_thread in threads:
         a_thread.join()
     exit
-
-    # run the http console server in the main thread
-    host = util.get_host(config)
-    console_port = int(os.getenv('IP2SL_CONSOLE_PORT', 80))
-
-    log.info(f"Starting UI console at http://{host}:{console_port}")
-    app.run(debug=True, host=host, port=console_port)

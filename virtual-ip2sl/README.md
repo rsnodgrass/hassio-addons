@@ -154,9 +154,8 @@ NOTE: While this works for my use cases (and most common ones users will encount
 it would be great to have other contributors help take this to the next level and
 implement features, stability improvements, etc.
 
-Priority:
+Planned:
 
-* implement actual serial read/writes
 * improve error handling (e.g. invalid port modules specified in get_SERIAL)
 
 Ideas of what should be eventually implemented (but no plans by me to add):
