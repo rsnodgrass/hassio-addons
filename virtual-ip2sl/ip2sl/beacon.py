@@ -65,5 +65,6 @@ class AMXDiscoveryBeacon():
 
         while True:
             log.debug(f"Broadcasting heartbeat beacon to {MULTICAST_IP}:{MULTICAST_PORT}: {heartbeat_packet}")
-            sock.sendto(b"{heartbeat_packet}\r", (MULTICAST_IP, MULTICAST_PORT))
+            heartbeat_packet += "\r"
+            sock.sendto(heartbeat_packet.encode(), (MULTICAST_IP, MULTICAST_PORT))
             time.sleep(self._beacon_interval)
