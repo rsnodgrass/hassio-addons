@@ -53,8 +53,10 @@ class TCPToSerialProxy(socketserver.StreamRequestHandler):
         serial_fd = raw_serial.fileno()
         tty_path = self._server._serial._tty_path
 
+        check_if_running_delay = 2.0
         while self._running:
-            read_ready, write_ready, exception = select.select([tcp_client, serial_fd], [], [], 1)
+            read_ready, write_ready, exception = select.select([tcp_client, serial_fd],
+                                                               [], [], check_if_running_delay)
 
             if tcp_client in read_ready:
                 data = tcp_client.recv(BUFFER_SIZE)
@@ -84,9 +86,6 @@ class IP2SLServer(socketserver.TCPServer):
         # one large lock shared across listeners since then that serializes the
         # processing for all threads.
         self._lock = threading.Lock()
-
-#    def stop()
-#        pass
 
 """Ensure all listeners are cleanly shutdown"""
 def stop_all_listeners():
