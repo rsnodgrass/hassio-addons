@@ -158,7 +158,7 @@ Planned:
 
 * improve error handling (e.g. invalid port modules specified in get_SERIAL)
 
-Ideas of what should be eventually implemented (but no plans by me to add):
+Ideas for eventual implementation (**no plans by me to add**):
 
 * should set_SERIAL changes be persisted across restarts or just always default to config
 * add support for RS485 connections
