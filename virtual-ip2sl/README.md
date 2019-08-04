@@ -29,6 +29,19 @@ used as a standalone server outside of any Home Assistant environment.
 
 2. Find "__Virtual IP2SL (IP to Serial)__" in the list of add-ons and click Install
 
+#### Running Standalone
+
+```bash
+python3 ip2sl
+```
+
+...or under Docker (may require modifying Dockerfile to specify the BUILD_FROM architecture base you need):
+
+```bash
+docker build -t virtual-ip2sl .
+docker run virtual-ip2sl
+```
+
 ## Configuration
 
 By default, the Virtual IP2SL is configured to open a single port attached 
