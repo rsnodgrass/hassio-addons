@@ -112,7 +112,7 @@ def start_proxy(port_number, serial_config, config):
 
     # each listener has a dedicated thread (one thread per port, as serial port communication isn't multiplexed)        
     log.info(f"Starting thread for TCP proxy to serial {port_number} at {host}:{tcp_port}")
-    IP2SLServer((host, tcp_port), TCPToSerialProxy, serial_connection)
+    proxy = IP2SLServer((host, tcp_port), TCPToSerialProxy, serial_connection)
     proxy_thread = threading.Thread(target=proxy.serve_forever)
     proxy_thread.daemon = True # exit the server thread when the main thread terminates
     proxy_thread.start()
