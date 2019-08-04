@@ -98,11 +98,11 @@ The following are a variety of example TTY paths for different serial port inter
 | --------------------------- | --------------------------------------------------- |
 | /dev/ttyS0                  | Raspberry Pi mini UART GPIO                         |
 | /dev/ttyAMA0                | Raspberry Pi GPIO pins 14/15 (pre-Bluetooth RPi 3)  |
-| /dev/serial0                | RPi 3/RPi 4 serial port alias 1                     |
-| /dev/serial1                | RPi 3/RPi 4 serial port alias 2                     |
+| /dev/serial0                | RPi 3/4 serial port alias 1                         |
+| /dev/serial1                | RPi 3/4 serial port alias 2                         |
 | /dev/tty.usbserial          | MacOS USB serial adapter                            |
-| /dev/ttyUSB0                | USB serial adapter 1                                |
-| /dev/ttyUSB1                | USB serial adapter 2                                |
+| /dev/ttyUSB0                | Raspberry Pi USB serial adapter 1                   |
+| /dev/ttyUSB1                | Raspberry Pi USB serial adapter 2                   |
 | /dev/tty.usbserial-A501SGSU | StarTach ICUSB232I (8-port) serial port 1 (MacOS)   |
 | /dev/tty.usbserial-A501SGSV | StarTach ICUSB232I (8-port) serial port 2 (MacOS)   |
 
