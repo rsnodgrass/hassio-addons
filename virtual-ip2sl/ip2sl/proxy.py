@@ -46,26 +46,13 @@ class TCPToSerialProxy(socketserver.StreamRequestHandler):
         socketserver.StreamRequestHandler.__init__(self, request, client_address, server)
 
     def handle(self):
-        #data = self.request.recv(BUFFER_SIZE).strip()
-        #tty_path = self._server._serial._tty_path
-        #log.debug(f"{self.client_address[0]} wrote to {tty_path}: {data}")
-        #print(f"{self.client_address[0]} wrote to {tty_path}: {data}")
-
+        tcp_client = self.request 
 
         # FIXME: could we add MORE layers here :(
-        # pass all bytes directly to the serial port
-        #self._server._serial._serial.write(data)
         raw_serial = self._server._serial._serial
-        self.proxy_loop(self._server, self._server._serial)
-
-    # FIXME: do we need a mechanism to kill the loop (e.g. stop)
-    def proxy_loop(self, tcp_client2, serial):
-        raw_serial = serial._serial
         serial_fd = raw_serial.fileno()
-        tty_path = serial._tty_path
+        tty_path = self._server._serial._tty_path
 
-        tcp_client = self.request
- 
         while self._running:
             read_ready, write_ready, exception = select.select([tcp_client, serial_fd], [], [], 1)
 
