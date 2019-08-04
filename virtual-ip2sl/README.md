@@ -90,14 +90,14 @@ TCP port.
 | TCP Port | Description                              |
 | -------- | ---------------------------------------- |
 | 4998     | iTach TCP API command/control port       |
-| 4999     | raw TCP port to the first serial port    |
-| 5000     | ... second serial port                   |
-| 5001     | ... third serial port                    |
-| 5002     | ... fourth serial port                   |
-| 5003     | ... fifth serial port                    |
-| 5004     | ... sixth serial port                    |
-| 5005     | ... seventh serial port                  |
-| 5006     | raw TCP port to the eighth serial port   |
+| 4999     | TCP port to the first serial port        |
+| 5000     | ... second serial port *(optional)*      |
+| 5001     | ... third serial port *(optional)*       |
+| 5002     | ... fourth serial port *(optional)*      |
+| 5003     | ... fifth serial port *(optional)*       |
+| 5004     | ... sixth serial port *(optional)*       |
+| 5005     | ... seventh serial port *(optional)*     |
+| 5006     | ... eighth serial port *(optional)*      |
 
 * For security, it is recommended disabling any ports that are not in use.
 If no configuration exists for a given serial port (1-8), the associated TCP port
