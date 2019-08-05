@@ -17,10 +17,8 @@ serial control protocol.
 
 | Manufacturer  | Model(s)                        | Zones | Supported | Notes |
 | ------------- | ------------------------------- |:-----:|:---------:| ----- |
-| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m        | 8     | YES       | audio only; zones 7-8 are preamp only |
-|               | MX88a / MX88ai                  | 8     | YES       | audio only (ai = added direct IP control); zones 7-8 are preamp only |
-|               | MRC88 / MRC88m                  | 8     | YES       | audio + video; zones 7-8 are preamp only |
-|               | MX88 / MX88vi                   | 8     | YES       | audio + video (vi = added direct IP control); zones 7-8 are preamp only |
+| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m / MX88a / MX88ai | 8     | YES       | audio only (ai = added direct IP control); zones 7-8 are preamp only |
+|               | MRC88 / MRC88m / MX88 / MX88vi | 8     | YES       | audio + video (vi = added direct IP control); zones 7-8 are preamp only |
 |               | MRAUDIO4X4 / BXAUDIO4x4         | 4     | *NO*      | audio only; 4-zone uses different protocol |
 |               | MRC44 / MRC44CTL                | 4     | *NO*      | audio + video; 4-zone uses different protocol |
 | Monoprice     | MPR-SG6Z / 10761                | 6     | *MAYBE*   | audio only; mid-fi version of Xantech |
