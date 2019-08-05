@@ -11,7 +11,7 @@ I decided to build this after having physical USB to serial adapters hooked up t
 Raspberry Pi (and the native Raspberry Pi GPIO pin outs), but had several iOS and other client applications 
 which supported RS232 over IP by implementing a subset of the published iTach TCP protocol.
 While Open Source projects existed to emulate iTach IR devices, none implemented raw access
-to serial ports via TCP. For my home, I paired this with [Flex IP](https://amazon.com/Global-Cache-iTach-Flex-IP/dp/B00C6FRPIC/?tag=carreramfi-20) hardware device for cases where the serial port connection wasn't in the rack with my Raspberry Pi.
+to serial ports via TCP. For my home, I paired this with [Flex IP](https://amazon.com/Global-Cache-iTach-Flex-IP/dp/B00C6FRPIC/?tag=carreramfi-20) hardware devices for cases where the serial port connection wasn't in the rack with my Raspberry Pi.
 
 Built as a Docker container (with additional support for
 making it a plug-and-play [HASS.IO](https://www.home-assistant.io/hassio/) add-on
@@ -156,7 +156,7 @@ Planned:
 
 * improve error handling (e.g. invalid port modules specified in get_SERIAL)
 
-Ideas for eventual implementation (**no plans by me to add**):
+Ideas for eventual implementation (**feel free to contribute; no plans by me to add**):
 
 * add support for RS485 connections
 * persist set_SERIAL changes across restarts (optional)
