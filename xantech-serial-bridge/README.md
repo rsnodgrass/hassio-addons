@@ -58,8 +58,8 @@ docker build -t xantech-serial-bridge .
 The zone and source names are optionally configurable on the Multi-Zone Audio Serial Bridge
 as opposed to on the client side (like in Home Assistant configuration) since there may
 be multiple clients that are accessing the Bridge's APIs, for instance a standalone
-Alexa, iOS, Apple Watch integrations or directly via a browser. This reduces the
-configuration and setup required across multiple client integrations.
+Alexa, SmartThings, iOS, Apple Watch integrations or directly via a browser. This reduces
+the configuration and setup required across multiple client integrations.
 
 ```json
 { 
