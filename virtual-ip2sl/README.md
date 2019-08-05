@@ -8,8 +8,7 @@ host running this microservice by emulating an iTach IP to Serial (IP2SL). Each 
 of the Virtual IP2SL microservice can expose up to eight physical RS232 serial ports.
 
 I decided to build this after having physical USB to serial adapters hooked up to a
-Raspberry Pi (such as the 
-[StarTech ICUSB232I 8-port USB serial adapter](https://amazon.com/StarTech-com-USB-Serial-Adapter-Hub/dp/B009AT5TB2?tag=carreramfi-20) and native Raspberry Pi GPIO pin outs), but had several iOS and other client applications 
+Raspberry Pi (and the native Raspberry Pi GPIO pin outs), but had several iOS and other client applications 
 which supported RS232 over IP by implementing a subset of the published iTach TCP protocol.
 While Open Source projects existed to emulate iTach IR devices, none implemented raw access
 to serial ports via TCP. Since several of my RS232/RS485 devices aren't colocated with my
