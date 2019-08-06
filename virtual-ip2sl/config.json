@@ -9,6 +9,8 @@
   "options": {
     "replace this with": "your config file"
   },
+  "schema": {
+  },
   "ports": {
     "80/tcp": 80,
     "4998/tcp": 4998,
