@@ -1,9 +1,9 @@
 {
-  "name": "Matrix Audio Serial Bridge",
+  "name": "Matrix Audio Bridge",
   "version": "0.0.1",
-  "slug": "matrix-audio-serial-bridge",
+  "slug": "matrix-audio-bridge",
   "description": "Microservice exposing a REST interface for communicating with multi-zone audio controllers and amplifiers that support variations of Xantech's original RS232 serial control protocol.",
-  "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/xantech-serial-bridge",
+  "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/matrix-audio-bridge",
   "startup": "services",
   "boot": "auto",
   "ports": {
