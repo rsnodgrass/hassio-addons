@@ -6,6 +6,9 @@
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/virtual-ip2sl",
   "startup": "services",
   "boot": "auto",
+  "options": {
+    "replace this with": "your config file"
+  },
   "ports": {
     "80/tcp": 80,
     "4998/tcp": 4998,
