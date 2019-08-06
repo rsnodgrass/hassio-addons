@@ -2,7 +2,7 @@
   "name": "Multi-Zone Audio Serial Bridge",
   "version": "0.0.1",
   "slug": "multizone-audio-serial-bridge",
-  "description": Microservice exposing a REST interface for communicating with multi-zone audio controllers and amplifiers that support variations of Xantech's original RS232 serial control protocol.",
+  "description": "Microservice exposing a REST interface for communicating with multi-zone audio controllers and amplifiers that support variations of Xantech's original RS232 serial control protocol.",
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/xantech-serial-bridge",
   "startup": "services",
   "boot": "auto",
