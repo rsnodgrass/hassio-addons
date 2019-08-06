@@ -30,7 +30,7 @@ serial control protocol.
   and Dayton Audio use a version of the Xantech multi-zone controller protocol.
 
 While some amplifiers (e.g. Xantech and Monoprice) support expanding the number of zones
-by connecting two (or three) amplifiers together, the Multi-Zone Audio Serial Bridge enables
+by connecting two (or three) amplifiers together, the *Matrix Audio Serial Bridge* enables
 an "unlimited" number of amplifiers to be controlled via a REST interface.
 
 ## Installation
