@@ -2,7 +2,7 @@
   "name": "Virtual IP2SL (IP to Serial)",
   "version": "0.0.1",
   "slug": "virtual-ip2sl",
-  "description": "Add bidirectional TCP communication to physical serial ports by implementing the iTach IP to Serial (IP2SL) protocol."
+  "description": "Add bidirectional TCP communication to physical serial ports by implementing the iTach IP to Serial (IP2SL) protocol.",
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/virtual-ip2sl",
   "startup": "services",
   "boot": "auto",
