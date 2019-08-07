@@ -1,4 +1,4 @@
-# Home Assistant Hass.io Add-ons
+# Hass.io Add-ons for Home Assistant
 
 In the [Hass.io](https://www.home-assistant.io/hassio/) "Add-On Store" add the repository url: https://github.com/rsnodgrass/hassio-addons/
 
