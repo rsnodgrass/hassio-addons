@@ -23,6 +23,8 @@ serial control protocol.
 |               | MRC44 / MRC44CTL                | 4     | *NO*      | audio + video; 4-zone uses different protocol |
 | Monoprice     | MPR-SG6Z / 10761                | 6     | *MAYBE*   | audio only; mid-fi version of Xantech |
 | Dayton Audio  | DAX66                           | 6     | *MAYBE*   | audio only; mid-fi version of Xantech |
+| Anthem        | MDX-8                           | 4     | *NO*      | no RS232 specification available yet |
+| Anthem        | MDX-16                          | 8     | *NO*      | no RS232 specification available yet |
 
 * The [Monoprice MPR-SG6Z](https://www.monoprice.com/product?p_id=10761) and
   [Dayton Audio DAX66](https://www.parts-express.com/dayton-audio-dax66-6-source-6-room-distributed-whole-house-audio-system-with-keypads-25-wpc--300-585)
