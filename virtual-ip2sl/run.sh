@@ -1,9 +1,8 @@
 # Run script for use as Hass.io Add-On (passing in config options)
-CONFIG_PATH=/data/options.json
+HASS_CONFIG_PATH=/data/options.json
 
-#declare -x IP2SL_CONFIG="your-config.yaml"
-#IP2SL_CONFIG="$(jq --raw-output '.config-file' $CONFIG_PATH)"
-
-# FIXME: how to convert JSON based Add-on config to YAML?
+# convert Hass.io JSON based config to yaml
+declare -x IIP2SL_CONFIG=/data/options.yaml
+yq r $HASS_CONFIG_PATH > $IP2SL_CONFIG
 
 python3 ip2sl
