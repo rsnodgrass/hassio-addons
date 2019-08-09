@@ -1,0 +1,49 @@
+{
+  "name": "Virtual IP2SL (IP to Serial)",
+  "version": "0.0.1",
+  "slug": "virtual-ip2sl",
+  "description": "Bidirectional TCP communication to physical serial ports using the iTach IP to Serial (IP2SL) protocol",
+  "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/virtual-ip2sl-addon",
+  "startup": "services",
+  "boot": "auto",
+  "options": {
+    "serial": {
+      "1": {
+        "path": "/dev/ttyUSB0",
+        "baud": "9600"
+      }
+    }
+  },
+  "schema": false,
+  "ports": {
+    "4998/tcp": 4998,
+    "4999/tcp": 4999,
+    "5000/tcp": 5000,
+    "5001/tcp": 5001,
+    "5002/tcp": 5002,
+    "5003/tcp": 5003,
+    "5004/tcp": 5004,
+    "5005/tcp": 5005,
+    "5006/tcp": 5006,
+    "5007/tcp": 5007,
+    "9131/udp": 9131
+  },
+  "arch": [
+    "aarch64",
+    "amd64",
+    "armhf",
+    "i386"
+  ],
+  "auto_uart": true,
+  "map": [
+    "config:ro"
+  ],
+  "hassio_role": "default",
+  "host_network": false,
+  "gpio": true,
+  "auto_uart": true,
+  "devices": [ "/dev/ttyAMA0:/dev/ttyAMA0:rwm",
+	       "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
+  	     ],
+  "privileged": [ "SYS_RAWIO" ]
+}
