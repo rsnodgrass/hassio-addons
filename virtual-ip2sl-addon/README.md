@@ -7,8 +7,7 @@ Provides bidirectional TCP-to-serial access to physical serial ports connected t
 host running this microservice by emulating an iTach IP to Serial (IP2SL). Each instance
 of the Virtual IP2SL microservice can expose up to eight physical RS232 serial ports.
 
-This wraps the [standalone Virtual IP2SL](https://github.com/rsnodgrass/virtual-ip2sl) 
-microservice into an easy-to-install Home Assistant Hass.io Add-on.
+This wraps the [standalone Virtual IP2SL](https://github.com/rsnodgrass/virtual-ip2sl) microservice into an easy-to-install Home Assistant Hass.io Add-on.
 
 #### Install as a Hass.io Add-on
 
