@@ -9,6 +9,8 @@ of the Virtual IP2SL microservice can expose up to eight physical RS232 serial p
 
 This wraps the [standalone Virtual IP2SL](https://github.com/rsnodgrass/virtual-ip2sl) microservice into an easy-to-install Home Assistant Hass.io Add-on.
 
+Some improvements to error handling and dealing with conditions like missing serial devices still need to be implemented, but would be good to get feedback from other users. Also the multicast discovery beacon does not seem to be propagating beyond the Docker container (but manual IP and port configuration works fine).
+
 #### Install as a Hass.io Add-on
 
 1. In the Hass.io "Add-On Store" on your Home Assistant server, add this repository URL:
