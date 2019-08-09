@@ -21,12 +21,14 @@ microservice into an easy-to-install Home Assistant Hass.io Add-on.
 
 ## Hass.io Configuration
 
-See (additional tandalone configuration)[https://github.com/rsnodgrass/virtual-ip2sl] for additional discussion of
-options for how Virtual IP2SL can be configured. Since Virtual IP2SL uses YAML for configuration, any JSON configuration
+See [additional standalone configuration](https://github.com/rsnodgrass/virtual-ip2sl) for additional discussion of
+options for how Virtual IP2SL can be configured. 
+
+Since Virtual IP2SL uses YAML for configuration, any JSON configuration
 in the Hass.io configuration window is automatically converted to YAML and passed to your
 running Virtual IP2SL instance.
 
-Here is a simple example for a single USB serial port on a Raspberry Pi:
+Here is a simple example for a single USB serial port on a Raspberry Pi (the default config):
 
 ```json
 {
