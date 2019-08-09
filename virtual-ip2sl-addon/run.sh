@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Run script for use as Hass.io Add-On (passing in config options)
 HASS_CONFIG_PATH=/data/options.json
 
