@@ -10,10 +10,10 @@ LABEL authors="Ryan Snodgrass"
 
 # install git and Python3 environment
 RUN apk update \
- && apk add --no-cache bash git python3 \
+ && apk add --no-cache bash git python3 jq \
  && python3 -m ensurepip \
  && rm -r /usr/lib/python*/ensurepip \
- && pip3 install --upgrade pip setuptools jq yq \
+ && pip3 install --upgrade pip setuptools yq \
  && cd /usr/bin \
  && ln -sf pip3 pip \
  && ln -sf python3 python
