@@ -7,7 +7,8 @@ Provides bidirectional TCP-to-serial access to physical serial ports connected t
 host running this microservice by emulating an iTach IP to Serial (IP2SL). Each instance
 of the Virtual IP2SL microservice can expose up to eight physical RS232 serial ports.
 
-This wraps the [standalone Virtual IP2SL](https://github.com/rsnodgrass/virtual-ip2sl) into a Home Assistant Hass.io Add-on.
+This wraps the [standalone Virtual IP2SL](https://github.com/rsnodgrass/virtual-ip2sl) 
+microservice into an easy-to-install Home Assistant Hass.io Add-on.
 
 #### Install as a Hass.io Add-on
 
@@ -40,6 +41,6 @@ Here is a simple example for a single USB serial port on a Raspberry Pi:
 
 ## Community Support
 
-Links to several forums for community engagement around iTach Flex:
+Links to Home Assistant support forums:
 
 * https://community.home-assistant.io/t/itach-ip2sl/28805
