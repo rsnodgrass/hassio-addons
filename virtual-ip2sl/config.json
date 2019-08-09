@@ -14,8 +14,7 @@
       }
     }
   },
-  "schema": {
-  },
+  "schema": false,
   "ports": {
     "4998/tcp": 4998,
     "4999/tcp": 4999,
