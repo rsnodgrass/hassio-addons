@@ -116,7 +116,7 @@ Known clients which interface with the Multi-Zone Audio Serial Bridge:
 #### Unplanned
 
 * allow connecting as many amplifiers via serial ports as possible and controling through a single Bridge instance
-* add support for controlling devices connected over remote IP2SL connections (Global Cache iTach Flex or [Virtual IP2SL](https://github.com/rsnodgrass/hassio-addons/tree/master/virtual-ip2sl)); useful when the Xantech Serial Bridge can't physically be connected via serial to the amplifier
+* add support for controlling devices connected over remote IP2SL connections (Global Cache iTach Flex or [Virtual IP2SL](https://github.com/rsnodgrass/virtual-ip2sl))); useful when the Xantech Serial Bridge can't physically be connected via serial to the amplifier
 * configurable "maximum volume" for each zone, which cannot be exceeded by volume control API calls
 * virtual master/slave across several connected multi-zone amplifiers (including across multiple brands)
 * support publishing state change events to a MQTT broker
