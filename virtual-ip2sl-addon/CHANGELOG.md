@@ -1,5 +1,5 @@
-# Virtual IP2SL (IP to Serial)
+# Virtual IP2SL (IP to Serial) for Home Assistant
 
-## 0.0.1
+## 0.0.1 (2019-08-07)
 
-NOT YET WORKING!
+Initial release of the Hass.io add-on for Virtual IP2SL

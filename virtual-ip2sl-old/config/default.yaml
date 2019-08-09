@@ -1,6 +1,0 @@
-# Default config for a single USB serial adapter connected on /dev/ttyUSB0
-
-serial:
-  1: # port 1
-    path: /dev/ttyUSB0
-    baud: 9600

@@ -1,5 +1,0 @@
-serial:
-  1: # port 1
-    path: /dev/tty.usbserial
-    baud: 9600
-    flow: FLOW_NONE # flowcontrol = RS232

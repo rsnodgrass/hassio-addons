@@ -1,4 +1,0 @@
-pyserial==3.4
-pyyaml==5.1.1
-Flask==1.1.1
-flask_restplus==0.12.1
