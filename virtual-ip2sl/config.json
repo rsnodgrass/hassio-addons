@@ -7,7 +7,12 @@
   "startup": "services",
   "boot": "auto",
   "options": {
-    "replace this with": "your config file"
+    "serial": {
+      "1": {
+        "path": "/dev/ttyUSB0",
+        "baud": "9600"
+      }
+    }
   },
   "schema": {
   },
