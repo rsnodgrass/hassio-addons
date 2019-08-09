@@ -40,7 +40,27 @@ docker build -t virtual-ip2sl .
 docker run virtual-ip2sl
 ```
 
-## Configuration
+## Hass.io Configuration
+
+See Standalone Configuration below for additional discussion of options for how Virtual IP2SL
+can be configured. Since Virtual IP2SL uses YAML for configuration, any JSON configuration
+in the Hass.io configuration window is automatically converted to YAML and passed to your
+running Virtual IP2SL instance.
+
+Here is a simple example for a single USB serial port on a Raspberry Pi:
+
+```json
+{
+	"serial": {
+		"1": {
+			"path": "/dev/ttyUSB0",
+			"baud": "9600"
+		}
+	}
+}
+```
+
+## Standalone Configuration
 
 By default, the Virtual IP2SL is configured to open a single port attached 
 at 9600 baud to one USB serial port adapter on //dev/ttyUSB0. However, a
