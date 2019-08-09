@@ -24,7 +24,7 @@ RUN git clone https://github.com/rsnodgrass/virtual-ip2sl.git ${APP_DIR} \
 
 COPY . $APP_DIR
 
-EXPOSE 80 4998 4999 5000 5001 5002 5003 5004 5005 5006 5007 9131/udp
+EXPOSE 4998 4999 5000 5001 5002 5003 5004 5005 5006 5007 9131/udp
 
 WORKDIR $APP_DIR
 CMD [ "./run.sh" ]
