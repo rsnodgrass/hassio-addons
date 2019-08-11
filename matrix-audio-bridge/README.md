@@ -148,3 +148,19 @@ multi-zone amplifiers:
 * (https://www.avsforum.com/forum/36-home-v-distribution/1506842-any-experience-monoprice-6-zone-home-audio-multizone-controller-23.html)
 * (http://cocoontech.com/forums/topic/25893-monoprice-multi-zone-audio/)
 * (https://community.home-assistant.io/t/monoprice-whole-home-audio-controller-10761-success/19734/67)
+
+#### Possible Xantech DB15 to DB9 Pinouts
+
+Pending reply from Xantech support, but this MAY be the DB15 pinout:
+
+|                     | 9 pin | 15 pin | Direction |
+| ------------------- |:-----:|:------:|:---------:|
+| Carrier Detect      |   1   |   11   |     «—    |
+| Receive Data        |   2   |   13   |     «—    |
+| Transmit Data       |   3   |   12   |     —»    |
+| Data Terminal Ready |   4   |   10   |     —»    |
+| System Ground       |   5   | 1+8+15 |           |
+| Data Set Ready      |   6   |    3   |     «—    |
+| Request to Send     |   7   |    4   |     —»    |
+| Clear to Send       |   8   |    5   |     «—    |
+| Ring Indicator      |   9   |    6   |     «—    |
