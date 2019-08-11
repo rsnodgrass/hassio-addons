@@ -21,6 +21,7 @@ of Xantech's original RS232 serial control protocol.
 |               | MRC88 / MRC88m / MX88 / MX88vi | 8     | YES       | audio + video; zones 7-8 are preamp only; vi = added direct IP control (MRIP) |
 |               | MRAUDIO4X4 / BXAUDIO4x4         | 4     | *NO*      | audio only; 4-zone uses different protocol |
 |               | MRC44 / MRC44CTL                | 4     | *NO*      | audio + video; 4-zone uses different protocol |
+|               | CM8X8DR                         | 8     | *MAYBE*   | commercial rack mount A/V matrix controller |
 | Monoprice     | MPR-SG6Z / 10761                | 6     | *MAYBE*   | audio only; mid-fi version of Xantech |
 | Dayton Audio  | DAX66                           | 6     | *MAYBE*   | audio only; mid-fi version of Xantech |
 | Anthem        | MDX-8                           | 4     | *NO*      | RS232 specification available, but not yet implemented |
