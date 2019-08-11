@@ -17,8 +17,10 @@ of Xantech's original RS232 serial control protocol.
 
 | Manufacturer  | Model(s)                        | Zones | Supported | Notes |
 | ------------- | ------------------------------- |:-----:|:---------:| ----- |
-| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m / MX88a / MX88ai | 8     | YES       | audio only; zones 7-8 are preamp only; ai = added direct IP control (MRIP) |
-|               | MRC88 / MRC88m / MX88 / MX88vi | 8     | YES       | audio + video; zones 7-8 are preamp only; vi = added direct IP control (MRIP) |
+| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m        | 6+2   | YES       | audio only; zones 7-8 are preamp only |
+|               | MX88a / MX88ai                  | **8** | YES       | audio only; ai = added direct IP control (MRIP) |
+|               | MRC88 / MRC88m                  | 6+2   | YES       | audio + video; zones 7-8 are preamp only |
+|               | MX88 / MX88vi                   | **8** | YES       | audio + video; vi = added direct IP control (MRIP) |
 |               | MRAUDIO4X4 / BXAUDIO4x4         | 4     | *NO*      | audio only; 4-zone uses different protocol |
 |               | MRC44 / MRC44CTL                | 4     | *NO*      | audio + video; 4-zone uses different protocol |
 |               | CM8X8 / CM8X8DR                 | 8     | *MAYBE*   | commercial rack mount matrix controller (BNC) |
