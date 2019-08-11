@@ -15,19 +15,19 @@ of Xantech's original RS232 serial control protocol.
 
 #### Supported Amplifiers/Controllers
 
-| Manufacturer  | Model(s)                        | Zones | Supported | Notes |
-| ------------- | ------------------------------- |:-----:|:---------:| ----- |
-| Xantech       | MRAUDIO8X8 / MRAUDIO8X8m        | 6+2   | YES       | audio only; zones 7-8 are preamp only |
-|               | MX88a / MX88ai                  | **8** | YES       | audio only; ai = Ethernet support (MRIP) |
-|               | MRC88 / MRC88m                  | 6+2   | YES       | audio + video; zones 7-8 are preamp only |
-|               | MX88 / MX88vi                   | **8** | YES       | audio + video; vi = Ethernet support (MRIP) |
-|               | MRAUDIO4X4 / BXAUDIO4x4         | 4     | *NO*      | audio only; 4-zone uses different protocol |
-|               | MRC44 / MRC44CTL                | 4     | *NO*      | audio + video; 4-zone uses different protocol |
-|               | CM8X8 / CM8X8DR                 | 8     | *MAYBE*   | commercial rack mount matrix controller (BNC) |
-| Monoprice     | MPR-SG6Z / 10761                | 6     | *MAYBE*   | audio only; mid-fi version of Xantech |
-| Dayton Audio  | DAX66                           | 6     | *MAYBE*   | audio only; mid-fi version of Xantech |
-| Anthem        | MDX-8                           | 4     | *NO*      | RS232 specification available, but not yet implemented |
-| Anthem        | MDX-16                          | 8     | *NO*      | RS232 specification available, but not yet implemented |
+| Manufacturer | Model(s)                 | Zones | Supported | Notes |
+| ------------ | ------------------------ |:-----:|:---------:| ----- |
+| Xantech      | MRAUDIO8X8 / MRAUDIO8X8m | 6+2   | YES       | audio only; zones 7-8 are preamp outputs only |
+|              | MX88a / MX88ai           | **8** | YES       | audio only; ai = Ethernet support (MRIP) |
+|              | MRC88 / MRC88m           | 6+2   | YES       | audio + video; zones 7-8 are preamp outputs only |
+|              | MX88 / MX88vi            | **8** | YES       | audio + video; vi = Ethernet support (MRIP) |
+|              | MRAUDIO4X4 / BXAUDIO4x4  | 4     | *NO*      | audio only; 4-zone uses different protocol |
+|              | MRC44 / MRC44CTL         | 4     | *NO*      | audio + video; 4-zone uses different protocol |
+|              | CM8X8 / CM8X8DR          | 8     | *MAYBE*   | commercial rack mount matrix controller (BNC) |
+| Monoprice    | MPR-SG6Z / 10761         | 6     | *MAYBE*   | audio only; mid-fi version of Xantech |
+| Dayton Audio | DAX66                    | 6     | *MAYBE*   | audio only; mid-fi version of Xantech |
+| Anthem       | MDX-8                    | 4     | *NO*      | RS232 specification available, but not yet implemented |
+| Anthem       | MDX-16                   | 8     | *NO*      | RS232 specification available, but not yet implemented |
 
 * The [Monoprice MPR-SG6Z](https://www.monoprice.com/product?p_id=10761) and
   [Dayton Audio DAX66](https://www.parts-express.com/dayton-audio-dax66-6-source-6-room-distributed-whole-house-audio-system-with-keypads-25-wpc--300-585)
