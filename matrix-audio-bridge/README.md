@@ -32,11 +32,11 @@ of Xantech's original RS232 serial control protocol.
   appear to have licensed or copies the serial interface from Xantech. Both Monoprice
   and Dayton Audio use a version of the Xantech multi-zone controller protocol.
 
-* Some Xantech MX88 models use DB15 outputs on the rear, requiring a DB15 to DB9 adapter cable (PN 05913665). The pinouts of 05913665 are not currently documented. These Xantech models have a DB9 RS232 port on the front which can also be used.
+* Some Xantech MX88 models use DB15 outputs on the rear, requiring a DB15 to DB9 adapter cable (PN 05913665). The pinouts of 05913665 are not currently documented ([possibly DB15-DB9 modem cable](https://www.aggsoft.com/rs232-pinout-cable/modem-db9-to-db15.htm)). These Xantech models have a DB9 RS232 port on the front which can also be used.
 
 While some amplifiers (e.g. Xantech and Monoprice) support expanding the number of zones
 by connecting two (or three) amplifiers together, the *Matrix Audio Serial Bridge* enables
-an "unlimited" number of amplifiers to be controlled via a REST interface.
+an "unlimited" number of amplifiers to be controlled via a REST interface, of any model.
 
 ## Installation
 
