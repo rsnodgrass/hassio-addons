@@ -1,4 +1,4 @@
-# Matrix Audio Serial Bridge (Hass.io Add-On)
+# Matrix Audio Bridge (Hass.io Add-On)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
@@ -37,7 +37,7 @@ of Xantech's original RS232 serial control protocol.
 * Some Xantech MX88 models use DB15 outputs on the rear, requiring a DB15 to DB9 adapter cable (PN 05913665). The pinouts of 05913665 are not currently documented ([possibly DB15-DB9 modem cable](https://www.aggsoft.com/rs232-pinout-cable/modem-db9-to-db15.htm)). These Xantech models have a DB9 RS232 port on the front which can also be used.
 
 While some amplifiers (e.g. Xantech and Monoprice) support expanding the number of zones
-by connecting two (or three) amplifiers together, the *Matrix Audio Serial Bridge* enables
+by connecting two (or three) amplifiers together, the *Matrix Audio Bridge* enables
 an "unlimited" number of amplifiers to be controlled via a REST interface, of any model.
 
 ## Installation
@@ -58,11 +58,11 @@ docker build -t xantech-serial-bridge .
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 
-2. Find the "Multi-Zone Audio Serial Bridge" in the list of add-ons and click Install
+2. Find the "Multi-Zone Audio Bridge" in the list of add-ons and click Install
 
 ## Configuration
 
-The zone and source names are optionally configurable on the Multi-Zone Audio Serial Bridge
+The zone and source names are optionally configurable on the Multi-Zone Audio Bridge
 as opposed to on the client side (like in Home Assistant configuration) since there may
 be multiple clients that are accessing the Bridge's APIs, for instance a standalone
 Alexa, SmartThings, iOS, Apple Watch integrations or directly via a browser. This reduces
@@ -106,7 +106,7 @@ curl -X POST http://localhost:5000/xantech/zones/4/mute/on
 
 # Client Registry
 
-Known clients which interface with the Multi-Zone Audio Serial Bridge:
+Known clients which interface with the Multi-Zone Audio Bridge:
 
 * [Multi-Zone Audio Control add-on](https://github.com/rsnodgrass/hass-integrations/tree/master/custom_components/xantech_mza) for [Home Assistant](https://home-assistant.io)
 
@@ -121,7 +121,7 @@ Known clients which interface with the Multi-Zone Audio Serial Bridge:
 #### Unplanned
 
 * allow connecting as many amplifiers via serial ports as possible and controling through a single Bridge instance
-* add support for controlling devices connected over remote IP2SL connections (Global Cache iTach Flex or [Virtual IP2SL](https://github.com/rsnodgrass/virtual-ip2sl))); useful when the Xantech Serial Bridge can't physically be connected via serial to the amplifier
+* add support for controlling devices connected over remote IP2SL connections (Global Cache iTach Flex or [Virtual IP2SL](https://github.com/rsnodgrass/virtual-ip2sl))); useful when the Matrix Audio Bridge can't physically be connected via serial to the amplifier
 * configurable "maximum volume" for each zone, which cannot be exceeded by volume control API calls
 * virtual master/slave across several connected multi-zone amplifiers (including across multiple brands)
 * support publishing state change events to a MQTT broker

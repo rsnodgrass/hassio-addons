@@ -1,3 +1,3 @@
-# Serial Smart Bridge
+# Matrix Audio Bridge
 
 ## UNRELEASED
