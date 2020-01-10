@@ -21,5 +21,12 @@ fi
 bashio::log.warning "socat is not yet implemented"
 
 # iterate through each configured post and create
-# socat pty,link=$HOME/dev/ttyV0,waitslave tcp:remoteip:remoteport
+# socat pty,link=$HOME/dev/ttyV0,waitslave tcp:remoteip:remoteport    # ,fork
+# WAIT_PIDS+=($!)
+
+# Wait and hold Add-on running while any socat processes are still running
+#wait "${WAIT_PIDS[@]}"
+
+# FIXME: how to handle shutdown gracefully?
+
 
