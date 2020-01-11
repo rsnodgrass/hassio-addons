@@ -57,3 +57,8 @@ This also supports Hass.io log levels, with setting info and debug levels increa
 - [Virtual IP2SL](https://github.com/rsnodgrass/virtual-ip2sl)
 - [socat](https://linux.die.net/man/1/socat)
 - [ser2net](https://linux.die.net/man/8/ser2net)
+
+
+## Post Here When Ready
+
+* https://community.home-assistant.io/t/missing-command-like-socat-on-hassio/100362/11

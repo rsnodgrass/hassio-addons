@@ -18,6 +18,7 @@ else
     LOG_LEVEL_FLAGS = "-d"
 fi
 
+
 bashio::log.warning "socat is not yet implemented"
 
 # iterate through each configured post and create

@@ -1,32 +1,14 @@
 {
-  "name": "SOcket CAT (socat) Multipurpose Relay",
+  "name": "SOcket CAT (socat)",
   "version": "0.0.1",
   "slug": "socat",
-  "description": "Generic /dev/* relay to communicate with remote network accessible devices",
+  "description": "Generic /dev/tty relay to communicate with remote serial devices",
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/hassio-socat",
   "startup": "services",
   "boot": "auto",
-  "ports": {},
-  "arch": [
-    "aarch64",
-    "amd64",
-    "armhf",
-    "i386"
-  ],
-  "auto_uart": true,
-  "options": {
-	"pty": "string"
-  },
-  "schema": {
-    "pty": ""
-  },
-  "environment": {},
-  "map": [
-    "config:ro"
-  ],
-  "hassio_role": "default",
-  "host_network": false,
-  "gpio": false,
-  "devices": [ ],
-  "privileged": [ ]
+  "arch": [ "aarch64", "amd64", "armhf", "i386" ],
+  "options": {},
+  "schema": false,
+  "map": [ "share:rw" ],
+  "devices": [ "/dev/tty-socat:/dev/tty-socat:rwm" ],
 }
