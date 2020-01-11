@@ -1,17 +1,12 @@
 ARG BUILD_FROM=hassioaddons/base
 FROM $BUILD_FROM
-# alpine/socat
-
-ARG BUILD_ARCH
-ARG BUILD_VERSION
+# alternative: alpine/socat
 
 LABEL authors="rsnodgrass@"
 
-RUN apk add --update socat bash && \
-    rm -rf /var/cache/apk/*
+RUN apk add --no-cache socat jq bash
 
-ENV APP_DIR=/app
-ADD . $APP_DIR
-WORKDIR $APP_DIR
+COPY run.sh /
+RUN chmod a+x /run.sh
 
 CMD [ "./run.sh" ]
