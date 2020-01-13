@@ -1,4 +1,4 @@
-# SOcket CAT (socat) Multipurpose Relay Hass.io Add-On
+# SOcket CAT (socat) Remote Serial Device Hass.io Add-On
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -10,7 +10,6 @@ been limited to support pseudo-terminal (pty) dervices only, for the following r
 
 * the goal was to expose virtual tty devices to HA components that rely on reading/writing to local /dev/tty* for communicating with devices
 * for security reasons (e.g. no ability to start listeners or interact with the local filesystem on a Home Assistant instance)
-
 
 #### Use Cases
 
@@ -33,10 +32,10 @@ Example config in Hass.io:
 ```
 pty:
   - dev: stereo
-    connection: "typ:10.10.1.33:4999"
+    remote_address: "tcp:10.10.1.33:4999"
   - dev: pool-controller
-    connection: "typ:10.10.1.12:5002"
-    options: pass additional options to socat
+    remote_address: "tcp:10.10.1.12:5002"
+    pty_options: "waitslave"
 ```
 
 This will translate into executing on Home Assistant:
@@ -45,6 +44,8 @@ This will translate into executing on Home Assistant:
 % socat pty,link=$HOME/dev/stereo,waitslave tcp:10.10.1.33:4999
 % socat pty,link=$HOME/dev/pool-controller,waitslave tcp:10.10.1.12:5002
 ```
+
+The `remote_address` option is the second address argument passed into socat.
 
 ## Debugging
 
@@ -57,7 +58,6 @@ This also supports Hass.io log levels, with setting info and debug levels increa
 - [Virtual IP2SL](https://github.com/rsnodgrass/virtual-ip2sl)
 - [socat](https://linux.die.net/man/1/socat)
 - [ser2net](https://linux.die.net/man/8/ser2net)
-
 
 ## Post Here When Ready
 
