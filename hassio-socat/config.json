@@ -10,5 +10,5 @@
   "options": {},
   "schema": false,
   "map": [ "share:rw" ],
-  "devices": [ "/dev/tty-socat:/dev/tty-socat:rwm" ],
+  "devices": [ "/dev/tty-socat:/dev/tty-socat:rwm" ]
 }

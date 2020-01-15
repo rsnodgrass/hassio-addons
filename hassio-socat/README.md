@@ -31,18 +31,21 @@ Example config in Hass.io:
 
 ```
 pty:
-  - dev: stereo
+  - dev: marantz-stereo
     remote_address: "tcp:10.10.1.33:4999"
   - dev: pool-controller
     remote_address: "tcp:10.10.1.12:5002"
     pty_options: "waitslave"
+  - dev: monoprice
+    remote_address: "tcp:10.10.1.12:4999"
 ```
 
 This will translate into executing on Home Assistant:
 
 ```
-% socat pty,link=$HOME/dev/stereo,waitslave tcp:10.10.1.33:4999
-% socat pty,link=$HOME/dev/pool-controller,waitslave tcp:10.10.1.12:5002
+% socat -d -d pty,link=$HOME/dev/marantz-stereo tcp:10.10.1.33:4999
+% socat -d -d pty,link=$HOME/dev/pool-controller,waitslave tcp:10.10.1.12:5002
+% socat -d -d pty,link=$HOME/dev/monoprice tcp:10.10.1.12:4999
 ```
 
 The `remote_address` option is the second address argument passed into socat.
