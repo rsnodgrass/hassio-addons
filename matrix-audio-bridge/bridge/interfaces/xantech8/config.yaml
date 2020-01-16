@@ -1,21 +1,34 @@
 xantech8:
-  name: "Monoprice 6-Zone Audio"
-  num_zones: 6
-  num_sources: 6
+  name: "Xantech 8-Zone Audio"
+  num_zones: 8
+  num_sources: 8
 
   hardware_volume_steps: 38
-  hardware_treble_steps: 14
-  hardware_bass_steps: 14
-  hardware_balance_steps: 20
 
   # NOTE: this was actually Monoprice's zone pattern
   protocol:
     zone_pattern: '#>(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)'
     eol: '\r\n#'
+    
     serial_timeout :2
+ 
+  protocol_supported:
+    PO: true  # power (Xantech)
+    PR: false # power (Monoprice/Dayton Audio)
+    SS: true  # source select (Xantech)
+    CH: false # source channel (Monoprice/Dayton Audio)
+    VO: true  # volume
+    MU: true  # mute
+    TR: true  # treble
+    BS: true  # bass
+    BA: true  # balance
+    LS: true  # linked keypad
+    PS: true  # paged (Xantech)
+    DT: false # do-not-disturb (Monoprice/Dayton Audio)
+    PA: false # public-address-12v-control (Monoprice/Dayton Audio)
+    IS: false # input line 1 or bus 0 (Monoprice/Dayton Audio)
 
-
-  # These are all Monoprice protocol details
+# These are all Monoprice protocol details
   requests:
     zone_status: '?{}\r'
     set_power:   '<{}PR{}\r'    # zone / '01' or '00'
