@@ -17,14 +17,16 @@ xantech8:
 
   # These are all Monoprice protocol details
   requests:
-    zone_status: '?{}\r'
-    set_power:   '<{}PR{}\r'    # zone / '01' or '00'
-    set_mute:    '<{}MU{}\r'    # zone / '01' or '00'
-    set_volume:  '<{}VO{:02}\r' # zone / 0-38
-    set_treble:  '<{}TR{:02}\r' # zone / 0-14
-    set_bass:    '<{}BS{:02}\r' # zone / 0-14
-    set_balance: '<{}BL{:02}\r' # zone / 0-20
-    set_source:  '<{}CH{:02}\r' # zone / 0-6
+    eol: '\r'
+    
+    zone_status: '?{zone}'
+    set_power:   '<{zone}PR{state}'    # zone / '01' or '00'
+    set_mute:    '<{zone}MU{state}'    # zone / '01' or '00'
+    set_volume:  '<{zone}VO{:02}' # zone / 0-38
+    set_treble:  '<{zone}TR{:02}' # zone / 0-14
+    set_bass:    '<{zone}BS{:02}' # zone / 0-14
+    set_balance: '<{zone}BL{:02}' # zone / 0-20
+    set_source:  '<{zone}CH{:02}' # zone / 0-6
 
   bass_level:
     unit: dB

@@ -29,15 +29,44 @@ xantech8:
     IS: false # input line 1 or bus 0 (Monoprice/Dayton Audio)
 
 # These are all Monoprice protocol details
-  requests:
-    zone_status: '?{}\r'
-    set_power:   '<{}PR{}\r'    # zone / '01' or '00'
-    set_mute:    '<{}MU{}\r'    # zone / '01' or '00'
-    set_volume:  '<{}VO{:02}\r' # zone / 0-38
-    set_treble:  '<{}TR{:02}\r' # zone / 0-14
-    set_bass:    '<{}BS{:02}\r' # zone / 0-14
-    set_balance: '<{}BL{:02}\r' # zone / 0-20
-    set_source:  '<{}CH{:02}\r' # zone / 0-6
+  queries:
+    prefix: '?'
+    eol: ''
+
+  commands:
+    prefix: '!' 
+    eol: '+'
+
+    zone_status:   '?{}' #????
+
+    power_on:      '!{zone}PR1'
+    power_off:     '!{zone}PR0'
+
+    mute_on:       '!{zone}MU1'
+    mute_off:      '!{zone}MU0'
+
+    volume_up:     '!{zone}VI'
+    volume_down:   '!{zone}VD'
+    set_volume:    '!{zone}VO{:02}' # zone / level 0-38
+
+    source_select: '!{zone}SS{source}'
+
+    balance_left:  '!{zone}BL'
+    balance_right: '!{zone}BR'
+
+    bass_up:       '!{zone}BI'
+    bass_down:     '!{zone}BD'
+
+    balance_left:  '!{zone}BL'
+    balance_right: '!{zone}BR'
+
+    treble_up:     '!{zone}TI'
+    treble_down:   '!{zone}TD'
+
+#    set_treble:  '<{zone}TR{:02}' # zone / level 0-14
+#    set_bass:    '<{zone}BS{:02}' # zone / level 0-14
+#    set_balance: '<{zone}BL{:02}' # zone / level 0-20
+#    set_source:  '<{zone}CH{:02}' # zone / 0-6
 
   bass_level:
     unit: "dB"
@@ -109,3 +138,9 @@ xantech8:
    switched:
       -  "on": "01" # FIXME: Monoprice is 2-digit, what about Xantech?
       - "off": "00"
+
+   default_sources:
+      - "1": "Sonos"
+      - "2": "CD"
+      - "3": "DVD"
+      
