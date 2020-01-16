@@ -15,5 +15,7 @@ Additional custom components for the [Home Assistant](https://home-assistant.io)
 | Component                        | Description |
 | -------------------------------- | ----------- |
 | [Flo Water Sensor](https://github.com/rsnodgrass/hass-flo-water/) | support for the Flo water monitoring and control system |
+| [Lunos Ventilation](https://github.com/rsnodgrass/hass-lunos/) | support for Lunos HRV and ventilation systems |
 | [Pool Math](https://github.com/rsnodgrass/hass-poolmath/) | support for data collected in Pool Math by Trouble Free Pool |
 | [Xantech Matrix Audio Control](https://github.com/rsnodgrass/hass-matrix-audio/) | support for Xantech multi-zone audio controllers/amplifiers with RS232 interfaces |
+
