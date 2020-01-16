@@ -34,34 +34,35 @@ xantech8:
     eol: ''
 
   commands:
-    prefix: '!' 
-    eol: '+'
+    zone_details:  '?{zone}ZD+' # zone details
 
-    zone_status:   '?{}' #????
+    power_on:      '!{zone}PR1+'
+    power_off:     '!{zone}PR0+'
+    all_zones_off: '!A0+'
 
-    power_on:      '!{zone}PR1'
-    power_off:     '!{zone}PR0'
+    mute_on:       '!{zone}MU1+'
+    mute_off:      '!{zone}MU0+'
 
-    mute_on:       '!{zone}MU1'
-    mute_off:      '!{zone}MU0'
+    volume_up:     '!{zone}VI+'
+    volume_down:   '!{zone}VD+'
+    set_volume:    '!{zone}VO{:02}+' # zone / level 0-38
 
-    volume_up:     '!{zone}VI'
-    volume_down:   '!{zone}VD'
-    set_volume:    '!{zone}VO{:02}' # zone / level 0-38
+    source_select: '!{zone}SS{source}+'
 
-    source_select: '!{zone}SS{source}'
+    balance_left:  '!{zone}BL+'
+    balance_right: '!{zone}BR+'
 
-    balance_left:  '!{zone}BL'
-    balance_right: '!{zone}BR'
+    bass_up:       '!{zone}BI+'
+    bass_down:     '!{zone}BD+'
 
-    bass_up:       '!{zone}BI'
-    bass_down:     '!{zone}BD'
+    balance_left:  '!{zone}BL+'
+    balance_right: '!{zone}BR+'
 
-    balance_left:  '!{zone}BL'
-    balance_right: '!{zone}BR'
+    treble_up:     '!{zone}TI+'
+    treble_down:   '!{zone}TD+'
 
-    treble_up:     '!{zone}TI'
-    treble_down:   '!{zone}TD'
+    disable_activity_updates: '!ZA0+'
+    disable_status_updates:   '!ZP0+'
 
 #    set_treble:  '<{zone}TR{:02}' # zone / level 0-14
 #    set_bass:    '<{zone}BS{:02}' # zone / level 0-14

@@ -27,13 +27,13 @@ class XantechPowerOff(Resource):
         return {}
 
 @ns.route('/mute/on')
-class XantechPowerOn(Resource):
+class XantechMuteOn(Resource):
     def get(self):
         xantechInterface.write_to_all_zones("!{}MU1+")
         return {}
 
 @ns.route('/mute/off')
-class XantechPowerOff(Resource):
+class XantechMuteOff(Resource):
     def get(self):
         xantechInterface.write_to_all_zones("!{}MU0+")
         return {}
