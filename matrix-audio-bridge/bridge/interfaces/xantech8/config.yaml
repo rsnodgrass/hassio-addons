@@ -9,10 +9,9 @@ xantech8:
   protocol:
     zone_pattern: '#>(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)'
     eol: '\r\n#'
-    
-    serial_timeout :2
+    serial_timeout: 2
  
-  protocol_supported:
+  zone_details_supported:
     PO: true  # power (Xantech)
     PR: false # power (Monoprice/Dayton Audio)
     SS: true  # source select (Xantech)
@@ -27,11 +26,6 @@ xantech8:
     DT: false # do-not-disturb (Monoprice/Dayton Audio)
     PA: false # public-address-12v-control (Monoprice/Dayton Audio)
     IS: false # input line 1 or bus 0 (Monoprice/Dayton Audio)
-
-# These are all Monoprice protocol details
-  queries:
-    prefix: '?'
-    eol: ''
 
   commands:
     zone_details:  '?{zone}ZD+' # zone details
@@ -136,12 +130,12 @@ xantech8:
    # units: "dB"
    #  steps:
 
-   switched:
-      -  "on": "01" # FIXME: Monoprice is 2-digit, what about Xantech?
-      - "off": "00"
+  switched:
+    -  "on": "01" # FIXME: Monoprice is 2-digit, what about Xantech?
+    - "off": "00"
 
-   default_sources:
-      - "1": "Sonos"
-      - "2": "CD"
-      - "3": "DVD"
+  default_sources:
+    - "1": "Sonos"
+    - "2": "CD"
+    - "3": "DVD"
       

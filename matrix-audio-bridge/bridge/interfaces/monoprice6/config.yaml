@@ -12,8 +12,7 @@ xantech8:
   protocol:
     zone_pattern: '#>(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)'
     eol: '\r\n#'
-    serial_timeout :2
-
+    serial_timeout: 2
 
   # These are all Monoprice protocol details
   requests:

@@ -1,3 +1,5 @@
+# NOTE: would have used Sanic, but wasn't as familiar with it vs flask at the time
+
 import os
 import yaml
 import logging.config
