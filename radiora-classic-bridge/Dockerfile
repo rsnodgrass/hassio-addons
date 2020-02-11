@@ -20,7 +20,7 @@ RUN apk update \
 # install Homemation's latest Lutron RadioRA Classic Bridge
 ARG APP_DIR="/homemations/Lutron RadioRA Classic/Bridge"
 
-RUN git clone https://github.com/rsnodgrass/SmartThings/ /homemations \
+RUN git clone https://github.com/rsnodgrass/Homemations-SmartThings/ /homemations \
  && pip install --no-cache-dir -r "${APP_DIR}/requirements.txt"
 
 # FUTURE: overwrite the default db.sqlite with our defaults (until better config option exists)
