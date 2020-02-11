@@ -1,6 +1,6 @@
 {
-  "name": "RadioRA Classic Smart Bridge",
-  "version": "1.2.0",
+  "name": "Lutron RadioRA Classic Smart Bridge",
+  "version": "1.2.1",
   "slug": "radiora-classic-bridge",
   "description": "Communication interface to Lutron RadioRA Classic RS232 hardware interfaces",
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/radiora-classic-bridge",
