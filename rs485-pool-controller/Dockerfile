@@ -16,14 +16,15 @@ RUN apk update \
             python \
             linux-headers
 
-ARG APP_DIR="/app"
-WORKDIR $APP_DIR
+WORKDIR /app
 
 RUN npm install
 
 # install latest released versions (FIXME: what is the update strategy for exposing to HASSIO?)
-RUN git clone https://github.com/tagyoureit/nodejs-poolController $APP_DIR/server \
- && git clone https://github.com/crsherman/nodejs-poolController-mqtt $APP_DIR/mqtt
-# && git clone https://github.com/bsileo/hubitat_poolcontroller $APP_DIR/hubitat
+RUN git clone https://github.com/tagyoureit/nodejs-poolController      /app/server \
+ && git clone https://github.com/crsherman/nodejs-poolController-mqtt  /app/mqtt
+# && git clone https://github.com/bsileo/hubitat_poolcontroller        /app/hubitat
+
+COPY run.sh /app
 
 CMD [ "./run.sh" ]

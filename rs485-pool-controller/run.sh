@@ -7,4 +7,6 @@ TARGET="$(bashio::config 'target')"
 # - convert HASSIO config.json and apply to nodejs-poolController config style
 # - start MQTT bridge as well
 
+# FIXME: run out of server dir
+
 npm start $CONFIG_PATH
