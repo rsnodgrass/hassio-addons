@@ -78,7 +78,7 @@ your pool equipment. There is no input validation as the complex configuration i
 
 #### MQTT Sensor Configuration
 
-Ideally, sensors/switches would automatically be created in Home Assistant using either a HACS integration, or via Home Assistant integrated discovery. However, currently this requires manual configuration.yaml additions.
+Ideally, sensors/switches would automatically be created in Home Assistant using either a HACS integration, or via Home Assistant integrated discovery, or via configured sensors from nodejs-poolController.  However, currently this requires manual configuration.yaml additions.
 
 Examples:
 
@@ -99,7 +99,7 @@ switch:
     state_topic: "home/swg"
     payload_on: "on"
     payload_off: "off"
- ``
+```
  
 #### Lovelace
 
