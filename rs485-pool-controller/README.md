@@ -94,8 +94,12 @@ sensor:
 switch:
   - platform: mqtt
     name: "Salt Chlorinator"
+    icon: mdi:switch
     command_topic: "home/swg/set"
-```
+    state_topic: "home/swg"
+    payload_on: "on"
+    payload_off: "off"
+ ``
  
 #### Lovelace
 
