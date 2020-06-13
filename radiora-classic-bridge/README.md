@@ -8,6 +8,7 @@
 
 #### TODO
 
+* figure out the HASS.IO update strategy to keep the dependencies up-to-date when new versions are released (without me having to release new versions)
 * also possibly add [Hubitat/SmartThings Pool Controller](https://github.com/bsileo/hubitat_poolcontroller) to the Docker image?
 
 ### Supported Pool Devices
