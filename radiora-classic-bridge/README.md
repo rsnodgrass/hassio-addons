@@ -4,11 +4,11 @@
 
 # DOES NOT WORK YET
 
-[Hass.io](https://www.home-assistant.io/hassio/) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up  [nodejs-poolController](https://github.com/bsileo/hubitat_poolcontroller) and [poolController-MQTT](https://github.com/crsherman/nodejs-poolController-mqtt) into a Hass.io compatible add-one package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
+[Hass.io](https://www.home-assistant.io/hassio/) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, and other controls compatible with the Pentair RS485 serial bus communication protocol. This packages up  [nodejs-poolController](https://github.com/bsileo/hubitat_poolcontroller) and [poolController-MQTT](https://github.com/crsherman/nodejs-poolController-mqtt) into a Hass.io compatible add-one package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
 
 #### TODO
 
-* figure out the HASS.IO update strategy to keep the dependencies up-to-date when new versions are released (without me having to release new versions)
+* figure out the HASS.IO update strategy to keep the dependencies up-to-date when new versions are released (without having to manually release new versions of the HASS.IO add-on)
 * also possibly add [Hubitat/SmartThings Pool Controller](https://github.com/bsileo/hubitat_poolcontroller) to the Docker image?
 
 ### Supported Pool Devices
