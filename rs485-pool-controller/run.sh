@@ -6,7 +6,7 @@ MQTT_BROKER_ADDRESS="$(bashio::config 'mqtt_address')"
 MQTT_USERNAME="$(bashio::config 'mqtt_username')"
 MQTT_PASSWORD="$(bashio::config 'mqtt_password')"
 
-# support RS485-over-IP remote devices using SOcketCAT, e.g. SOCAT_ADDRESS="TCP4:192.168.1.44:80"
+# support RS485-over-IP to control remote devices using SOcketCAT
 SOCAT_OPTIONS="$(bashio::config 'socat')"
 if [ ! -z "$SOCAT_OPTIONS" ]
 then

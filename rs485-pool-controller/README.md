@@ -74,11 +74,36 @@ The configuration of the RS485 Pool Controller will take some time and technical
 In the "Config" JSON text box in the RS485 Pool Controller add-on page, copy and paste the JSON configuration for
 your pool equipment. There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for several example configurations.
 
-#### Step 5 Details: Setting up SmartThings Integration
+## Home Assistant 
 
-See [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) project for how to install the SmartApp and Device Handlers via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/). 
+#### MQTT Sensor Configuration
 
-FUTURE: The *outputToSmartThings* interface to the nodejs-poolController is already added to the Node.js service as part of this Hass.io add-on.
+Ideally, sensors/switches would automatically be created in Home Assistant using either a HACS integration, or via Home Assistant integrated discovery. However, currently this requires manual configuration.yaml additions.
+
+Examples:
+
+```yaml
+sensor:
+  - platform: mqtt
+    name: "Pool Temperature"
+    state_topic: "home/pool/temperature"
+  - platform: mqtt
+    name: "Salt Level"
+    state_topic: "home/swg/level"
+
+switch:
+  - platform: mqtt
+    name: "Salt Chlorinator"
+    command_topic: "home/swg/set"
+```
+ 
+#### Lovelace
+
+Examples:
+
+```yaml
+entities:
+```
 
 # Known Issues
 
