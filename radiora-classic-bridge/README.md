@@ -1,43 +1,86 @@
-# RadioRA Classic Smart Bridge (Hass.io Add-On)
+# RS485 Pool Controller (Hass.io Add-On)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-**NOT YET WORKING**
 
-This [Hass.io](https://www.home-assistant.io/hassio/) add-on integrates [Lutron's](http://lutron.com/) original RadioRA Classic (aka legacy or RadioRA 1) light switches and zone controls with [Home Assistant](https://www.home-assistant.io/) by packaging up [Homemation's RadioRA Classic Smart Bridge](https://github.com/homemations/SmartThings). The host running Hass.io with the RadioRA Classic Smart Bridge must be connected via RS-232 cable to the RadioRA Classic hardware interface.
+[Hass.io](https://www.home-assistant.io/hassio/) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up  [nodejs-poolController](https://github.com/bsileo/hubitat_poolcontroller) and [poolController-MQTT](https://github.com/crsherman/nodejs-poolController-mqtt) into a Hass.io compatible add-one package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
+
+#### TODO
+
+* also possibly add [Hubitat/SmartThings Pool Controller](https://github.com/bsileo/hubitat_poolcontroller) to the Docker image?
+
+### Supported Pool Devices
+
+For comprehensive details on the latest supported devices, see the release notes for the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController).
+
+#### Controllers
+
+| Hardware                                                                                                                 | Models | Notes                                                             |
+| ------------------------------------------------------------------------------------------------------------------------ | ------ | ----------------------------------------------------------------- |
+| [Pentair IntelliTouch](https://www.pentair.com/en/products/pool-spa-equipment/pool-automation/intellitouch_systems.html) |        |                                                                   |
+| Pentair EasyTouch                                                                                                        |        |                                                                   |
+| Pentair IntelliCom II                                                                                                    |        |                                                                   |
+| Pentair SunTouch                                                                                                         |        |                                                                   |
+| [Intermatic PE653RC](https://www.intermatic.com/en/pool-and-spa/electronic-controls/pe653rc)                             |        | Unknown if supported; (plus expansion modules P5043ME, PE25065RC) |
+
+#### Pumps
+
+| Hardware           | Models | Notes |
+| ------------------ | ------ | ----- |
+| Pentair IntelliFlo |        |       |
+
+#### Chlorinators
+
+| Hardware             | Models | Notes |
+| -------------------- | ------ | ----- |
+| Hayward AquaRite     |        |       |
+| Pentair IntelliChlor |        |       |
+
+#### Lights
+
+| Hardware             | Models | Notes |
+| -------------------- | ------ | ----- |
+| Pentair IntelliBrite |        |       |
 
 ### Required Hardware
 
-![RadioRA Classic Smart Bridge](https://github.com/rsnodgrass/hassio-addons/blob/master/radiora-classic-bridge/img/diagram.png?raw=true)
+* RS485 serial adapter connected to the hardware running Hass.io, examples: 
+  - [JBtek USB to RS485 adapter](https://amzn.com/B00NKAJGZM?tag=carreramfi-20)
+  - direct wired to device's GPIO pins (e.g. on Raspberry Pi)
+* RS485 wiring to each device
 
-* server running Home Assistant's [Hass.io](https://www.home-assistant.io/hassio/) hypervisor
-* Lutron RadioRA Classic RS232 hardware interface: [RA-RS232](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf) or [Chronos System Bridge (RA-SBT-CHR)](http://www.lutron.com/TechnicalDocumentLibrary/044037b.pdf)
-* RS232 serial cable (e.g. USB male serial adapter or Pi GPIO pints with MAX3232 RS232 male adapter)
+NOTE: Remote-over-IP RS485 devices are not yet supported.
 
-See the [Homemation's Lutron RadioRA Classic Bridge](https://github.com/homemations/SmartThings) for additional hardware details, SmartThings groovy script installation, as well as supported features. 
+## Hass.io Setup
 
-### Hass.io Add-on Installation
+Setting up the RS485 Pool Controller is not for the faint of heart, as quite a few configuration steps are required by the underlying technology determining how it communicates with your pool equipment.
 
-Note: Home Assistant 0.87 or later is required for native SmartThings support (vs a more complex MQTT bridge setup).
-
-1. In the Hass.io "Add-On Store" on your Home Assistant server, add this repository URL:
+1. In the Hass.io "Add-On Store" on your Home Assistant, add the repository URL:
 <pre>
      https://github.com/rsnodgrass/hassio-addons
 </pre>
+2. Find "RS485 Pool Controller" in the list of add-ons and click Install
+3. Follow [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) instructions for configuring the RS485 server that interacts with your pool equipment
+4. Set the add-on's "tty" config option to the tty path for the RS485 adapter connected to your Hass.io hardware
 
-2. Find the "RadioRA Classic Smart Bridge" in the list of add-ons and click Install
+#### Step 3 Details: Configuring the Pool Controller
 
-3. Follow [Homemations instructions](https://github.com/homemations/SmartThings) to add the SmartApp and Device Handler using the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
+The configuration of the RS485 Pool Controller will take some time and technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for how to configure. By default, the port 9801 is exposed for the service API used for communicating with the RS385 bus, as well as ports 3000 (http) and 3001 (https) for the web UI. For example, http://hassio.local:30000/debug.html.
 
-4. On the Hass.io RadioRA Classic Smart Bridge add-on page set the "serial_tty" config option to the tty device path for the serial cable connected the Classic RadioRA hardware interface (e.g. default is /dev/ttyUSB0 for a USB serial adapter; use /dev/ttyAMA0 for Raspberry Pi GPIO).
+In the "Config" JSON text box in the RS485 Pool Controller add-on page, copy and paste the JSON configuration for
+your pool equipment. There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for several example configurations.
 
-### Configuration
+#### Step 5 Details: Setting up SmartThings Integration
 
-1. Once the Hass.io Lutron RadioRA Classic Bridge has been installed and is running, Lutron's procedures must be followed to pair each switch/dimmer/zone with the Classic RadioRA RS232 hardware interface (if not already completed). This procedure varies whether the Lutron RA-RS232 or Chronos System Bridge is being used as the hardware interface, see the appropriate Lutron manual.
+See [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) project for how to install the SmartApp and Device Handlers via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/). 
 
-2. Finally, the native [SmartThings integration with Home Assistant](https://www.home-assistant.io/components/smartthings/) must be configured so that Home Assistant can communicate through SmartThings to the Classic RadioRA hardware via SmartThings.
+FUTURE: The *outputToSmartThings* interface to the nodejs-poolController is already added to the Node.js service as part of this Hass.io add-on.
 
-### See Also
+# See Also
 
-- [Lutron RadioRA RS-232 Manual](http://www.lutron.com/TechnicalDocumentLibrary/044005c.pdf)
-- [Lutron Understanding RF Communication](http://www.lutron.com/TechnicalDocumentLibrary/RadioRA%20App%20Note%2085.pdf)
+* [Interface for talking RS485 to a variety of pool equipment](https://www.npmjs.com/package/nodejs-poolcontroller)
+* [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair)
+
+# Community Support
+
+* https://community.smartthings.com/t/intermatic-pe653-pool-control-system/936
