@@ -70,17 +70,8 @@ The configuration of the RS485 Pool Controller will take some time and technical
 In the "Config" JSON text box in the RS485 Pool Controller add-on page, copy and paste the JSON configuration for
 your pool equipment. There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for several example configurations.
 
-#### Step 5 Details: Setting up SmartThings Integration
-
-See [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) project for how to install the SmartApp and Device Handlers via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/). 
-
-FUTURE: The *outputToSmartThings* interface to the nodejs-poolController is already added to the Node.js service as part of this Hass.io add-on.
 
 # See Also
 
-* [Interface for talking RS485 to a variety of pool equipment](https://www.npmjs.com/package/nodejs-poolcontroller)
-* [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair)
-
-# Community Support
-
-* https://community.smartthings.com/t/intermatic-pe653-pool-control-system/936
+* [Home Assistant Community Support](https://community.home-assistant.io/t/new-addon-pentair-screenlogic/162332/83)
+* [SmartThings Community Support](https://community.smartthings.com/t/intermatic-pe653-pool-control-system/936)

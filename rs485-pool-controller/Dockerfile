@@ -9,7 +9,6 @@ LABEL authors="Ryan Snodgrass"
 # install git and Node.js environment
 RUN apk update \
  && apk add --no-cache \
-            build-base \
             bash \
             git \
             nodejs \
