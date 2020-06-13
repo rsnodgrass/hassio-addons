@@ -2,11 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-[Home Assistant](https://home-assistant.io) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up  [nodejs-poolController](https://github.com/bsileo/hubitat_poolcontroller) and [poolController-MQTT](https://github.com/crsherman/nodejs-poolController-mqtt) into a [Hass.io](https://www.home-assistant.io/hassio/) compatible add-one package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
-
-#### TODO
-
-* also possibly add [Hubitat/SmartThings Pool Controller](https://github.com/bsileo/hubitat_poolcontroller) to the Docker image?
+[Home Assistant](https://home-assistant.io) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up  [nodejs-poolController](https://github.com/bsileo/hubitat_poolcontroller) and the [nodejs-poolController MQTT integration](https://github.com/crsherman/nodejs-poolController-mqtt) into a [Hass.io](https://www.home-assistant.io/hassio/) compatible add-on package (using Docker). Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
 
 ### Supported Pool Devices
 
@@ -83,6 +79,16 @@ your pool equipment. There is no input validation as the complex configuration i
 See [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) project for how to install the SmartApp and Device Handlers via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/). 
 
 FUTURE: The *outputToSmartThings* interface to the nodejs-poolController is already added to the Node.js service as part of this Hass.io add-on.
+
+# Known Issues
+
+### Planned Features
+
+* add support for remote-over-IP RS485 devices using [SOcketCAT](https://medium.com/@copyconstruct/socat-29453e9fc8a6)
+
+### Features (Unplanned)
+
+* possibly add [Hubitat/SmartThings Pool Controller](https://github.com/bsileo/hubitat_poolcontroller) to the Docker image?
 
 # Support
 
