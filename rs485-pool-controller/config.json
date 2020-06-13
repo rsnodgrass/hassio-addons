@@ -18,9 +18,15 @@
     "i386"
   ],
   "options": {
-    "replace this with": "your config file"
+    "mqtt": {
+      "ip": "192.168.1.8",
+      "username": "hassio",
+      "password": "your-mqtt-password"
+    }
   },
-  "schema": {},
+  "schema": {
+    "mqtt": { "ip": "str", "username": "str", "password": "password" }
+  },
   "host_network": false,
   "gpio": true,
   "auto_uart": true,
