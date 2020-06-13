@@ -31,11 +31,11 @@ For comprehensive details on the latest supported devices, see the release notes
 | ------------------ | ------ | ----- |
 | Pentair IntelliFlo |        |       |
 
-#### Chlorinators
+#### Salt Chlorinators
 
 | Hardware             | Models | Notes |
 | -------------------- | ------ | ----- |
-| Hayward AquaRite     |        |       |
+| [Hayward/Goldline AquaRite](https://www.amazon.com/Hayward-AQR3-Electronic-Chlorination-000-Gallon/dp/B07ST63P4W?tag=rynoshark-20) |        |       |
 | Pentair IntelliChlor |        |       |
 
 #### Lights

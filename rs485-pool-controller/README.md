@@ -64,6 +64,14 @@ Setting up the RS485 Pool Controller is not for the faint of heart, as quite a f
 4. Set the add-on's "tty" config option to the tty path for the RS485 adapter connected to your Hass.io hardware
 5. Follow [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) instructions on on how to add the SmartApp and Device Handlers in SmartThings via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
 
+Example HASS.io configuration:
+
+```json
+"mqtt_broker": "http://192.168.1.8:1883",
+"mqtt_username": "your-mqtt-username",
+"mqtt_password": "your-mqtt-password"
+```
+
 #### Step 3 Details: Configuring the Pool Controller
 
 The configuration of the RS485 Pool Controller will take some time and technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for how to configure. By default, the port 9801 is exposed for the service API used for communicating with the RS385 bus, as well as ports 3000 (http) and 3001 (https) for the web UI. For example, http://hassio.local:30000/debug.html.
@@ -77,11 +85,11 @@ See [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) project
 
 FUTURE: The *outputToSmartThings* interface to the nodejs-poolController is already added to the Node.js service as part of this Hass.io add-on.
 
+# Support
+
+* [nodejs-poolController support chat](https://gitter.im/nodejs-poolController/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+* https://community.smartthings.com/t/intermatic-pe653-pool-control-system/936
+
 # See Also
 
-* [Interface for talking RS485 to a variety of pool equipment](https://www.npmjs.com/package/nodejs-poolcontroller)
-* [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair)
-
-# Community Support
-
-* https://community.smartthings.com/t/intermatic-pe653-pool-control-system/936
+* [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController): interface for communicating via RS485 to a variety of pool equipment

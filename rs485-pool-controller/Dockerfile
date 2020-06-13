@@ -24,16 +24,15 @@ RUN git clone https://github.com/tagyoureit/nodejs-poolController      server \
  && git clone https://github.com/rsnodgrass/nodejs-poolController-mqtt  mqtt
 # && git clone https://github.com/bsileo/hubitat_poolcontroller        hubitat
 
-# modify the package.json to add support for nodejs-poolController-mqtt
-
-# FIXME
-#1. Add the following to the package.json file in the nodejs-poolController folder
-# "jsonata": "^1.5.3", "mqtt": "^2.17.0",
-#2. Add the following to the config.json file in the nodejs-poolController folder
-# "integrations": { "outputSocketToMQTT": 1 }, "outputSocketToMQTT": { "level": "debug" },
-
 # inject MQTT support as a third-party integration for nodejs-poolController
 RUN ln -sf /app/mqtt/src/outputSocketToMQTT.js /app/server/src/integrations
+
+# install any dependencies listed in nodejs-poolController-mqtt's package.json
+WORKDIR /app/mqtt
+RUN npm install /app/mqtt
+
+#2. Add the following to the config.json file in the nodejs-poolController folder
+# "integrations": { "outputSocketToMQTT": 1 }, "outputSocketToMQTT": { "level": "debug" },
 
 # build the nodejs environment with all the integrations
 WORKDIR /app/server
