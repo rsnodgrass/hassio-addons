@@ -2,9 +2,9 @@
 CONFIG_PATH=/data/options.json
 
 # inject the HASS.io configured MQTT credentials via environment variables
-MQTT_BROKER_ADDRESS="$(bashio::config 'mqtt')"
-MQTT_USERNAME="$(bashio::config 'mqtt')"
-MQTT_PASSWORD="$(bashio::config 'mqtt')"
+MQTT_BROKER_ADDRESS="$(bashio::config 'mqtt_address')"
+MQTT_USERNAME="$(bashio::config 'mqtt_username')"
+MQTT_PASSWORD="$(bashio::config 'mqtt_password')"
 
 # FIXME:
 # - convert HASSIO config.json and apply to nodejs-poolController config style
