@@ -1,8 +1,11 @@
-# RS485 Pool Controller (Hass.io Add-On)
+# Pool Controller (Hass.io Add-On)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-[Hass.io](https://www.home-assistant.io/hassio/) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) and [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) into a Hass.io compatible add-one package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Jason Young, Michael Russe, Michael Usner and many others.
+
+[Hass.io](https://www.home-assistant.io/hassio/) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up 
+
+[Hubitat/SmartThings Pool Controller](https://github.com/bsileo/hubitat_poolcontroller), [nodejs-poolController](https://github.com/bsileo/hubitat_poolcontroller), and [poolController MQTT](https://github.com/crsherman/nodejs-poolController-mqtt) into a Hass.io compatible add-one package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
 
 ### Supported Pool Devices
 
@@ -10,31 +13,41 @@ For comprehensive details on the latest supported devices, see the release notes
 
 #### Controllers
 
-* [Intermatic PE653RC](https://www.intermatic.com/en/pool-and-spa/electronic-controls/pe653rc) (plus expansion modules P5043ME, PE25065RC)
-* [Pentair IntelliTouch](https://www.pentair.com/en/products/pool-spa-equipment/pool-automation/intellitouch_systems.html)
-* Pentair EasyTouch
-* Pentair IntelliCom II
-* Pentair SunTouch
+| Hardware                                                                                                                 | Models | Notes                                                             |
+| ------------------------------------------------------------------------------------------------------------------------ | ------ | ----------------------------------------------------------------- |
+| [Pentair IntelliTouch](https://www.pentair.com/en/products/pool-spa-equipment/pool-automation/intellitouch_systems.html) |        |                                                                   |
+| Pentair EasyTouch                                                                                                        |        |                                                                   |
+| Pentair IntelliCom II                                                                                                    |        |                                                                   |
+| Pentair SunTouch                                                                                                         |        |                                                                   |
+| [Intermatic PE653RC](https://www.intermatic.com/en/pool-and-spa/electronic-controls/pe653rc)                             |        | Unknown if supported; (plus expansion modules P5043ME, PE25065RC) |
 
 #### Pumps
 
-* Pentair IntelliFlo
+| Hardware           | Models | Notes |
+| ------------------ | ------ | ----- |
+| Pentair IntelliFlo |        |       |
 
 #### Chlorinators
 
-* Hayward AquaRite
-* Pentair IntelliChlor
+| Hardware             | Models | Notes |
+| -------------------- | ------ | ----- |
+| Hayward AquaRite     |        |       |
+| Pentair IntelliChlor |        |       |
 
 #### Lights
 
-* Pentair IntelliBrite
+| Hardware             | Models | Notes |
+| -------------------- | ------ | ----- |
+| Pentair IntelliBrite |        |       |
 
 ### Required Hardware
 
 * RS485 serial adapter connected to the hardware running Hass.io, examples: 
   - [JBtek USB to RS485 adapter](https://amzn.com/B00NKAJGZM?tag=carreramfi-20)
   - direct wired to device's GPIO pins (e.g. on Raspberry Pi)
-* RS485 cabling to each device
+* RS485 wiring to each device
+
+NOTE: Remote-over-IP RS485 devices are not yet supported.
 
 ## Hass.io Setup
 
