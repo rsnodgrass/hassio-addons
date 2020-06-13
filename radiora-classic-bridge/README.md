@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+# DOES NOT WORK YET
 
 [Hass.io](https://www.home-assistant.io/hassio/) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up  [nodejs-poolController](https://github.com/bsileo/hubitat_poolcontroller) and [poolController-MQTT](https://github.com/crsherman/nodejs-poolController-mqtt) into a Hass.io compatible add-one package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
 

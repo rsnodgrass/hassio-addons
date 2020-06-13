@@ -18,14 +18,14 @@
     "i386"
   ],
   "options": {
-    "mqtt": {
-      "ip": "192.168.1.8",
-      "username": "hassio",
-      "password": "your-mqtt-password"
-    }
+    "mqtt_broker": "http://192.168.1.8:1883",
+    "mqtt_username": "hassio",
+    "mqtt_password": "your-mqtt-password"
   },
   "schema": {
-    "mqtt": { "ip": "str", "username": "str", "password": "password" }
+    "mqtt_broker": "url",
+    "mqtt_username": "str",
+    "mqtt_password": "password"
   },
   "host_network": false,
   "gpio": true,
