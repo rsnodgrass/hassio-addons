@@ -87,14 +87,22 @@ sensor:
   - platform: mqtt
     name: "Pool Temperature"
     state_topic: "home/pool/temperature"
+    
   - platform: mqtt
     name: "Salt Level"
     state_topic: "home/swg/level"
 
 switch:
   - platform: mqtt
+    name: "Pool Pump"
+    icon: mdi:fan
+    command_topic: "home/pump/set"
+    state_topic: "home/pump"
+    payload_on: "on"
+    payload_off: "off"
+
+  - platform: mqtt
     name: "Salt Chlorinator"
-    icon: mdi:switch
     command_topic: "home/swg/set"
     state_topic: "home/swg"
     payload_on: "on"
