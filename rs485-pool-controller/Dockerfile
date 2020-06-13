@@ -14,9 +14,11 @@ RUN apk update \
             python \
             linux-headers
 
-WORKDIR /app
+# add support for RS485-over-IP remote devices
+RUN apt-get update && apt-get install -y socat && rm -rf /var/lib/apt/lists/*
 
 # install latest released versions 
+WORKDIR /app
 RUN git clone https://github.com/tagyoureit/nodejs-poolController      server \
 # && git clone https://github.com/crshersrman/nodejs-poolController-mqtt  mqtt
  && git clone https://github.com/rsnodgrass/nodejs-poolController-mqtt  mqtt
