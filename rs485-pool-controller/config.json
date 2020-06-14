@@ -8,7 +8,7 @@
   "boot": "auto",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:80]",
   "ingress": true,
-  "ingress_port": 3000,
+  "ingress_port": 8080,
   "ports": {
     "3000/tcp": 3000,
     "3001/tcp": 3001
