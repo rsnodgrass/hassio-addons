@@ -118,13 +118,17 @@ Examples:
 entities:
 ```
 
+## Advanced Node-RED Recipes
+
+In addition to control via the Home Assistant user interface and its built in automation mechanisms, it is possible to use [Node-RED](https://nodered.org/). The following are several Node-RED recipes for typical pool automation scenarios. **(NOT YET ADDED)**
+
 ## Known Issues
 
 ### Planned Features
 
 * add support for RS485-over-IP to remote RS485 devices using [SOcketCAT](https://medium.com/@copyconstruct/socat-29453e9fc8a6)
 
-### Features (Unplanned)
+### No Plans to Implement
 
 * possibly add [Hubitat/SmartThings Pool Controller](https://github.com/bsileo/hubitat_poolcontroller) to the Docker image?
 
@@ -133,6 +137,6 @@ entities:
 * [nodejs-poolController support chat](https://gitter.im/nodejs-poolController/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 * https://community.smartthings.com/t/intermatic-pe653-pool-control-system/936
 
-## See Also
+### See Also
 
 * [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController): interface for communicating via RS485 to a variety of pool equipment
