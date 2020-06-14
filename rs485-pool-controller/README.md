@@ -159,6 +159,7 @@ To connect to native rs485 traffic for connectivity/debugging using SOCAT 1. net
 ### Planned Features
 
 * add support for RS485-over-IP to remote RS485 devices using [SOcketCAT](https://medium.com/@copyconstruct/socat-29453e9fc8a6)
+* support for [nodejs-poolController 6.0](https://github.com/tagyoureit/nodejs-poolController/tree/next) and the new [standalone 6.0 web UI](https://github.com/tagyoureit/nodejs-poolController-webClient)
 
 ### No Plans to Implement
 
