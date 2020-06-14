@@ -116,9 +116,13 @@
     },
     "integrations": {
         "socketISY": 0,
-        "outputSocketToConsoleExample": 0
+        "outputSocketToConsoleExample": 0,
+        "outputSocketToMQTT": 1
     },
- "socketISY": {
+    "outputSocketToMQTT": {
+        "level": "debug"
+    },
+    "socketISY": {
         "username": "blank",
         "password": "blank",
         "ipaddr": "127.0.0.1",

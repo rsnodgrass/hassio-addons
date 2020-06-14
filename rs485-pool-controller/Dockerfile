@@ -26,7 +26,6 @@ RUN git clone https://github.com/tagyoureit/nodejs-poolController      server \
 RUN ln -sf /app/mqtt/src/outputSocketToMQTT.js /app/server/src/integrations
 
 # install any dependencies listed in nodejs-poolController-mqtt's package.json
-WORKDIR /app/mqtt
 RUN npm install /app/mqtt
 
 # FIXME: next step...
@@ -34,7 +33,6 @@ RUN npm install /app/mqtt
 # "integrations": { "outputSocketToMQTT": 1 }, "outputSocketToMQTT": { "level": "debug" },
 
 # build the nodejs environment with all the integrations
-WORKDIR /app/server
 RUN npm install /app/server
 
 # expose web UI from nodejs-poolController

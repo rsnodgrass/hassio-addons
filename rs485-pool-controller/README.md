@@ -70,6 +70,19 @@ The configuration of the RS485 Pool Controller requires some technical skills, s
 
 **Important: Instead of the standard 'config.json' file, the Pool Controller configuration is stored in `nodejs-poolController.json` located at the root of Home Assistant's config directory (e.g. `/config`).** There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for several example configs.
 
+**MAKE SURE YOU USE ONE OF THE EXAMPLE AS A BASELINE TO ENSURE MQTT SUPPORT IS ENABLED.** The following **MUST** exist in your nodejs-poolController.json for the Home Assistant MQTT integration to work:
+
+```json
+    "integrations": {
+        "socketISY": 0,
+        "outputSocketToConsoleExample": 0,
+        "outputSocketToMQTT": 1
+    },
+    "outputSocketToMQTT": {
+        "level": "debug"
+    },
+```
+
 #### Web UI
 
 By default, ports 3000 (http) and 3001 (https) for the nodejs-poolController web UI. These are exposed as Home Assistant ingress ports, so no need for any router configuration to access the web UI. For example, http://hassio.local:3000/debug.html.

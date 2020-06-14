@@ -146,7 +146,11 @@
     },
     "integrations": {
         "socketISY": 0,
-        "outputSocketToConsoleExample": 0
+        "outputSocketToConsoleExample": 0,
+        "outputSocketToMQTT": 1
+    },
+    "outputSocketToMQTT": {
+        "level": "debug"
     },
     "socketISY": {
         "username": "blank",
