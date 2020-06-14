@@ -56,8 +56,9 @@ Setting up the RS485 Pool Controller is not for the faint of heart, as quite a f
 </pre>
 2. Find "RS485 Pool Controller" in the list of add-ons and click Install
 3. Follow [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) instructions for configuring the RS485 server that interacts with your pool equipment
-4. Set the add-on's "tty" config option to the tty path for the RS485 adapter connected to your Hass.io hardware
-5. Follow [SmartThings Pentair](https://github.com/bsileo/SmartThings_Pentair) instructions on on how to add the SmartApp and Device Handlers in SmartThings via the [SmartThings Groovy IDE](https://graph.api.smartthings.com/).
+4. Set the add-on's "tty" config option to the tty path for the RS485 adapter connected to your Hass.io hardware.  **NOTE: If you are using a localhost tty other than /dev/ttyUSB0 or /dev/ttyAMA0 this may not work as the TTY hardware devices are not exposed into the Docker container by default.**
+
+#### Configuration
 
 Example HASS.io configuration:
 
