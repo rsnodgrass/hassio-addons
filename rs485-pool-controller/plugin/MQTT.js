@@ -66,20 +66,32 @@ var pcpConfig = (function (api) {
     }
 
     function mqtt_subscribe() {
+        // FIXME: lowercase only for simplicity (since MQTT topics are case sensitive)
+        var prefix = 'pool' // allow override
+
         var topics = [
-            'pool/circuit/1/status',
-            'pool/circuit/2/status',
-            'pool/circuit/3/status',
-            'pool/circuit/4/status',
-            'pool/circuit/5/status'
+            'heater/1/status',
+            'heater/1/set',
+            
+            'pump/1/status',
+            'pump/1/set',
+
+            'temperature/pool/status',
+            'temperature/spa/status',
+            'temperature/air/status',
+
+            'circuit/1/status',
+            'circuit/1/set',
+            'circuit/2/status',
+            'circuit/2/set'
         ]
 
         for (topics in topics) {
-            mqtt.subcribe(topic)
+            mqtt.subcribe(prefix + '/' + topic)
         }
 
         // notify any clients that nodejs-poolController is now connected
-        mqtt.publish('pool/connected', 'true')
+        mqtt.publish('pool_controller/connected', 'true')
     }
 
 

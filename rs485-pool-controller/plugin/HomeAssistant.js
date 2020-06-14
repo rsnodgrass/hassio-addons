@@ -1,5 +1,5 @@
 /*
- * MQTT Plugin for NodeJS Pool Controller
+ * Home Assistant MQTT Auto-Discovery Plugin for NodeJS Pool Controller
  * Copyright (C) 2020 Ryan Snodgrass
  */
 var pcpConfig = (function (api) {
