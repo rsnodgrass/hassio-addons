@@ -66,9 +66,9 @@ Example HASS.io configuration:
 
 ## Configuring the Pool Controller
 
-The configuration of the RS485 Pool Controller requires some technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for details how to configure. Instead of the standard 'config.json' file, the Pool Controller configuration is stored in `nodejs-poolController.json` located at the root of Home Assistant's config directory (e.g. `/config`).
+The configuration of the RS485 Pool Controller requires some technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for details how to configure. 
 
-There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for example configurations.
+**Important: Instead of the standard 'config.json' file, the Pool Controller configuration is stored in `nodejs-poolController.json` located at the root of Home Assistant's config directory (e.g. `/config`).** There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for several example configs.
 
 #### Web UI
 
