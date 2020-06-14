@@ -69,10 +69,13 @@ Example HASS.io configuration:
 
 #### Step 3 Details: Configuring the Pool Controller
 
-The configuration of the RS485 Pool Controller will take some time and technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for how to configure. By default, the port 9801 is exposed for the service API used for communicating with the RS385 bus, as well as ports 3000 (http) and 3001 (https) for the web UI. For example, http://hassio.local:30000/debug.html.
+The configuration of the RS485 Pool Controller will take some time and technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for how to configure.  You need to place the `nodejs-poolController.json` configuration file in the root of Home Assistant's config directory (e.g. `/config`).
 
-In the "Config" JSON text box in the RS485 Pool Controller add-on page, copy and paste the JSON configuration for
-your pool equipment. There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for several example configurations.
+There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for example configurations.
+
+#### Web UI
+
+By default, ports 3000 (http) and 3001 (https) for the nodejs-poolController web UI. These are exposed as Home Assistant ingress ports, so no need for any router configuration to access the web UI. For example, http://hassio.local:3000/debug.html.
 
 ## Home Assistant Configuration
 
