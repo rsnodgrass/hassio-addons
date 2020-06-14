@@ -6,16 +6,15 @@
 
 ## Required Hardware
 
-* RS485 serial adapter connected to the hardware running Hass.io, examples: 
+* RS485 serial adapter connected from Hass.io instance hardware to each controlled pool equipment, for example:
   - [JBtek USB to RS485 adapter](https://amzn.com/B00NKAJGZM?tag=carreramfi-20)
   - direct wired to device's GPIO pins (e.g. on Raspberry Pi)
-* RS485 wiring to each device
 
-NOTE: Remote-over-IP RS485 devices are not yet supported.
+NOTE: Remote-over-IP RS485 devices are not yet supported, but the plan is to add using socat (SOcketCAT). An alpha implementation of socat integration has been added, but not tested.
 
 ### Supported Pool Equipment
 
-For comprehensive details on the latest supported devices, see the release notes for the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController).
+For comprehensive details on the latest supported devices, see the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) wiki for details on currently supported equipment.
 
 #### Controllers
 
