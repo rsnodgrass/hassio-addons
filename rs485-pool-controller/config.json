@@ -11,11 +11,13 @@
   "ingress_port": 8080,
   "ports": {
     "3000/tcp": 3000,
-    "3001/tcp": 3001
+    "3001/tcp": 3001,
+    "8080/tcp": 8080
   },
   "ports_description": {
     "3000/tcp": "http UI for nodejs-poolController",
-    "3001/tcp": "https UI for nodejs-poolController"
+    "3001/tcp": "https UI for nodejs-poolController",
+    "8080/tcp": "6.0 web UI"
   },
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "map": ["config:rw"],
