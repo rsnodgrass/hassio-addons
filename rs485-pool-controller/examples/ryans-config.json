@@ -2,53 +2,46 @@
     "equipment": {
         "controller": {
             "intellicom": {
-                "installed": 0,
-                "friendlyName": ""
+                "installed": 0
             },
             "intellitouch": {
-                "installed": 1,
+                "installed": 0
+            },
+            "intermatic": {
+                "installed": 0,
                 "friendlyName": "",
-                "numberOfCircuits": 20,
-                "numberOfPumps": 2,
-                "numberOfCustomNames": 10
+                "numberOfCircuits": 5,
+                "numberOfPumps": 1,
+                "numberOfCustomNames": 5
             },
             "virtual": {
                 "pumpController": "default",
                 "chlorinatorController": "default"
             },
+            "id": {
+                "productName": "",
+                "productNumber": "",
+                "manufacturer": "",
+                "description": ""
+            },
             "circuitFriendlyNames": {
-                "1": "",
+                "1": "Salt Chlorinator",
                 "2": "",
-                "3": "",
-                "4": "",
-                "5": "",
-                "6": "",
-                "7": "",
-                "8": "",
-                "9": "",
-                "10": "",
-                "11": "",
-                "12": "",
-                "13": "",
-                "14": "",
-                "15": "",
-                "16": "",
-                "17": "",
-                "18": "",
-                "19": "",
-                "20": ""
+                "3": "Landscape Lights",
+                "4": "Pool Light",
+                "5": "Pool Area Lights"
             }
         },
         "chlorinator": {
             "installed": 1,
             "desiredOutput": {
-                "pool": -1,
+                "pool": 50,
                 "spa": -1
             },
-            "friendlyName": "AquaRite",
+            "friendlyName": "AquaRite SWG",
             "id": {
                 "productName": "AquaRite",
-                "productNumber": "",
+                "productNumber": "T-15",
                 "manufacturer": "Hayward",
                 "description": ""
             }
@@ -85,13 +78,16 @@
         },
         "network": {
             "rs485Port": "/dev/ttyUSB0",
+            "netConnect": 0,
+            "netHost": "192.168.20.222",
+            "netPort": 9801,
             "inactivityRetry": 10
         },
         "notifications": {
             "version": {
                 "remote": {
-                    "version": "5.3.0",
-                    "tag_name": "v5.3.0",
+                    "version": "4.0.0",
+                    "tag_name": "v4.0.0",
                     "dismissUntilNextRemoteVersionBump": false
                 }
             }
@@ -100,10 +96,21 @@
             "logLevel": "info",
             "socketLogLevel": "info",
             "fileLog": {
-                "enable": 0,
+                "enable": 1,
                 "fileLogLevel": "silly",
-                "fileName": "output.log"
-            }
+                "fileName": "/config/nodejs-poolController.log"
+            },
+            "logPumpMessages": 1,
+            "logDuplicateMessages": 0,
+            "logConsoleNotDecoded": 0,
+            "logConfigMessages": 0,
+            "logMessageDecoding": 0,
+            "logChlorinator": 1,
+            "logIntellichem": 0,
+            "logPacketWrites": 0,
+            "logPumpTimers": 0,
+            "logReload": 0,
+            "logApi": 0
         },
         "database": {
             "influx": {
@@ -115,53 +122,11 @@
         }
     },
     "integrations": {
-        "socketISY": 0,
-        "outputSocketToConsoleExample": 0,
-        "outputSocketToMQTT": 1
+        "outputSocketToMQTT": 1,
+        "outputSocketToConsoleExample": 0
     },
     "outputSocketToMQTT": {
         "level": "debug"
-    },
-    "socketISY": {
-        "username": "blank",
-        "password": "blank",
-        "ipaddr": "127.0.0.1",
-        "port": 12345,
-        "Variables": {
-            "chlorinator": {
-                "saltPPM": 16
-            },
-            "pump": {
-                "1": {
-                    "watts": 25,
-                    "rpm": 24,
-                    "currentprogram": 13,
-                    "program1rpm": 10,
-                    "program2rpm": 11,
-                    "program3rpm": 12,
-                    "program4rpm": 13,
-                    "power": 14,
-                    "timer": 15
-                }
-            },
-            "circuit": {
-                "1": {
-                    "status": 8
-                },
-                "2": {
-                    "status": 3
-                },
-                "3": {
-                    "status": 2
-                }
-            },
-            "temperatures": {
-                "poolTemp": 17,
-                "spaTemp": 18,
-                "airTemp": 19,
-                "spaSetPoint": 20
-            }
-        }
     },
     "outputSocketToConsoleExample": {
         "level": "warn"

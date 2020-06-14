@@ -81,6 +81,8 @@ The configuration of the RS485 Pool Controller requires some technical skills, s
     },
 ```
 
+**FIXME**: The user needs access to the Docker image's nodejs-poolController.json to get values such as the RPM values for VF pumps which MUST be set via the web UI.
+
 #### Web UI
 
 By default, the nodejs-poolController web UI is exposed on ports 3000 (http) and 3001 (https). These are exposed as Home Assistant ingress ports, so no need for any router configuration to access the web UI. For example, http://hassio.local:3000/debug.html.
@@ -128,9 +130,29 @@ Examples:
 entities:
 ```
 
-## Advanced Node-RED Recipes
+## Advanced 
+
+
+### Node-RED Recipes
 
 In addition to control via the Home Assistant user interface and its built in automation mechanisms, it is possible to use [Node-RED](https://nodered.org/). The following are several Node-RED recipes for typical pool automation scenarios. **(NOT YET ADDED)**
+
+### Socat
+
+**FIXME** From nodejs-poolController.json docs, requires special config. This is advanced and not yet supported.
+
+```json
+        "network": {
+            "rs485Port": "/dev/ttyUSB0",
+            "netConnect": 1,
+            "netHost": "192.168.20.222",
+            "netPort": 9801,
+            "inactivityRetry": 10
+        }
+```
+
+To connect to native rs485 traffic for connectivity/debugging using SOCAT 1. netConnect: 1 to enable or 0 to disable. If you enable this option, it will NOT connect to the local RS485 adapter 1. netHost: Name/IP of your remote computer. EG raspberrypi 1. "netPort":: 9801 is a standard port
+
 
 ## Known Issues
 
