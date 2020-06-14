@@ -4,7 +4,16 @@
 
 [Home Assistant](https://home-assistant.io) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up  [nodejs-poolController](https://github.com/bsileo/hubitat_poolcontroller) and the [nodejs-poolController MQTT integration](https://github.com/crsherman/nodejs-poolController-mqtt) into a [Hass.io](https://www.home-assistant.io/hassio/) compatible add-on package (using Docker). Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
 
-### Supported Pool Devices
+## Required Hardware
+
+* RS485 serial adapter connected to the hardware running Hass.io, examples: 
+  - [JBtek USB to RS485 adapter](https://amzn.com/B00NKAJGZM?tag=carreramfi-20)
+  - direct wired to device's GPIO pins (e.g. on Raspberry Pi)
+* RS485 wiring to each device
+
+NOTE: Remote-over-IP RS485 devices are not yet supported.
+
+### Supported Pool Equipment
 
 For comprehensive details on the latest supported devices, see the release notes for the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController).
 
@@ -36,15 +45,6 @@ For comprehensive details on the latest supported devices, see the release notes
 | Hardware             | Models | Notes |
 | -------------------- | ------ | ----- |
 | Pentair IntelliBrite |        |       |
-
-### Required Hardware
-
-* RS485 serial adapter connected to the hardware running Hass.io, examples: 
-  - [JBtek USB to RS485 adapter](https://amzn.com/B00NKAJGZM?tag=carreramfi-20)
-  - direct wired to device's GPIO pins (e.g. on Raspberry Pi)
-* RS485 wiring to each device
-
-NOTE: Remote-over-IP RS485 devices are not yet supported.
 
 ## Hass.io Add-on Installation
 
