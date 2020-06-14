@@ -17,7 +17,7 @@
     "3000/tcp": "http UI for nodejs-poolController",
     "3001/tcp": "https UI for nodejs-poolController"
   },
-  "arch": [ "aarch64", "amd64", "armhf", "i386" ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "map": ["config:r"],
   "options": {
     "mqtt_broker": "http://192.168.1.8:1883",
