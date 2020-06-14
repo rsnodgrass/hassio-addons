@@ -74,8 +74,6 @@ The configuration of the RS485 Pool Controller requires some technical skills, s
 
 ```json
     "integrations": {
-        "socketISY": 0,
-        "outputSocketToConsoleExample": 0,
         "outputSocketToMQTT": 1
     },
     "outputSocketToMQTT": {
@@ -85,7 +83,7 @@ The configuration of the RS485 Pool Controller requires some technical skills, s
 
 #### Web UI
 
-By default, ports 3000 (http) and 3001 (https) for the nodejs-poolController web UI. These are exposed as Home Assistant ingress ports, so no need for any router configuration to access the web UI. For example, http://hassio.local:3000/debug.html.
+By default, the nodejs-poolController web UI is exposed on ports 3000 (http) and 3001 (https). These are exposed as Home Assistant ingress ports, so no need for any router configuration to access the web UI. For example, http://hassio.local:3000/debug.html.
 
 ## Home Assistant Configuration
 
