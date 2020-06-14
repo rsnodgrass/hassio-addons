@@ -19,7 +19,7 @@ fi
 
 # FIXME: in the future, we *MAY* want to ln -sf this configuration, since nodejs-poolController also modifies/updates config
 NPM_CONFIG="/app/config.json"
-HASS_CONFIG_PATH="/config/nodejs-poolController.json"
+HASS_CONFIG_PATH="$(bashio::config 'config_file')"
 
 # copy the users /config version of pool equipment configuration into the Docker instance
 if [ -f "$FILE" ]; then

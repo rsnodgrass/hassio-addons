@@ -22,12 +22,14 @@
   "options": {
     "mqtt_broker": "http://192.168.1.8:1883",
     "mqtt_username": "your-mqtt-username",
-    "mqtt_password": "your-mqtt-password"
+    "mqtt_password": "your-mqtt-password",
+    "config_path": "/config/nodejs-poolController.json"
   },
   "schema": {
     "mqtt_broker": "url",
     "mqtt_username": "str",
-    "mqtt_password": "password"
+    "mqtt_password": "password",
+    "config_path": "str"
   },
   "host_network": false,
   "gpio": true,
