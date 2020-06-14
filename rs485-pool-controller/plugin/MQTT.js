@@ -111,35 +111,25 @@ var pcpConfig = (function (api) {
     controller.on('temperature', function (data) {
         log('poolController temperature update: %s', JSON.stringify(data))
 
-        // pool
-        var pool_temp = {
-            "temp": jsonata("temperature.poolTemp").evaluate(data),
-        }
-        mqtt_publish('pool/temperature/status', JSON.stringify(pool_temp))
+        // FIXME: only publish MQTT messages for items that appear in the data
 
-        var pool_heater = {
-            "mode": jsonata("temperature.poolHeatMode").evaluate(data),
-            "setPoint": jsonata("temperature.poolSetPoint").evaluate(data)
-        }
-        mqtt_publish('pool/heater/status', JSON.stringify(pool_heater))
+        // pool
+        var pool_temp = "{ 'temp': temperature.poolTemp }"
+        mqtt_publish('pool/temperature/status', jsonata(pool_temp).evaluate(data))
+
+        var pool_heater = "{ 'mode': temperature.poolHeatMode, 'setPoint': temperature.poolSetPoint }"
+        mqtt_publish('pool/heater/status',  jsonata(pool_heater).evaluate(data))
 
         // spa
-        var spa_temp = {
-            "temp": jsonata("temperature.spaTemp").evaluate(data)
-        }
-        mqtt_publish('spa/temperature/status', JSON.stringify(spa_temp))
+        var spa_temp = "{ 'temp': temperature.spaTemp }"
+        mqtt_publish('spa/temperature/status', jsonata(spa_temp).evaluate(data))
 
-        var spa_heater = {
-            "mode": jsonata("temperature.spaHeatMode").evaluate(data),
-            "setPoint": jsonata("temperature.spaSetPoint").evaluate(data)
-        }
-        mqtt_publish('spa/heater/status', JSON.stringify(pool_heater))
+        var spa_heater = "{ 'mode': temperature.spaHeatMode, 'setPoint': temperature.spaSetPoint }"
+        mqtt_publish('spa/heater/status',  jsonata(spa_heater).evaluate(data))
 
         // air
-        var air_temp = {
-            "temp": jsonata("temperature.airTemp").evaluate(data)
-        }
-        mqtt_publish('air/temperature/status', JSON.stringify(air_temp))
+        var air_temp = "{ 'temp': temperature.airTemp }"
+        mqtt_publish('spa/temperature/status', jsonata(air_temp).evaluate(data))
     })
 
     // allows logging through all configured loggers for the container
