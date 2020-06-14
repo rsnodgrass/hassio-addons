@@ -46,7 +46,7 @@ For comprehensive details on the latest supported devices, see the release notes
 
 NOTE: Remote-over-IP RS485 devices are not yet supported.
 
-## Hass.io Setup
+## Hass.io Add-on Installation
 
 Setting up the RS485 Pool Controller is not for the faint of heart, as quite a few configuration steps are required by the underlying technology determining how it communicates with your pool equipment.
 
@@ -55,10 +55,7 @@ Setting up the RS485 Pool Controller is not for the faint of heart, as quite a f
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 2. Find "RS485 Pool Controller" in the list of add-ons and click Install
-3. Follow [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) instructions for configuring the RS485 server that interacts with your pool equipment
-4. Set the add-on's "tty" config option to the tty path for the RS485 adapter connected to your Hass.io hardware.  **NOTE: If you are using a localhost tty other than /dev/ttyUSB0 or /dev/ttyAMA0 this may not work as the TTY hardware devices are not exposed into the Docker container by default.**
-
-#### Configuration
+3. Set the add-on's "tty" config option to the tty path for the RS485 adapter connected to your Hass.io hardware.  **NOTE: If you are using a localhost tty other than /dev/ttyUSB0 or /dev/ttyAMA0 this may not work as the TTY hardware devices are not exposed into the Docker container by default.**
 
 Example HASS.io configuration:
 
@@ -68,9 +65,9 @@ Example HASS.io configuration:
 "mqtt_password": "your-mqtt-password"
 ```
 
-#### Step 3 Details: Configuring the Pool Controller
+## Configuring the Pool Controller
 
-The configuration of the RS485 Pool Controller will take some time and technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for how to configure.  You need to place the `nodejs-poolController.json` configuration file in the root of Home Assistant's config directory (e.g. `/config`).
+The configuration of the RS485 Pool Controller requires some technical skills, see [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) for details how to configure. Instead of the standard 'config.json' file, the Pool Controller configuration is stored in `nodejs-poolController.json` located at the root of Home Assistant's config directory (e.g. `/config`).
 
 There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for example configurations.
 
@@ -80,7 +77,7 @@ By default, ports 3000 (http) and 3001 (https) for the nodejs-poolController web
 
 ## Home Assistant Configuration
 
-#### Adding Sensor/Switches
+### Adding Sensor/Switches
 
 Ideally, sensors/switches would automatically be created in Home Assistant using either a HACS integration, or via Home Assistant integrated discovery, or via configured sensors from nodejs-poolController.  However, currently this requires manual configuration.yaml additions.
 
@@ -113,7 +110,7 @@ switch:
     payload_off: "off"
 ```
  
-#### Lovelace
+### Lovelace UI
 
 Examples:
 
