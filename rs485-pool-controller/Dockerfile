@@ -1,4 +1,5 @@
 ARG BUILD_FROM=hassioaddons/base
+#ARG BUILD_FROM=homeassistant/amd64-base
 FROM $BUILD_FROM
 
 ARG BUILD_ARCH
@@ -21,6 +22,8 @@ RUN apk update \
             python \
             # add support for RS485-over-IP remote devices
             socat \
+            # support for when no prebuilt node binaries exist
+            musl g++ gcc make \
             linux-headers
 
 # install latest released versions 

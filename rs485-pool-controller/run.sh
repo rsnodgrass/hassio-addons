@@ -17,13 +17,13 @@ then
     socat $SOCAT_OPTIONS &
 fi
 
-# FIXME: in the future, we *MAY* want to ln -sf this configuration, since nodejs-poolController also modifies/updates config
-NPM_CONFIG="/app/config.json"
+# make a writable nodejs-poolController.json copy in /config since this can be modified by the web UI
+NPM_CONFIG="/config/nodejs-poolController-REVISED.json"
 HASS_CONFIG_PATH="$(bashio::config 'config_file')"
 
 # copy the users /config version of pool equipment configuration into the Docker instance
 if [ -f "$FILE" ]; then
-    cp $HASS_CONFIG_PATH= $NPM_CONFIG
+    cp $HASS_CONFIG_PATH $NPM_CONFIG
 else
     echo "FATAL: Missing configuration file $HASS_CONFIG_PATH, aborting!"
     exit

@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-[Home Assistant](https://home-assistant.io) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up  [nodejs-poolController](https://github.com/bsileo/hubitat_poolcontroller) and the [MQTT integration](https://github.com/crsherman/nodejs-poolController-mqtt) into a [Hass.io](https://www.home-assistant.io/hassio/) compatible Docker add-on package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
+[Home Assistant](https://home-assistant.io) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up  [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) and the [MQTT integration](https://github.com/crsherman/nodejs-poolController-mqtt) into a [Hass.io](https://www.home-assistant.io/hassio/) compatible Docker add-on package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
 
 ## Required Hardware
 
@@ -34,10 +34,10 @@ For comprehensive details on the latest supported devices, see the [nodejs-poolC
 
 #### Chlorinators
 
-| Hardware             | Models | Notes |
-| -------------------- | ------ | ----- |
-| Hayward AquaRite     |        |       |
-| Pentair IntelliChlor |        |       |
+| Hardware                  | Models | Notes |
+| ------------------------- | ------ | ----- |
+| Hayward/Goldline AquaRite |        |       |
+| Pentair IntelliChlor      |        |       |
 
 #### Lights
 
@@ -70,7 +70,7 @@ The configuration of the RS485 Pool Controller requires some technical skills, s
 
 **Important: Instead of the standard 'config.json' file, the Pool Controller configuration is stored in `nodejs-poolController.json` located at the root of Home Assistant's config directory (e.g. `/config`).** There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for several example configs.
 
-**MAKE SURE YOU USE ONE OF THE EXAMPLE AS A BASELINE TO ENSURE MQTT SUPPORT IS ENABLED.** The following **MUST** exist in your nodejs-poolController.json for the Home Assistant MQTT integration to work:
+**MAKE SURE YOU USE ONE OF THE EXAMPLE AS A BASELINE TO ENSURE MQTT SUPPORT IS ENABLED.** The following **MUST** exist in your `nodejs-poolController.json` for the Home Assistant MQTT integration to work:
 
 ```json
     "integrations": {
