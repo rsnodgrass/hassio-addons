@@ -33,10 +33,10 @@ RUN ln -sf /app/mqtt/src/outputSocketToMQTT.js /app/server/src/integrations
 
 # install any dependencies listed in nodejs-poolController-mqtt's package.json
 WORKDIR /app/mqtt
-RUN npm install /app/mqtt
+RUN npm install .
 
 # ...and build the nodejs-poolController with the injected integrations
 WORKDIR /app/server
-RUN npm install /app/server
+RUN npm install .
 
 CMD [ "/run.sh" ]
