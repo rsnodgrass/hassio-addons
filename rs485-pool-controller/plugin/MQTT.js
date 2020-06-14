@@ -6,12 +6,12 @@ var pcpConfig = (function (api) {
     var config = container.settings.getConfig() // FIXME: how is config injected in 6.0?
     var jsonata = require("jsonata")
 
-    var controller = poolController_connect()
-    var mqtt = mqtt_setup(config)
+    var controller = pool_controller_connect()
+    var mqtt = mqtt_connect(config)
 
     var topic_prefix = 'pool' // allow override from config.MQTT.topic_prefix
 
-    function poolController_connect()_{
+    function pool_controller_connect()_{
         var server_url;
         var server_is_https = false;
 
@@ -36,7 +36,7 @@ var pcpConfig = (function (api) {
         return socket
     }
 
-    function mqtt_setup() {
+    function mqtt_connect() {
         // *** IMPORTANT: Ensure you have an environment variable MQTT_BROKER_URL set to your broker
         var broker_url = config.mqtt.broker_ip
         var options = {
@@ -109,7 +109,7 @@ var pcpConfig = (function (api) {
     }
 
     controller.on('temperature', function (data) {
-        log('Temperature update: %s', JSON.stringify(data))
+        log('poolController temperature update: %s', JSON.stringify(data))
 
         // pool
         var pool_temp = {
