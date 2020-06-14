@@ -54,7 +54,8 @@ Setting up the RS485 Pool Controller is not for the faint of heart, as quite a f
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 2. Find "RS485 Pool Controller" in the list of add-ons and click Install
-3. Set the add-on's "tty" config option to the tty path for the RS485 adapter connected to your Hass.io hardware.  **NOTE: If you are using a localhost tty other than /dev/ttyUSB0 or /dev/ttyAMA0 this may not work as the TTY hardware devices are not exposed into the Docker container by default.**
+
+**NOTE: If you are using a localhost tty other than /dev/ttyUSB0 or /dev/ttyAMA0 this may not work as the TTY hardware devices are not exposed into the Docker container by default.** I'm not sure yet how to be able to allow Docker to access additional hardware TTY devices throuh the user's Hass.io configuration options.
 
 Example HASS.io configuration:
 
@@ -99,12 +100,28 @@ Examples:
 sensor:
   - platform: mqtt
     name: "Pool Temperature"
-    state_topic: "home/pool/temperature"
+    state_topic: "pool/temperatures/pool"
+
+  - platform: mqtt
+    name: "Spa Temperature"
+    state_topic: "pool/temperatures/spa"
+
+  - platform: mqtt
+    name: "Air Temperature"
+    state_topic: "pool/temperatures/air"
 
   - platform: mqtt
     name: "Salt Level"
     state_topic: "home/swg/level"
 
+  - platform: mqtt
+    name: "Pool Circuit 1"
+    state_topic: "pool/circuit/1/status"
+```
+
+Some example switches (**not yet working**):
+
+```yaml
 switch:
   - platform: mqtt
     name: "Pool Pump"
@@ -120,6 +137,11 @@ switch:
     state_topic: "home/swg"
     payload_on: "on"
     payload_off: "off"
+
+  - platform: mqtt
+    name: "Spa Heater"
+    state_topic: "pool/spaheat/mode/status"
+    command_topic: "pool/spaheat/setpoint"
 ```
  
 ### Lovelace UI
