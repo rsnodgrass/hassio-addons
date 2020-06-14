@@ -4,10 +4,7 @@
 
 # NOT CURRENTLY WORKING (CONVERTING TO POOL CONTROLLER 6.0)
 
-[Home Assistant](https://home-assistant.io) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up  [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController),
-
-
-and the [MQTT integration](https://github.com/crsherman/nodejs-poolController-mqtt) into a [Hass.io](https://www.home-assistant.io/hassio/) compatible Docker add-on package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
+[Home Assistant](https://home-assistant.io) add-on to enable communication and control for a variety of pool devices including controllers, pumps, chlorinators, lights, valve controls, etc. which are compatible with the Pentair RS485 communication protocol. This packages up  [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) 6.0, the web UI, and the [MQTT integration](https://github.com/crsherman/nodejs-poolController-mqtt) into a [Hass.io](https://www.home-assistant.io/hassio/) compatible Docker add-on package. Credit for all the heavy lifting in actually communicating with the pool equipment goes to Russell Goldin, creater of nodejs-poolController, as well as contributors to the project's success including Brad Sileo, Jason Young, Michael Russe, Michael Usner and many others.
 
 ## Required Hardware
 
@@ -204,8 +201,6 @@ To connect to native rs485 traffic for connectivity/debugging using SOCAT 1. net
 * [6.0 web ui](https://github.com/tagyoureit/nodejs-poolController-webClient) 
 
 
+OctoPOOL - intelligent tentacles to pool and home automation
+OctoPOOL Hub
 PoolIO - Pool I/O
-OctoPool - tentacles to pool and home automation
-PoolHub
-Pool Assistant
-Clearly Pool
