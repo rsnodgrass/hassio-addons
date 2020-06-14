@@ -202,3 +202,10 @@ To connect to native rs485 traffic for connectivity/debugging using SOCAT 1. net
 * [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController): interface for communicating via RS485 to a variety of pool equipment
 * [dashpanel](https://github.com/rstrouse/nodejs-poolController-dashPanel)
 * [6.0 web ui](https://github.com/tagyoureit/nodejs-poolController-webClient) 
+
+
+PoolIO - Pool I/O
+OctoPool - tentacles to pool and home automation
+PoolHub
+Pool Assistant
+Clearly Pool

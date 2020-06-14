@@ -36,8 +36,6 @@
   "host_network": false,
   "gpio": true,
   "auto_uart": true,
-  "devices": [ "/dev/ttyAMA0:/dev/ttyAMA0:rwm",
-               "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
-             ],
+  "devices": [],
   "privileged": [ "SYS_RAWIO" ]
 }
