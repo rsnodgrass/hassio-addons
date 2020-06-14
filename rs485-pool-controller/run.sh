@@ -17,5 +17,10 @@ then
     socat $SOCAT_OPTIONS &
 fi
 
+# FIXME: create a config.json based on the configuration passed in from Hass.io? (or from /config)
+
+# by default, the app will load config.json
+NPM_CONFIG=""
+
 cd /app
-npm start $CONFIG_PATH
+npm start $NPM_CONFIG

@@ -38,6 +38,10 @@ RUN npm install /app/mqtt
 WORKDIR /app/server
 RUN npm install /app/server
 
+# expose web UI from nodejs-poolController
+EXPOSE 3000
+EXPOSE 3001
+
 COPY run.sh /
 RUN chmod a+x /run.sh
 

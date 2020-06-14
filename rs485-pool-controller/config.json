@@ -2,21 +2,23 @@
   "name": "RS485 Pool Controller",
   "version": "1.0.0",
   "slug": "rs485-pool-controller",
-  "description": "Enables Home Assistant to control and communicate with RS485 compatible pool controllers, pumps, heaters, chlorinators, and lights",
+  "description": "Home Assistant control and communication with RS485 compatible pool controllers, pumps, heaters, chlorinators, and lights",
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/rs485-pool-controller",
   "startup": "services",
   "boot": "auto",
+  "webui": "[PROTO:ssl]://[HOST]:[PORT:3000]",
+  "ingress": true,
+  "ingress_port": 3000,
   "ports": {
-    "9801/tcp": 9801,
     "3000/tcp": 3000,
     "3001/tcp": 3001
   },
-  "arch": [
-    "aarch64",
-    "amd64",
-    "armhf",
-    "i386"
-  ],
+  "ports_description": {
+    "3000/tcp": "http UI for nodejs-poolController",
+    "3001/tcp": "https UI for nodejs-poolController"
+  }
+  "arch": [ "aarch64", "amd64", "armhf", "i386" ],
+  "map": ["config:r"],
   "options": {
     "mqtt_broker": "http://192.168.1.8:1883",
     "mqtt_username": "your-mqtt-username",
@@ -33,5 +35,5 @@
   "devices": [ "/dev/ttyAMA0:/dev/ttyAMA0:rwm",
                "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
              ],
-  "privileged": [ "SYS_RAWIO" ]
+  "privileged": [ "SYS_RAWIO" ],
 }

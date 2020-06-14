@@ -74,9 +74,9 @@ The configuration of the RS485 Pool Controller will take some time and technical
 In the "Config" JSON text box in the RS485 Pool Controller add-on page, copy and paste the JSON configuration for
 your pool equipment. There is no input validation as the complex configuration is directly consumed by nodejs-poolController, thus you will have to look at the log file upon startup to debug and problems. See the [examples/] folder for several example configurations.
 
-## Home Assistant 
+## Home Assistant Configuration
 
-#### MQTT Sensor Configuration
+#### Adding Sensor/Switches
 
 Ideally, sensors/switches would automatically be created in Home Assistant using either a HACS integration, or via Home Assistant integrated discovery, or via configured sensors from nodejs-poolController.  However, currently this requires manual configuration.yaml additions.
 
@@ -87,7 +87,7 @@ sensor:
   - platform: mqtt
     name: "Pool Temperature"
     state_topic: "home/pool/temperature"
-    
+
   - platform: mqtt
     name: "Salt Level"
     state_topic: "home/swg/level"
@@ -117,21 +117,21 @@ Examples:
 entities:
 ```
 
-# Known Issues
+## Known Issues
 
 ### Planned Features
 
-* add support for remote-over-IP RS485 devices using [SOcketCAT](https://medium.com/@copyconstruct/socat-29453e9fc8a6)
+* add support for RS485-over-IP to remote RS485 devices using [SOcketCAT](https://medium.com/@copyconstruct/socat-29453e9fc8a6)
 
 ### Features (Unplanned)
 
 * possibly add [Hubitat/SmartThings Pool Controller](https://github.com/bsileo/hubitat_poolcontroller) to the Docker image?
 
-# Support
+## Support
 
 * [nodejs-poolController support chat](https://gitter.im/nodejs-poolController/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 * https://community.smartthings.com/t/intermatic-pe653-pool-control-system/936
 
-# See Also
+## See Also
 
 * [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController): interface for communicating via RS485 to a variety of pool equipment
