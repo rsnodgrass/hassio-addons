@@ -1,6 +1,6 @@
 {
   "name": "RS485 Pool Controller",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "slug": "rs485-pool-controller",
   "description": "Home Assistant control and communication with RS485 compatible pool controllers, pumps, heaters, chlorinators, and lights",
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/rs485-pool-controller",
