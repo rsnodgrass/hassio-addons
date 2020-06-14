@@ -29,5 +29,11 @@ else
     exit
 fi
 
-cd /app
+# start the web UI (if it exists)
+if [ -f "/app/web" ]; then
+    cd /app/web
+    npm run start:cached &
+fi
+
+cd /app/server
 npm start $NPM_CONFIG

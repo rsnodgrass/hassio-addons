@@ -27,15 +27,22 @@ RUN apk update \
             linux-headers
 
 # install latest released versions 
-RUN git clone https://github.com/tagyoureit/nodejs-poolController      server \
+# RUN git clone https://github.com/tagyoureit/nodejs-poolController      server \
 # && git clone https://github.com/crshersrman/nodejs-poolController-mqtt  mqtt
- && git clone https://github.com/rsnodgrass/nodejs-poolController-mqtt  mqtt
+
+RUN git clone --single-branch --branch next https://github.com/tagyoureit/nodejs-poolController      server \
+ && git clone https://github.com/tagyoureit/nodejs-poolController-webClient web \
+ && git clone https://github.com/rsnodgrass/nodejs-poolController-mqtt      mqtt
 
 # inject MQTT support as a third-party integration for nodejs-poolController
 RUN ln -sf /app/mqtt/src/outputSocketToMQTT.js /app/server/src/integrations
 
 # install any dependencies listed in nodejs-poolController-mqtt's package.json
 WORKDIR /app/mqtt
+RUN npm install .
+
+# ...install UI
+WORKDIR /app/web
 RUN npm install .
 
 # ...and build the nodejs-poolController with the injected integrations
