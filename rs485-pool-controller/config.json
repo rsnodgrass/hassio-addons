@@ -6,7 +6,7 @@
   "url": "https://github.com/rsnodgrass/hassio-addons/tree/master/rs485-pool-controller",
   "startup": "services",
   "boot": "auto",
-  "webui": "[PROTO:ssl]://[HOST]:[PORT:3000]",
+  "webui": "[PROTO:ssl]://[HOST]:[PORT:80]",
   "ingress": true,
   "ingress_port": 3000,
   "ports": {

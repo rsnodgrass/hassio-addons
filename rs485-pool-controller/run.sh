@@ -17,10 +17,10 @@ then
     socat $SOCAT_OPTIONS &
 fi
 
-# FIXME: create a config.json based on the configuration passed in from Hass.io? (or from /config)
-
-# by default, the app will load config.json
-NPM_CONFIG=""
+# copy the users /config version of pool equipment configuration into the Docker instance
+# FIXME: in the future, we *MAY* want to ln -sf this configuration, since nodejs-poolController also modifies/updates config
+NPM_CONFIG="/app/config.json"
+cp /config/nodejs-poolController.json $NPM_CONFIG
 
 cd /app
 npm start $NPM_CONFIG
