@@ -39,5 +39,5 @@
   "devices": [ "/dev/ttyAMA0:/dev/ttyAMA0:rwm",
                "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
              ],
-  "privileged": [ "SYS_RAWIO" ],
+  "privileged": [ "SYS_RAWIO" ]
 }
