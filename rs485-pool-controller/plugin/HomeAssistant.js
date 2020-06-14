@@ -1,8 +1,9 @@
 /*
- * Home Assistant MQTT Auto-Discovery Plugin for NodeJS Pool Controller
+ * Home Assistant MQTT Auto-Discovery Plugin for NodeJS Pool Controller 6.0+
+ *
  * Copyright (C) 2020 Ryan Snodgrass
  */
-var pcpConfig = (function (api) {
+var plugin = (function (api) {
     var config = container.settings.getConfig() // FIXME: how is config injected in 6.0?
 
     // FIXME: is there a way to share the MQTT connection with MQTT.js?

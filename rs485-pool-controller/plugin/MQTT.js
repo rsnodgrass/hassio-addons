@@ -1,8 +1,9 @@
 /*
- * MQTT Plugin for NodeJS Pool Controller
+ * MQTT Plugin for NodeJS Pool Controller 6.0+
+ *
  * Copyright (C) 2020 Ryan Snodgrass
  */
-var pcpConfig = (function (api) {
+var plugin = (function (api) {
     var config = container.settings.getConfig() // FIXME: how is config injected in 6.0?
     var jsonata = require("jsonata")
 
@@ -72,6 +73,7 @@ var pcpConfig = (function (api) {
         mqtt.publish(topic_prefix + '/' + topic, payload)
     }
 
+
     function mqtt_subscribe() {
         // FIXME: lowercase only for simplicity (since MQTT topics are case sensitive)
         var topics = [
@@ -99,17 +101,8 @@ var pcpConfig = (function (api) {
         mqtt_publish('connected', 'true')
     }
 
-    function example_topic_mapping() {
-        var map = {
-            "pool": {
-                "heatMode": "temperature.poolHeatMode",
-                "setPoint": "temperature.poolSetPoint",
-            }
-        }
-    }
-
     controller.on('temperature', function (data) {
-        log('poolController temperature update: %s', JSON.stringify(data))
+        log('info', 'poolController temperature update: %s', JSON.stringify(data))
 
         // FIXME: only publish MQTT messages for items that appear in the data
 
@@ -118,30 +111,37 @@ var pcpConfig = (function (api) {
         mqtt_publish('pool/temperature/status', jsonata(pool_temp).evaluate(data))
 
         var pool_heater = "{ 'mode': temperature.poolHeatMode, 'setPoint': temperature.poolSetPoint }"
-        mqtt_publish('pool/heater/status',  jsonata(pool_heater).evaluate(data))
+        mqtt_publish('pool/heater/status', jsonata(pool_heater).evaluate(data))
 
         // spa
         var spa_temp = "{ 'temp': temperature.spaTemp }"
         mqtt_publish('spa/temperature/status', jsonata(spa_temp).evaluate(data))
 
         var spa_heater = "{ 'mode': temperature.spaHeatMode, 'setPoint': temperature.spaSetPoint }"
-        mqtt_publish('spa/heater/status',  jsonata(spa_heater).evaluate(data))
+        mqtt_publish('spa/heater/status', jsonata(spa_heater).evaluate(data))
 
         // air
         var air_temp = "{ 'temp': temperature.airTemp }"
         mqtt_publish('spa/temperature/status', jsonata(air_temp).evaluate(data))
     })
 
-    // allows logging through all configured loggers for the container
-    function log(level, message) {
-        logLevel = config.MQTT.level // FIXME: not necessary? currently FORCED to this
-        container.logger[logLevel]('MQTT: ' + message)
+
+    controller.on('chlorinator', function (data) {
+        log('info', 'poolController chlorinator update: %s', JSON.stringify(data))
+        log('error', 'NOT IMPLEMENTED')
     }
 
+
+    // allows logging through all configured loggers for the container
+    function log(level, message) {
+            logLevel = config.MQTT.level // FIXME: not necessary? currently FORCED to this
+            container.logger[logLevel]('MQTT: ' + message)
+        }
+
     function init() {
-        // intentionally left blank: this plugin has no initialization code
-        log('info', 'plugin loaded') // FIXME: shouldn't the nodejs-poolController do this for *ALL* plugins?
-    }
+            // intentionally left blank: this plugin has no initialization code
+            log('info', 'plugin loaded') // FIXME: shouldn't the nodejs-poolController do this for *ALL* plugins?
+        }
 
     var module = { init: init };
     init();
