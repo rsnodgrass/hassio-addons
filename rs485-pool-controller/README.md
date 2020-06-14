@@ -14,38 +14,29 @@
 
 NOTE: Remote-over-IP RS485 devices are not yet supported, but the plan is to add using socat (SOcketCAT). An alpha implementation of socat integration has been added, but not tested.
 
-### Supported Pool Equipment
+### Pool Equipment
 
 For comprehensive details on the latest supported devices, see the [nodejs-poolController](https://github.com/tagyoureit/nodejs-poolController) wiki for details on currently supported equipment.
 
 #### Controllers
 
-| Hardware                                                                                                                 | Models | Notes                                                         |
-| ------------------------------------------------------------------------------------------------------------------------ | ------ | ------------------------------------------------------------- |
-| [Pentair IntelliTouch](https://www.pentair.com/en/products/pool-spa-equipment/pool-automation/intellitouch_systems.html) |        |                                                               |
-| Pentair EasyTouch                                                                                                        |        |                                                               |
-| Pentair IntelliCom II                                                                                                    |        |                                                               |
-| Pentair SunTouch                                                                                                         |        |                                                               |
-| [Intermatic PE653RC](https://www.intermatic.com/en/pool-and-spa/electronic-controls/pe653rc)                             |        | **NOT SUPPORTED** (plus expansion modules P5043ME, PE25065RC) |
+* [Pentair IntelliTouch](https://www.pentair.com/en/products/pool-spa-equipment/pool-automation/intellitouch_systems.html)
+* Pentair EasyTouch
+* Pentair IntelliCom II
+* Pentair SunTouch
 
 #### Pumps
 
-| Hardware           | Models    | Notes |
-| ------------------ | --------- | ----- |
-| Pentair IntelliFlo | VF/VS/VFS |       |
+* Pentair IntelliFlo VF/VS/VFS
 
 #### Chlorinators
 
-| Hardware                  | Models | Notes |
-| ------------------------- | ------ | ----- |
-| Hayward/Goldline AquaRite |        |       |
-| Pentair IntelliChlor      |        |       |
+* Hayward/Goldline AquaRite
+* Pentair IntelliChlor
 
-#### Lights
+#### Lighting Systems
 
-| Hardware             | Models | Notes |
-| -------------------- | ------ | ----- |
-| Pentair IntelliBrite |        |       |
+* Pentair IntelliBrite 
 
 ## Hass.io Add-on Installation
 

@@ -73,7 +73,6 @@ var plugin = (function (api) {
         mqtt.publish(topic_prefix + '/' + topic, payload)
     }
 
-
     function mqtt_subscribe() {
         // FIXME: lowercase only for simplicity (since MQTT topics are case sensitive)
         var topics = [
@@ -128,6 +127,11 @@ var plugin = (function (api) {
 
     controller.on('chlorinator', function (data) {
         log('info', 'poolController chlorinator update: %s', JSON.stringify(data))
+        log('error', 'NOT IMPLEMENTED')
+    }
+
+    controller.on('circuit', function (data) {
+        log('info', 'poolController circuit update: %s', JSON.stringify(data))
         log('error', 'NOT IMPLEMENTED')
     }
 
