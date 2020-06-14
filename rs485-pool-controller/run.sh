@@ -17,10 +17,17 @@ then
     socat $SOCAT_OPTIONS &
 fi
 
-# copy the users /config version of pool equipment configuration into the Docker instance
 # FIXME: in the future, we *MAY* want to ln -sf this configuration, since nodejs-poolController also modifies/updates config
 NPM_CONFIG="/app/config.json"
-cp /config/nodejs-poolController.json $NPM_CONFIG
+HASS_CONFIG_PATH="/config/nodejs-poolController.json"
+
+# copy the users /config version of pool equipment configuration into the Docker instance
+if [ -f "$FILE" ]; then
+    cp $HASS_CONFIG_PATH= $NPM_CONFIG
+else
+    echo "FATAL: Missing configuration file $HASS_CONFIG_PATH, aborting!"
+    exit
+fi
 
 cd /app
 npm start $NPM_CONFIG
