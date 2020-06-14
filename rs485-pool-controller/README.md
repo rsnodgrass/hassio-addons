@@ -18,19 +18,19 @@ For comprehensive details on the latest supported devices, see the [nodejs-poolC
 
 #### Controllers
 
-| Hardware                                                                                                                 | Models | Notes                                                             |
-| ------------------------------------------------------------------------------------------------------------------------ | ------ | ----------------------------------------------------------------- |
-| [Pentair IntelliTouch](https://www.pentair.com/en/products/pool-spa-equipment/pool-automation/intellitouch_systems.html) |        |                                                                   |
-| Pentair EasyTouch                                                                                                        |        |                                                                   |
-| Pentair IntelliCom II                                                                                                    |        |                                                                   |
-| Pentair SunTouch                                                                                                         |        |                                                                   |
-| [Intermatic PE653RC](https://www.intermatic.com/en/pool-and-spa/electronic-controls/pe653rc)                             |        | Unknown if supported; (plus expansion modules P5043ME, PE25065RC) |
+| Hardware                                                                                                                 | Models | Notes                                                         |
+| ------------------------------------------------------------------------------------------------------------------------ | ------ | ------------------------------------------------------------- |
+| [Pentair IntelliTouch](https://www.pentair.com/en/products/pool-spa-equipment/pool-automation/intellitouch_systems.html) |        |                                                               |
+| Pentair EasyTouch                                                                                                        |        |                                                               |
+| Pentair IntelliCom II                                                                                                    |        |                                                               |
+| Pentair SunTouch                                                                                                         |        |                                                               |
+| [Intermatic PE653RC](https://www.intermatic.com/en/pool-and-spa/electronic-controls/pe653rc)                             |        | **NOT SUPPORTED** (plus expansion modules P5043ME, PE25065RC) |
 
 #### Pumps
 
-| Hardware           | Models | Notes |
-| ------------------ | ------ | ----- |
-| Pentair IntelliFlo |        |       |
+| Hardware           | Models    | Notes |
+| ------------------ | --------- | ----- |
+| Pentair IntelliFlo | VF/VS/VFS |       |
 
 #### Chlorinators
 
