@@ -1,5 +1,7 @@
 /*
- * MQTT Plugin for NodeJS Pool Controller 6.0+
+ * nodejs-poolController-mqttPlugin
+ *
+ * MQTT plugin for NodeJS Pool Controller 6.0+
  *
  * Copyright (C) 2020 Ryan Snodgrass
  */
@@ -26,7 +28,7 @@ var plugin = (function (api) {
 
         }
 
-        // listen to events from nodejs-poolController
+        // nodejs-poolController communicates bi-directional over socket
         var io = container.socketClient
         var socket = io.connect(serverURL, {
             secure: server_is_https,
@@ -49,7 +51,14 @@ var plugin = (function (api) {
         // allow broker config injection inside containerized deployments (e.g. Docker or Home Assistant add-ons)
         if (process.env.MQTT_BROKER_URL) {
             broker_url = process.env.MQTT_BROKER_URL
-            log("MQTT broker url set via ENV variable MQTT_BROKER_URL=" + broker_url)
+            log('info', "MQTT broker url set via ENV variable MQTT_BROKER_URL=" + broker_url)
+        }
+
+        if (!broker_url) {
+            message = "No broker URL specified (see environment MQTT_BROKER_URL or config), cannot start!"
+            log('error', message)
+            console.error(message);
+            throw new Error(message);
         }
 
         // if a MQTT username/password is specified in the environment, use them for connecting to the broker
@@ -63,19 +72,20 @@ var plugin = (function (api) {
         var mqtt_broker = require('mqtt')
         var mqtt_client = mqtt_broker.connect(mqtt_broker_url, options)
 
-        // subscribe to all the relevant MQTT messages upon connect
+        // subscribe to all the relevant MQTT messages upon connect (FIXME: should this be retained message? I don't think so)
         mqtt_client.on('connect', () => { mqtt_subscribe() })
 
         return mqtt_client
     }
 
     function mqtt_publish(topic, payload) {
+        // FIXME: I think ALL pool status updates should be retained messages, correct?
         mqtt.publish(topic_prefix + '/' + topic, payload)
     }
 
     function mqtt_subscribe() {
         // FIXME: lowercase only for simplicity (since MQTT topics are case sensitive)
-        var topics = [
+        let topics = [
             'heater/1/status',
             'heater/1/set',
 
@@ -92,7 +102,7 @@ var plugin = (function (api) {
             'circuit/2/set'
         ]
 
-        for (topics in topics) {
+        for (topic in topics) {
             mqtt.subcribe(topic_prefix + '/' + topic)
         }
 
@@ -142,12 +152,12 @@ var plugin = (function (api) {
             container.logger[logLevel]('MQTT: ' + message)
         }
 
-    function init() {
+function init() {
             // intentionally left blank: this plugin has no initialization code
             log('info', 'plugin loaded') // FIXME: shouldn't the nodejs-poolController do this for *ALL* plugins?
         }
 
-    var module = { init: init };
+var module = { init: init };
     init();
     return module;
 })(api);

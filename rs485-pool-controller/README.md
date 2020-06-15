@@ -20,8 +20,9 @@ For comprehensive details on the latest supported devices, see the [nodejs-poolC
 
 #### Controllers
 
+* Pentair IntelliCenter?
 * [Pentair IntelliTouch](https://www.pentair.com/en/products/pool-spa-equipment/pool-automation/intellitouch_systems.html)
-* Pentair EasyTouch
+* Pentair EasyTouch (8PS 520540, 8P, [PL4](https://www.amazon.com/Pentair-522353-EasyTouch-Control-ScreenLogic/dp/B01508R72K), [PSL4](https://www.amazon.com/Pentair-522355-EasyTouch-Control-ScreenLogic/dp/B01508S7SS))
 * Pentair IntelliCom II
 * Pentair SunTouch
 
