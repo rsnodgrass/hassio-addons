@@ -19,11 +19,6 @@ RUN apk update && apk add --no-cache --virtual build-dependencies \
     libusb-dev \
     libtool
 
-
-
-
-
-
 # install libartnet
 RUN git clone https://github.com/OpenLightingProject/libartnet
 RUN cd libartnet \
@@ -31,10 +26,12 @@ RUN cd libartnet \
  && autoreconf -fi \
  && ./configure \
  && make \
- && make install
+ && make install \
+ && make clean \
+ && cd ..
 
-RUN git clone https://github.com/peterdey/udmx-artnet ${APP_DIR} \
- && cd ${APP_DIR} \
+RUN git clone https://github.com/peterdey/udmx-artnet \
+ && cd udmx-artnet \
  && make
 
 COPY . $APP_DIR
