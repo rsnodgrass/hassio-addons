@@ -7,19 +7,26 @@ ARG APP_DIR="/app"
 
 LABEL authors="None"
 
-RUN apk update \
- && apk add --no-cache bash git libusb-dev \
- && rm -rf /root/.cache /var/cache
+RUN apk update && apk add --no-cache \
+    bash \
+    git \
+    gcc \
+    automake \
+    autoconf \
+    libtool \
+    libusb-dev
 
 # install libartnet
-RUN git clone https://github.com/OpenLightingProject/libartnet ${APP_DIR}/libartnet
-WORKDIR ${APP_DIR}/libartnet
-RUN ./configure \
+RUN git clone https://github.com/OpenLightingProject/libartnet
+RUN cd libartnet \
+ && ls -la \
+ && autoreconf -fi \
+ && ./configure \
  && make \
  && make install
 
-WORKDIR ${APP_DIR}
 RUN git clone https://github.com/peterdey/udmx-artnet ${APP_DIR} \
+ && cd ${APP_DIR} \
  && make
 
 COPY . $APP_DIR
@@ -27,4 +34,4 @@ COPY . $APP_DIR
 EXPOSE 6454/udp 5568/udp
 
 WORKDIR $APP_DIR
-CMD [ "./udmx-artnet -v" ]
+CMD [ "./udmx-artnet", "-v" ]

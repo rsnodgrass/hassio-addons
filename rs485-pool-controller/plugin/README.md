@@ -8,7 +8,7 @@ This plugin adds support to a [nodejs-poolController](https://github.com/tagyour
 
 To install the plugin follow the instructions in the [Installation and Setup](https://github.com/rsnodgrass/nodejs-poolController-mqtttPlugin/wiki/Installation-and-Setup) wiki.
 
-Notably, this MQTT plugin was created to allow Home Assistant to interact with nodejs-poolController.  **ScreenLogic is not (yet) supported.**
+Notably, this MQTT plugin was created to allow Home Assistant (and other home automation platforms that integrate with MQTT) to interact with nodejs-poolController.  **ScreenLogic is not (yet) supported to nodejs-poolController.**
 
 ## See Also
 
