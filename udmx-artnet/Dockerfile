@@ -7,14 +7,22 @@ ARG APP_DIR="/app"
 
 LABEL authors="None"
 
-RUN apk update && apk add --no-cache \
+RUN apk update && apk add --no-cache --virtual build-dependencies \
     bash \
     git \
+#    build-base \
     gcc \
+#    libc-dev \
+#    g++ \
     automake \
     autoconf \
-    libtool \
-    libusb-dev
+    libusb-dev \
+    libtool
+
+
+
+
+
 
 # install libartnet
 RUN git clone https://github.com/OpenLightingProject/libartnet
