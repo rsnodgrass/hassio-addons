@@ -4,7 +4,7 @@ Custom components for the [Home Assistant](https://home-assistant.io) home autom
 
 | Component                        | Description |
 | -------------------------------- | ----------- |
-| [Helium LoRaWAN Hotspots](https://github.com/rsnodgrass/hass-helium/) | support for monitoring Helium hotspots and wallets |
+| [Helium Blockchain](https://github.com/rsnodgrass/hass-helium/) | support for monitoring Helium hotspots and wallets |
 | [Pool Math](https://github.com/rsnodgrass/hass-poolmath/) | support for data collected in Pool Math by Trouble Free Pool |
 | [Lunos Ventilation](https://github.com/rsnodgrass/hass-lunos/) | support for Lunos HRV and ventilation systems |
 | [Xantech Matrix Audio Control](https://github.com/rsnodgrass/hass-matrix-audio/) | support for Xantech multi-zone audio controllers/amplifiers with RS232 interfaces |
