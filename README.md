@@ -9,6 +9,7 @@ Custom components for the [Home Assistant](https://home-assistant.io) home autom
 | [Lunos Ventilation](https://github.com/rsnodgrass/hass-lunos) | support for Lunos HRV and ventilation systems |
 | [SensorPush](https://github.com/rsnodgrass/hass-sensorpush) | support for SensorPush temp/humidity sensors |
 | [Xantech Matrix Audio Control](https://github.com/rsnodgrass/hass-matrix-audio) | support for Xantech multi-zone audio controllers/amplifiers with RS232 interfaces |
+| [Eaton Smart Breakers ](https://github.com/rsnodgrass/hass-eaton-smart-breakers) | support for Eaton WiFi Smart Breakers (EMCB) – PENDING |
 
 # Hass.io Add-ons for Home Assistant
 
