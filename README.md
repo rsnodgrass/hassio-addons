@@ -19,4 +19,4 @@ In the [Hass.io](https://www.home-assistant.io/hassio/) "Add-On Store" add the r
 
 # Home Assistant Blueprints
 
-Automation blueprints for Home Assistant.
+[Automation blueprints](https://github.com/rsnodgrass/home-assistant-blueprints) for Home Assistant.
