@@ -1,6 +1,6 @@
 # Home Assistant Integrations
 
-Additional custom components for the [Home Assistant](https://home-assistant.io) home automation platform which can easily be installed (and kept updated) using the [Home Assistant Community Store (HACS)](https://github.com/custom-components/hacs).
+Custom components for the [Home Assistant](https://home-assistant.io) home automation platform available via [Home Assistant Community Store (HACS)](https://github.com/custom-components/hacs).
 
 | Component                        | Description |
 | -------------------------------- | ----------- |
