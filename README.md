@@ -7,7 +7,8 @@ Custom components for the [Home Assistant](https://home-assistant.io) home autom
 | [Lunos Ventilation](https://github.com/rsnodgrass/hass-lunos) | support for Lunos HRV and ventilation systems |
 | [Pool Math](https://github.com/rsnodgrass/hass-poolmath) | support for data collected in Pool Math by Trouble Free Pool |
 | [Helium Blockchain](https://github.com/rsnodgrass/hass-helium) | support for monitoring Helium hotspots and wallets |
-| [Xantech Matrix Audio Control](https://github.com/rsnodgrass/hass-xantech) | support multi-zone audio controllers/amplifiers with RS232 interfaces conforming to Xantech (and other brand) protocols |
+| [Xantech Matrix Audio Control](https://github.com/rsnodgrass/hass-xantech) | support multi-zone audio controllers/amplifiers with RS232 serial control using Xantech (and other brand) protocols |
+| (AnthemAV Serial Control](https://github.com/rsnodgrass/hass-anthemav-serial) | support for Anthem receivers/pre-amps that only support RS232 serial control |
 
 # Hass.io Add-ons
 
