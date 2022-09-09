@@ -24,4 +24,4 @@ In the [Hass.io](https://www.home-assistant.io/hassio) "Add-On Store" add the re
 # Home Assistant Lovelace UI
 
 * [Water Heater Card](https://github.com/rsnodgrass/water-heater-card)
-* Compass Card — taken over by tomvanswam@ [Compass Card](https://github.com/tomvanswam/compass-card)
+* Compass Card — taken over by tomvanswam@ [Compass Card](https://github.com/tomvanswam/compass-card) with awesome improvements
