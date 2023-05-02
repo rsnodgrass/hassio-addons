@@ -1,6 +1,7 @@
 #!/bin/bash
 
-for ADDON in virtual-ip2sl xantech-serial-bridge radiora-classic-bridge
+#for ADDON in virtual-ip2sl xantech-serial-bridge radiora-classic-bridge
+for ADDON in virtual-ip2sl
 do
     pushd $ADDON
     #docker build --build-arg BUILD_FROM="hassioaddons/base:2.3.1" -t $ADDON .
