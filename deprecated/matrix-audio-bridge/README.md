@@ -48,7 +48,7 @@ While this is called a Hass.io Add-on, that is merely semantic packaging around 
 which can also be executed directly.
 
 ```bash
-docker build -t xantech-serial-bridge .
+docker build -t matrix-audio-bridge .
 ```
 
 #### Install as a Hass.io Add-on
