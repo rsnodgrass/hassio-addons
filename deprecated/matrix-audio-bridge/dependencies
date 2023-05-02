@@ -1,4 +1,4 @@
-Flask==1.1.1
-pyserial==3.4
-flask_restplus==0.12.1
-HiYaPyCo==0.4.14
+Flask>=2.3.2
+pyserial>=3.5
+flask_restplus>=0.13.0
+HiYaPyCo>=0.5.1
