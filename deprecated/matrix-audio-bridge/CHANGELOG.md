@@ -1,3 +1,0 @@
-# Matrix Audio Bridge
-
-## UNRELEASED
