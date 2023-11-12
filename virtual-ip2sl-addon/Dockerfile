@@ -1,5 +1,4 @@
 ARG BUILD_FROM=hassioaddons/base
-#ARG BUILD_FROM=jfloff/alpine-python:3.6-onbuild
 FROM $BUILD_FROM
 
 ARG BUILD_ARCH
