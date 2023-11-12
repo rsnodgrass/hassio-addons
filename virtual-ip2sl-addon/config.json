@@ -34,7 +34,7 @@
     "armhf",
     "i386"
   ],
-  "auto_uart": true,
+  "uart": true,
   "map": [
     "config:ro"
   ],
