@@ -1,6 +1,6 @@
 # keepalived Home Assistant Add-On
 
-Home Assistant add-on for keepalived.
+[Home Assistant add-on for keepalived](https://github.com/rsnodgrass/hassio-addons/tree/master/keepalived).
 
 ### Support
 
