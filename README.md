@@ -14,9 +14,11 @@ Custom components for the [Home Assistant](https://home-assistant.io) home autom
 
 In the [Hass.io](https://www.home-assistant.io/hassio) "Add-On Store" add the repository url: https://github.com/rsnodgrass/hassio-addons/
 
-| Hass.io Add-On                      | Description |
-| ----------------------------------- | ----------- |
-| **[Virtual IP2SL (IP-to-Serial)](https://github.com/rsnodgrass/hassio-addons/tree/master/virtual-ip2sl-addon)** | Enables remote bidirectional TCP communication to physical serial ports by implementing the iTach Flex IP to Serial (IP2SL) protocol. *(can be used as Hass.io add-on or standalone)* |
+| Hass.io Add-On                      | Description | Show |
+| ----------------------------------- | ----------- |------|
+| **[Virtual IP2SL (IP-to-Serial)](https://github.com/rsnodgrass/hassio-addons/tree/master/virtual-ip2sl-addon)** | Enables remote bidirectional TCP communication to physical serial ports by implementing the iTach Flex IP to Serial (IP2SL) protocol. *(can be used as Hass.io add-on or standalone)* | [![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=47701997_virtual_ip2sl&repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons) |
+| **[keepalived](keepalived) | | |
+
 
 # Home Assistant Blueprints
 
