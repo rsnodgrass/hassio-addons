@@ -9,7 +9,7 @@ Home Assistant add-on for keepalived wraps the Docker Keepalived package [shawly
 
 There is NO support for this add-on. Feel free to open a pull request if you want to fix any bugs and help maintain this image. Otherwise you are out of luck (for now at least).
 
-#### Install as a Hass.io Add-on
+### Install as a Hass.io Add-on
 
 [![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=746b492e_keepalived&repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons)
 
@@ -20,7 +20,16 @@ There is NO support for this add-on. Feel free to open a pull request if you wan
 
 2. Find "__Keepalived__" in the list of add-ons and click Install
 
-## Credits
+
+### Configuration
+
+Example configuration:
+
+```yaml
+
+```
+
+### Credits
 
 * [https://github.com/shawly/docker-keepalived](https://github.com/shawly/docker-keepalived)
 * [Philipp Schmitt](https://github.com/pschmitt/home-assistant-addons) for add on this is based on
