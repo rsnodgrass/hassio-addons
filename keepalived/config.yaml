@@ -7,10 +7,10 @@ arch:
 #- x86-64
 #- i386
 boot: auto
-description: Keepalived Home Assistant Add-On (wraps Docker container                          shawly/docker-keepalived)
+description: Keepalived Home Assistant Add-On (wraps Docker container shawly/docker-keepalived)
 host_network: true
-image: rsnodgrass/hassio-addons/keepalived/{arch}
-name: Keepalived
+#image: rsnodgrass/hassio-addons/keepalived/{arch}
+name: keepalived
 hassio_api: true
 options:
   check_ip: 192.168.1.231
