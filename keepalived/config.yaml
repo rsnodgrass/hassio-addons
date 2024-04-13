@@ -9,7 +9,7 @@ boot: auto
 description: Keepalived Home Assistant Add-On (wraps Docker container shawly/docker-keepalived)
 host_network: true
 #image: rsnodgrass/hassio-addons/keepalived/{arch}
-image: "ghcr.io/home-assistant/{arch}-keepalived-addon"
+#image: "ghcr.io/home-assistant/{arch}-keepalived-addon"
 name: keepalived
 hassio_api: true
 options:
