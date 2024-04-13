@@ -10,7 +10,7 @@ config_get() {
 
 # shellcheck disable=2155
 {
-  export KEEPALIVED_VIRTUAL_IP="$(config_get virtual_ips)"
+  export KEEPALIVED_VIRTUAL_IP="$(config_get virtual_ip)"
   export KEEPALIVED_VIRTUAL_MASK="$(config_get virtual_mask)"
   export KEEPALIVED_VRID="$(config_get router_id)"
   export KEEPALIVED_INTERFACE="$(config_get interface)"

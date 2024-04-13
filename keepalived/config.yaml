@@ -4,7 +4,6 @@ arch:
   - aarch64
   - amd64
   - i386
-# - x86-64
 boot: auto
 description: Keepalived Home Assistant Add-On (wraps Docker container shawly/docker-keepalived)
 host_network: true
@@ -13,23 +12,21 @@ host_network: true
 name: keepalived
 hassio_api: true
 options:
+  interface: eth0
+  virtual_ip: 192.168.1.231
+  virtual_mask: '24'
   check_ip: 192.168.1.231
   check_port: '53'
-  interface: eth0
-  priority: '150'
   router_id: '51'
   tz: 'Etc/UTC'
-  virtual_ips: 192.168.1.231
-  virtual_mask: '24'
 schema:
+  interface: str
+  virtual_ip: str
+  virtual_mask: int
   check_ip: str
   check_port: int
-  interface: str
-  priority: str
   router_id: str
   tz: str
-  virtual_ips: str
-  virtual_mask: int
 slug: keepalived
 startup: system
 version: 0.0.1
