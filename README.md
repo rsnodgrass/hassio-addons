@@ -20,7 +20,7 @@ Please follow the procedure highlighted in the [Home Assistant website](https://
 | Hass.io Add-On                      | Description | Show |
 | ----------------------------------- | ----------- |------|
 | **[Virtual IP2SL (IP-to-Serial)](https://github.com/rsnodgrass/hassio-addons/tree/master/virtual-ip2sl-addon)** | Enables remote bidirectional TCP communication to physical serial ports by implementing the iTach Flex IP to Serial (IP2SL) protocol. *(can be used as Hass.io add-on or standalone)* | [![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=746b492e_virtual-ip2sl&repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons) |
-| **[keepalived](keepalived)** | Keepalived add-on | [![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=746b492e_keepalived&repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons) |
+| **[keepalived](keepalived)** | Keepalived add-on | [![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=f14f1480_keepalived&repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons) |
 
 
 # Home Assistant Blueprints
