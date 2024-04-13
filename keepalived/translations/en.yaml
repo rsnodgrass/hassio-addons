@@ -3,9 +3,9 @@ configuration:
   check_ip:
     name: Check IP
     description: Check IP
-  check_port: int
+  check_port:
     name: Check IP
     description: Check port
-  interface: str
+  interface:
     name: Interface
     description: e.g. eth0
