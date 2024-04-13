@@ -20,8 +20,6 @@ options:
   tz: 'Etc/UTC'
   virtual_ips: 192.168.1.231
   virtual_mask: '24'
-privileged:
-  - NET_ADMIN
 schema:
   check_ip: str
   check_port: int
@@ -34,3 +32,5 @@ schema:
 slug: keepalived
 startup: system
 version: 0.0.1
+privileged:
+  - NET_ADMIN
