@@ -1,0 +1,11 @@
+---
+configuration:
+  check_ip:
+    name: Check IP
+    description: Check IP
+  check_port: int
+    name: Check IP
+    description: Check port
+  interface: str
+    name: Interface
+    description: e.g. eth0
