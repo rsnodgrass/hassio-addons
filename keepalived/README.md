@@ -11,7 +11,7 @@ There is NO support for this add-on. Feel free to open a pull request if you wan
 
 ### Install as a Hass.io Add-on
 
-[![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=746b492e_keepalived&repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons)
+[![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=f14f1480_keepalived&repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons)
 
 1. In the Hass.io "Add-On Store" on your Home Assistant server, add this repository URL:
 <pre>
