@@ -26,4 +26,3 @@ There is NO support for this add-on. Feel free to open a pull request if you wan
 
 * [https://github.com/shawly/docker-keepalived](https://github.com/shawly/docker-keepalived)
 * [Philipp Schmitt](https://github.com/pschmitt/home-assistant-addons) for add on this is based on
-# Virtual IP2SL (IP to Serial)
