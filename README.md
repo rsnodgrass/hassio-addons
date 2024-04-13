@@ -12,7 +12,10 @@ Custom components for the [Home Assistant](https://home-assistant.io) home autom
 
 # Hass.io Add-ons
 
-In the [Hass.io](https://www.home-assistant.io/hassio) "Add-On Store" add the repository url: https://github.com/rsnodgrass/hassio-addons/
+Please follow the procedure highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository:  https://github.com/rsnodgrass/hassio-addons/
+
+[![Add repository on my Home Assistant][repository-badge]][repository-url]
+
 
 | Hass.io Add-On                      | Description | Show |
 | ----------------------------------- | ----------- |------|
@@ -28,3 +31,9 @@ In the [Hass.io](https://www.home-assistant.io/hassio) "Add-On Store" add the re
 
 * [Water Heater Card](https://github.com/rsnodgrass/water-heater-card)
 * Compass Card — taken over by tomvanswam@ [Compass Card](https://github.com/tomvanswam/compass-card) with awesome improvements
+
+
+
+
+[repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant&style=for-the-badge
+[repository-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons
