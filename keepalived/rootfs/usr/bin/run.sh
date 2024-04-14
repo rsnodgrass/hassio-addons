@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck shell=dash
 
-set -x
+set +x
 
 config_get() {
   local config=/data/options.json
