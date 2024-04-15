@@ -26,13 +26,13 @@ There is NO support for this add-on. Feel free to open a pull request if you wan
 Example configuration:
 
 ```yaml
-interface: eth0
-virtual_ip: 192.168.1.231
-virtual_mask: "24"
-check_ip: 192.168.1.231
-check_port: "53"
-router_id: "51"
-tz: Etc/UTC
+KEEPALIVED_INTERFACE: end0
+KEEPALIVED_VIRTUAL_IP: 192.168.1.53
+KEEPALIVED_VIRTUAL_MASK: 24
+KEEPALIVED_CHECK_IP: any
+KEEPALIVED_CHECK_PORT: 53
+KEEPALIVED_VRID: 51
+TZ: Etc/UTC
 ```
 
 ### Credits

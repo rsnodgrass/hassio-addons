@@ -3,6 +3,8 @@
 
 set -x
 
+cat /data/options.json
+
 config_get() {
   local config=/data/options.json
   jq --raw-output ".${1}" "$config"
