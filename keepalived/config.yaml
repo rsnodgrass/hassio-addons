@@ -12,21 +12,21 @@ host_network: true
 name: keepalived
 hassio_api: true
 options:
-  interface: eth0
-  virtual_ip: 192.168.1.231
-  virtual_mask: '24'
-  check_ip: 192.168.1.231
-  check_port: '53'
-  router_id: '51'
-  tz: 'Etc/UTC'
+  KEEPALIVED_INTERFACE: eth0
+  KEEPALIVED_VIRTUAL_IP: 192.168.1.231
+  KEEPALIVED_VIRTUAL_MASK: 24
+  KEEPALIVED_CHECK_IP: 192.168.1.231
+  KEEPALIVED_CHECK_PORT: 53
+  KEEPALIVED_ROUTER_ID: 51
+  TZ: 'Etc/UTC'
 schema:
-  interface: str
-  virtual_ip: str
-  virtual_mask: int
-  check_ip: str
-  check_port: int
-  router_id: str
-  tz: str
+  KEEPALIVED_INTERFACE: str
+  KEEPALIVED_VIRTUAL_IP: str
+  KEEPALIVED_VIRTUAL_MASK: int
+  KEEPALIVED_CHECK_IP: str
+  KEEPALIVED_CHECK_PORT: int
+  KEEPALIVED_ROUTER_ID: int
+  TZ: str
 slug: keepalived
 startup: system
 version: 0.0.1
