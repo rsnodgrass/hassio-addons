@@ -1,7 +1,7 @@
 ---
 configuration:
-  KEEPALIVE_CHECK_IP:
-    name: KEEPALIVE_CHECK_IP
+  KEEPALIVED_CHECK_IP:
+    name: KEEPALIVED_CHECK_IP
     description: Set this to a specific IP if you only want to check KEEPALIVED_CHECK_PORT on the given IP address
   KEEPALIVED_CHECK_PORT:
     name: KEEPALIVED_CHECK_PORT
@@ -18,3 +18,6 @@ configuration:
   KEEPALIVED_VRID:
     name: KEEPALIVED_VRID
     description: The virtual router id
+  TZ:
+    name: TZ
+    description: Timezone of the container
