@@ -12,8 +12,6 @@ export_config() {
   export $1="$(config_get ${1})"
 }
 
-echo "Hello Keepalived"
-
 # shellcheck disable=2155
 {
     export_config KEEPALIVED_INTERFACE
@@ -27,15 +25,7 @@ echo "Hello Keepalived"
 
     export_config TZ
 
-#    export KEEPALIVED_VIRTUAL_IP="$(config_get virtual_ip)"
-#    export KEEPALIVED_VIRTUAL_MASK="$(config_get virtual_mask)"
-#    export KEEPALIVED_VRID="$(config_get router_id)"
-#    export KEEPALIVED_INTERFACE="$(config_get interface)"
-#    export KEEPALIVED_CHECK_IP="$(config_get check_ip)"
-#    export KEEPALIVED_CHECK_PORT="$(config_get check_port)" # e.g. 53
-#    export TZ="$(config_get tz)"
-
-    #export KEEPALIVED_PASSWORD="$(config_get password)"
+    #export_config KEEPALIVED_PASSWORD
 }
 
 # call shawly/docker-keepalived entrypoint
