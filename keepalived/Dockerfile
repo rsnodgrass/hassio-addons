@@ -11,5 +11,4 @@ RUN apk add --no-cache jq
 # copy root filesystem
 COPY rootfs /
 
-# call shawly/docker-keepalived entry point
-ENTRYPOINT [ "/init" ]
+ENTRYPOINT [ "/usr/bin/run.sh" ]

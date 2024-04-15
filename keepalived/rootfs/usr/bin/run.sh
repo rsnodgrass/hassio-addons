@@ -36,5 +36,5 @@ export_config() {
     #export KEEPALIVED_PASSWORD="$(config_get password)"
 }
 
-# run upstream entrypoint
-exec /container/tool/run
+# call shawly/docker-keepalived entrypoint
+exec /init
