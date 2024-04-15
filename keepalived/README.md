@@ -35,6 +35,11 @@ KEEPALIVED_VRID: 51
 TZ: Etc/UTC
 ```
 
+### See Also
+
+* [Pi-hole failover using Keepalived](https://davidshomelab.com/pi-hole-failover-with-keepalived/)
+
+
 ### Credits
 
 * [https://github.com/shawly/docker-keepalived](https://github.com/shawly/docker-keepalived)
