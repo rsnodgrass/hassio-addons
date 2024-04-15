@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker build -t keepalived .
+docker run -d -it --mount type=bind,source=./tests/options.json,target=/data/options.json keepalived
