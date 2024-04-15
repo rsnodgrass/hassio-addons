@@ -1,11 +1,11 @@
 ---
 configuration:
-  check_ip:
-    name: Check IP
+   KEEPALIVE_CHECK_IP:
+    name: KEEPALIVE_CHECK_IP
     description: Check IP
-  check_port:
-    name: Check IP
+  KEEPALIVED_CHECK_PORT:
+    name: KEEPALIVED_CHECK_PORT
     description: Check port
-  interface:
-    name: Interface
-    description: e.g. eth0
+  KEEPALIVED_INTERFACE:
+    name: KEEPALIVED_INTERFACE
+    description: "e.g. eth0"
