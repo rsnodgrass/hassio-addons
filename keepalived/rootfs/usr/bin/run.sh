@@ -12,6 +12,8 @@ export_config() {
   export $1="$(config_get ${1})"
 }
 
+echo "Hello Keepalived"
+
 # shellcheck disable=2155
 {
     export_config KEEPALIVED_INTERFACE
