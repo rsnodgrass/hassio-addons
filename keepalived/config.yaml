@@ -11,6 +11,7 @@ host_network: true
 #image: "ghcr.io/home-assistant/{arch}-keepalived-addon"
 name: keepalived
 hassio_api: true
+init: false
 options:
   KEEPALIVED_INTERFACE: eth0
   KEEPALIVED_VIRTUAL_IP: 192.168.1.231
