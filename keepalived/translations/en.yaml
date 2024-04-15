@@ -1,6 +1,6 @@
 ---
 configuration:
-   KEEPALIVE_CHECK_IP:
+  KEEPALIVE_CHECK_IP:
     name: KEEPALIVE_CHECK_IP
     description: Check IP
   KEEPALIVED_CHECK_PORT:
@@ -8,4 +8,4 @@ configuration:
     description: Check port
   KEEPALIVED_INTERFACE:
     name: KEEPALIVED_INTERFACE
-    description: "e.g. eth0"
+    description: "For example end0"
