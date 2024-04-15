@@ -5,7 +5,7 @@ configuration:
     description: Check IP
   KEEPALIVED_CHECK_PORT:
     name: KEEPALIVED_CHECK_PORT
-    description: Check port
+    description: Port that Keepalived should check
   KEEPALIVED_INTERFACE:
     name: KEEPALIVED_INTERFACE
     description: "For example end0"
