@@ -2,10 +2,19 @@
 configuration:
   KEEPALIVE_CHECK_IP:
     name: KEEPALIVE_CHECK_IP
-    description: Check IP
+    description: Set this to a specific IP if you only want to check KEEPALIVED_CHECK_PORT on the given IP address
   KEEPALIVED_CHECK_PORT:
     name: KEEPALIVED_CHECK_PORT
-    description: Port that Keepalived should check
+    description: Set this to the port you want to check
   KEEPALIVED_INTERFACE:
     name: KEEPALIVED_INTERFACE
-    description: "For example end0"
+    description: "Interface on your host e.g. end0"
+  KEEPALIVED_VIRTUAL_IP:
+    name: KEEPALIVED_VIRTUAL_IP
+    description: Floating IP that is used by keepalived
+  KEEPALIVED_VIRTUAL_MASK:
+    name: KEEPALIVED_VIRTUAL_MASK
+    description: "Subnet mask of the floating IP (e.g. 24)"
+  KEEPALIVED_VRID:
+    name: KEEPALIVED_VRID
+    description: The virtual router id
