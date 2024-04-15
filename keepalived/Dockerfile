@@ -1,15 +1,14 @@
-FROM shawly/keepalived
-
-ARG BUILD_ARCH
+ARG BUILD_FROM
 ARG BUILD_VERSION
+
+FROM shawly/keepalived:latest
 
 ENV LANG C.UTF-8
 
-# Install requirements for add-on
+# install requirements for add-on
 RUN apk add --no-cache jq
 
-# Copy root filesystem
+# copy root filesystem
 COPY rootfs /
-#RUN chmod a+x /usr/bin/run.sh
 
 ENTRYPOINT [ "/usr/bin/run.sh" ]
