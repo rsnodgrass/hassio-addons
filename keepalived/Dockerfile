@@ -1,4 +1,4 @@
-ARG BUILD_FROM
+#ARG BUILD_FROM
 ARG BUILD_VERSION
 
 FROM shawly/keepalived:latest
