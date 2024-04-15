@@ -29,6 +29,6 @@ schema:
   TZ: str
 slug: keepalived
 startup: system
-version: 0.0.2
+version: 0.0.3
 privileged:
   - NET_ADMIN
