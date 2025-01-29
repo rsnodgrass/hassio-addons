@@ -49,8 +49,10 @@ TZ: Etc/UTC
 
 #### Example /config/keepalived.conf for Home Assistant
 
+To setup Keepalived, a 'keepalived.conf' needs to be available in /config on the Home Assistant host that has all the custom configuration. This can vary greatly depending on the use case. However, the following is an example `/config/keepalived.conf` from enabling Adguard Home add-on for Home Assistant to join a highly-available cluster of DNS servers in my homelab.
+
 ```
-# /config/keepalived.conf for Home Assistant
+# /config/keepalived.conf for Home Assistant Adguard or PiHole DNS add-on
 
 global_defs {
   # router_id dns-homeassistant  # hostname is used by default
