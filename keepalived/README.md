@@ -15,6 +15,8 @@ To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalive
 
 **There is NO support for this add-on. Feel free to open a pull request if you want to fix any bugs and help maintain this image. Otherwise you are out of luck (for now at least).**
 
+For community support, see [HA discussion group](https://community.home-assistant.io/t/using-keepalived-in-a-hassos-installation/404185/5).
+
 ### Install as a Hass.io Add-on
 
 [![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=f14f1480_keepalived&repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons)
