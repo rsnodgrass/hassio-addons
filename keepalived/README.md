@@ -8,48 +8,30 @@
 
 Home Assistant add-on for [keepalived](https://github.com/shawly/docker-keepalived) to support Virtual Router Redundancy Protocol (VRRP) for load balancing and high availability. This is very useful when running a DNS server add-on on the Home Assistant host, such as [AdGuard Home](https://github.com/hassio-addons/addon-adguard-home) or PiHole, as well as a second instance on another server. **IDEALLY, in the future this would get merged into `hassio-addons/addon-keepalived`**.
 
-Once installed, if you go to 'Settings > System > Network > Configure network interface' in Home Assistant, the IP address for the dynamically created interface that keepalived defined should be listed.
-
 This currently wraps the Docker Keepalived package [shawly/docker-keepalived](https://github.com/shawly/docker-keepalived), but that may change over time if there is a more supported Docker keepalived project.
-
-To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalived IP address outside of the managed IP range *OR* create a DHCP reservation for a fake device MAC so that the IP address is not assigned to another device. For example, create a reservation for the MAC `00:00:00:DB:DB:DB` within the DHCP server for the keepalived interface.
 
 ### Support
 
-**There is NO support for this add-on. Feel free to open a pull request if you want to fix any bugs and help maintain this image. Otherwise you are out of luck (for now at least).**
+If you have trouble with installation and configuration, visit the [HA keepalived discussion group](https://community.home-assistant.io/t/using-keepalived-in-a-hassos-installation/404185/5). The developers are just volunteers from the community and do not provide any support, so it is best to ask the entire community for help or questions. If you have code improvements, please submit Pull Requests with bug fixes!
 
-For community support, see [HA discussion group](https://community.home-assistant.io/t/using-keepalived-in-a-hassos-installation/404185/5).
-
-### Install as a Hass.io Add-on
+### Installation
 
 [![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=f14f1480_keepalived&repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons)
 
-1. In the Hass.io "Add-On Store" on your Home Assistant server, add this repository URL:
+To install this in Home Assistant:
+
+1. Go to the "Add-On Store" on your Home Assistant server, add this repository URL:
 <pre>
      https://github.com/rsnodgrass/hassio-addons
 </pre>
 
 2. Find "__Keepalived__" in the list of add-ons and click Install
 
-
 ### Configuration
 
-Example configuration:
+##### Step 1: Home Assistant Setup
 
-```yaml
-KEEPALIVED_INTERFACE: end0
-KEEPALIVED_VIRTUAL_IP: 192.168.1.53
-KEEPALIVED_VIRTUAL_MASK: 24
-KEEPALIVED_CHECK_IP: any
-KEEPALIVED_CHECK_PORT: 53
-KEEPALIVED_VRID: 53
-TZ: Etc/UTC
-```
-
-
-#### Example /config/keepalived.conf for Home Assistant
-
-To setup Keepalived, a 'keepalived.conf' needs to be available in /config on the Home Assistant host that has all the custom configuration. This can vary greatly depending on the use case. However, the following is an example `/config/keepalived.conf` from enabling Adguard Home add-on for Home Assistant to join a highly-available cluster of DNS servers in my homelab.
+To setup Keepalived HA add-on, a '/config/keepalived.conf' needs to exists on the Home Assistant host that has all the custom configuration. The condfig can vary greatly depending on the use case. However, the following is an example `/config/keepalived.conf` from enabling Adguard Home add-on for Home Assistant to join a highly-available cluster of DNS servers in my homelab.
 
 ```
 # /config/keepalived.conf for Home Assistant Adguard or PiHole DNS add-on
@@ -59,14 +41,14 @@ global_defs {
 }
 
 vrrp_instance dns_cluster {
-  state MASTER           # Home Assistant host is setup as primary
-  virtual_router_id 53   # convention to prefer port as the vrid (53=DNS)
+  state MASTER            # Home Assistant host is setup as primary
+  virtual_router_id 53    # convention to prefer port as the vrid (53=DNS)
 
-  priority 100           # priority on the secondary must be lower than the primary DNS server
+  priority 100            # priority on the secondary must be lower than the primary DNS server
 
   interface end0
   virtual_ipaddress {
-    192.168.1.53 dev end0  # MUST match interface above (otherwise listens on ALL interfaces)
+    192.168.1.2 dev end0  # MUST match interface above (otherwise listens on ALL interfaces)
   }
 
   #authentication {
@@ -76,7 +58,7 @@ vrrp_instance dns_cluster {
 }
 
 # UDP DNS lookups
-virtual_server 192.168.1.53 53 {
+virtual_server 192.168.1.2 53 {
   protocol UDP
   delay_loop 5
   lb_algo wrr # weighted round robin
@@ -97,7 +79,7 @@ virtual_server 192.168.1.53 53 {
 }
 
 # TCP DoH DNS lookups
-virtual_server 192.168.1.53 53 {
+virtual_server 192.168.1.2 53 {
   protocol TCP
   delay_loop 5
   lb_algo wrr # weighted round robin
@@ -119,6 +101,14 @@ virtual_server 192.168.1.53 53 {
   }
 }
 ```
+
+##### Step 2: Confirm New Virtual IP is Exposed by Home Assistant
+
+Once installed and running, if you go to 'Settings > System > Network > Configure network interface' in Home Assistant, the IP address for the virtual interface that you created in `keepalived.conf` should be listed.
+
+##### Step 3: DHCP Reservation for Virtual IP to Avoid Collisions (Optional)
+
+To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalived IP address outside of the managed IP range *OR* create a DHCP reservation for a fake device MAC so that the IP address is not assigned to another device. For example, create a reservation for the MAC `00:00:00:DB:DB:DB` within the DHCP server for the keepalived interface. In the example `keepalived.conf` above this means creating a reservation for `192.168.1.2`.
 
 ### See Also
 
