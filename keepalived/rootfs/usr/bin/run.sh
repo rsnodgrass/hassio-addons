@@ -16,32 +16,28 @@ export_config() {
 
 # shellcheck disable=2155
 {
-    export_config KEEPALIVED_INTERFACE
-
-    export_config KEEPALIVED_VIRTUAL_IP
-    export_config KEEPALIVED_VIRTUAL_MASK
-    export_config KEEPALIVED_VRID
-
-    export_config KEEPALIVED_CHECK_IP
-    export_config KEEPALIVED_CHECK_PORT
-
+#    export_config KEEPALIVED_INTERFACE
+#    export_config KEEPALIVED_VIRTUAL_IP
+#    export_config KEEPALIVED_VIRTUAL_MASK
+#    export_config KEEPALIVED_VRID
+#    export_config KEEPALIVED_CHECK_IP
+#    export_config KEEPALIVED_CHECK_PORT
     export_config TZ
 }
 
-
 # copy from Home Assistant /config directory any keepalived.conf foun
 CONFIG_SRC=/homeassistant_config/keepalived.conf
+CONFIG_DEST=/etc/keepalived/keepalived.conf
 if [ -f $CONFIG_SRC ]; then
-    echo "Copying $CONFIG_SRC to /etc/keepalived/keepalived.conf"
-    cp $CONFIG_SRC /etc/keepalived
+    echo "[INFO] Copying $CONFIG_SRC to $CONFIG_DEST"
+    chmod 644 $CONFIG_DEST
+    cp $CONFIG_SRC $CONFIG_DEST
 
     # instruct keepalived to use the custom config in /etc/keepalived/keepalived.conf
-    export_config KEEPALIVED_CUSTOM_CONFIG true
+    export KEEPALIVED_CUSTOM_CONFIG=true
+
+    # call shawly/docker-keepalived entrypoint
+    exec /init
 else
-    echo "Missing Home Assistant /config/keepalived.conf file, cannot start keepalived!"
+    echo "[FATAL] Missing Home Assistant /config/keepalived.conf file, cannot start Keepalived!"
 fi
-
-# FIXME: fail to start if missing CONFIG_SRC !!!
-
-# call shawly/docker-keepalived entrypoint
-exec /init
