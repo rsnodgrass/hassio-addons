@@ -2,4 +2,4 @@
 configuration:
   TZ:
     name: TZ
-    description: Timezone of the container
+    description: Timezone for Keepalived container (e.g. Etc/UTC)
