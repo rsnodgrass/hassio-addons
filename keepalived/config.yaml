@@ -2,7 +2,7 @@ name: Keepalived
 slug: keepalived
 version: 0.2.0
 description: >-
-  "Keepalived add-on to support running services that need to be highly available, such as DNS, using the Virtual Router Redundancy Protocol (VRRP)"
+  "Keepalived add-on for running highly available services, such as DNS, using the Virtual Router Redundancy Protocol (VRRP)"
 url: https://github.com/rsnodgrass/hassio-addons/tree/master/keepalived
 
 arch:
@@ -17,8 +17,12 @@ startup: system
 privileged:
   - NET_ADMIN
 host_network: true # required since keepalived config from user may specify many ports
-hassio_api: true
 init: false
+
+hassio_api: true
+homeassistant: 2024.8.1  # requires the map type/path config.yaml feature
+environment:
+  KEEPALIVE_CUSTOM_CONFIG: true
 
 map:
   # mount /addon_configs/keepalived to /etc/keepalived (instead of default /config)
