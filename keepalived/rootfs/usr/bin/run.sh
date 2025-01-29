@@ -16,12 +16,6 @@ export_config() {
 
 # shellcheck disable=2155
 {
-#    export_config KEEPALIVED_INTERFACE
-#    export_config KEEPALIVED_VIRTUAL_IP
-#    export_config KEEPALIVED_VIRTUAL_MASK
-#    export_config KEEPALIVED_VRID
-#    export_config KEEPALIVED_CHECK_IP
-#    export_config KEEPALIVED_CHECK_PORT
     export_config TZ
 }
 
@@ -29,6 +23,7 @@ export_config() {
 CONFIG_SRC=/homeassistant_config/keepalived.conf
 CONFIG_DEST=/etc/keepalived/keepalived.conf
 if [ -f $CONFIG_SRC ]; then
+    date
     echo "[INFO] Copying $CONFIG_SRC to $CONFIG_DEST"
     chmod 644 $CONFIG_DEST
     cp $CONFIG_SRC $CONFIG_DEST
@@ -39,5 +34,6 @@ if [ -f $CONFIG_SRC ]; then
     # call shawly/docker-keepalived entrypoint
     exec /init
 else
+    date
     echo "[FATAL] Missing Home Assistant /config/keepalived.conf file, cannot start Keepalived!"
 fi
