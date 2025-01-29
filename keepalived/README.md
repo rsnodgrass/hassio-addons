@@ -44,7 +44,7 @@ vrrp_instance dns_cluster {
   state MASTER            # Home Assistant host is setup as primary
   virtual_router_id 53    # convention to prefer port as the vrid (53=DNS)
 
-  priority 100            # priority on the secondary must be lower than the primary DNS server
+  priority 100            # priority on any secondary must be lower than the primary DNS server (aka MASTER)
 
   interface end0
   virtual_ipaddress {
