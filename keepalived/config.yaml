@@ -21,8 +21,8 @@ init: false
 
 hassio_api: true
 homeassistant: 2024.8.1  # requires the map type/path config.yaml feature
-environment:
-  KEEPALIVE_CUSTOM_CONFIG: true
+#environment:
+#  KEEPALIVE_CUSTOM_CONFIG: true
 
 map:
   # mount /addon_configs/keepalived to /etc/keepalived (instead of default /config)
@@ -35,7 +35,6 @@ map:
 
 options:
   TZ: 'Etc/UTC'
-#  custom_config: use /etc/keepalived/keepalived.config or /config/keepalived.conf or /addon_configs/keepalived/keepalived.conf
 
 schema:
   TZ: str
