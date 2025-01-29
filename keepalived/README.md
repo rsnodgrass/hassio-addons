@@ -5,7 +5,7 @@
 
 Home Assistant add-on for [keepalived](https://github.com/shawly/docker-keepalived) currently wraps the Docker Keepalived package [shawly/docker-keepalived](https://github.com/shawly/docker-keepalived), but that may change over time if there is a more supported Docker keepalived project.
 
-Once installed, if you go to 'Settings > Network > Configure network interface' in Home Assistant, the IP address for the dynamically created interface that keepalived defined should be listed.
+Once installed, if you go to 'Settings > System > Network > Configure network interface' in Home Assistant, the IP address for the dynamically created interface that keepalived defined should be listed.
 
 This is very useful when running a DNS server add-on on the Home Assistant host, such as AdGuard Home or PiHole, as well as a second instance on another server.
 
