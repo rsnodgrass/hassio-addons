@@ -1,6 +1,8 @@
-name: keepalived
+name: Keepalived
+slug: keepalived
 version: 0.0.3
-description: Keepalived HA add-on to support Virtual Router Redundancy Protocol (VRRP) for load balancing and high availability (e.g. for high-availability DNS server cluster).
+description: >-
+  "Keepalived HA add-on to support Virtual Router Redundancy Protocol (VRRP) for load balancing and high availability (e.g. for high-availability DNS server cluster)."
 url: https://github.com/rsnodgrass/hassio-addons/tree/master/keepalived
 
 arch:
@@ -9,12 +11,25 @@ arch:
   - aarch64
   - amd64
   - i386
+
 boot: auto
-host_network: true
-#image: rsnodgrass/hassio-addons/keepalived/{arch}
-#image: "ghcr.io/home-assistant/{arch}-keepalived-addon"
+startup: system
+privileged:
+  - NET_ADMIN
+host_network: true # required since keepalived config from user may specify many ports
 hassio_api: true
 init: false
+
+map:
+  # mount /addon_configs/keepalived to /etc/keepalived (instead of default /config)
+  #  ... this will allow /etc/keepalived/keepalived.conf custom configuration
+  - type: addon_config
+    read_only: False
+    path: /etc/keepalived
+  # mount Home Assistant config so any custom /config/keepalived.conf can be copied into /etc/keepalived/keepalived.conf
+  - type: homeassistant_config
+    path: /ha_config
+
 options:
   KEEPALIVED_INTERFACE: end0
   KEEPALIVED_VRID: 53
@@ -23,6 +38,8 @@ options:
   KEEPALIVED_CHECK_IP: any
   KEEPALIVED_CHECK_PORT: 53
   TZ: 'Etc/UTC'
+#  custom_config: use /etc/keepalived/keepalived.config or /config/keepalived.conf or /addon_configs/keepalived/keepalived.conf
+
 schema:
   KEEPALIVED_INTERFACE: str
   KEEPALIVED_VIRTUAL_IP: str
@@ -31,7 +48,4 @@ schema:
   KEEPALIVED_CHECK_PORT: port
   KEEPALIVED_VRID: int(,255)
   TZ: str
-slug: keepalived
-startup: system
-privileged:
-  - NET_ADMIN
+

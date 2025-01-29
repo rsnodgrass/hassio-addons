@@ -21,3 +21,6 @@ configuration:
   TZ:
     name: TZ
     description: Timezone of the container
+  custom_config:
+    name: Custom Config
+    description: Will use /addon_configs/keepalived/keepalived.conf as the custom configuration (mounted as /etc/keepalived/keepalived.conf)
