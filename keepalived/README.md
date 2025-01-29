@@ -1,7 +1,6 @@
 # Keepalived Home Assistant Add-On
 
 ![Project Stage][project-stage-shield]
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
 [![Support on Patreon][patreon-shield]][patreon]
 
