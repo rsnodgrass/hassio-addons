@@ -5,7 +5,7 @@ arch:
   - amd64
   - i386
 boot: auto
-description: Keepalived Home Assistant Add-On (wraps Docker container shawly/docker-keepalived)
+description: Keepalived Home Assistant Add-On
 host_network: true
 #image: rsnodgrass/hassio-addons/keepalived/{arch}
 #image: "ghcr.io/home-assistant/{arch}-keepalived-addon"
