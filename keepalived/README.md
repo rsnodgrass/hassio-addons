@@ -60,4 +60,5 @@ TZ: Etc/UTC
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
 [forum]: https://community.home-assistant.io/t/using-keepalived-in-a-hassos-installation/404185/5
 [patreon]: https://www.patreon.com/rsnodgrass
+[patreon-shield]: https://frenck.dev/wp-content/uploads/2019/12/patreon.png
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
