@@ -1,13 +1,17 @@
 # Keepalived Home Assistant Add-On
 
+![Project Stage][project-stage-shield]
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WREP29UDAMB6G)
+[![Support on Patreon][patreon-shield]][patreon]
 
-Home Assistant add-on for [keepalived](https://github.com/shawly/docker-keepalived) currently wraps the Docker Keepalived package [shawly/docker-keepalived](https://github.com/shawly/docker-keepalived), but that may change over time if there is a more supported Docker keepalived project.
+[![Community Forum][forum-shield]][forum]
+
+Home Assistant add-on for [keepalived](https://github.com/shawly/docker-keepalived) to support Virtual Router Redundancy Protocol (VRRP) for load balancing and high availability. This is very useful when running a DNS server add-on on the Home Assistant host, such as [AdGuard Home](https://github.com/hassio-addons/addon-adguard-home) or PiHole, as well as a second instance on another server. **IDEALLY, in the future this would get merged into `hassio-addons/addon-keepalived`**.
 
 Once installed, if you go to 'Settings > System > Network > Configure network interface' in Home Assistant, the IP address for the dynamically created interface that keepalived defined should be listed.
 
-This is very useful when running a DNS server add-on on the Home Assistant host, such as AdGuard Home or PiHole, as well as a second instance on another server.
+This currently wraps the Docker Keepalived package [shawly/docker-keepalived](https://github.com/shawly/docker-keepalived), but that may change over time if there is a more supported Docker keepalived project.
 
 To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalived IP address outside of the managed IP range *OR* create a DHCP reservation for a fake device MAC so that the IP address is not assigned to another device. For example, create a reservation for the MAC `00:00:00:DB:DB:DB` within the DHCP server for the keepalived interface.
 
@@ -51,3 +55,9 @@ TZ: Etc/UTC
 
 * [https://github.com/shawly/docker-keepalived](https://github.com/shawly/docker-keepalived)
 * [Philipp Schmitt](https://github.com/pschmitt/home-assistant-addons) for add on this is based on, which used the no-longer maintained and many years out of date [osixia/docker-keepalived](https://github.com/osixia/docker-keepalived).
+
+
+[forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
+[forum]: https://community.home-assistant.io/t/using-keepalived-in-a-hassos-installation/404185/5
+[patreon]: https://www.patreon.com/rsnodgrass
+[project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
