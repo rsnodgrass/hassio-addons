@@ -1,0 +1,5 @@
+---
+configuration:
+  TZ:
+    name: TZ
+    description: Fuseau horaire pour le conteneur Keepalived (par exemple, Etc/UTC)

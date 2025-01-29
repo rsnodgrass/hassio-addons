@@ -1,0 +1,4 @@
+configuration:
+  TZ:
+    name: TZ
+    description: Keepalived 容器的时区（例如：Etc/UTC)

@@ -1,0 +1,5 @@
+---
+configuration:
+  TZ:
+    name: TZ
+    description: Zona horaria para el contenedor Keepalived (por ejemplo, Etc/UTC)

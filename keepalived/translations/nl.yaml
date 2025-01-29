@@ -1,0 +1,4 @@
+configuration:
+  TZ:
+    name: TZ
+    description: Tijdzone voor de Keepalived-container (bijv. Etc/UTC)

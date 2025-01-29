@@ -1,0 +1,4 @@
+configuration:
+  TZ:
+    name: TZ
+    description: Часовой пояс для контейнера Keepalived (например, Etc/UTC)
