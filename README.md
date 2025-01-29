@@ -10,9 +10,9 @@ Custom components for the [Home Assistant](https://home-assistant.io) home autom
 | [Xantech Matrix Audio Control](https://github.com/rsnodgrass/hass-xantech) | support multi-zone audio controllers/amplifiers with RS232 serial control using Xantech (and other brand) protocols |
 | (AnthemAV Serial Control](https://github.com/rsnodgrass/hass-anthemav-serial) | support for Anthem receivers/pre-amps that only support RS232 serial control |
 
-# Hass.io Add-ons
+# Home Assistant Add-ons
 
-Please follow the procedure highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository:  https://github.com/rsnodgrass/hassio-addons/
+Please follow the procedures highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository:  https://github.com/rsnodgrass/hassio-addons/
 
 [![Add repository on my Home Assistant][repository-badge]][repository-url]
 

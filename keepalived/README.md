@@ -10,11 +10,11 @@ Home Assistant add-on for [keepalived](https://github.com/shawly/docker-keepaliv
 
 This currently wraps the Docker Keepalived package [shawly/docker-keepalived](https://github.com/shawly/docker-keepalived), but that may change over time if there is a more supported Docker keepalived project.
 
-### Support
+## Support
 
 If you have trouble with installation and configuration, visit the [HA keepalived discussion group](https://community.home-assistant.io/t/using-keepalived-in-a-hassos-installation/404185/5). The developers are just volunteers from the community and do not provide any support, so it is best to ask the entire community for help or questions. If you have code improvements, please submit Pull Requests with bug fixes!
 
-### Installation
+## Installation
 
 [![Show add-on](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=f14f1480_keepalived&repository_url=https%3A%2F%2Fgithub.com%2Frsnodgrass%2Fhassio-addons)
 
@@ -27,9 +27,9 @@ To install this in Home Assistant:
 
 2. Find "__Keepalived__" in the list of add-ons and click Install
 
-### Configuration
+## Configuration
 
-##### Step 1: Home Assistant Setup
+### Step 1: Home Assistant Setup
 
 To setup Keepalived HA add-on, a '/config/keepalived.conf' needs to exists on the Home Assistant host that has all the custom configuration. The condfig can vary greatly depending on the use case. However, the following is an example `/config/keepalived.conf` from enabling Adguard Home add-on for Home Assistant to join a highly-available cluster of DNS servers in my homelab.
 
@@ -102,19 +102,19 @@ virtual_server 192.168.1.2 53 {
 }
 ```
 
-##### Step 2: Confirm New Virtual IP is Exposed by Home Assistant
+### Step 2: Confirm New Virtual IP is Exposed by Home Assistant
 
 Once installed and running, if you go to 'Settings > System > Network > Configure network interface' in Home Assistant, the IP address for the virtual interface that you created in `keepalived.conf` should be listed.
 
-##### Step 3: DHCP Reservation for Virtual IP to Avoid Collisions (Optional)
+### Step 3: DHCP Reservation for Virtual IP to Avoid Collisions (Optional)
 
 To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalived IP address outside of the managed IP range *OR* create a DHCP reservation for a fake device MAC so that the IP address is not assigned to another device. For example, create a reservation for the MAC `00:00:00:DB:DB:DB` within the DHCP server for the keepalived interface. In the example `keepalived.conf` above this means creating a reservation for `192.168.1.2`.
 
-### See Also
+## See Also
 
 * [Pi-hole failover using Keepalived](https://davidshomelab.com/pi-hole-failover-with-keepalived/)
 
-### Credits
+## Credits
 
 * [https://github.com/shawly/docker-keepalived](https://github.com/shawly/docker-keepalived)
 * [Philipp Schmitt](https://github.com/pschmitt/home-assistant-addons) for add on this is based on, which used the no-longer maintained and many years out of date [osixia/docker-keepalived](https://github.com/osixia/docker-keepalived).
