@@ -48,7 +48,7 @@ vrrp_instance dns_cluster {
 
   interface end0
   virtual_ipaddress {
-    192.168.1.2 dev end0  # MUST match interface above (otherwise listens on ALL interfaces)
+    192.168.1.2/24 dev end0  # MUST match interface above (otherwise listens on ALL interfaces)
   }
 
   #authentication {
