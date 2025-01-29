@@ -2,7 +2,7 @@ name: Keepalived
 slug: keepalived
 version: 0.0.3
 description: >-
-  "Keepalived HA add-on to support Virtual Router Redundancy Protocol (VRRP) for load balancing and high availability (e.g. for high-availability DNS server cluster)."
+  "Keepalived add-on to support running services that need to be highly available, such as DNS, using the Virtual Router Redundancy Protocol (VRRP)"
 url: https://github.com/rsnodgrass/hassio-addons/tree/master/keepalived
 
 arch:
