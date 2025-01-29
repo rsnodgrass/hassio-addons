@@ -28,14 +28,20 @@ export_config() {
     export_config TZ
 }
 
+
 # copy from Home Assistant /config directory any keepalived.conf foun
-if [ -f /homeassistant_config/keepalived.conf ]; then
-    echo "Custom config /etc/keepalived/keepalived.conf used"
-    cp /homeassistant_config/keepalived.conf /etc/keepalived
+CONFIG_SRC=/homeassistant_config/keepalived.conf
+if [ -f $CONFIG_SRC ]; then
+    echo "Copying $CONFIG_SRC to /etc/keepalived/keepalived.conf"
+    cp $CONFIG_SRC /etc/keepalived
 
     # instruct keepalived to use the custom config in /etc/keepalived/keepalived.conf
     export_config KEEPALIVED_CUSTOM_CONFIG true
+else
+    echo "Missing Home Assistant /config/keepalived.conf file, cannot start keepalived!"
 fi
+
+# FIXME: fail to start if missing CONFIG_SRC !!!
 
 # call shawly/docker-keepalived entrypoint
 exec /init
