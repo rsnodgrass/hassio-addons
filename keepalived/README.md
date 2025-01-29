@@ -123,5 +123,5 @@ To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalive
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
 [forum]: https://community.home-assistant.io/t/using-keepalived-in-a-hassos-installation/404185/5
 [patreon]: https://www.patreon.com/rsnodgrass
-[patreon-shield]: https://frenck.dev/wp-content/uploads/2019/12/patreon.png
+[patreon-shield]: https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Drsnodgrass%26type%3Dpatrons&style=for-the-badge
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
