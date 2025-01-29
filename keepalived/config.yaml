@@ -1,3 +1,8 @@
+name: keepalived
+version: 0.0.3
+description: Keepalived HA add-on to support Virtual Router Redundancy Protocol (VRRP) for load balancing and high availability (e.g. for high-availability DNS server cluster).
+url: https://github.com/rsnodgrass/hassio-addons/tree/master/keepalived
+
 arch:
   - armhf
   - armv7
@@ -5,11 +10,9 @@ arch:
   - amd64
   - i386
 boot: auto
-description: Keepalived Home Assistant Add-On
 host_network: true
 #image: rsnodgrass/hassio-addons/keepalived/{arch}
 #image: "ghcr.io/home-assistant/{arch}-keepalived-addon"
-name: keepalived
 hassio_api: true
 init: false
 options:
@@ -30,6 +33,5 @@ schema:
   TZ: str
 slug: keepalived
 startup: system
-version: 0.0.3
 privileged:
   - NET_ADMIN
