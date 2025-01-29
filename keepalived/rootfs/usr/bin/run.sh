@@ -29,11 +29,11 @@ export_config() {
 }
 
 # copy from Home Assistant /config directory any keepalived.conf foun
-if [ -f /ha_config/keepalived.conf ]; then
+if [ -f /homeassistant_config/keepalived.conf ]; then
     echo "Custom config /etc/keepalived/keepalived.conf used"
-    cp /ha_config/keepalive.conf /etc/keepalived
+    cp /homeassistant_config/keepalived.conf /etc/keepalived
 
-    # enable config for keepalived to use the custom config in /etc/keepalived/keepalived.conf
+    # instruct keepalived to use the custom config in /etc/keepalived/keepalived.conf
     export_config KEEPALIVED_CUSTOM_CONFIG true
 fi
 

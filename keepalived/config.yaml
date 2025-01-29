@@ -26,9 +26,8 @@ map:
   - type: addon_config
     read_only: False
     path: /etc/keepalived
-  # mount Home Assistant config so any custom /config/keepalived.conf can be copied into /etc/keepalived/keepalived.conf
+  # enable copying custom /homeassistant_config/keepalived.conf to /etc/keepalived/keepalived.conf
   - type: homeassistant_config
-    path: /ha_config
 
 options:
   KEEPALIVED_INTERFACE: end0
