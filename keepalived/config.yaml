@@ -1,9 +1,9 @@
-name: Keepalived
+name: "Keepalived"
 slug: keepalived
-version: 0.2.0
+version: "0.2.0"
 description: >-
   "Operate highly available services (e.g. DNS) using the Virtual Router Redundancy Protocol (VRRP)"
-url: https://github.com/rsnodgrass/hassio-addons/tree/master/keepalived
+url: "https://github.com/rsnodgrass/hassio-addons/tree/master/keepalived"
 
 arch:
   - armhf
@@ -12,12 +12,12 @@ arch:
   - amd64
   - i386
 
-boot: auto
 startup: system
+boot: auto
+init: false
 privileged:
   - NET_ADMIN
 host_network: true # required since keepalived config from user may specify many ports
-init: false
 
 hassio_api: true
 homeassistant: 2024.8.1  # requires the map type/path config.yaml feature
