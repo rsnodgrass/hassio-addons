@@ -1,26 +1,5 @@
 ---
 configuration:
-  KEEPALIVED_CHECK_IP:
-    name: KEEPALIVED_CHECK_IP
-    description: Set this to a specific IP if you only want to check KEEPALIVED_CHECK_PORT on the given IP address
-  KEEPALIVED_CHECK_PORT:
-    name: KEEPALIVED_CHECK_PORT
-    description: Set this to the port you want to check
-  KEEPALIVED_INTERFACE:
-    name: KEEPALIVED_INTERFACE
-    description: "Interface on your host e.g. end0"
-  KEEPALIVED_VIRTUAL_IP:
-    name: KEEPALIVED_VIRTUAL_IP
-    description: Floating IP that is used by keepalived
-  KEEPALIVED_VIRTUAL_MASK:
-    name: KEEPALIVED_VIRTUAL_MASK
-    description: "Subnet mask of the floating IP (e.g. 24)"
-  KEEPALIVED_VRID:
-    name: KEEPALIVED_VRID
-    description: The virtual router id
   TZ:
     name: TZ
     description: Timezone of the container
-  custom_config:
-    name: Custom Config
-    description: Will use /addon_configs/keepalived/keepalived.conf as the custom configuration (mounted as /etc/keepalived/keepalived.conf)
