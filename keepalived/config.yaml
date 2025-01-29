@@ -1,6 +1,6 @@
 name: Keepalived
 slug: keepalived
-version: 0.0.3
+version: 0.2.0
 description: >-
   "Keepalived add-on to support running services that need to be highly available, such as DNS, using the Virtual Router Redundancy Protocol (VRRP)"
 url: https://github.com/rsnodgrass/hassio-addons/tree/master/keepalived
@@ -29,18 +29,9 @@ map:
   # enable copying custom /homeassistant_config/keepalived.conf to /etc/keepalived/keepalived.conf
   - type: homeassistant_config
 
-# FIXME: remove all these options (since they should be keepalived.conf instead) ... leave TZ in place
 options:
-  KEEPALIVED_VRID: 53
-  KEEPALIVED_VIRTUAL_IP: 192.168.1.53
-  KEEPALIVED_VIRTUAL_MASK: 24
-  KEEPALIVED_CHECK_PORT: 53
   TZ: 'Etc/UTC'
 #  custom_config: use /etc/keepalived/keepalived.config or /config/keepalived.conf or /addon_configs/keepalived/keepalived.conf
 
 schema:
-  KEEPALIVED_VIRTUAL_IP: str
-  KEEPALIVED_VIRTUAL_MASK: int(,32)
-  KEEPALIVED_CHECK_PORT: port
-  KEEPALIVED_VRID: int(,255)
   TZ: str
