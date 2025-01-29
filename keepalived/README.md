@@ -9,6 +9,8 @@ Once installed, if you go to 'Settings > System > Network > Configure network in
 
 This is very useful when running a DNS server add-on on the Home Assistant host, such as AdGuard Home or PiHole, as well as a second instance on another server.
 
+To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalived IP address outside of the managed IP range *OR* create a DHCP reservation for a fake device MAC so that the IP address is not assigned to another device. For example, create a reservation for the MAC `00:00:00:DB:DB:DB` within the DHCP server for the keepalived interface.
+
 ### Support
 
 **There is NO support for this add-on. Feel free to open a pull request if you want to fix any bugs and help maintain this image. Otherwise you are out of luck (for now at least).**
