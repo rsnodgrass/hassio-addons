@@ -47,6 +47,78 @@ KEEPALIVED_VRID: 53
 TZ: Etc/UTC
 ```
 
+
+#### Example /config/keepalived.conf for Home Assistant
+
+```
+# /config/keepalived.conf for Home Assistant
+
+global_defs {
+  # router_id dns-homeassistant  # hostname is used by default
+}
+
+vrrp_instance dns_cluster {
+  state MASTER           # Home Assistant host is setup as primary
+  virtual_router_id 53   # convention to prefer port as the vrid (53=DNS)
+
+  priority 100           # priority on the secondary must be lower than the primary DNS server
+
+  interface end0
+  virtual_ipaddress {
+    192.168.1.53 dev end0  # MUST match interface above (otherwise listens on ALL interfaces)
+  }
+
+  #authentication {
+  #  auth_type PASS
+  #  auth_pass rand0m_passw0rd
+  #}
+}
+
+# UDP DNS lookups
+virtual_server 192.168.1.53 53 {
+  protocol UDP
+  delay_loop 5
+  lb_algo wrr # weighted round robin
+
+  real_server 192.168.1.22 53 {
+    weight 100
+    DNS_CHECK {
+      name example.com
+    }
+  }
+
+  real_server 192.168.1.33 53 {
+    weight 100
+    DNS_CHECK {
+      name example.com
+    }
+  }
+}
+
+# TCP DoH DNS lookups
+virtual_server 192.168.1.53 53 {
+  protocol TCP
+  delay_loop 5
+  lb_algo wrr # weighted round robin
+
+  real_server 192.168.1.22 53 {
+    weight 100
+    TCP_CHECK {
+      connect_timeout 3
+      connect_port 53
+    }
+  }
+
+  real_server 192.168.1.33 53 {
+    weight 100
+    TCP_CHECK {
+      connect_timeout 3
+      connect_port 53
+    }
+  }
+}
+```
+
 ### See Also
 
 * [Pi-hole failover using Keepalived](https://davidshomelab.com/pi-hole-failover-with-keepalived/)
