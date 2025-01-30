@@ -1,6 +1,6 @@
 name: "Keepalived"
 slug: keepalived
-version: "0.2.1"
+version: "0.2.2"
 description: >-
   Operate highly available services (e.g. DNS) using the Virtual Router Redundancy Protocol (VRRP)
 url: "https://github.com/rsnodgrass/hassio-addons/tree/master/keepalived"
@@ -28,8 +28,9 @@ map:
   - type: addon_config
     read_only: False
     path: /etc/keepalived
-  # enable copying custom /homeassistant_config/keepalived.conf to /etc/keepalived/keepalived.conf
+  # enable copying custom /homeassistant/keepalived.conf to /etc/keepalived/keepalived.conf
   - type: homeassistant_config
+    path: /homeassistant
 
 options:
   TZ: 'Etc/UTC'

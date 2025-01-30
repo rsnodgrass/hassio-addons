@@ -20,7 +20,7 @@ export_config() {
 }
 
 # copy from Home Assistant /config directory any keepalived.conf foun
-CONFIG_SRC=/homeassistant_config/keepalived.conf
+CONFIG_SRC=/homeassistant/keepalived.conf
 CONFIG_DEST=/etc/keepalived/keepalived.conf
 if [ -f $CONFIG_SRC ]; then
     date
