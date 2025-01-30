@@ -37,7 +37,7 @@ To setup Keepalived HA add-on, a '/config/keepalived.conf' needs to exists on th
 # /config/keepalived.conf for DNS running on Home Assistant (e.g. Adguard or PiHole DNS add-on)
 
 global_defs {
-  # router_id dns-homeassistant  # hostname is used by default
+  router_id dns-homeassistant  # hostname is used by default
 }
 
 vrrp_instance dns_vip {
@@ -51,10 +51,10 @@ vrrp_instance dns_vip {
     192.168.1.2/24 dev end0  # MUST match interface above (otherwise listens on ALL interfaces)
   }
 
-  #authentication {
-  #  auth_type PASS
-  #  auth_pass rand0m_passw0rd
-  #}
+  authentication {
+    auth_type PASS
+    auth_pass rand0m_passw0rd
+  }
 }
 
 # UDP DNS lookups
