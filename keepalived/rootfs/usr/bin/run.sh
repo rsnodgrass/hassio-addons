@@ -31,10 +31,11 @@ if [ -f $CONFIG_SRC ]; then
     # instruct keepalived to use the custom config in /etc/keepalived/keepalived.conf
     export KEEPALIVED_CUSTOM_CONFIG=true
 
+    # call shawly/docker-keepalived entrypoint
+    exec /init
+
 else
     date
     echo "[FATAL] Missing Home Assistant /config/keepalived.conf file, cannot start Keepalived!"
 fi
 
-# call shawly/docker-keepalived entrypoint
-exec /init
