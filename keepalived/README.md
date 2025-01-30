@@ -34,7 +34,7 @@ To install this in Home Assistant:
 To setup Keepalived HA add-on, a '/config/keepalived.conf' needs to exists on the Home Assistant host that has all the custom configuration. The condfig can vary greatly depending on the use case. However, the following is an example `/config/keepalived.conf` from enabling Adguard Home add-on for Home Assistant to join a highly-available cluster of DNS servers in my homelab.
 
 ```
-# /config/keepalived.conf for Home Assistant Adguard or PiHole DNS add-on
+# /config/keepalived.conf for DNS running on Home Assistant (e.g. Adguard or PiHole DNS add-on)
 
 global_defs {
   # router_id dns-homeassistant  # hostname is used by default
