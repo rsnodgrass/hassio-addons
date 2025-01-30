@@ -40,7 +40,7 @@ global_defs {
   # router_id dns-homeassistant  # hostname is used by default
 }
 
-vrrp_instance dns_cluster {
+vrrp_instance dns_vip {
   state MASTER            # Home Assistant host is setup as primary
   virtual_router_id 53    # convention to prefer port as the vrid (53=DNS)
 
