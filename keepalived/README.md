@@ -6,13 +6,15 @@
 
 [![Community Forum][forum-shield]][forum]
 
-Home Assistant add-on for [keepalived](https://github.com/shawly/docker-keepalived) to support Virtual Router Redundancy Protocol (VRRP) for load balancing and high availability. This is very useful when running a DNS server add-on on the Home Assistant host, such as [AdGuard Home](https://github.com/hassio-addons/addon-adguard-home) or PiHole, as well as a second instance on another server. **IDEALLY, in the future this would get merged into `hassio-addons/addon-keepalived`**.
+Home Assistant add-on for [Keepalived](https://keepalived.org/) loadbalancing and high-availability virtual IPs using Virtual Router Redundancy Protocol (VRRP). A common use case is running a DNS server on the Home Assistant host, such as [AdGuard Home](https://github.com/hassio-addons/addon-adguard-home) or PiHole, as well as a second instance on another server.
 
-This currently wraps the Docker Keepalived package [shawly/docker-keepalived](https://github.com/shawly/docker-keepalived), but that may change over time if there is a more supported Docker keepalived project.
+This currently wraps the Docker Keepalived package [shawly/docker-keepalived](https://github.com/shawly/docker-keepalived), but that may change in the future if there is a more supported Docker Keepalived project.
 
 ## Support
 
-If you have trouble with installation and configuration, visit the [HA keepalived discussion group](https://community.home-assistant.io/t/using-keepalived-in-a-hassos-installation/404185/5). The developers are just volunteers from the community and do not provide any support, so it is best to ask the entire community for help or questions. If you have code improvements, please submit Pull Requests with bug fixes!
+If you have trouble with installation and configuration, visit the [HA keepalived discussion group](https://community.home-assistant.io/t/using-keepalived-in-a-hassos-installation/404185/5) to ask questions. The developers are just volunteers from the community and do not provide any support. 
+
+If you have bug fixes or code improvements, please submit Pull Requests with your tested changes and the developers will review!
 
 ## Installation
 
@@ -21,9 +23,10 @@ If you have trouble with installation and configuration, visit the [HA keepalive
 To install this in Home Assistant:
 
 1. Go to the "Add-On Store" on your Home Assistant server, add this repository URL:
-<pre>
+   
+   <pre>
      https://github.com/rsnodgrass/hassio-addons
-</pre>
+   </pre>
 
 2. Find "__Keepalived__" in the list of add-ons and click Install
 
@@ -31,10 +34,12 @@ To install this in Home Assistant:
 
 ### Step 1: Home Assistant Setup
 
-To setup Keepalived HA add-on, a '/config/keepalived.conf' needs to exists on the Home Assistant host that has all the custom configuration. The condfig can vary greatly depending on the use case. However, the following is an example `/config/keepalived.conf` from enabling Adguard Home add-on for Home Assistant to join a highly-available cluster of DNS servers in my homelab.
+To setup the Keepalived HA add-on, your custom configuration file needs to exist on the Home Assistant host in `/config/keepalived.conf`.  See Keepalived docs for how to properly configure in various configurations for DNS, reverse proxies, etc.
+
+The following  `keepalived.conf` example shows a possible configuration for a highly available DNS server cluster using the [Adguard Home add-on for Home Assistant](https://github.com/hassio-addons/addon-adguard-home), in my case running on a [Raspberry Pi 5](https://amzn.to/3CFo8nR).
 
 ```
-# /config/keepalived.conf for DNS running on Home Assistant (e.g. Adguard or PiHole DNS add-on)
+# /config/keepalived.conf for DNS running on Home Assistant (e.g. Adguard or PiHole DNS)
 
 global_defs {
   router_id dns-homeassistant  # hostname is used by default
@@ -104,20 +109,24 @@ virtual_server 192.168.1.2 53 {
 
 ### Step 2: Confirm New Virtual IP is Exposed by Home Assistant
 
-Once installed and running, if you go to 'Settings > System > Network > Configure network interface' in Home Assistant, the IP address for the virtual interface that you created in `keepalived.conf` should be listed.
+Once installed and running, if you go to `Settings > System > Network > Configure network interface` in Home Assistant, the IP address for any Keepalived virtual interfaces created in `keepalived.conf` should be listed.
 
-### Step 3: DHCP Reservation for Virtual IP to Avoid Collisions (Optional)
+### Step 3: DHCP Reservation for Virtual IP to Avoid Collisions [OPTIONAL]
 
-To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalived IP address outside of the managed IP range *OR* create a DHCP reservation for a fake device MAC so that the IP address is not assigned to another device. For example, create a reservation for the MAC `00:00:00:DB:DB:DB` within the DHCP server for the keepalived interface. In the example `keepalived.conf` above this means creating a reservation for `192.168.1.2`.
+To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalived IP address outside of the managed IP range *OR* create a DHCP reservation for a fake device MAC so that the IP address is not assigned to another device. 
+
+For example, create a reservation for the MAC `00:00:00:DB:DB:DB` within the DHCP server for the keepalived interface. In the example `keepalived.conf` above this means creating a reservation for `192.168.1.2`.
 
 ## See Also
 
+* [High availability DNS with Adguard Home and keepalived](https://realmenweardress.es/2024/05/dockerised-vip-accessible-dns/)
 * [Pi-hole failover using Keepalived](https://davidshomelab.com/pi-hole-failover-with-keepalived/)
 
 ## Credits
 
 * [https://github.com/shawly/docker-keepalived](https://github.com/shawly/docker-keepalived)
-* [Philipp Schmitt](https://github.com/pschmitt/home-assistant-addons) for add on this is based on, which used the no-longer maintained and many years out of date [osixia/docker-keepalived](https://github.com/osixia/docker-keepalived).
+* [Philipp Schmitt](https://github.com/pschmitt/home-assistant-addons) for a similar Home Assistant add that uses the the older, no-longer maintained [osixia/docker-keepalived](https://github.com/osixia/docker-keepalived).
+
 
 
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
