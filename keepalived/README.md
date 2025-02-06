@@ -117,6 +117,28 @@ Once an add-on/daemon has started, it generally cannot listen to a new interface
 
 For example, the AdGuard add-on only listens to host interfaces that exist at the point in time AdGuard starts. Thus, the AdGuard DNS server should always be started AFTER keepalived is already running.
 
+One advanced option is to auto-restart an add on whenever Keepalived starts. In this example for AdGuard Home:
+
+1. Enable the sensor that can be enabled to determine if an addon is running. Home Assistant doesn't enable these by default. Go to **Settings → Devices & Services → Supervisor → Entities** then search for `binary_sensor.keepalived_running`, edit the sensor, and click Enable!
+
+2. Add this automation:
+
+```yaml
+automation:
+  - alias: "Restart AdGuard after Keepalived Add-on Started"
+    id: restart_adguard_after_keepalived
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.keepalived_running
+      from: 'off'
+      to: 'on'
+      for: 00:00:05
+    actions:
+      - service: hassio.addon_restart
+        data:
+          addon: "a0d7b954_adguard"
+```
+
 ### Step 4: DHCP Reservation for Virtual IP to Avoid Collisions [OPTIONAL]
 
 To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalived IP address outside of the managed IP range *OR* create a DHCP reservation for a fake device MAC so that the IP address is not assigned to another device. 
