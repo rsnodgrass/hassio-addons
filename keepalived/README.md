@@ -111,7 +111,11 @@ virtual_server 192.168.1.2 53 {
 
 Once installed and running, if you go to `Settings > System > Network > Configure network interface` in Home Assistant, the IP address for any Keepalived virtual interfaces created in `keepalived.conf` should be listed.
 
-### Step 3: DHCP Reservation for Virtual IP to Avoid Collisions [OPTIONAL]
+### Step 3: Restart Any Add-Ons/Daemons That Should Listen on New VIPs
+
+Once started, an add-on/daemon cannot listen to a new interface that is created after starting (unless it is written to proactively probe for new interfaces and start listening). For example, the AdGuard add-on cannot listen on a host's interface that doesn’t exist at the time AdGuard starts up. In this case, it MUST be restarted after keepalived is running.
+
+### Step 4: DHCP Reservation for Virtual IP to Avoid Collisions [OPTIONAL]
 
 To avoid IP address conflicts on a LAN with DHCP setup, either set the keepalived IP address outside of the managed IP range *OR* create a DHCP reservation for a fake device MAC so that the IP address is not assigned to another device. 
 
