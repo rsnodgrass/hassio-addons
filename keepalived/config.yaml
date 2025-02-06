@@ -12,7 +12,10 @@ arch:
   - amd64
   - i386
 
-startup: system
+# NOTE: This keepalived needs to start BEFORE any daemons which are listening on the virtual IP
+# interfaces created be keepalived (e.g. this needs to startup BEFORE AdGuard Home DNS).
+startup: services
+
 boot: auto
 init: false
 privileged:
