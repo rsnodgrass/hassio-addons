@@ -113,7 +113,9 @@ Once installed and running, if you go to `Settings > System > Network > Configur
 
 ### Step 3: Restart Any Add-Ons/Daemons That Should Listen on New VIPs
 
-Once started, an add-on/daemon cannot listen to a new interface that is created after starting (unless it is written to proactively probe for new interfaces and start listening). For example, the AdGuard add-on cannot listen on a host's interface that doesn’t exist at the time AdGuard starts up. In this case, it MUST be restarted after keepalived is running.
+Once an add-on/daemon has started, it generally cannot listen to a new interface that is created (unless it is written to proactively probe for new interfaces and bind a new listener).
+
+For example, the AdGuard add-on only listens to host interfaces that exist at the point in time AdGuard starts. Thus, the AdGuard DNS server should always be started AFTER keepalived is already running.
 
 ### Step 4: DHCP Reservation for Virtual IP to Avoid Collisions [OPTIONAL]
 
