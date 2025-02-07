@@ -6,7 +6,6 @@ description: >-
   Serial (IP2SL) protocol
 url: 'https://github.com/rsnodgrass/hassio-addons/tree/master/virtual-ip2sl-addon'
 startup: services
-boot: auto
 options:
   serial:
     '1':
@@ -31,12 +30,14 @@ arch:
   - armhf
   - i386
 uart: true
+
 map:
-  - 'config:ro'
-hassio_role: default
-host_network: false
+  - type: homeassistant_config
+    path: /config
+
 gpio: true
-auto_uart: true
+#auto_uart: true
+uart: true
 devices:
   - '/dev/ttyAMA0:/dev/ttyAMA0:rwm'
   - '/dev/ttyUSB0:/dev/ttyUSB0:rwm'
