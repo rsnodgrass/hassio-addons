@@ -12,6 +12,8 @@ This currently wraps the Docker Keepalived package [shawly/docker-keepalived](ht
 
 ## Support
 
+[![Community Forum][forum-shield]][forum]
+
 If you have trouble with installation and configuration, visit the [HA keepalived discussion group](https://community.home-assistant.io/t/using-keepalived-in-a-hassos-installation/404185/5) to ask questions. The developers are just volunteers from the community and do not provide any support. 
 
 If you have bug fixes or code improvements, please submit Pull Requests with your tested changes and the developers will review!
