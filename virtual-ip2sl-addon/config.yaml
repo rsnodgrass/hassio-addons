@@ -39,7 +39,9 @@ gpio: true
 #auto_uart: true
 uart: true
 devices:
-  - '/dev/ttyAMA0:/dev/ttyAMA0:rwm'
-  - '/dev/ttyUSB0:/dev/ttyUSB0:rwm'
+  - '/dev/ttyAMA0'
+  - '/dev/ttyUSB0'
+#  - '/dev/ttyAMA0:/dev/ttyAMA0:rwm'
+#  - '/dev/ttyUSB0:/dev/ttyUSB0:rwm'
 privileged:
   - SYS_RAWIO
