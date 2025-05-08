@@ -16,7 +16,6 @@ arch:
 # interfaces created be keepalived (e.g. this needs to startup BEFORE AdGuard Home DNS).
 startup: services
 
-boot: auto
 init: false
 privileged:
   - NET_ADMIN

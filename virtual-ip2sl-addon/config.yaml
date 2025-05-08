@@ -11,7 +11,6 @@ options:
     '1':
       path: /dev/ttyUSB0
       baud: '9600'
-schema: false
 ports:
   4998/tcp: 4998
   4999/tcp: 4999
@@ -39,7 +38,7 @@ gpio: true
 #auto_uart: true
 uart: true
 devices:
-  - '/dev/ttyAMA0,/dev/ttyAMA0:rwm'
-  - '/dev/ttyUSB0,/dev/ttyUSB0:rwm'
+  - /dev/ttyAMA0
+  - /dev/ttyUSB0
 privileged:
   - SYS_RAWIO
