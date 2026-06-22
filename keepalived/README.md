@@ -6,7 +6,7 @@
 
 [![Community Forum][forum-shield]][forum]
 
-Home Assistant add-on for [Keepalived](https://keepalived.org/) loadbalancing and high-availability virtual IPs using Virtual Router Redundancy Protocol (VRRP). A common use case is running a DNS server on the Home Assistant host, such as [AdGuard Home](https://github.com/hassio-addons/addon-adguard-home) or PiHole, as well as a second instance on another server.
+Home Assistant add-on for [Keepalived](https://keepalived.org/) loadbalancing and high-availability virtual IPs using Virtual Router Redundancy Protocol (VRRP). A common use case is running a DNS server on the Home Assistant host, such as [AdGuard Home](https://github.com/hassio-addons/addon-adguard-home) or [PiHole](https://github.com/OptimusGREEN/ha-apps), as well as a second instance on another server.
 
 This currently wraps the Docker Keepalived package [shawly/docker-keepalived](https://github.com/shawly/docker-keepalived), but that may change in the future if there is a more supported Docker Keepalived project.
 
